@@ -1,0 +1,20 @@
+---
+version: "3.8"
+
+services:
+  app:
+    image: textarea-json:latest
+    build: .
+    command: "yarn dev"
+    # command: "yarn build"
+    volumes:
+      - ./components/:/usr/src/app/components/
+      - ./dist/:/usr/src/app/dist/
+      - ./index.js/:/usr/src/app/index.js
+      - ./index.html/:/usr/src/app/index.html
+    environment:
+      HOST: 0.0.0.0
+      PORT: 9000
+      VUELAYERS_DEBUG: 1
+    ports:
+      - "9000:9000"
