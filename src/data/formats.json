@@ -1,0 +1,39 @@
+{
+  "formats": {
+    "gpkg": {
+      "slug": "gpkg",
+      "ext": [".gpkg"],
+      "name": "GeoPackage",
+      "version": "1.2",
+      "url": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3"
+    },
+    "jpeg": {
+      "slug": "jpeg",
+      "ext": [".jpg", ".jpeg"],
+      "name": "JPEG",
+      "version": "1",
+      "url": "https://jpeg.org/jpeg/"
+    },
+    "pdf": {
+      "slug": "pdf",
+      "ext": [".pdf"],
+      "name": "PDF",
+      "version": "1.6",
+      "url": "https://www.iana.org/assignments/media-types/application/pdf"
+    },
+    "png": {
+      "slug": "png",
+      "ext": [".png"],
+      "name": "PNG",
+      "version": "1",
+      "url": "https://www.iana.org/assignments/media-types/image/png"
+    },
+    "shp": {
+      "slug": "shp",
+      "ext": [".shp", ".shp.zip"],
+      "name": "Shapefile",
+      "url": "https://support.esri.com/en/white-paper/279",
+      "version": "1"
+    }
+  }
+}

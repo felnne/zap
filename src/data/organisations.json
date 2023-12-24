@@ -1,0 +1,43 @@
+{
+  "organisations": {
+    "bas": {
+      "slug": "bas",
+      "name": "British Antarctic Survey",
+      "ror": "https://ror.org/01rhff309",
+      "phone": "+44 (0)1223 221400",
+      "address": {
+        "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+        "city": "Cambridge",
+        "administrative_area": "Cambridgeshire",
+        "postal_code": "CB3 0ET",
+        "country": "United Kingdom"
+      },
+      "online_resource": {
+        "href": "https://www.bas.ac.uk",
+        "title": "British Antarctic Survey - BAS public website",
+        "description": "Homepage for the British Antarctic Survey (BAS) public website.",
+        "function": "information"
+      }
+    },
+    "basMagic": {
+      "slug": "bas",
+      "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
+      "ror": "https://ror.org/01rhff309",
+      "email": "magic@bas.ac.uk",
+      "phone": "+44 (0)1223 221400",
+      "address": {
+        "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+        "city": "Cambridge",
+        "administrative_area": "Cambridgeshire",
+        "postal_code": "CB3 0ET",
+        "country": "United Kingdom"
+      },
+      "online_resource": {
+        "href": "https://www.bas.ac.uk/team/magic",
+        "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
+        "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+        "function": "information"
+      }
+    }
+  }
+}

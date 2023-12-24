@@ -1,0 +1,10 @@
+{
+  "services": {
+    "wms": {
+      "slug": "wms",
+      "name": "OGC Web Map Service (WMS)",
+      "description": "Access information as a OGC Web Map Service layer.",
+      "format": "Web Map Service"
+    }
+  }
+}
