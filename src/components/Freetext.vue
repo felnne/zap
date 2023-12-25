@@ -7,6 +7,18 @@ import Output from './Output.vue'
 
 const markdown = new MarkdownIt()
 
+defineProps({
+  sectionAnchor: {
+    type: String,
+    required: true
+  },
+  sectionTitle: {
+    type: String,
+    required: true
+  },
+  inputClass: String
+})
+
 let text = ref<string>('')
 
 let textJson: ComputedRef<string> = computed(() => {
@@ -20,12 +32,12 @@ let textMarkdown = computed(() => {
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle anchor="freetext" title="Title/Abstract/Lineage" />
+    <SectionTitle :anchor="sectionAnchor" :title="sectionTitle" />
     <div class="flex mb-2">
       <form class="w-1/2 pr-2 flex flex-col">
         <div class="text-gray-500">Input</div>
         <textarea
-          class="w-full border border-black flex-grow"
+          :class="`w-full border border-black flex-grow ${inputClass}`"
           name="freetext"
           id="freetext"
           v-model="text"
