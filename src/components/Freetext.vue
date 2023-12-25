@@ -21,8 +21,8 @@ let textMarkdown = computed(() => {
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="freetext" title="Title/Abstract/Lineage" />
-    <div class="flex">
-      <form class="mb-2 w-1/2 pr-2 flex flex-col">
+    <div class="flex mb-2">
+      <form class="w-1/2 pr-2 flex flex-col">
         <div class="text-gray-500">Input</div>
         <textarea
           class="w-full border border-black flex-grow"
@@ -31,7 +31,7 @@ let textMarkdown = computed(() => {
           v-model="text"
         ></textarea>
       </form>
-      <div class="mb-2 w-1/2 pl-2 flex flex-col">
+      <div class="w-1/2 pl-2 flex flex-col">
         <div class="text-gray-500">Preview</div>
         <div
           class="w-full border border-gray-400 prose lg:prose-lg max-w-none flex-grow"

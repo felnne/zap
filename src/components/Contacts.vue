@@ -114,18 +114,22 @@ let contacts: ComputedRef<Contact[]> = computed(() => {
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="contacts" title="Contacts" />
-    <form>
-      <label v-for="individual in individuals" :key="individual.email">
-        <input
-          type="checkbox"
-          name="individuals"
-          :id="'individual-' + individual.email"
-          :checked="isChecked(individual.email)"
-          @change="toggleCheck(individual.email)"
-        />
-        {{ individual.name }}
-      </label>
-    </form>
-    <Output :data="contacts"></Output>
+    <div class="flex mb-2">
+      <form class="w-1/2 pr-2 flex flex-col">
+        <label v-for="individual in individuals" :key="individual.email">
+          <input
+            type="checkbox"
+            name="individuals"
+            :id="'individual-' + individual.email"
+            :checked="isChecked(individual.email)"
+            @change="toggleCheck(individual.email)"
+          />
+          {{ individual.name }}
+        </label>
+      </form>
+      <div class="w-1/2 pl-2 flex flex-col">
+        <Output pre-class="max-h-96" :data="contacts"></Output>
+      </div>
+    </div>
   </section>
 </template>

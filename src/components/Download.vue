@@ -165,6 +165,6 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         @change="onFileChange"
       />
     </form>
-    <Output :data="distributionOption"></Output>
+    <Output pre-class="max-h-96" :data="distributionOption"></Output>
   </div>
 </template>

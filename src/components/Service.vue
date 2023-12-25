@@ -121,8 +121,8 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 </script>
 
 <template>
-  <div class="p-2 border-2 border-gray-400">
-    <form class="flex space-x-4 mb-2">
+  <div class="p-2 border-2 border-gray-400 space-y-2">
+    <form class="flex space-x-4">
       <label>
         <input
           type="checkbox"
@@ -144,6 +144,6 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         />
       </div>
     </form>
-    <Output v-show="selected" :data="distributionOption"></Output>
+    <Output v-show="selected" pre-class="max-h-96" :data="distributionOption"></Output>
   </div>
 </template>
