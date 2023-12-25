@@ -21,16 +21,24 @@ let textMarkdown = computed(() => {
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="freetext" title="Title/Abstract/Lineage" />
-    <form>
-      <textarea
-        class="w-full border border-black"
-        rows="8"
-        name="freetext"
-        id="freetext"
-        v-model="text"
-      ></textarea>
-    </form>
-    <div v-html="textMarkdown"></div>
+    <div class="flex">
+      <form class="mb-2 w-1/2 pr-2 flex flex-col">
+        <div class="text-gray-500">Input</div>
+        <textarea
+          class="w-full border border-black flex-grow"
+          name="freetext"
+          id="freetext"
+          v-model="text"
+        ></textarea>
+      </form>
+      <div class="mb-2 w-1/2 pl-2 flex flex-col">
+        <div class="text-gray-500">Preview</div>
+        <div
+          class="w-full border border-gray-400 prose lg:prose-lg max-w-none flex-grow"
+          v-html="textMarkdown"
+        ></div>
+      </div>
+    </div>
     <Output :data="textJson"></Output>
   </section>
 </template>
