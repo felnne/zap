@@ -28,9 +28,9 @@ const fileIdentifier = ref('')
     <Identifiers :fileIdentifier="fileIdentifier" />
     <Title />
     <Abstract />
+    <GeographicExtent />
     <Contacts />
     <Licence />
-    <GeographicExtent />
     <Downloads />
     <Services />
     <Lineage />
