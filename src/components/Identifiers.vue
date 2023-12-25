@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
-import ClipboardCopy from './ClipboardCopy.vue'
+import Output from './Output.vue'
 
 type Identifier = {
   identifier: string
@@ -21,10 +21,10 @@ const createSelfIdentifier = () => {
     href: selfIdentifierValue,
     title: 'self'
   }
-  identifiers.value.push(selfIdentifier)
+  identifiers.value = [...identifiers.value, selfIdentifier]
 }
 
-const identifiers = ref<Identifier[]>([])
+const identifiers = ref<Identifier[]>([{ identifier: 'x', href: 'xx', title: 'xxx' }])
 
 watch(
   () => props.fileIdentifier,
@@ -38,16 +38,6 @@ watch(
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="identifiers" title="Identifiers" />
-    <code>
-      <pre>{{ identifiers }}</pre>
-    </code>
-    <ClipboardCopy :data="identifiers" />
-    <p>
-      <em
-        >Add checkbox to include an identifier for a DOI based on the file identifier (e.g.
-        ADD).</em
-      >
-    </p>
-    <p><em>Add checkbox to include an identifier for a related Esri item.</em></p>
+    <Output :data="identifiers"></Output>
   </section>
 </template>

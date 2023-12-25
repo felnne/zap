@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import ClipboardCopy from './ClipboardCopy.vue'
 import SectionTitle from './SectionTitle.vue'
+import Output from './Output.vue'
 
 import individualsData from '../data/individuals.json'
 import organisationsData from '../data/organisations.json'
@@ -126,9 +126,6 @@ let contacts: ComputedRef<Contact[]> = computed(() => {
         {{ individual.name }}
       </label>
     </form>
-    <code>
-      <pre>{{ contacts }}</pre>
-    </code>
-    <ClipboardCopy :data="contacts" />
+    <Output :data="contacts"></Output>
   </section>
 </template>

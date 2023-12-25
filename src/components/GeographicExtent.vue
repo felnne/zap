@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import ClipboardCopy from './ClipboardCopy.vue'
 import SectionTitle from './SectionTitle.vue'
+import Output from './Output.vue'
 
 import extentsData from '../data/extents.json'
 
@@ -69,9 +69,6 @@ let extent: ComputedRef<Extent> = computed(() => {
         {{ wke.name }}
       </label>
     </form>
-    <code>
-      <pre>{{ extent }}</pre>
-    </code>
-    <ClipboardCopy :data="extent" />
+    <Output :data="extent"></Output>
   </section>
 </template>

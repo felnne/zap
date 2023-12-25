@@ -3,7 +3,7 @@ import { computed, type ComputedRef, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 
 import SectionTitle from './SectionTitle.vue'
-import ClipboardCopy from './ClipboardCopy.vue'
+import Output from './Output.vue'
 
 const markdown = new MarkdownIt()
 
@@ -22,10 +22,15 @@ let textMarkdown = computed(() => {
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="freetext" title="Title/Abstract/Lineage" />
     <form>
-      <textarea name="freetext" id="freetext" v-model="text"></textarea>
+      <textarea
+        class="w-full border border-black"
+        rows="8"
+        name="freetext"
+        id="freetext"
+        v-model="text"
+      ></textarea>
     </form>
     <div v-html="textMarkdown"></div>
-    <code>{{ textJson }}</code>
-    <ClipboardCopy :data="textJson" />
+    <Output :data="textJson"></Output>
   </section>
 </template>

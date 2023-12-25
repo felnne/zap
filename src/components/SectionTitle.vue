@@ -30,8 +30,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <h2 :id="anchor" class="text-2xl font-semibold text-gray-600 mb-5">{{ title }}</h2>
-    <a href="#top">🔝</a>
+  <header class="flex justify-between items-center mb-5">
+    <h2 :id="anchor" class="text-2xl font-semibold text-gray-600">{{ title }}</h2>
+    <a class="ml-auto" href="#top">🔝</a>
   </header>
 </template>

@@ -17,7 +17,7 @@ onMounted(() => {
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="file-identifier" title="File identifier" />
-    <code>{{ uuid }}</code>
+    <code class="block text-s mb-2">{{ uuid }}</code>
     <ClipboardCopy :data="uuid" />
   </section>
 </template>

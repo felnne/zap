@@ -11,6 +11,8 @@ const serviceSlugs: string[] = Object.keys(servicesData.services).sort((a: strin
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="services" title="Services" />
-    <Service v-for="slug in serviceSlugs" v-bind:key="slug" :slug="slug" />
+    <div class="space-y-4">
+      <Service v-for="slug in serviceSlugs" v-bind:key="slug" :slug="slug" />
+    </div>
   </section>
 </template>

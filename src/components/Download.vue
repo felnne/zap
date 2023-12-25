@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import ClipboardCopy from './ClipboardCopy.vue'
+import Output from './Output.vue'
 
 import formatsData from '../data/formats.json'
 import organisationsData from '../data/organisations.json'
@@ -156,11 +156,15 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 </script>
 
 <template>
-  <div class="border-2 border-rose-500">
-    <form>
-      <input type="file" :id="'download-' + index" @change="onFileChange" />
+  <div class="p-2 border-2 border-gray-400">
+    <form class="mb-2">
+      <input
+        class="file:py-1 file:px-2 file:text-xs file:font-medium file:border file:bg-white file:hover:bg-gray-100 file:text-gray-800 file:border-gray-400 file:shadow"
+        type="file"
+        :id="'download-' + index"
+        @change="onFileChange"
+      />
     </form>
-    <code>{{ distributionOption }}</code>
-    <ClipboardCopy :data="distributionOption" />
+    <Output :data="distributionOption"></Output>
   </div>
 </template>

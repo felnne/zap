@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import ClipboardCopy from './ClipboardCopy.vue'
+import Output from './Output.vue'
 
 import servicesData from '../data/services.json'
 import organisationsData from '../data/organisations.json'
@@ -121,8 +121,8 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 </script>
 
 <template>
-  <div class="border-2 border-rose-500">
-    <form>
+  <div class="p-2 border-2 border-gray-400">
+    <form class="flex space-x-4 mb-2">
       <label>
         <input
           type="checkbox"
@@ -132,18 +132,18 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         />
         {{ service.name }}
       </label>
-      <label>Endpoint</label>
-      <input
-        type="url"
-        name="'service-' + service.slug + '-endpoint'"
-        :id="'service-' + service.slug + '-endpoint'"
-        :disabled="!selected"
-        v-model="endpoint"
-      />
+      <div class="flex flex-grow space-x-2">
+        <label class="text-gray-500">Endpoint</label>
+        <input
+          class="flex-grow border border-black disabled:bg-gray-100 disabled:cursor-not-allowed"
+          type="url"
+          name="'service-' + service.slug + '-endpoint'"
+          :id="'service-' + service.slug + '-endpoint'"
+          :disabled="!selected"
+          v-model="endpoint"
+        />
+      </div>
     </form>
-    <div v-show="selected">
-      <code>{{ distributionOption }}</code>
-      <ClipboardCopy :data="distributionOption" />
-    </div>
+    <Output v-show="selected" :data="distributionOption"></Output>
   </div>
 </template>

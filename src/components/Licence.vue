@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import ClipboardCopy from './ClipboardCopy.vue'
+import Output from './Output.vue'
 import SectionTitle from './SectionTitle.vue'
 
 import licencesData from '../data/licences.json'
@@ -57,9 +57,6 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
         {{ licence.name }}
       </label>
     </form>
-    <code>
-      <pre>{{ licenceConstraint }}</pre>
-    </code>
-    <ClipboardCopy :data="licenceConstraint" />
+    <Output :data="licenceConstraint"></Output>
   </section>
 </template>
