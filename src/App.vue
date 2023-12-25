@@ -15,15 +15,29 @@ import Lineage from './components/Lineage.vue'
 import Preface from './components/Preface.vue'
 import Resources from './components/Resources.vue'
 import Services from './components/Services.vue'
+import TableOfContents from './components/TableOfContents.vue'
 import Title from './components/Title.vue'
+import { TocItem } from './TocItem'
 
 const fileIdentifier = ref('')
+const tocItems: TocItem[] = [
+  { anchor: 'abstract', name: 'Abstract' },
+  { anchor: 'identifiers', name: 'Identifiers' },
+  { anchor: 'title', name: 'Title' },
+  { anchor: 'geographic-extent', name: 'Geographic extent' },
+  { anchor: 'contacts', name: 'Contacts' },
+  { anchor: 'licence', name: 'Licence' },
+  { anchor: 'downloads', name: 'Downloads' },
+  { anchor: 'services', name: 'Services' },
+  { anchor: 'lineage', name: 'Lineage' }
+]
 </script>
 
 <template>
   <main class="font-sans-serif m-10 mt-0">
     <AppTitle />
     <Preface />
+    <TableOfContents :items="tocItems" />
     <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
     <Identifiers :fileIdentifier="fileIdentifier" />
     <Title />
