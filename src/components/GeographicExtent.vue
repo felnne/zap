@@ -4,28 +4,10 @@ import { computed, type ComputedRef, ref } from 'vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 
+import type { WellKnownExtent } from '../types/app'
+import type { Extent } from '../types/iso'
+
 import extentsData from '../data/extents.json'
-
-type GeographicExtent = {
-  bounding_box: {
-    west_longitude: number
-    east_longitude: number
-    south_latitude: number
-    north_latitude: number
-  }
-}
-
-type WellKnownExtent = {
-  slug: string
-  name: string
-  extent: {
-    geographic: GeographicExtent
-  }
-}
-
-type Extent = {
-  geographic: GeographicExtent
-}
 
 function createExtent(wke: WellKnownExtent): Extent {
   return {

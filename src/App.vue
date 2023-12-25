@@ -17,19 +17,20 @@ import Resources from './components/Resources.vue'
 import Services from './components/Services.vue'
 import TableOfContents from './components/TableOfContents.vue'
 import Title from './components/Title.vue'
-import { TocItem } from './TocItem'
+import type { TocItem } from './types/app'
 
 const fileIdentifier = ref('')
 const tocItems: TocItem[] = [
-  { anchor: 'abstract', name: 'Abstract' },
-  { anchor: 'identifiers', name: 'Identifiers' },
-  { anchor: 'title', name: 'Title' },
-  { anchor: 'geographic-extent', name: 'Geographic extent' },
-  { anchor: 'contacts', name: 'Contacts' },
-  { anchor: 'licence', name: 'Licence' },
-  { anchor: 'downloads', name: 'Downloads' },
-  { anchor: 'services', name: 'Services' },
-  { anchor: 'lineage', name: 'Lineage' }
+  { anchor: 'file-identifier', title: 'File identifier' },
+  { anchor: 'identifiers', title: 'Identifiers' },
+  { anchor: 'title', title: 'Title' },
+  { anchor: 'abstract', title: 'Abstract' },
+  { anchor: 'geographic-extent', title: 'Spatial extent' },
+  { anchor: 'contacts', title: 'Contacts' },
+  { anchor: 'licence', title: 'Licence' },
+  { anchor: 'downloads', title: 'Downloads' },
+  { anchor: 'services', title: 'Services' },
+  { anchor: 'lineage', title: 'Lineage' }
 ]
 </script>
 

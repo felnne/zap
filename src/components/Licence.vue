@@ -4,19 +4,10 @@ import { computed, type ComputedRef, ref } from 'vue'
 import Output from './Output.vue'
 import SectionTitle from './SectionTitle.vue'
 
+import type { Licence } from '../types/app'
+import type { Constraint } from '../types/iso'
+
 import licencesData from '../data/licences.json'
-
-type Licence = {
-  name: string
-  url: string
-}
-
-type Constraint = {
-  type: string
-  restriction_code: string
-  statement: string
-  href: string
-}
 
 function createConstraint(licence: Licence): Constraint {
   return {

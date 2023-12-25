@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import SectionTitle from './SectionTitle.vue'
-
-type TocItem = {
-  anchor: string
-  name: string
-}
+import type { TocItem } from '../types/app'
 
 defineProps({
   items: {
@@ -23,7 +19,7 @@ defineProps({
         :key="item.anchor"
         :href="`#${item.anchor}`"
         class="block text-blue-600 hover:underline"
-        >{{ item.name }}</a
+        >{{ item.title }}</a
       >
     </div>
   </aside>

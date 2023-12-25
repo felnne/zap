@@ -4,11 +4,7 @@ import { ref, watch } from 'vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 
-type Identifier = {
-  identifier: string
-  href: string
-  title: string
-}
+import type { Identifier } from '../types/iso'
 
 const props = defineProps({
   fileIdentifier: String

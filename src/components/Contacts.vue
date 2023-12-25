@@ -4,60 +4,11 @@ import { computed, type ComputedRef, ref } from 'vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 
+import type { Individual, Organisation } from '../types/app'
+import type { PointOfContact as Contact } from '../types/iso'
+
 import individualsData from '../data/individuals.json'
 import organisationsData from '../data/organisations.json'
-
-type OnlineResource = {
-  href: string
-  title: string
-  description: string
-  function: string
-}
-
-type Address = {
-  delivery_point: string
-  city: string
-  administrative_area: string
-  postal_code: string
-  country: string
-}
-
-type Individual = {
-  name: string
-  orcid: string
-  email: string
-}
-
-type Organisation = {
-  slug: string
-  name: string
-  ror: string
-  email?: string
-  phone: string
-  address: Address
-  online_resource: OnlineResource
-}
-
-type Contact = {
-  individual: {
-    name: string
-    href: string
-    title: string
-  }
-  organisation: {
-    name: string
-    href: string
-    title: string
-  }
-  email: string
-  online_resource: {
-    href: string
-    title: string
-    description: string
-    function: string
-  }
-  role: string[]
-}
 
 function createContact(individual: Individual, organisation: Organisation): Contact {
   return {
@@ -72,6 +23,8 @@ function createContact(individual: Individual, organisation: Organisation): Cont
       title: 'ror'
     },
     email: individual.email,
+    phone: organisation.phone,
+    address: organisation.address,
     online_resource: {
       href: individual.orcid,
       title: 'ORCID record',

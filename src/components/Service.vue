@@ -6,6 +6,9 @@ import Output from './Output.vue'
 import servicesData from '../data/services.json'
 import organisationsData from '../data/organisations.json'
 
+import type { Organisation, Service, ServiceFormat } from '../types/app'
+import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '../types/iso'
+
 const props = defineProps({
   slug: {
     type: String,
@@ -13,76 +16,22 @@ const props = defineProps({
   }
 })
 
-type Service = {
-  slug: string
-  name: string
-  description: string
-  format: string
+const nullFormat: ServiceFormat = {
+  name: '',
+  href: '',
+  version: ''
 }
-
-type Format = {
-  format: string
-}
-
-type OnlineResource = {
-  href: string
-  title: string
-  description: string
-  function: string
-}
-
-type Address = {
-  delivery_point: string
-  city: string
-  administrative_area: string
-  postal_code: string
-  country: string
-}
-
-type Organisation = {
-  slug: string
-  name: string
-  ror: string
-  email?: string
-  phone: string
-  address: Address
-  online_resource: OnlineResource
-}
-
-type Distributor = {
-  organisation: {
-    name: string
-    href: string
-    title: string
-  }
-  phone: string
-  address: Address
-  email: string
-  online_resource: OnlineResource
-  role: string[]
-}
-
-type TransferOption = {
-  online_resource: OnlineResource
-}
-
-type DistributionOption = {
-  format: Format
-  transfer_option: TransferOption
-  distributor: Distributor
-}
-
 const nullService: Service = {
   slug: '',
   name: '',
   description: '',
-  format: ''
+  format: nullFormat
 }
 
 const service: Service = (servicesData.services as any)[props.slug] ?? nullService
 const orgMagic: Organisation = organisationsData.organisations['basMagic']
 
-const distributor: Distributor = {
+const distributor: Contact = {
   organisation: {
     name: orgMagic.name,
     href: orgMagic.ror,
@@ -110,7 +59,9 @@ let onlineResource: ComputedRef<OnlineResource> = computed(() => {
 let distributionOption: ComputedRef<DistributionOption> = computed(() => {
   return {
     format: {
-      format: service.format
+      format: service.format.name,
+      href: service.format.href,
+      version: service.format.version
     },
     transfer_option: {
       online_resource: onlineResource.value

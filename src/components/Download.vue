@@ -3,76 +3,17 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import Output from './Output.vue'
 
+import type { Format, Organisation } from '../types/app'
+import type {
+  DistributionOption,
+  Format as FormatIso,
+  PointOfContact as Contact,
+  OnlineResource,
+  Size
+} from '../types/iso'
+
 import formatsData from '../data/formats.json'
 import organisationsData from '../data/organisations.json'
-
-type Format = {
-  slug: string
-  ext: string[]
-  name: string
-  version: string
-  url: string
-}
-
-type DistributionFormat = {
-  format: string
-  href: string
-  version: string
-}
-
-type Size = {
-  unit: string
-  magnitude: number
-}
-
-type OnlineResource = {
-  href: string
-  title: string
-  description: string
-  function: string
-}
-
-type Address = {
-  delivery_point: string
-  city: string
-  administrative_area: string
-  postal_code: string
-  country: string
-}
-
-type Organisation = {
-  slug: string
-  name: string
-  ror: string
-  email?: string
-  phone: string
-  address: Address
-  online_resource: OnlineResource
-}
-
-type Distributor = {
-  organisation: {
-    name: string
-    href: string
-    title: string
-  }
-  phone: string
-  address: Address
-  email: string
-  online_resource: OnlineResource
-  role: string[]
-}
-
-type TransferOption = {
-  size: Size
-  online_resource: OnlineResource
-}
-
-type DistributionOption = {
-  format: DistributionFormat
-  transfer_option: TransferOption
-  distributor: Distributor
-}
 
 defineProps({
   index: Number
@@ -88,7 +29,7 @@ const unknownFormat: Format = {
   version: '...',
   url: '...'
 }
-const distributor: Distributor = {
+const distributor: Contact = {
   organisation: {
     name: orgMagic.name,
     href: orgMagic.ror,
@@ -128,7 +69,7 @@ let format: ComputedRef<Format> = computed(() => {
   return formats.find((format) => format.ext.includes(`.${fileExtension.value}`)) || unknownFormat
 })
 
-let distributionFormat: ComputedRef<DistributionFormat> = computed(() => {
+let distributionFormat: ComputedRef<FormatIso> = computed(() => {
   return {
     format: format.value.name,
     href: format.value.url,

@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
-type TocSection = {
-  anchor: string
-  title: string
-}
+import type { TocItem } from '../types/app'
 
 const props = defineProps({
   anchor: {
@@ -17,7 +14,7 @@ const props = defineProps({
   }
 })
 
-const tocSection: TocSection = {
+const tocSection: TocItem = {
   anchor: props.anchor,
   title: props.title
 }
