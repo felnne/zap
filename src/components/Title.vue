@@ -6,6 +6,6 @@ import Freetext from './Freetext.vue'
   <Freetext
     section-anchor="title"
     section-title="Title"
-    section-guidance-href="https://www.example.com"
+    section-guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
   ></Freetext>
 </template>
