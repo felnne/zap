@@ -1,16 +1,39 @@
 # Zap ⚡️ - Change log
 
-## v0.2.0 - unreleased
+## [Unreleased]
 
+### Added 
+
+- Basic Table of Contents component
+
+### Changed
+
+- Improved layout and UI polish (spacing etc.)
+- Freetext component refactored into separate Title, Abstract and Lineage components
+- typeScript types refactored into standalone modules to prevent duplication and inconsistency
+
+## [0.2.0] - 2023-12-24 [BREAKING!]
+
+### Removed [BREAKING!]
+
+- Complete config listing appendix
+
+### Changed [BREAKING!]
+
+- General app rewrite, including code and UI
 - Upgrading to Vue 3.x
 - Switching to Vite
-- Adding Typescript, ESlint, Prettier
-- Adding TypeScript
-- Replacing `vue-simple-markdown` with `markdown-it` due to lack of Vue 3 support
 - Rewriting Transfer Options section to read size and format from local file
 - Replacing Docker & Docker Compose with NVM
-- Removing Appendix I (complete config listing)
+- Replacing `vue-simple-markdown` with `markdown-it` due to lack of Vue 3 support
+
+### Added
+
+- Adding Typescript, ESlint, Prettier
 
 ## v0.1.0 - 2021-07-12 
+## [0.1.0] - 2021-07-12
+
+### Added
 
 - Initial version
