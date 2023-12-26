@@ -18,7 +18,7 @@ defineProps({
         v-for="item in items"
         :key="item.anchor"
         :href="`#${item.anchor}`"
-        class="block text-blue-600 hover:underline"
+        class="block underline text-blue-600 dark:text-blue-200"
         >{{ item.title }}</a
       >
     </div>

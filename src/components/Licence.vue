@@ -38,7 +38,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
     <SectionTitle anchor="licence" title="Licence" />
     <div class="flex mb-2">
       <form class="w-1/2 pr-2 flex flex-col">
-        <label v-for="licence in licences" :key="licence.url">
+        <label v-for="licence in licences" :key="licence.url" class="text-black dark:text-white">
           <input
             type="radio"
             name="licences"

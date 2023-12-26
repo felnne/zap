@@ -21,7 +21,7 @@ import Idea from './Idea.vue'
       >Add option to include an identifier for a DOI based on the file identifier (e.g. ADD).</Idea
     >
     <Idea>Add checkbox to include an identifier for a related Esri item.</Idea>
-    <p class="mt-4">
+    <p class="mt-4 text-black dark:text-white">
       <em>If there's something else you think would be a good idea let @felnne know.</em>
     </p>
   </aside>

@@ -35,7 +35,7 @@ const tocItems: TocItem[] = [
 </script>
 
 <template>
-  <main class="font-sans-serif m-10 mt-0">
+  <main class="bg-white dark:bg-gray-800 font-sans-serif p-10 mt-0">
     <AppTitle />
     <Preface />
     <TableOfContents :items="tocItems" />

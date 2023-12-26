@@ -100,7 +100,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
   <div class="p-2 border-2 border-gray-400">
     <form class="mb-2">
       <input
-        class="file:py-1 file:px-2 file:text-xs file:font-medium file:border file:bg-white file:hover:bg-gray-100 file:text-gray-800 file:border-gray-400 file:shadow"
+        class="file:py-1 file:px-2 file:text-xs file:font-medium file:border file:bg-white dark:file:bg-gray-700 file:hover:bg-gray-100 dark:file:hover:bg-gray-900 file:text-gray-800 dark:file:text-gray-100 file:border-gray-400 file:shadow"
         type="file"
         :id="'download-' + index"
         @change="onFileChange"

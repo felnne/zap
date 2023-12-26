@@ -74,7 +74,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 <template>
   <div class="p-2 border-2 border-gray-400 space-y-2">
     <form class="flex space-x-4">
-      <label>
+      <label class="text-black dark:text-white">
         <input
           type="checkbox"
           name="services"
@@ -84,9 +84,9 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         {{ service.name }}
       </label>
       <div class="flex flex-grow space-x-2">
-        <label class="text-gray-500">Endpoint</label>
+        <label class="text-gray-500 dark:text-gray-300">Endpoint</label>
         <input
-          class="flex-grow border border-black disabled:bg-gray-100 disabled:cursor-not-allowed"
+          class="flex-grow bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
           type="url"
           name="'service-' + service.slug + '-endpoint'"
           :id="'service-' + service.slug + '-endpoint'"

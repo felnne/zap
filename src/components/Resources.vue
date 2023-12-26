@@ -5,10 +5,10 @@ import SectionTitle from './SectionTitle.vue'
 <template>
   <aside class="mb-5 p-5 border-4 border-sky-500">
     <SectionTitle anchor="resources" title="Resources" />
-    <p>
+    <p class="text-black dark:text-white">
       Examples of completed records can be found in the
       <a
-        class="underline text-blue-800"
+        class="underline text-blue-800 dark:text-blue-200"
         href="https://gitlab.data.bas.ac.uk/MAGIC/add-catalogue-records-production"
         >Data Catalogue Records</a
       >

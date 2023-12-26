@@ -1,9 +1,9 @@
 <template>
   <article class="mb-2 flex items-center">
     <span
-      class="inline-flex items-center bg-sky-50 mr-2 px-2 py-1 text-xs font-medium text-sky-500 ring-1 ring-inset ring-sky-700/10"
+      class="inline-flex items-center bg-sky-50 dark:bg-sky-950 mr-2 px-2 py-1 text-xs font-medium text-sky-500 dark:text-sky-300 ring-1 ring-inset ring-sky-700/10 dark:ring-sky-100/10"
       >Idea</span
     >
-    <slot></slot>
+    <div class="text-black dark:text-white"><slot></slot></div>
   </article>
 </template>

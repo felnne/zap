@@ -39,19 +39,23 @@ let textMarkdown = computed(() => {
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle :anchor="sectionAnchor" :title="sectionTitle" :guidance-href="sectionGuidanceHref" />
+    <SectionTitle
+      :anchor="sectionAnchor"
+      :title="sectionTitle"
+      :guidance-href="sectionGuidanceHref"
+    />
     <div class="flex mb-2">
       <form class="w-1/2 pr-2 flex flex-col">
-        <div class="text-gray-500">Input</div>
+        <div class="text-gray-500 dark:text-gray-300">Input</div>
         <textarea
-          :class="`w-full border border-black flex-grow ${inputClass}`"
+          :class="`w-full bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white flex-grow ${inputClass}`"
           name="freetext"
           id="freetext"
           v-model="text"
         ></textarea>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
-        <div class="text-gray-500">Preview</div>
+        <div class="text-gray-500 dark:text-gray-300">Preview</div>
         <div
           class="w-full border border-gray-400 prose lg:prose-lg max-w-none flex-grow"
           v-html="textMarkdown"

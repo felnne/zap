@@ -69,7 +69,11 @@ let contacts: ComputedRef<Contact[]> = computed(() => {
     <SectionTitle anchor="contacts" title="Contacts" />
     <div class="flex mb-2">
       <form class="w-1/2 pr-2 flex flex-col">
-        <label v-for="individual in individuals" :key="individual.email">
+        <label
+          v-for="individual in individuals"
+          :key="individual.email"
+          class="text-black dark:text-white"
+        >
           <input
             type="checkbox"
             name="individuals"
