@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
 </script>
 
 <template>
-  <Freetext section-anchor="lineage" section-title="Lineage" input-class="min-h-60"></Freetext>
+  <section class="mb-5 p-5 border-4 border-gray-500">
+    <SectionTitle anchor="lineage" title="Lineage" />
+    <Freetext input-class="min-h-60" />
+  </section>
 </template>

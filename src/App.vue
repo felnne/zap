@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import Abstract from './components/Abstract.vue'
 import AppTitle from './components/AppTitle.vue'
 import ChangeLog from './components/ChangeLog.vue'
+import Citation from './components/Citation.vue'
 import Contacts from './components/Contacts.vue'
 import Downloads from './components/Downloads.vue'
 import FileIdentifier from './components/FileIdentifier.vue'
@@ -27,6 +28,7 @@ const tocItems: TocItem[] = [
   { anchor: 'abstract', title: 'Abstract' },
   { anchor: 'geographic-extent', title: 'Spatial extent' },
   { anchor: 'contacts', title: 'Contacts' },
+  { anchor: 'citation', title: 'Citation' },
   { anchor: 'licence', title: 'Licence' },
   { anchor: 'downloads', title: 'Downloads' },
   { anchor: 'services', title: 'Services' },
@@ -46,6 +48,7 @@ const tocItems: TocItem[] = [
     <GeographicExtent />
     <Contacts />
     <Licence />
+    <Citation />
     <Downloads />
     <Services />
     <Lineage />

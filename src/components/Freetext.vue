@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref } from 'vue'
+import { computed, type ComputedRef, onMounted, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 
-import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 
 const markdown = new MarkdownIt()
 
-defineProps({
-  sectionAnchor: {
-    type: String,
-    required: true
-  },
-  sectionTitle: {
-    type: String,
-    required: true
-  },
-  sectionGuidanceHref: {
+const props = defineProps({
+  initialInput: {
     type: String,
     required: false
   },
@@ -35,15 +26,16 @@ let textJson: ComputedRef<string> = computed(() => {
 let textMarkdown = computed(() => {
   return markdown.render(text.value)
 })
+
+onMounted(() => {
+  if (props.initialInput) {
+    text.value = props.initialInput
+  }
+})
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle
-      :anchor="sectionAnchor"
-      :title="sectionTitle"
-      :guidance-href="sectionGuidanceHref"
-    />
+  <div>
     <div class="flex mb-4">
       <form class="w-1/2 pr-2 flex flex-col">
         <div class="text-gray-500 dark:text-gray-300">Input</div>
@@ -57,11 +49,11 @@ let textMarkdown = computed(() => {
       <div class="w-1/2 pl-2 flex flex-col">
         <div class="text-gray-500 dark:text-gray-300">Preview</div>
         <div
-          class="w-full border border-gray-400 prose lg:prose-lg max-w-none flex-grow"
+          class="w-full p-2 border border-gray-400 prose lg:prose-lg max-w-none flex-grow"
           v-html="textMarkdown"
         ></div>
       </div>
     </div>
     <Output :data="textJson"></Output>
-  </section>
+  </div>
 </template>
