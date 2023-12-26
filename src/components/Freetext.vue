@@ -16,7 +16,14 @@ defineProps({
     type: String,
     required: true
   },
-  inputClass: String
+  sectionGuidanceHref: {
+    type: String,
+    required: false
+  },
+  inputClass: {
+    type: String,
+    required: false
+  }
 })
 
 let text = ref<string>('')
@@ -32,7 +39,7 @@ let textMarkdown = computed(() => {
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle :anchor="sectionAnchor" :title="sectionTitle" />
+    <SectionTitle :anchor="sectionAnchor" :title="sectionTitle" :guidance-href="sectionGuidanceHref" />
     <div class="flex mb-2">
       <form class="w-1/2 pr-2 flex flex-col">
         <div class="text-gray-500">Input</div>
