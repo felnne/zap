@@ -1,6 +1,6 @@
 {
-  "name": "@antarctica/scoundrel",
   "version": "0.2.0",
+  "name": "@antarctica/zap",
   "private": true,
   "author": "Felix Fennell <felnne@bas.ac.uk>",
   "license": "MIT",

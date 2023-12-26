@@ -1,4 +1,4 @@
-# Scoundrel
+# Zap ⚡️
 
 ## Developing
 
@@ -12,7 +12,7 @@ $ npm install -g npm@latest
 $ npm -v
 
 $ git clone ...
-$ cd scoundrel
+$ cd zap
 $ npm install
 
 $ npm run dev
