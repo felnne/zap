@@ -13,7 +13,7 @@ defineProps({
 <template>
   <aside class="mb-5 p-5 border-4 border-sky-500">
     <SectionTitle anchor="toc" title="Elements" />
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-4 gap-2">
       <a
         v-for="item in items"
         :key="item.anchor"
