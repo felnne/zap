@@ -13,8 +13,12 @@ import Idea from './Idea.vue'
     <Idea complete>Dark mode.</Idea>
     <Idea complete>DOI identifier based on file identifier.</Idea>
     <Idea complete>Esri identifier.</Idea>
-    <Idea>Citation.</Idea>
-    <Idea>Citation based on DOI.</Idea>
+    <Idea complete>Citation.</Idea>
+    <Idea complete>Citation based on real DOI (using CrossCite formatting service).</Idea>
+    <Idea complete>Citation based on generated DOI, Title and Contacts.</Idea>
+    <Idea>Resource type section</Idea>
+    <Idea>Date(s) section</Idea>
+    <Idea>Edition section</Idea>
     <Idea>Include `protocol: 'WWW:LINK-1.0-http--link'` in download distribution options.</Idea>
     <Idea>Include WMTS, WFS and Esri in services section.</Idea>
     <Idea>Download proxy items.</Idea>

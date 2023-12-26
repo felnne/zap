@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import { fetchFakeCitation, formatCitation } from '../utils/crosscite'
-import type { Individual } from '../types/app'
-import type { Identifier } from '../types/iso'
+import { fetchFakeCitation, formatCitation } from '../utils/citation'
+import type { PointOfContact as Contact, Identifier } from '../types/iso'
 
 import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
@@ -12,12 +11,18 @@ const props = defineProps({
   identifiers: {
     type: Array as () => Identifier[],
     required: true
-  }
+  },
+    contacts: {
+        type: Array as () => Contact[],
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    }
 })
 
-const names: string[] = ['Watson, Connie', 'Cinnamon, John', 'Rust, Samatha']
 const year = 2004
-const title = 'Resource title'
 const edition = '1.0'
 const resource_type = 'dataset'
 const publisher = 'Mapping and Geographic Information Centre, British Antarctic Survey'
@@ -27,16 +32,10 @@ let freetextInput = ref<string>('')
 
 const getCitation = async () => {
   // in time these will come from other components
-  const authors: Individual[] = names.map((name) => ({
-    name: name,
-    orcid: '0000-0000-0000-0000',
-    email: 'xxx@bas.ac.uk'
-  }))
-
   doiCitation.value = await fetchFakeCitation(
-    authors,
+    authors.value,
     year,
-    title,
+    props.title,
     edition,
     resource_type,
     publisher,
@@ -47,7 +46,7 @@ const getCitation = async () => {
 }
 
 const setFreetextInput = () => {
-  freetextInput.value = doiCitationFormatted.value
+  freetextInput.value = citationFormatted.value
 }
 
 let doi: ComputedRef<string> = computed(() => {
@@ -59,7 +58,11 @@ let doi: ComputedRef<string> = computed(() => {
   return ''
 })
 
-let doiCitationFormatted: ComputedRef<string> = computed(() => {
+let authors: ComputedRef<string[]> = computed(() => {
+    return props.contacts.map((contact) => contact.individual?.name ?? '').filter((contact) => contact !== '')
+})
+
+let citationFormatted: ComputedRef<string> = computed(() => {
   return formatCitation(doi.value, doiCitation.value)
 })
 
@@ -68,7 +71,7 @@ onMounted(() => {
 })
 
 watch(
-  () => doi.value,
+    [() => doi.value, () => props.title, () => authors.value],
   () => {
     getCitation()
   }
@@ -83,7 +86,7 @@ watch(
         DOI Citation (fake but representative of CrossCite using APA style):
       </p>
       <div
-        class="w-full p-2 border border-gray-400 prose-sm max-w-none mb-2"
+        class="w-full p-2 border text-black dark:text-white border-gray-400 prose-sm max-w-none mb-2"
         v-html="doiCitation"
       ></div>
       <div class="space-x-2 flex items-center">
@@ -93,7 +96,7 @@ watch(
         >
           Copy to input
         </button>
-        <em
+        <em class="text-black dark:text-white"
           >Click this button to use this citation, with
           <a
             href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/src/utils/crosscite.ts#L66"

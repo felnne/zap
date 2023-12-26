@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref } from 'vue'
+import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
@@ -9,6 +9,8 @@ import type { PointOfContact as Contact } from '../types/iso'
 
 import individualsData from '../data/individuals.json'
 import organisationsData from '../data/organisations.json'
+
+const emit = defineEmits(['update:contacts'])
 
 function createContact(individual: Individual, organisation: Organisation): Contact {
   return {
@@ -62,6 +64,13 @@ let contacts: ComputedRef<Contact[]> = computed(() => {
   )
   return selectedIndividuals.map((individual) => createContact(individual, orgBas))
 })
+
+watch(
+  () => contacts.value,
+  () => {
+    emit('update:contacts', contacts.value)
+  }
+)
 </script>
 
 <template>

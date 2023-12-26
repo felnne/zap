@@ -1,26 +1,28 @@
 import axios from 'axios'
 import removeMd from 'remove-markdown'
 
-import type { Individual } from '../types/app'
-
-function formatName(fullName: string): string {
-  const [firstName, lastName] = fullName.split(', ')
+function formatName(name: string): string {
+  /*
+   * In: 'Watson, Connie'
+   * Out: 'Watson, C.'
+   */
+  const [firstName, lastName] = name.split(', ')
   return `${firstName}, ${lastName.charAt(0)}.`
 }
 
-function formatAuthors(authors: Individual[]): string {
+function formatAuthors(authors: string[]): string {
   /*
    * In:
-   * [{'name': 'Watson, Connie'}]
-   * [{'name': 'Watson, Connie'}, {'name': 'Cinnamon, John'}]
-   * [{'name': 'Watson, Connie'}, {'name': 'Cinnamon, John'}, {'name': 'Rust, Samantha'}]
+   * ['Watson, Connie']
+   * ['Watson, Connie', 'Cinnamon, John']
+   * ['Watson, Connie', 'Cinnamon, John', 'Rust, Samantha']
    *
    * Out:
    * 'Watson, C.'
    * 'Watson, C., &amp; Cinnamon, J.'
    * 'Watson, C., Cinnamon, J., &amp; Rust, S.'
    */
-  const formattedAuthors = authors.map((author) => formatName(author.name))
+  const formattedAuthors = authors.map((author) => formatName(author))
 
   if (formattedAuthors.length == 1) {
     return formattedAuthors[0]
@@ -36,7 +38,7 @@ function formatAuthors(authors: Individual[]): string {
 }
 
 function formatYear(year: number): string {
-  return `(${year})`
+  return `(${year}).`
 }
 
 function formatTitle(title: string): string {
@@ -49,10 +51,10 @@ function formatVersion(version: string): string {
 
 function formatResourceType(resource_type: string): string {
   if (resource_type == 'dataset') {
-    return '[Data set]'
+    return ' [Data set]. '
   }
 
-  return ''
+  return '  '
 }
 
 function formatPublisher(publisher: string): string {
@@ -60,6 +62,9 @@ function formatPublisher(publisher: string): string {
 }
 
 function formatDoi(doi: string): string {
+  if (doi == '') {
+    return ''
+  }
   return `https://doi.org/${doi}`
 }
 
@@ -89,7 +94,7 @@ export function formatCitation(doi: string, citation: string): string {
 }
 
 export async function fetchFakeCitation(
-  authors: Individual[],
+  authors: string[],
   year: number,
   title: string,
   version: string,
@@ -118,7 +123,7 @@ export async function fetchFakeCitation(
   const publisher_ = formatPublisher(publisher)
   const doi_ = formatDoi(doi.toUpperCase())
 
-  const citation = `${authors_} ${year_} ${title_} ${version_} ${modifier_} ${publisher_} ${doi_}`
+  const citation = `${authors_} ${year_} ${title_} ${version_}${modifier_}${publisher_} ${doi_}`
   return Promise.resolve(citation)
 }
 

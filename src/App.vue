@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import type { Identifier } from './types/iso'
+import type { PointOfContact as Contact, Identifier } from './types/iso'
 
 import Abstract from './components/Abstract.vue'
 import AppTitle from './components/AppTitle.vue'
@@ -24,6 +24,8 @@ import type { TocItem } from './types/app'
 
 const fileIdentifier = ref<string>('')
 const identifiers = ref<Identifier[]>([])
+const title = ref<string>('')
+const contacts = ref<Contact[]>([])
 
 const tocItems: TocItem[] = [
   { anchor: 'file-identifier', title: 'File identifier' },
@@ -47,12 +49,12 @@ const tocItems: TocItem[] = [
     <TableOfContents :items="tocItems" />
     <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
     <Identifiers :fileIdentifier="fileIdentifier" @update:identifiers="identifiers = $event" />
-    <Title />
+    <Title @update:title="title = $event" />
     <Abstract />
     <GeographicExtent />
-    <Contacts />
+    <Contacts @update:contacts="contacts = $event" />
     <Licence />
-    <Citation :identifiers="identifiers" />
+    <Citation :identifiers="identifiers" :title="title" :contacts="contacts" />
     <Downloads />
     <Services />
     <Lineage />

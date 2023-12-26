@@ -17,6 +17,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['update:input'])
+
 const setInput = () => {
   if (props.input) {
     text.value = props.input
@@ -41,6 +43,13 @@ watch(
   () => props.input,
   () => {
     setInput()
+  }
+)
+
+watch(
+  () => text.value,
+  () => {
+    emit('update:input', text.value)
   }
 )
 </script>
