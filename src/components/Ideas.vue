@@ -16,11 +16,10 @@ import Idea from './Idea.vue'
     <Idea>Include WMTS, WFS and Esri in services section.</Idea>
     <Idea>Download proxy items.</Idea>
     <Idea>Colour code distribution options like JWTs.</Idea>
-    <Idea>Dynamic table of contents.</Idea>
-    <Idea
-      >Add option to include an identifier for a DOI based on the file identifier (e.g. ADD).</Idea
-    >
-    <Idea>Add checkbox to include an identifier for a related Esri item.</Idea>
+    <Idea complete>Table of contents.</Idea>
+    <Idea complete>Dark mode.</Idea>
+    <Idea>DOI identifier based on file identifier.</Idea>
+    <Idea>Esri identifier.</Idea>
     <p class="mt-4 text-black dark:text-white">
       <em>If there's something else you think would be a good idea let @felnne know.</em>
     </p>

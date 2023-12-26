@@ -7,5 +7,8 @@ import SectionTitle from './SectionTitle.vue'
     <SectionTitle anchor="change-log" title="Change log" />
     <p class="mb-2">Version 0.1.0 - 2021-07-12 - Initial version</p>
     <p class="mb-2">Version 0.2.0 - 2023-12-24 - Rewrite in Vue3</p>
+    <p>
+      Version 0.3.0 - 2023-12-26 - Adding dark mode; Separate Title, Abstract and Lineage sections
+    </p>
   </aside>
 </template>

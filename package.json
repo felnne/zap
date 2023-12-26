@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
   "name": "@antarctica/zap",
+  "version": "0.3.0",
   "private": true,
   "author": "Felix Fennell <felnne@bas.ac.uk>",
   "license": "MIT",
