@@ -36,7 +36,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="licence" title="Licence" />
-    <div class="flex mb-2">
+    <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
         <label v-for="licence in licences" :key="licence.url" class="text-black dark:text-white">
           <input

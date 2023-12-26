@@ -6,6 +6,10 @@
 
 - Identifiers for BAS Data Catalogue, DOI and Esri
 
+### Fixed
+
+- Spacing in two column and freetext components
+
 ### Changed
 
 - Refactored Identifiers component (using sub-components per Identifier scheme)

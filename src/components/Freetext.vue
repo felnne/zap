@@ -44,7 +44,7 @@ let textMarkdown = computed(() => {
       :title="sectionTitle"
       :guidance-href="sectionGuidanceHref"
     />
-    <div class="flex mb-2">
+    <div class="flex mb-4">
       <form class="w-1/2 pr-2 flex flex-col">
         <div class="text-gray-500 dark:text-gray-300">Input</div>
         <textarea
