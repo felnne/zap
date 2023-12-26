@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted, ref } from 'vue'
+import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import MarkdownIt from 'markdown-it'
 
 import Output from './Output.vue'
@@ -7,7 +7,7 @@ import Output from './Output.vue'
 const markdown = new MarkdownIt()
 
 const props = defineProps({
-  initialInput: {
+  input: {
     type: String,
     required: false
   },
@@ -16,6 +16,12 @@ const props = defineProps({
     required: false
   }
 })
+
+const setInput = () => {
+  if (props.input) {
+    text.value = props.input
+  }
+}
 
 let text = ref<string>('')
 
@@ -28,10 +34,15 @@ let textMarkdown = computed(() => {
 })
 
 onMounted(() => {
-  if (props.initialInput) {
-    text.value = props.initialInput
-  }
+  setInput()
 })
+
+watch(
+  () => props.input,
+  () => {
+    setInput()
+  }
+)
 </script>
 
 <template>
