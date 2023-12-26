@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted, ref } from 'vue'
+import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '../utils/crosscite'
 import type { Individual } from '../types/app'
+import type { Identifier } from '../types/iso'
 
 import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
+
+const props = defineProps({
+  identifiers: {
+    type: Array as () => Identifier[],
+    required: true
+  }
+})
 
 const names: string[] = ['Watson, Connie', 'Cinnamon, John', 'Rust, Samatha']
 const year = 2004
@@ -13,12 +21,9 @@ const title = 'Resource title'
 const edition = '1.0'
 const resource_type = 'dataset'
 const publisher = 'Mapping and Geographic Information Centre, British Antarctic Survey'
-const fileIdentifier = '93a1479e-8379-4820-b510-ef8a7639d29d'
-const doiPrefix = '10.5285'
-const doi = `${doiPrefix}/${fileIdentifier}`
 
-let doiCitation = ref('')
-const freetextInput = ref('')
+let doiCitation = ref<string>('')
+let freetextInput = ref<string>('')
 
 const getCitation = async () => {
   // in time these will come from other components
@@ -35,23 +40,39 @@ const getCitation = async () => {
     edition,
     resource_type,
     publisher,
-    doi
+    doi.value
   )
 
-  // doiCitation.value = await fetchCitation(doi)
+  // doiCitation.value = await fetchCitation(doi.value)
 }
 
 const setFreetextInput = () => {
   freetextInput.value = doiCitationFormatted.value
 }
 
+let doi: ComputedRef<string> = computed(() => {
+  const doiIdentifier = props.identifiers.find((i) => i.title === 'doi')
+  if (doiIdentifier) {
+    console.log('sam')
+    return doiIdentifier.identifier
+  }
+  return ''
+})
+
 let doiCitationFormatted: ComputedRef<string> = computed(() => {
-  return formatCitation(doi, doiCitation.value)
+  return formatCitation(doi.value, doiCitation.value)
 })
 
 onMounted(() => {
   getCitation()
 })
+
+watch(
+  () => doi.value,
+  () => {
+    getCitation()
+  }
+)
 </script>
 
 <template>

@@ -8,15 +8,15 @@ const account = 'bas'
 const emit = defineEmits(['add:identifier', 'remove:identifier'])
 
 const create = () => {
-  emit('add:identifier', identifier)
+  emit('add:identifier', identifier.value)
 }
 
 const remove = () => {
-  emit('remove:identifier', identifier)
+  emit('remove:identifier', identifier.value)
 }
 
 let selected = ref<boolean>(false)
-let id = ref<String>('')
+let id = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   return {

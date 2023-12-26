@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted } from 'vue'
+import { computed, type ComputedRef, watch } from 'vue'
 
 import type { Identifier } from '../types/iso'
 
@@ -25,9 +25,12 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   }
 })
 
-onMounted(() => {
-  emit('add:identifier', identifier)
-})
+watch(
+  () => props.fileIdentifier,
+  () => {
+    emit('add:identifier', identifier.value)
+  }
+)
 </script>
 
 <template>

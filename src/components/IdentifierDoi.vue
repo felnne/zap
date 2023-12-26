@@ -15,19 +15,21 @@ const prefix = '10.5285'
 const emit = defineEmits(['add:identifier', 'remove:identifier'])
 
 const create = () => {
-  emit('add:identifier', identifier)
+  emit('add:identifier', identifier.value)
 }
 
 const remove = () => {
-  emit('remove:identifier', identifier)
+  emit('remove:identifier', identifier.value)
 }
 
 let selected = ref<boolean>(false)
 
 let identifier: ComputedRef<Identifier> = computed(() => {
+  let doi: string = `${prefix}/${props.fileIdentifier}`
+
   return {
-    identifier: `doi:${prefix}/${props.fileIdentifier}`,
-    href: `https://doi.org/${prefix}/${props.fileIdentifier}`,
+    identifier: doi,
+    href: `https://doi.org/${doi}`,
     title: 'doi'
   }
 })

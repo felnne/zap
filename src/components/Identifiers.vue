@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
@@ -16,6 +16,8 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['update:identifiers'])
+
 const addIdentifier = (identifier: Identifier) => {
   identifiers.value = [...identifiers.value, identifier]
 }
@@ -25,6 +27,13 @@ const removeIdentifier = (identifier: Identifier) => {
 }
 
 const identifiers = ref<Identifier[]>([])
+
+watch(
+  () => identifiers.value,
+  () => {
+    emit('update:identifiers', identifiers.value)
+  }
+)
 </script>
 
 <template>
