@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Identifiers for BAS Data Catalogue, DOI and Esri
+
+### Changed
+
+- Refactored Identifiers component (using sub-components per Identifier scheme)
+
 ## [0.3.0] - 2023-12-26
 
 ### Added 

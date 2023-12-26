@@ -1,39 +1,51 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
+import IdentifierSelf from './IdentifierSelf.vue'
+import IdentifierDoi from './IdentifierDoi.vue'
+import IdentifierEsri from './IdentifierEsri.vue'
 
 import type { Identifier } from '../types/iso'
 
-const props = defineProps({
-  fileIdentifier: String
+defineProps({
+  fileIdentifier: {
+    type: String,
+    required: true
+  }
 })
 
-const createSelfIdentifier = () => {
-  const selfIdentifierValue = `https://data.bas.ac.uk/items/${props.fileIdentifier}`
-  const selfIdentifier: Identifier = {
-    identifier: selfIdentifierValue,
-    href: selfIdentifierValue,
-    title: 'self'
-  }
-  identifiers.value = [...identifiers.value, selfIdentifier]
+const addIdentifier = (identifier: Identifier) => {
+  identifiers.value = [...identifiers.value, identifier]
 }
 
-const identifiers = ref<Identifier[]>([{ identifier: 'x', href: 'xx', title: 'xxx' }])
+const removeIdentifier = (identifier: Identifier) => {
+  identifiers.value = identifiers.value.filter((i) => i.identifier !== identifier.identifier)
+}
 
-watch(
-  () => props.fileIdentifier,
-  () => {
-    identifiers.value = []
-    createSelfIdentifier()
-  }
-)
+const identifiers = ref<Identifier[]>([])
 </script>
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="identifiers" title="Identifiers" />
-    <Output :data="identifiers"></Output>
+    <div class="flex">
+      <form class="w-1/2 pr-2 flex flex-col">
+        <IdentifierSelf :fileIdentifier="fileIdentifier" @add:identifier="addIdentifier($event)" />
+        <IdentifierDoi
+          :fileIdentifier="fileIdentifier"
+          @add:identifier="addIdentifier($event)"
+          @remove:identifier="removeIdentifier($event)"
+        />
+        <IdentifierEsri
+          @add:identifier="addIdentifier($event)"
+          @remove:identifier="removeIdentifier($event)"
+        />
+      </form>
+      <div class="w-1/2 pl-2 flex flex-col">
+        <Output :data="identifiers"></Output>
+      </div>
+    </div>
   </section>
 </template>
