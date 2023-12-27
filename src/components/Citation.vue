@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '../utils/citation'
+import type { DateImprecise, Organisation } from '../types/app'
 import type { PointOfContact as Contact, Identifier } from '../types/iso'
 
 import SectionTitle from './SectionTitle.vue'
@@ -20,6 +21,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  dates: {
+    type: Array as () => DateImprecise[],
+    required: true
+  },
   contacts: {
     type: Array as () => Contact[],
     required: true
@@ -30,7 +35,6 @@ const props = defineProps({
   }
 })
 
-const year = 2004
 const publisher = 'Mapping and Geographic Information Centre, British Antarctic Survey'
 
 let doiCitation = ref<string>('')
@@ -40,7 +44,7 @@ const getCitation = async () => {
   // in time these will come from other components
   doiCitation.value = await fetchFakeCitation(
     authors.value,
-    year,
+    publishedYear.value,
     props.title,
     props.edition,
     props.resourceType,
@@ -70,6 +74,14 @@ let authors: ComputedRef<string[]> = computed(() => {
     .filter((contact) => contact !== '')
 })
 
+let publishedYear: ComputedRef<string> = computed(() => {
+  const publishedDate = props.dates.find((date) => date.label === 'published')
+  if (publishedDate) {
+    return String(publishedDate.value.getFullYear())
+  }
+  return '?'
+})
+
 let citationFormatted: ComputedRef<string> = computed(() => {
   return formatCitation(doi.value, doiCitation.value)
 })
@@ -84,6 +96,7 @@ watch(
     () => doi.value,
     () => props.edition,
     () => props.title,
+    () => publishedYear.value,
     () => authors.value
   ],
   () => {

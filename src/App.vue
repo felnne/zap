@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import type { DateImprecise } from '../types/app'
 import type { PointOfContact as Contact, Identifier } from './types/iso'
 
 import Abstract from './components/Abstract.vue'
@@ -8,6 +9,7 @@ import AppTitle from './components/AppTitle.vue'
 import ChangeLog from './components/ChangeLog.vue'
 import Citation from './components/Citation.vue'
 import Contacts from './components/Contacts.vue'
+import Dates from './components/Dates.vue'
 import Downloads from './components/Downloads.vue'
 import Edition from './components/Edition.vue'
 import FileIdentifier from './components/FileIdentifier.vue'
@@ -29,6 +31,7 @@ const resourceType = ref<string>('')
 const identifiers = ref<Identifier[]>([])
 const edition = ref<string>('')
 const title = ref<string>('')
+const dates = ref<DateImprecise[]>([])
 const contacts = ref<Contact[]>([])
 
 const tocItems: TocItem[] = [
@@ -38,6 +41,7 @@ const tocItems: TocItem[] = [
   { anchor: 'edition', title: 'Edition' },
   { anchor: 'title', title: 'Title' },
   { anchor: 'abstract', title: 'Abstract' },
+  { anchor: 'dates', title: 'Dates' },
   { anchor: 'geographic-extent', title: 'Spatial extent' },
   { anchor: 'contacts', title: 'Contacts' },
   { anchor: 'citation', title: 'Citation' },
@@ -59,6 +63,7 @@ const tocItems: TocItem[] = [
     <Edition @update:edition="edition = $event" />
     <Title @update:title="title = $event" />
     <Abstract />
+    <Dates @update:dates="dates = $event" />
     <GeographicExtent />
     <Contacts @update:contacts="contacts = $event" />
     <Licence />
@@ -67,6 +72,7 @@ const tocItems: TocItem[] = [
       :identifiers="identifiers"
       :edition="edition"
       :title="title"
+      :dates="dates"
       :contacts="contacts"
     />
     <Downloads />

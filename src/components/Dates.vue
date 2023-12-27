@@ -1,0 +1,122 @@
+<script setup lang="ts">
+import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
+
+import type { DateImprecise } from '../types/app'
+import type { Dates as DatesIso } from '../types/iso'
+import SectionTitle from './SectionTitle.vue'
+import Output from './Output.vue'
+
+const emit = defineEmits(['update:dates'])
+
+const getIsodate = (date: DateImprecise) => {
+  const month = String(date.value.getMonth() + 1).padStart(2, '0')
+  const day = String(date.value.getDate()).padStart(2, '0')
+
+  let value = `${date.value.getFullYear()}`
+  if (date.precision === 'month') {
+    value = `${value}-${month}`
+  }
+  if (date.precision === 'day') {
+    value = `${value}-${month}-${day}`
+  }
+
+  return value
+}
+
+const label = 'published'
+const now = new Date()
+
+const year = ref<number>(now.getFullYear())
+const month = ref<number>(now.getMonth() + 1)
+const day = ref<number>(now.getDate())
+
+let date: ComputedRef<DateImprecise> = computed(() => {
+  const value = new Date(year.value, 1, 1)
+  let precision = 'year'
+
+  if (month.value) {
+    value.setMonth(month.value - 1)
+    precision = 'month'
+  }
+  if (day.value) {
+    value.setDate(day.value)
+    precision = 'day'
+  }
+
+  return { label: label, value: value, precision: precision }
+})
+
+let dates: ComputedRef<DateImprecise[]> = computed(() => {
+  return [date.value]
+})
+
+let datesIso: ComputedRef<DatesIso> = computed(() => {
+  return {
+    [label]: getIsodate(date.value)
+  }
+})
+
+onMounted(() => {
+  emit('update:dates', dates.value)
+})
+
+watch(
+  () => dates.value,
+  () => {
+    emit('update:dates', dates.value)
+  }
+)
+</script>
+
+<template>
+  <section class="mb-5 p-5 border-4 border-gray-500">
+    <SectionTitle anchor="dates" title="Dates" />
+    <p class="text-xl font-semibold text-gray-500 dark:text-gray-200 mb-5">Publication date</p>
+    <div class="flex">
+      <form class="w-1/2 pr-2 flex flex-col gap-y-2">
+        <fieldset class="flex gap-x-2">
+          <div class="space-y-2">
+            <label for="date-year" class="block text-black dark:text-white">Year</label>
+            <input
+              class="w-16 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+              type="number"
+              name="date"
+              id="date-year"
+              v-model="year"
+            />
+          </div>
+          <div class="space-y-2">
+            <label for="date-month" class="block text-black dark:text-white">Month</label>
+            <input
+              class="w-14 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+              type="number"
+              min="0"
+              max="12"
+              name="date"
+              id="date-month"
+              v-model="month"
+            />
+          </div>
+          <div class="space-y-2">
+            <label for="date-day" class="block text-black dark:text-white">Day</label>
+            <input
+              class="w-14 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+              type="number"
+              min="0"
+              max="31"
+              name="date"
+              id="date-day"
+              v-model="day"
+            />
+          </div>
+        </fieldset>
+        <em class="text-black dark:text-white"
+          >If month or day are unknown, use 0. Year is required.</em
+        >
+      </form>
+      <div class="w-1/2 pl-2 flex flex-col">
+        <Output :data="datesIso"></Output>
+      </div>
+    </div>
+  </section>
+</template>

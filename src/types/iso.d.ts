@@ -13,6 +13,10 @@ type Constraint = {
   href: string
 }
 
+export type Dates = {
+  [key: string]: string
+}
+
 export type DistributionOption = {
   format?: Format
   transfer_option: TransferOption

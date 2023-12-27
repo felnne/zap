@@ -1,5 +1,11 @@
 import { type Address, type OnlineResource } from './iso'
 
+export type DateImprecise = {
+  label: string
+  value: Date
+  precision: string
+}
+
 export type Format = {
   slug: string
   ext: string[]

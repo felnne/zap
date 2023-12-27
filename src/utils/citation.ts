@@ -37,7 +37,7 @@ function formatAuthors(authors: string[]): string {
   return ''
 }
 
-function formatYear(year: number): string {
+function formatYear(year: string): string {
   return `(${year}).`
 }
 
@@ -98,7 +98,7 @@ export function formatCitation(doi: string, citation: string): string {
 
 export async function fetchFakeCitation(
   authors: string[],
-  year: number,
+  year: string,
   title: string,
   version: string,
   resource_type: string,

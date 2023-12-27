@@ -15,9 +15,13 @@ import Idea from './Idea.vue'
     <Idea complete>Esri identifier.</Idea>
     <Idea complete>Citation.</Idea>
     <Idea complete>Citation based on real DOI (using CrossCite formatting service).</Idea>
-    <Idea complete>Citation based on generated DOI, Title and Contacts.</Idea>
+    <Idea complete
+      >Citation based on Resource Type, generated DOI, Title, Edition, Publication date and
+      Contacts.</Idea
+    >
     <Idea complete>Resource type section.</Idea>
-    <Idea>Date(s) section.</Idea>
+    <Idea complete>(Published) date section.</Idea>
+    <Idea>Additional dates.</Idea>
     <Idea complete>Edition section.</Idea>
     <Idea>Include `protocol: 'WWW:LINK-1.0-http--link'` in download distribution options.</Idea>
     <Idea>Include WMTS, WFS and Esri in services section.</Idea>
