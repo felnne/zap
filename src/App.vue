@@ -9,6 +9,7 @@ import ChangeLog from './components/ChangeLog.vue'
 import Citation from './components/Citation.vue'
 import Contacts from './components/Contacts.vue'
 import Downloads from './components/Downloads.vue'
+import Edition from './components/Edition.vue'
 import FileIdentifier from './components/FileIdentifier.vue'
 import GeographicExtent from './components/GeographicExtent.vue'
 import Ideas from './components/Ideas.vue'
@@ -17,19 +18,24 @@ import Licence from './components/Licence.vue'
 import Lineage from './components/Lineage.vue'
 import Preface from './components/Preface.vue'
 import Resources from './components/Resources.vue'
+import ResourceType from './components/ResourceType.vue'
 import Services from './components/Services.vue'
 import TableOfContents from './components/TableOfContents.vue'
 import Title from './components/Title.vue'
 import type { TocItem } from './types/app'
 
 const fileIdentifier = ref<string>('')
+const resourceType = ref<string>('')
 const identifiers = ref<Identifier[]>([])
+const edition = ref<string>('')
 const title = ref<string>('')
 const contacts = ref<Contact[]>([])
 
 const tocItems: TocItem[] = [
   { anchor: 'file-identifier', title: 'File identifier' },
+  { anchor: 'resource-type', title: 'Resource type' },
   { anchor: 'identifiers', title: 'Identifiers' },
+  { anchor: 'edition', title: 'Edition' },
   { anchor: 'title', title: 'Title' },
   { anchor: 'abstract', title: 'Abstract' },
   { anchor: 'geographic-extent', title: 'Spatial extent' },
@@ -48,13 +54,21 @@ const tocItems: TocItem[] = [
     <Preface />
     <TableOfContents :items="tocItems" />
     <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
+    <ResourceType @update:resourceType="resourceType = $event" />
     <Identifiers :fileIdentifier="fileIdentifier" @update:identifiers="identifiers = $event" />
+    <Edition @update:edition="edition = $event" />
     <Title @update:title="title = $event" />
     <Abstract />
     <GeographicExtent />
     <Contacts @update:contacts="contacts = $event" />
     <Licence />
-    <Citation :identifiers="identifiers" :title="title" :contacts="contacts" />
+    <Citation
+      :resource-type="resourceType"
+      :identifiers="identifiers"
+      :edition="edition"
+      :title="title"
+      :contacts="contacts"
+    />
     <Downloads />
     <Services />
     <Lineage />

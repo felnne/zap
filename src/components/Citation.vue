@@ -8,23 +8,29 @@ import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
 
 const props = defineProps({
+  resourceType: {
+    type: String,
+    required: true
+  },
   identifiers: {
     type: Array as () => Identifier[],
     required: true
   },
-    contacts: {
-        type: Array as () => Contact[],
-        required: true
-    },
-    title: {
-        type: String,
-        required: true
-    }
+  edition: {
+    type: String,
+    required: true
+  },
+  contacts: {
+    type: Array as () => Contact[],
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  }
 })
 
 const year = 2004
-const edition = '1.0'
-const resource_type = 'dataset'
 const publisher = 'Mapping and Geographic Information Centre, British Antarctic Survey'
 
 let doiCitation = ref<string>('')
@@ -36,8 +42,8 @@ const getCitation = async () => {
     authors.value,
     year,
     props.title,
-    edition,
-    resource_type,
+    props.edition,
+    props.resourceType,
     publisher,
     doi.value
   )
@@ -59,7 +65,9 @@ let doi: ComputedRef<string> = computed(() => {
 })
 
 let authors: ComputedRef<string[]> = computed(() => {
-    return props.contacts.map((contact) => contact.individual?.name ?? '').filter((contact) => contact !== '')
+  return props.contacts
+    .map((contact) => contact.individual?.name ?? '')
+    .filter((contact) => contact !== '')
 })
 
 let citationFormatted: ComputedRef<string> = computed(() => {
@@ -71,7 +79,13 @@ onMounted(() => {
 })
 
 watch(
-    [() => doi.value, () => props.title, () => authors.value],
+  [
+    () => props.resourceType,
+    () => doi.value,
+    () => props.edition,
+    () => props.title,
+    () => authors.value
+  ],
   () => {
     getCitation()
   }

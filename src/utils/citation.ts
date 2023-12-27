@@ -46,12 +46,15 @@ function formatTitle(title: string): string {
 }
 
 function formatVersion(version: string): string {
-  return `(${version})`
+  return `(Version ${version})`
 }
 
 function formatResourceType(resource_type: string): string {
   if (resource_type == 'dataset') {
     return ' [Data set]. '
+  }
+  if (resource_type == 'product') {
+    return ' [Map]. '
   }
 
   return '  '

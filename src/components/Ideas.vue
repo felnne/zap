@@ -16,15 +16,20 @@ import Idea from './Idea.vue'
     <Idea complete>Citation.</Idea>
     <Idea complete>Citation based on real DOI (using CrossCite formatting service).</Idea>
     <Idea complete>Citation based on generated DOI, Title and Contacts.</Idea>
-    <Idea>Resource type section</Idea>
-    <Idea>Date(s) section</Idea>
-    <Idea>Edition section</Idea>
+    <Idea complete>Resource type section.</Idea>
+    <Idea>Date(s) section.</Idea>
+    <Idea complete>Edition section.</Idea>
     <Idea>Include `protocol: 'WWW:LINK-1.0-http--link'` in download distribution options.</Idea>
     <Idea>Include WMTS, WFS and Esri in services section.</Idea>
     <Idea>Download proxy items.</Idea>
     <Idea>Colour code distribution options like JWTs.</Idea>
+    <Idea>Aggregations section.</Idea>
+    <Idea>Collections resource type.</Idea>
     <p class="mt-4 text-black dark:text-white">
-      <em>If there's something else you think would be a good idea let @felnne know.</em>
+      <em
+        >If there's something else you think would be a good idea let
+        <strong>@felnne</strong> know.</em
+      >
     </p>
   </aside>
 </template>
