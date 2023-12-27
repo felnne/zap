@@ -10,6 +10,7 @@
 - Edition element
 - Resource type element
 - Epilogue meta section
+- Initial CI pipeline
 
 ### Changed 
 

@@ -1,0 +1,124 @@
+---
+
+include:
+  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+
+variables:
+  VITE_BUILD_RELEASE: "$CI_COMMIT_TAG"
+  VITE_BUILD_HASH: "$CI_COMMIT_SHA"
+  VITE_BUILD_TIME: "$CI_COMMIT_TIMESTAMP"
+
+  DEPLOY_SRC_PATH: dist/
+  DEPLOY_USER: felnne
+  DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
+  DEPLOY_PATH: /users/felnne/public_html/apps/zap
+  DEPLOY_URL_BASE: http://basweb.nerc-bas.ac.uk/~felnne/apps/zap
+
+image:
+    name: node:lts-alpine
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - 📋 lint
+  - 🏗 build
+  - 🚀 deploy
+
+before_script:
+  - npm install --frozen-lockfile
+
+.before_script_deploy_template: &before_script_deploy
+  before_script:
+    - apk add --no-cache rsync openssh-client
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - 'if [ -n "$CI_COMMIT_TAG" ]; then export DEPLOY_DIR="$CI_COMMIT_TAG"; else export DEPLOY_DIR="$CI_COMMIT_SHORT_SHA"; fi'
+
+lint:
+  stage: 📋 lint
+  needs: []
+  script:
+    - npm run type-check
+    - npm run lint
+    - npm run lint:format
+  rules:
+    -
+      if: '$CI_COMMIT_BRANCH != "main"'
+
+build:
+  stage: 🏗 build
+  needs: []
+  script:
+    - npm run build-only
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 month
+
+deploy:
+    stage: 🚀 deploy
+    needs: ["build"]
+    <<: *before_script_deploy
+    script:
+      - mkdir $DEPLOY_DIR
+      - cp -r $DEPLOY_SRC_PATH/* $DEPLOY_DIR
+      - rsync -avz $DEPLOY_DIR $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+
+deploy_int:
+    stage: 🚀 deploy
+    needs: ["deploy"]
+    <<: *before_script_deploy
+    script:
+      - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/integration"
+    environment:
+      name: Integration
+      url: $DEPLOY_URL_BASE/integration
+    rules:
+      -
+        if: '$CI_COMMIT_BRANCH == "main"'
+
+deploy_prod:
+    stage: 🚀 deploy
+    needs: ["deploy"]
+    <<: *before_script_deploy
+    script:
+      - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/prod"
+    environment:
+      name: Production
+      url: $DEPLOY_URL_BASE/prod
+    rules:
+      -
+        if: '$CI_COMMIT_TAG != null'
+
+review:
+  stage: 🚀 deploy
+  needs: ["deploy"]
+  <<: *before_script_deploy
+  script:
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/review/$CI_COMMIT_REF_SLUG"
+  environment:
+    name: Review/$CI_COMMIT_REF_NAME
+    url: $DEPLOY_URL_BASE/review/$CI_COMMIT_REF_SLUG
+    on_stop: review_stop
+  rules:
+    -
+      if: '$CI_COMMIT_BRANCH != "main"'
+
+review_stop:
+    stage: 🚀 deploy
+    variables:
+      GIT_STRATEGY: none
+    when: manual
+    <<: *before_script_deploy
+    script:
+        - ssh $DEPLOY_USER@$DEPLOY_HOST "rm -rf $DEPLOY_PATH/review/$CI_COMMIT_REF_SLUG"
+    environment:
+        name: Review/$CI_COMMIT_REF_NAME
+        action: stop
