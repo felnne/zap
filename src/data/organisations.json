@@ -20,7 +20,7 @@
       }
     },
     "basMagic": {
-      "slug": "bas",
+      "slug": "basMagic",
       "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
       "ror": "https://ror.org/01rhff309",
       "email": "magic@bas.ac.uk",
@@ -33,9 +33,29 @@
         "country": "United Kingdom"
       },
       "online_resource": {
-        "href": "https://www.bas.ac.uk/team/magic",
+        "href": "https://www.bas.ac.uk/teams/magic",
         "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
         "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+        "function": "information"
+      }
+    },
+    "nercEdsPdc": {
+      "slug": "nercEdsPdc",
+      "name": "NERC EDS UK Polar Data Centre",
+      "ror": "https://ror.org/02b5d8509",
+      "email": "pdcservicedesk@bas.ac.uk",
+      "phone": "+44 (0)1223 221400",
+      "address": {
+        "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+        "city": "Cambridge",
+        "administrative_area": "Cambridgeshire",
+        "postal_code": "CB3 0ET",
+        "country": "United Kingdom"
+      },
+      "online_resource": {
+        "href": "https://www.bas.ac.uk/data/uk-pdc/",
+        "title": "UK Polar Data Centre (UK PDC) - BAS public website",
+        "description": "General information about the UK Polar Data Centre (UK PDC) from the British Antarctic Survey (BAS) public website.",
         "function": "information"
       }
     }

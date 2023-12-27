@@ -1,6 +1,8 @@
 import axios from 'axios'
 import removeMd from 'remove-markdown'
 
+import type { Identifier } from '../types/iso'
+
 function formatName(name: string): string {
   /*
    * In: 'Watson, Connie'
@@ -65,20 +67,47 @@ function formatPublisher(publisher: string): string {
 }
 
 function formatDoi(doi: string): string {
+    const base = 'https://doi.org'
   if (doi == '') {
     return ''
   }
-  return `https://doi.org/${doi}`
+
+  // skip if already formatted
+  if (doi.includes(base)) {
+    return doi
+  }
+
+  return `${base}/${doi}`
 }
 
-export function formatCitation(doi: string, citation: string): string {
+export function formatCitation(citation: string, url: string = '', doi: string = ''): string {
   /*
-   * Reformats the citation returned by CrossCite as MarkDown.
+   * Reformats a citation.
+   *
+   * This method is intended for citations returned by the CrossCite API, however some of the steps below (such as
+   * encoding URLs as Markdown links) may apply to citations from other sources.
    *
    * Steps:
    * 1. replace <i> tags with underscores
    * 2. encode url as a lowercase MarkDown link
    * 3. format citation as a blockquote and add a standard introduction
+   * 
+   * For DOI references is included, specified as `[prefix]/[value]` (e.g. '10.5285/93a1479e'):
+   * - the URL parameter is set to the DOI as a URL (e.g. 'https://doi.org/10.5285/93a1479e')
+   * - to account for UK PDC issued DOIs with uppercase DOI values, the search URL is set to this value to ensure a 
+   *   matched and replacement with a normalised (lowercase) version
+   *
+   * To use, pass the citation string. If the citation includes a URL that is not a DOI, set this as the second
+   * parameter. If the citation includes a DOI, set this as the third parameter.
+   *
+   * Example (no reference):
+   * formatCitation('Watson, C. (2004). Title. Publisher.')
+   *
+   * Example (DOI reference):
+   * formatCitation('Watson, C. (2004). Title. Publisher. https://doi.org/10.5285/93A1479E-8379-4820-B510-EF8A7639D29D', undefined, '10.5285/93a1479e-8379-4820-b510-ef8a7639d29d')
+   *
+   * Example (non-DOI reference):
+   * formatCitation('Watson, C. (2004). Title. Publisher. https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d', 'https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d')
    *
    * Before:
    * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93A1479E-8379-4820-B510-EF8A7639D29D'
@@ -86,14 +115,34 @@ export function formatCitation(doi: string, citation: string): string {
    * After:
    * 'Watson, C., &amp; Cinnamon, J. (2004). _Ice-cream shop locations_ (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
    */
-  const url = formatDoi(doi)
-  const urlUpper = formatDoi(doi.toUpperCase())
+  if (doi != '') {
+    url = formatDoi(doi).toLowerCase()
+    const urlDoiUpper = formatDoi(doi.toUpperCase())
+
+    if (citation.includes(urlDoiUpper)) {
+      url = urlDoiUpper
+    }
+  }
+
+  const searchUrl = url
+  const formattedUrl = `[${url.toLowerCase()}](${url.toLowerCase()})`
   const prefix = 'Required citation: \n > '
 
   const formattedCitation =
-    prefix + citation.replace('<i>', '_').replace('</i>', '_').replace(urlUpper, `[${url}](${url})`)
+    prefix + citation.replace('<i>', '_').replace('</i>', '_').replace(searchUrl, formattedUrl)
 
   return formattedCitation
+}
+
+export function formatReference(identifier: Identifier): string {
+  if (identifier.title == 'data.bas.ac.uk') {
+    return identifier.href
+  }
+  if (identifier.title == 'doi') {
+    return formatDoi(identifier.identifier)
+  }
+
+  return ''
 }
 
 export async function fetchFakeCitation(
@@ -103,7 +152,7 @@ export async function fetchFakeCitation(
   version: string,
   resource_type: string,
   publisher: string,
-  doi: string
+  identifier: Identifier
 ): Promise<string> {
   /*
    * Generated a DOI citation without needing a real DOI.
@@ -124,9 +173,9 @@ export async function fetchFakeCitation(
   const version_ = formatVersion(version)
   const modifier_ = formatResourceType(resource_type)
   const publisher_ = formatPublisher(publisher)
-  const doi_ = formatDoi(doi.toUpperCase())
+  const reference_ = formatReference(identifier)
 
-  const citation = `${authors_} ${year_} ${title_} ${version_}${modifier_}${publisher_} ${doi_}`
+  const citation = `${authors_} ${year_} ${title_} ${version_}${modifier_}${publisher_} ${reference_}`
   return Promise.resolve(citation)
 }
 
