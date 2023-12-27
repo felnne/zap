@@ -67,7 +67,7 @@ function formatPublisher(publisher: string): string {
 }
 
 function formatDoi(doi: string): string {
-    const base = 'https://doi.org'
+  const base = 'https://doi.org'
   if (doi == '') {
     return ''
   }
@@ -91,10 +91,10 @@ export function formatCitation(citation: string, url: string = '', doi: string =
    * 1. replace <i> tags with underscores
    * 2. encode url as a lowercase MarkDown link
    * 3. format citation as a blockquote and add a standard introduction
-   * 
+   *
    * For DOI references is included, specified as `[prefix]/[value]` (e.g. '10.5285/93a1479e'):
    * - the URL parameter is set to the DOI as a URL (e.g. 'https://doi.org/10.5285/93a1479e')
-   * - to account for UK PDC issued DOIs with uppercase DOI values, the search URL is set to this value to ensure a 
+   * - to account for UK PDC issued DOIs with uppercase DOI values, the search URL is set to this value to ensure a
    *   matched and replacement with a normalised (lowercase) version
    *
    * To use, pass the citation string. If the citation includes a URL that is not a DOI, set this as the second

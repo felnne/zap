@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import type { DateImprecise } from '../types/app'
+import type { DateImprecise } from './types/app'
 import type { PointOfContact as Contact, Identifier } from './types/iso'
 
 import Abstract from './components/Abstract.vue'

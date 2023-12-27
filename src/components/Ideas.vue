@@ -29,6 +29,10 @@ import Idea from './Idea.vue'
     <Idea>Colour code distribution options like JWTs.</Idea>
     <Idea>Aggregations section.</Idea>
     <Idea>Collections resource type.</Idea>
+    <Idea>Validation.</Idea>
+    <Idea>Preserving input values (like GitLab editor).</Idea>
+    <Idea>Button to load sample data for all sections.</Idea>
+    <Idea>Record history (deep link to GitLab file history).</Idea>
     <p class="mt-4 text-black dark:text-white">
       <em
         >If there's something else you think would be a good idea let

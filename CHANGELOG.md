@@ -5,6 +5,10 @@
 ### Added
 
 - Identifiers for BAS Data Catalogue, DOI and Esri
+- Citation element, including CrossCite API and locally generated APA formatted initial values
+- Publication date element
+- Edition element
+- Resource type element
 
 ### Fixed
 
