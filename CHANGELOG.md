@@ -9,6 +9,15 @@
 - Publication date element
 - Edition element
 - Resource type element
+- Epilogue meta section
+
+### Changed 
+
+- Preface meta section renamed to Prologue to fit with new Epilogue section
+
+### Removed
+
+- In-app change log section
 
 ### Fixed
 

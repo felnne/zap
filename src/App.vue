@@ -6,19 +6,19 @@ import type { PointOfContact as Contact, Identifier } from './types/iso'
 
 import Abstract from './components/Abstract.vue'
 import AppTitle from './components/AppTitle.vue'
-import ChangeLog from './components/ChangeLog.vue'
 import Citation from './components/Citation.vue'
 import Contacts from './components/Contacts.vue'
 import Dates from './components/Dates.vue'
 import Downloads from './components/Downloads.vue'
 import Edition from './components/Edition.vue'
+import Epilogue from './components/Epilogue.vue'
 import FileIdentifier from './components/FileIdentifier.vue'
 import GeographicExtent from './components/GeographicExtent.vue'
 import Ideas from './components/Ideas.vue'
 import Identifiers from './components/Identifiers.vue'
 import Licence from './components/Licence.vue'
 import Lineage from './components/Lineage.vue'
-import Preface from './components/Preface.vue'
+import Prologue from './components/Prologue.vue'
 import Resources from './components/Resources.vue'
 import ResourceType from './components/ResourceType.vue'
 import Services from './components/Services.vue'
@@ -55,7 +55,7 @@ const tocItems: TocItem[] = [
 <template>
   <main class="bg-white dark:bg-gray-800 font-sans-serif p-10 mt-0">
     <AppTitle />
-    <Preface />
+    <Prologue />
     <TableOfContents :items="tocItems" />
     <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
     <ResourceType @update:resourceType="resourceType = $event" />
@@ -80,6 +80,6 @@ const tocItems: TocItem[] = [
     <Lineage />
     <Resources />
     <Ideas />
-    <ChangeLog />
+    <Epilogue />
   </main>
 </template>
