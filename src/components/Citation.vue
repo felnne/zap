@@ -10,6 +10,7 @@ import Freetext from './Freetext.vue'
 import GuidanceText from './GuidanceText.vue'
 import Link from './Link.vue'
 import Button from './Button.vue'
+import SectionBorder from './SectionBorder.vue'
 import SectionLabel from './SectionLabel.vue'
 import Prose from './Prose.vue'
 
@@ -149,7 +150,7 @@ watch(
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
+  <SectionBorder>
     <SectionTitle anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
@@ -170,5 +171,5 @@ watch(
       </div>
     </div>
     <Freetext v-if="citation" :input="freetextInput" input-class="min-h-60" />
-  </section>
+  </SectionBorder>
 </template>

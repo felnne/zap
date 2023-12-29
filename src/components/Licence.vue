@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import Output from './Output.vue'
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import FormLabel from './FormLabel.vue'
 
@@ -35,7 +36,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
+  <SectionBorder>
     <SectionTitle anchor="licence" title="Licence" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
@@ -54,5 +55,5 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
         <Output :data="licenceConstraint"></Output>
       </div>
     </div>
-  </section>
+  </SectionBorder>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TocItem } from '../types/app'
 
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Link from './Link.vue'
 
@@ -13,12 +14,12 @@ defineProps({
 </script>
 
 <template>
-  <aside class="mb-5 p-5 border-4 border-sky-500">
+  <SectionBorder class="border-sky-500">
     <SectionTitle anchor="toc" title="Elements" />
     <div class="grid grid-cols-4 gap-2">
       <Link v-for="item in items" :key="item.anchor" :href="`#${item.anchor}`">{{
         item.title
       }}</Link>
     </div>
-  </aside>
+  </SectionBorder>
 </template>

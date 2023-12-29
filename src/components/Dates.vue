@@ -4,6 +4,7 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import type { DateImprecise } from '../types/app'
 import type { Dates as DatesIso } from '../types/iso'
 
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 import GuidanceText from './GuidanceText.vue'
@@ -73,7 +74,7 @@ watch(
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
+  <SectionBorder>
     <SectionTitle anchor="dates" title="Dates" sub-title="Publication date" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col gap-y-2">
@@ -113,5 +114,5 @@ watch(
         <Output :data="datesIso"></Output>
       </div>
     </div>
-  </section>
+  </SectionBorder>
 </template>

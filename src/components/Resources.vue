@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Link from './Link.vue'
 </script>
 
 <template>
-  <aside class="mb-5 p-5 border-4 border-sky-500">
+  <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle anchor="resources" title="Resources" />
     <p class="text-black dark:text-white">
       Examples of completed records can be found in the
@@ -13,5 +14,5 @@ import Link from './Link.vue'
       >
       repository in GitLab.
     </p>
-  </aside>
+  </SectionBorder>
 </template>

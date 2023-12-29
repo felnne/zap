@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 </script>
 
 <template>
-  <aside class="mb-5 p-5 border-4 border-amber-400 text-black dark:text-white">
+  <SectionBorder border-colour-class="border-amber-400">
     <SectionTitle anchor="prologue" title="⚠️ Experimental" />
     <div class="space-y-2">
       <p class="font-bold">This tool is experimental and must not be relied upon.</p>
@@ -12,5 +13,5 @@ import SectionTitle from './SectionTitle.vue'
         working unexpectedly.
       </p>
     </div>
-  </aside>
+  </SectionBorder>
 </template>

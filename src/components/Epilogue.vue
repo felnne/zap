@@ -3,6 +3,7 @@ import { computed, type ComputedRef } from 'vue'
 
 import Link from './Link.vue'
 
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 
 let release: ComputedRef<string> = computed(() => {
@@ -27,7 +28,7 @@ let timeDisplay: ComputedRef<string> = computed(() => {
 </script>
 
 <template>
-  <aside class="mb-5 p-5 border-4 border-sky-500">
+  <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle anchor="epilogue" title="Meta" />
     <div class="flex">
       <div class="flex-1 space-y-2">
@@ -41,5 +42,5 @@ let timeDisplay: ComputedRef<string> = computed(() => {
         <time :datetime="time"></time> {{ timeDisplay }}
       </div>
     </div>
-  </aside>
+  </SectionBorder>
 </template>

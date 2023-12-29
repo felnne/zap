@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 
@@ -15,8 +16,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
+  <SectionBorder>
     <SectionTitle anchor="file-identifier" title="File identifier" />
     <Output :data="uuid"></Output>
-  </section>
+  </SectionBorder>
 </template>

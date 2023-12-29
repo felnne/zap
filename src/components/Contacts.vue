@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 import FormLabel from './FormLabel.vue'
@@ -75,7 +76,7 @@ watch(
 </script>
 
 <template>
-  <section class="mb-5 p-5 border-4 border-gray-500">
+  <SectionBorder>
     <SectionTitle anchor="contacts" title="Contacts" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
@@ -94,5 +95,5 @@ watch(
         <Output pre-class="max-h-96" :data="contacts"></Output>
       </div>
     </div>
-  </section>
+  </SectionBorder>
 </template>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import SectionBorder from './SectionBorder.vue'
 import SectionTitle from './SectionTitle.vue'
 import Idea from './Idea.vue'
 </script>
 
 <template>
-  <aside class="mb-5 p-5 border-4 border-sky-500">
+  <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle anchor="ideas" title="Ideas" />
     <Idea>BAS Research Topics topic keywords.</Idea>
     <Idea>ISO topic mapped from research topic.</Idea>
@@ -39,5 +40,5 @@ import Idea from './Idea.vue'
         <strong>@felnne</strong> know.</em
       >
     </p>
-  </aside>
+  </SectionBorder>
 </template>
