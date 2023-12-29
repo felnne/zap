@@ -12,6 +12,7 @@ variables:
   DEPLOY_USER: felnne
   DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
   DEPLOY_PATH: /users/felnne/public_html/apps/zap
+  DEPLOY_REVIEW_APP_PREFIX: review
   DEPLOY_URL_BASE: http://basweb.nerc-bas.ac.uk/~felnne/apps/zap
 
 image:
@@ -102,14 +103,14 @@ review:
   needs: ["deploy"]
   <<: *before_script_deploy
   script:
-    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/review/$CI_COMMIT_REF_SLUG"
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
   environment:
     name: Review/$CI_COMMIT_REF_NAME
-    url: $DEPLOY_URL_BASE/review/$CI_COMMIT_REF_SLUG
+    url: $DEPLOY_URL_BASE/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG
     on_stop: review_stop
   rules:
     -
-      if: '$CI_COMMIT_BRANCH != "main"'
+      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG != null'
 
 review_stop:
     stage: 🚀 deploy
@@ -118,7 +119,7 @@ review_stop:
     when: manual
     <<: *before_script_deploy
     script:
-        - ssh $DEPLOY_USER@$DEPLOY_HOST "rm -rf $DEPLOY_PATH/review/$CI_COMMIT_REF_SLUG"
+        - ssh $DEPLOY_USER@$DEPLOY_HOST "rm $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
     environment:
         name: Review/$CI_COMMIT_REF_NAME
         action: stop

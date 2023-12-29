@@ -9,6 +9,7 @@
 ### Changed
 
 - Updating branding
+- Review apps now use a a `review-` prefix rather than a `review` sub-directory
 
 ## [0.4.0] - 2023-12-27
 
