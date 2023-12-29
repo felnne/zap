@@ -42,12 +42,6 @@ const props = defineProps({
   }
 })
 
-const orgMagic: Organisation = organisationsData.organisations['basMagic']
-const orgPdc: Organisation = organisationsData.organisations['nercEdsPdc']
-
-let citation = ref<string>('')
-let freetextInput = ref<string>('')
-
 const getCitation = async () => {
   citation.value = await fetchFakeCitation(
     authors.value,
@@ -67,6 +61,9 @@ const setFreetextInput = () => {
   freetextInput.value = citationFormatted.value
 }
 
+const orgMagic: Organisation = organisationsData.organisations['basMagic']
+const orgPdc: Organisation = organisationsData.organisations['nercEdsPdc']
+
 const nullIdentifier: Identifier = {
   identifier: '',
   href: '',
@@ -74,6 +71,9 @@ const nullIdentifier: Identifier = {
 }
 
 const citationProseClasses = ['prose-sm']
+
+let citation = ref<string>('')
+let freetextInput = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   /*
