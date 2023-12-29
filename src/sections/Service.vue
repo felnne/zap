@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from './Output.vue'
-import FormLabel from './FormLabel.vue'
-import FormInput from './FormInput.vue'
+import Output from '../components/Output.vue'
+import FormLabel from '../components/FormLabel.vue'
+import FormInput from '../components/FormInput.vue'
 
 import servicesData from '../data/services.json'
 import organisationsData from '../data/organisations.json'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from './Output.vue'
+import Output from '../components/Output.vue'
 
 import type { Format, Organisation } from '../types/app'
 import type {

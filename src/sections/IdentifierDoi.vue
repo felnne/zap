@@ -3,7 +3,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import type { Identifier } from '../types/iso'
 
-import FormLabel from './FormLabel.vue'
+import FormLabel from '../components/FormLabel.vue'
 
 const props = defineProps({
   fileIdentifier: {

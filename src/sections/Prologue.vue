@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SectionBorder from './SectionBorder.vue'
-import SectionTitle from './SectionTitle.vue'
+import SectionBorder from '../components/SectionBorder.vue'
+import SectionTitle from '../components/SectionTitle.vue'
 </script>
 
 <template>

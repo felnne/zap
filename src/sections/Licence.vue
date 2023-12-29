@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from './Output.vue'
-import SectionBorder from './SectionBorder.vue'
-import SectionTitle from './SectionTitle.vue'
-import FormLabel from './FormLabel.vue'
+import Output from '../components/Output.vue'
+import SectionBorder from '../components/SectionBorder.vue'
+import SectionTitle from '../components/SectionTitle.vue'
+import FormLabel from '../components/FormLabel.vue'
 
 import type { Licence } from '../types/app'
 import type { Constraint } from '../types/iso'

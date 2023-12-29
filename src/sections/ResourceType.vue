@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
-import SectionBorder from './SectionBorder.vue'
-import SectionTitle from './SectionTitle.vue'
-import Output from './Output.vue'
-import FormLabel from './FormLabel.vue'
+import SectionBorder from '../components/SectionBorder.vue'
+import SectionTitle from '../components/SectionTitle.vue'
+import Output from '../components/Output.vue'
+import FormLabel from '../components/FormLabel.vue'
 
 const emit = defineEmits(['update:resourceType'])
 

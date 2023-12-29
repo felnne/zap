@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
-import SectionBorder from './SectionBorder.vue'
-import SectionTitle from './SectionTitle.vue'
-import Output from './Output.vue'
+import SectionBorder from '../components/SectionBorder.vue'
+import SectionTitle from '../components/SectionTitle.vue'
+import Output from '../components/Output.vue'
 import IdentifierSelf from './IdentifierSelf.vue'
 import IdentifierDoi from './IdentifierDoi.vue'
 import IdentifierEsri from './IdentifierEsri.vue'

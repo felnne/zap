@@ -22,6 +22,7 @@
 - Refactoring text areas into a `FormTextarea` component
 - Refactoring non-radio/checkbox form inputs into a `FormInput` component
 - Refactor section wrappers into a `SectionBorder` component
+- Refactoring section components to separate (sections) module
 
 ## [0.4.0] - 2023-12-27
 

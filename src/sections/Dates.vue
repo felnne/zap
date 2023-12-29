@@ -4,12 +4,12 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import type { DateImprecise } from '../types/app'
 import type { Dates as DatesIso } from '../types/iso'
 
-import SectionBorder from './SectionBorder.vue'
-import SectionTitle from './SectionTitle.vue'
-import Output from './Output.vue'
-import GuidanceText from './GuidanceText.vue'
-import FormLabel from './FormLabel.vue'
-import FormInput from './FormInput.vue'
+import SectionBorder from '../components/SectionBorder.vue'
+import SectionTitle from '../components/SectionTitle.vue'
+import Output from '../components/Output.vue'
+import GuidanceText from '../components/GuidanceText.vue'
+import FormLabel from '../components/FormLabel.vue'
+import FormInput from '../components/FormInput.vue'
 
 const emit = defineEmits(['update:dates'])
 
