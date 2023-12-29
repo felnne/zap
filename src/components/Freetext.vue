@@ -5,6 +5,7 @@ import MarkdownIt from 'markdown-it'
 import Output from './Output.vue'
 import SectionLabel from './SectionLabel.vue';
 import Prose from './Prose.vue'
+import FormTextarea from './FormTextarea.vue'
 
 const markdown = new MarkdownIt()
 
@@ -61,12 +62,13 @@ watch(
     <div class="flex mb-4">
       <form class="w-1/2 pr-2 flex flex-col">
         <SectionLabel>Input</SectionLabel>
-        <textarea
-          :class="`w-full bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white flex-grow ${inputClass}`"
+        <FormTextarea
+          class="w-full flex-grow"
+          :class="inputClass"
           name="freetext"
           id="freetext"
           v-model="text"
-        ></textarea>
+        ></FormTextarea>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <SectionLabel class="text-sky-500">Preview</SectionLabel>

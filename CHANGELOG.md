@@ -19,6 +19,7 @@
 - Refactoring form labels into a `FormLabel` component
 - Refactoring labels within sections (e.g. input and preview) into a `SectionLabel` component
 - Refactoring prose HTML output sections into a `Prose` component
+- Refactoring text areas into a `FormTextarea` component
 
 ## [0.4.0] - 2023-12-27
 
