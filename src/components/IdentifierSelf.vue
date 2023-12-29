@@ -3,6 +3,9 @@ import { computed, type ComputedRef, watch } from 'vue'
 
 import type { Identifier } from '../types/iso'
 
+import FormLabel from './FormLabel.vue'
+
+
 const props = defineProps({
   fileIdentifier: {
     type: String,
@@ -34,7 +37,7 @@ watch(
 </script>
 
 <template>
-  <label class="text-black dark:text-white">
+  <FormLabel>
     <input
       class="cursor-not-allowed"
       type="checkbox"
@@ -44,5 +47,5 @@ watch(
       v-model="selected"
     />
     BAS Data Catalogue (<em>required</em>)
-  </label>
+  </FormLabel>
 </template>

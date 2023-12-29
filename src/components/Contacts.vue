@@ -3,6 +3,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
+import FormLabel from './FormLabel.vue'
 
 import type { Individual, Organisation } from '../types/app'
 import type { PointOfContact as Contact } from '../types/iso'
@@ -78,10 +79,9 @@ watch(
     <SectionTitle anchor="contacts" title="Contacts" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
-        <label
+        <FormLabel
           v-for="individual in individuals"
           :key="individual.email"
-          class="text-black dark:text-white"
         >
           <input
             type="checkbox"
@@ -91,7 +91,7 @@ watch(
             @change="toggleCheck(individual.email)"
           />
           {{ individual.name }}
-        </label>
+      </FormLabel>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <Output pre-class="max-h-96" :data="contacts"></Output>

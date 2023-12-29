@@ -3,6 +3,7 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
+import FormLabel from './FormLabel.vue'
 
 import type { WellKnownExtent } from '../types/app'
 import type { Extent } from '../types/iso'
@@ -40,7 +41,7 @@ let extent: ComputedRef<Extent> = computed(() => {
     <SectionTitle anchor="spatial-extent" title="Spatial extent" sub-title="Well-known extents" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
-        <label v-for="wke in wellKnownExtents" :key="wke.slug" class="text-black dark:text-white">
+        <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
           <input
             type="radio"
             name="licences"
@@ -49,7 +50,7 @@ let extent: ComputedRef<Extent> = computed(() => {
             v-model="selectedWkeSlug"
           />
           {{ wke.name }}
-        </label>
+        </FormLabel>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <Output :data="extent"></Output>

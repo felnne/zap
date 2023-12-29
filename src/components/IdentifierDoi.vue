@@ -3,6 +3,8 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import type { Identifier } from '../types/iso'
 
+import FormLabel from './FormLabel.vue'
+
 const props = defineProps({
   fileIdentifier: {
     type: String,
@@ -44,8 +46,8 @@ watch(selected, (value) => {
 </script>
 
 <template>
-  <label class="text-black dark:text-white">
+  <FormLabel>
     <input type="checkbox" name="identifiers" :id="'identifier-doi-selection'" v-model="selected" />
     DOI (NERC prefix)
-  </label>
+  </FormLabel>
 </template>

@@ -3,6 +3,7 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import Output from './Output.vue'
 import SectionTitle from './SectionTitle.vue'
+import FormLabel from './FormLabel.vue'
 
 import type { Licence } from '../types/app'
 import type { Constraint } from '../types/iso'
@@ -38,7 +39,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
     <SectionTitle anchor="licence" title="Licence" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
-        <label v-for="licence in licences" :key="licence.url" class="text-black dark:text-white">
+        <FormLabel v-for="licence in licences" :key="licence.url">
           <input
             type="radio"
             name="licences"
@@ -47,7 +48,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
             v-model="selectedLicenceUrl"
           />
           {{ licence.name }}
-        </label>
+        </FormLabel>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <Output :data="licenceConstraint"></Output>
