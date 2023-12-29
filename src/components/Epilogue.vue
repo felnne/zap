@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
+import Link from './Link.vue'
+
 import SectionTitle from './SectionTitle.vue'
 
 let release: ComputedRef<string> = computed(() => {
@@ -29,13 +31,7 @@ let timeDisplay: ComputedRef<string> = computed(() => {
     <SectionTitle anchor="epilogue" title="Meta" />
     <div class="flex">
       <div class="flex-1 space-y-2">
-        <p>
-          <a
-            class="underline text-blue-600 dark:text-blue-200"
-            href="https://gitlab.data.bas.ac.uk/felnne/zap"
-            >GitLab project</a
-          >.
-        </p>
+        <Link href="https://gitlab.data.bas.ac.uk/felnne/zap">GitLab Project</Link>
       </div>
       <div class="flex-1 text-right text-black dark:text-white">
         {{ release }}

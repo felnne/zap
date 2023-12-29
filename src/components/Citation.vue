@@ -7,6 +7,7 @@ import type { PointOfContact as Contact, Identifier } from '../types/iso'
 
 import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
+import Link from './Link.vue'
 
 import organisationsData from '../data/organisations.json'
 
@@ -160,12 +161,8 @@ watch(
         <em class="text-black dark:text-white"
           >Click to copy this citation, with
           <a
+          <Link
             href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/src/utils/crosscite.ts#L66"
-            class="underline text-blue-600 dark:text-blue-200"
-            target="_blank"
-            rel="noopener"
-            >some modifications</a
-          >, into the input below.</em
         >
       </div>
     </div>

@@ -3,6 +3,8 @@ import { onMounted } from 'vue'
 
 import type { TocItem } from '../types/app'
 
+import Link from './Link.vue'
+
 const props = defineProps({
   anchor: {
     type: String,
@@ -36,15 +38,8 @@ onMounted(() => {
       {{ title }}
     </h2>
     <div class="flex gap-4">
-      <a
-        v-if="guidanceHref"
-        class="text-blue-600 dark:text-blue-200 underline"
-        :href="guidanceHref"
-        target="_blank"
-        rel="noopener noreferrer"
-        >View Guidance</a
-      >
-      <a class="ml-auto bg-transparent dark:bg-gray-200" href="#top">🔝</a>
+      <Link v-if="guidanceHref" :href="guidanceHref">View Guidance</Link>
+      <Link class="ml-auto no-underline bg-transparent dark:bg-gray-200" href="#top">🔝</Link>
     </div>
   </header>
 </template>

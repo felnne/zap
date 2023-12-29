@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SectionTitle from './SectionTitle.vue'
+import Link from './Link.vue'
 </script>
 
 <template>
@@ -7,10 +8,8 @@ import SectionTitle from './SectionTitle.vue'
     <SectionTitle anchor="resources" title="Resources" />
     <p class="text-black dark:text-white">
       Examples of completed records can be found in the
-      <a
-        class="underline text-blue-800 dark:text-blue-200"
-        href="https://gitlab.data.bas.ac.uk/MAGIC/add-catalogue-records-production"
-        >Data Catalogue Records</a
+      <Link href="https://gitlab.data.bas.ac.uk/MAGIC/add-catalogue-records-production"
+        >Data Catalogue Records</Link
       >
       repository in GitLab.
     </p>
