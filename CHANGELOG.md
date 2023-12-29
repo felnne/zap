@@ -17,6 +17,7 @@
 - Refactoring buttons into a `Button` base component
 - Refactoring section sub-titles into a `SectionTitle` component
 - Refactoring form labels into a `FormLabel` component
+- Refactoring labels within sections (e.g. input and preview) into a `SectionLabel` component
 
 ## [0.4.0] - 2023-12-27
 
