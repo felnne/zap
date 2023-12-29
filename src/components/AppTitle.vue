@@ -1,6 +1,9 @@
 <template>
-  <a id="top" href="#" class="invisible">Top</a>
-  <h1 class="text-3xl font-semibold mb-10 text-gray-800 dark:text-white">
-    Experimental tools for MAGIC ISO 19115 metadata records (<em>Zap ⚡️</em>)
-  </h1>
-</template>
+    <header class="flex items-center mb-10">
+        <img class="rounded-full object-cover h-28" src="/logo.png" />
+      <h1 class="ml-4 space-y-2 text-3xl font-semibold text-gray-800 dark:text-white">
+          <p class="italic">Zap ⚡️</p>
+          <p>Experimental MAGIC ISO 19115 metadata tools</p>
+      </h1>
+    </header>
+  </template>
