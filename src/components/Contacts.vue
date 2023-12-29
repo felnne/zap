@@ -79,10 +79,7 @@ watch(
     <SectionTitle anchor="contacts" title="Contacts" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
-        <FormLabel
-          v-for="individual in individuals"
-          :key="individual.email"
-        >
+        <FormLabel v-for="individual in individuals" :key="individual.email">
           <input
             type="checkbox"
             name="individuals"
@@ -91,7 +88,7 @@ watch(
             @change="toggleCheck(individual.email)"
           />
           {{ individual.name }}
-      </FormLabel>
+        </FormLabel>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <Output pre-class="max-h-96" :data="contacts"></Output>

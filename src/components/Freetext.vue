@@ -3,7 +3,7 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import MarkdownIt from 'markdown-it'
 
 import Output from './Output.vue'
-import SectionLabel from './SectionLabel.vue';
+import SectionLabel from './SectionLabel.vue'
 import Prose from './Prose.vue'
 import FormTextarea from './FormTextarea.vue'
 

@@ -19,10 +19,10 @@ const props = defineProps({
 })
 
 let additionalClasses: ComputedRef<string[]> = computed(() => {
-    return [...props.proseClasses, props.borderColourClass];
+  return [...props.proseClasses, props.borderColourClass]
 })
 </script>
 
 <template>
-   <div class="prose p-2 border w-full max-w-none" :class="additionalClasses" v-html="content"></div>
+  <div class="prose p-2 border w-full max-w-none" :class="additionalClasses" v-html="content"></div>
 </template>

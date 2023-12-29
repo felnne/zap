@@ -7,7 +7,10 @@ import SectionTitle from './SectionTitle.vue'
     <SectionTitle anchor="prologue" title="⚠️ Experimental" />
     <div class="space-y-2">
       <p class="font-bold">This tool is experimental and must not be relied upon.</p>
-      <p>It may become properly supported if it proves useful enough. Features may change or stop working unexpectedly.</p>
+      <p>
+        It may become properly supported if it proves useful enough. Features may change or stop
+        working unexpectedly.
+      </p>
     </div>
   </aside>
 </template>

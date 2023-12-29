@@ -153,7 +153,11 @@ watch(
     <SectionTitle anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
-      <Prose border-colour-class="border-gray-500" :prose-classes="citationProseClasses" :content="citation"></Prose>
+      <Prose
+        border-colour-class="border-gray-500"
+        :prose-classes="citationProseClasses"
+        :content="citation"
+      ></Prose>
       <div class="space-x-2 flex items-center">
         <Button @click="setFreetextInput">Copy to input</Button>
         <GuidanceText

@@ -5,7 +5,6 @@ import type { Identifier } from '../types/iso'
 
 import FormLabel from './FormLabel.vue'
 
-
 const props = defineProps({
   fileIdentifier: {
     type: String,
