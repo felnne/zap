@@ -72,8 +72,7 @@ watch(
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle anchor="dates" title="Dates" />
-    <p class="text-xl font-semibold text-gray-500 dark:text-gray-200 mb-5">Publication date</p>
+    <SectionTitle anchor="dates" title="Dates" sub-title="Publication date" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col gap-y-2">
         <fieldset class="flex gap-x-2">

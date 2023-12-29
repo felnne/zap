@@ -15,6 +15,7 @@
 - Refactoring links into a `Link` base component
 - Refactoring guidance text into a `GuidanceText` base component
 - Refactoring buttons into a `Button` base component
+- Refactoring section sub-titles into a `SectionTitle` component
 
 ## [0.4.0] - 2023-12-27
 

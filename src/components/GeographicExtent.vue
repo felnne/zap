@@ -37,8 +37,7 @@ let extent: ComputedRef<Extent> = computed(() => {
 
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
-    <SectionTitle anchor="spatial-extent" title="Spatial extent" />
-    <p class="text-xl font-semibold text-gray-500 dark:text-gray-200 mb-5">Well-known extents</p>
+    <SectionTitle anchor="spatial-extent" title="Spatial extent" sub-title="Well-known extents" />
     <div class="flex">
       <form class="w-1/2 pr-2 flex flex-col">
         <label v-for="wke in wellKnownExtents" :key="wke.slug" class="text-black dark:text-white">
