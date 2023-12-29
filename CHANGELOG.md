@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Back to top link moved to component and no longer effects page layout
+- Back to top link moved to a component and no longer effects page layout
 
 ### Changed
 
@@ -21,7 +21,7 @@
 - Refactoring prose HTML output sections into a `Prose` component
 - Refactoring text areas into a `FormTextarea` component
 - Refactoring non-radio/checkbox form inputs into a `FormInput` component
-- Refactor section wrappers into a `SectionBorder` component
+- Refactoring section wrappers into a `SectionBorder` component
 - Refactoring section components to separate (sections) module
 - Upgrading VueJS to 3.4 and other dependencies to latest versions
 
