@@ -6,6 +6,7 @@ import type { PointOfContact as Contact, Identifier } from './types/iso'
 
 import Abstract from './components/Abstract.vue'
 import AppTitle from './components/AppTitle.vue'
+import BackToTop from './components/BackToTop.vue'
 import Citation from './components/Citation.vue'
 import Contacts from './components/Contacts.vue'
 import Dates from './components/Dates.vue'
@@ -53,7 +54,8 @@ const tocItems: TocItem[] = [
 </script>
 
 <template>
-  <main class="bg-white dark:bg-gray-800 font-sans-serif p-10 mt-0">
+  <main class="bg-white dark:bg-gray-800 font-sans-serif p-10">
+    <BackToTop />
     <AppTitle />
     <Prologue />
     <TableOfContents :items="tocItems" />

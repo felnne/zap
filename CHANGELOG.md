@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Back to top link moved to component and no longer effects page layout
+
 ### Changed
 
 - Updating branding
