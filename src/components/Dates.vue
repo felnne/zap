@@ -8,6 +8,7 @@ import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
 import GuidanceText from './GuidanceText.vue'
 import FormLabel from './FormLabel.vue'
+import FormInput from './FormInput.vue'
 
 const emit = defineEmits(['update:dates'])
 
@@ -79,18 +80,12 @@ watch(
         <fieldset class="flex gap-x-2">
           <div class="space-y-2">
             <FormLabel for="date-year" class="block">Year</FormLabel>
-            <input
-              class="w-16 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
-              type="number"
-              name="date"
-              id="date-year"
-              v-model="year"
-            />
+            <FormInput class="w-16" type="number" name="date" id="date-year" v-model="year" />
           </div>
           <div class="space-y-2">
             <FormLabel for="date-month" class="block">Month</FormLabel>
-            <input
-              class="w-14 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+            <FormInput
+              class="w-14"
               type="number"
               min="0"
               max="12"
@@ -101,8 +96,8 @@ watch(
           </div>
           <div class="space-y-2">
             <FormLabel for="date-day" class="block">Day</FormLabel>
-            <input
-              class="w-14 bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+            <FormInput
+              class="w-14"
               type="number"
               min="0"
               max="31"

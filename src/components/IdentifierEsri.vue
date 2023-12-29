@@ -4,6 +4,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 import type { Identifier } from '../types/iso'
 
 import FormLabel from './FormLabel.vue'
+import FormInput from './FormInput.vue'
 
 const account = 'bas'
 
@@ -49,8 +50,7 @@ watch(selected, (value) => {
       Esri (BAS AGOL account)
     </FormLabel>
     <FormLabel>Item ID</FormLabel>
-    <input
-      class="flex-grow bg-white dark:bg-gray-800 border border-black dark:border-white text-black dark:text-white disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed"
+    <FormInput
       type="text"
       name="identifier-esri-id"
       id="identifier-esri-id"
