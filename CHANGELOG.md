@@ -23,6 +23,7 @@
 - Refactoring non-radio/checkbox form inputs into a `FormInput` component
 - Refactor section wrappers into a `SectionBorder` component
 - Refactoring section components to separate (sections) module
+- Upgrading VueJS to 3.4 and other dependencies to latest versions
 
 ## [0.4.0] - 2023-12-27
 
