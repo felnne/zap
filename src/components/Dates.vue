@@ -3,8 +3,10 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import type { DateImprecise } from '../types/app'
 import type { Dates as DatesIso } from '../types/iso'
+
 import SectionTitle from './SectionTitle.vue'
 import Output from './Output.vue'
+import GuidanceText from './GuidanceText.vue'
 
 const emit = defineEmits(['update:dates'])
 
@@ -110,9 +112,7 @@ watch(
             />
           </div>
         </fieldset>
-        <em class="text-black dark:text-white"
-          >If month or day are unknown, use 0. Year is required.</em
-        >
+        <GuidanceText>If month or day are unknown, use 0. Year is required.</GuidanceText>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
         <Output :data="datesIso"></Output>
