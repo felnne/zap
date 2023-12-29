@@ -11,6 +11,7 @@
 - Updating branding
 - Review apps now use a a `review-` prefix rather than a `review` sub-directory
 - Skipping `lint` CI task for tags in CI
+- Tweaking Prologue component language
 
 ## [0.4.0] - 2023-12-27
 

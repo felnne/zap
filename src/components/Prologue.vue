@@ -6,8 +6,8 @@ import SectionTitle from './SectionTitle.vue'
   <aside class="mb-5 p-5 border-4 border-amber-400 text-black dark:text-white">
     <SectionTitle anchor="prologue" title="⚠️ Experimental" />
     <div class="space-y-2">
-      <p><strong>This tool is an experiment and should not be relied upon.</strong></p>
-      <p>If it proves useful then it may form the basis of a more official set of tools.</p>
+      <p class="font-bold">This tool is experimental and must not be relied upon.</p>
+      <p>It may become properly supported if it proves useful enough. Features may change or stop working unexpectedly.</p>
     </div>
   </aside>
 </template>
