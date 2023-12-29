@@ -4,6 +4,7 @@ import MarkdownIt from 'markdown-it'
 
 import Output from './Output.vue'
 import SectionLabel from './SectionLabel.vue';
+import Prose from './Prose.vue'
 
 const markdown = new MarkdownIt()
 
@@ -68,11 +69,8 @@ watch(
         ></textarea>
       </form>
       <div class="w-1/2 pl-2 flex flex-col">
-        <div
-          class="w-full p-2 border border-gray-400 prose lg:prose-lg max-w-none flex-grow"
-          v-html="textMarkdown"
-        ></div>
         <SectionLabel class="text-sky-500">Preview</SectionLabel>
+        <Prose class="flex-grow" :content="textMarkdown"></Prose>
       </div>
     </div>
     <Output :data="textJson"></Output>

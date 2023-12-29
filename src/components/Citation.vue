@@ -11,6 +11,7 @@ import GuidanceText from './GuidanceText.vue'
 import Link from './Link.vue'
 import Button from './Button.vue'
 import SectionLabel from './SectionLabel.vue'
+import Prose from './Prose.vue'
 
 import organisationsData from '../data/organisations.json'
 
@@ -71,6 +72,8 @@ const nullIdentifier: Identifier = {
   href: '',
   title: 'null'
 }
+
+const citationProseClasses = ['prose-sm']
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   /*
@@ -148,12 +151,9 @@ watch(
 <template>
   <section class="mb-5 p-5 border-4 border-gray-500">
     <SectionTitle anchor="citation" title="Citation" />
-    <div class="mb-8">
-      <div
-        class="w-full p-2 border text-black dark:text-white border-gray-400 prose-sm max-w-none mb-2"
-        v-html="citation"
-      ></div>
+    <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
+      <Prose border-colour-class="border-gray-500" :prose-classes="citationProseClasses" :content="citation"></Prose>
       <div class="space-x-2 flex items-center">
         <Button @click="setFreetextInput">Copy to input</Button>
         <GuidanceText
