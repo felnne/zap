@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import SectionTitle from './SectionTitle.vue'
 import Download from './Download.vue'
+import Button from './Button.vue'
 
 let count = ref(0)
 </script>
@@ -12,11 +13,6 @@ let count = ref(0)
     <div class="space-y-4">
       <Download v-for="index in count" :key="index"></Download>
     </div>
-    <button
-      class="py-1 px-2 text-xs font-medium border bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-800 dark:text-gray-100 border-gray-400 shadow"
-      @click="count++"
-    >
-      Add Download
-    </button>
+    <Button @click="count++"> Add Download </Button>
   </section>
 </template>

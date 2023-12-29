@@ -9,6 +9,7 @@ import SectionTitle from './SectionTitle.vue'
 import Freetext from './Freetext.vue'
 import GuidanceText from './GuidanceText.vue'
 import Link from './Link.vue'
+import Button from './Button.vue'
 
 import organisationsData from '../data/organisations.json'
 
@@ -153,12 +154,7 @@ watch(
         v-html="citation"
       ></div>
       <div class="space-x-2 flex items-center">
-        <button
-          @click="setFreetextInput"
-          class="py-1 px-2 text-xs font-medium border bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-800 dark:text-gray-100 border-gray-400 shadow"
-        >
-          Copy to input
-        </button>
+        <Button @click="setFreetextInput">Copy to input</Button>
         <GuidanceText
           >Click to copy this citation (with
           <Link

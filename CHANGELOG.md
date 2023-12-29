@@ -14,6 +14,7 @@
 - Tweaking Prologue component language
 - Refactoring links into a `Link` base component
 - Refactoring guidance text into a `GuidanceText` base component
+- Refactoring buttons into a `Button` base component
 
 ## [0.4.0] - 2023-12-27
 
