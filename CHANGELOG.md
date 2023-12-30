@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.5.3] - 2023-12-30
+
+### Fixed
+
+- Incorrect rules for linting CI task (again!)
+
 ## [0.5.2] - 2023-12-30
 
 ### Fixed
