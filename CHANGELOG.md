@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.5.2] - 2023-12-30
+
+### Fixed
+
+- Incorrect rules for review apps CD task
+
 ## [0.5.1] - 2023-12-30
 
 ### Fixed
