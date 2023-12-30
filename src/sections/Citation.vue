@@ -170,6 +170,6 @@ watch(
         >
       </div>
     </div>
-    <Freetext v-if="citation" :input="freetextInput" input-class="min-h-60" />
+    <Freetext v-if="citation" :input="freetextInput" />
   </SectionBorder>
 </template>

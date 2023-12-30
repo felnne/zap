@@ -16,7 +16,8 @@ const props = defineProps({
   },
   inputClass: {
     type: String,
-    required: false
+    required: false,
+    default: 'min-h-60'
   }
 })
 
@@ -58,9 +59,9 @@ watch(
 </script>
 
 <template>
-  <div>
     <div class="flex mb-4">
       <form class="w-1/2 pr-2 flex flex-col">
+  <div class="space-y-4">
         <SectionLabel>Input</SectionLabel>
         <FormTextarea
           class="w-full flex-grow"

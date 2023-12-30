@@ -57,31 +57,33 @@ const tocItems: TocItem[] = [
   <main class="bg-white dark:bg-gray-800 font-sans-serif p-10">
     <BackToTop />
     <AppTitle />
-    <Prologue />
-    <TableOfContents :items="tocItems" />
-    <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
-    <ResourceType @update:resourceType="resourceType = $event" />
-    <Identifiers :fileIdentifier="fileIdentifier" @update:identifiers="identifiers = $event" />
-    <Edition @update:edition="edition = $event" />
-    <Title @update:title="title = $event" />
-    <Abstract />
-    <Dates @update:dates="dates = $event" />
-    <GeographicExtent />
-    <Contacts @update:contacts="contacts = $event" />
-    <Licence />
-    <Citation
-      :resource-type="resourceType"
-      :identifiers="identifiers"
-      :edition="edition"
-      :title="title"
-      :dates="dates"
-      :contacts="contacts"
-    />
-    <Downloads />
-    <Services />
-    <Lineage />
-    <Resources />
-    <Ideas />
-    <Epilogue />
+    <div class="space-y-4">
+      <Prologue />
+      <TableOfContents :items="tocItems" />
+      <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
+      <ResourceType @update:resourceType="resourceType = $event" />
+      <Identifiers :fileIdentifier="fileIdentifier" @update:identifiers="identifiers = $event" />
+      <Edition @update:edition="edition = $event" />
+      <Title @update:title="title = $event" />
+      <Abstract />
+      <Dates @update:dates="dates = $event" />
+      <GeographicExtent />
+      <Contacts @update:contacts="contacts = $event" />
+      <Licence />
+      <Citation
+        :resource-type="resourceType"
+        :identifiers="identifiers"
+        :edition="edition"
+        :title="title"
+        :dates="dates"
+        :contacts="contacts"
+      />
+      <Downloads />
+      <Services />
+      <Lineage />
+      <Resources />
+      <Ideas />
+      <Epilogue />
+    </div>
   </main>
 </template>

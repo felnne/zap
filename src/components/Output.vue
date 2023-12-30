@@ -3,14 +3,13 @@ import ClipboardCopy from './ClipboardCopy.vue'
 
 defineProps({
   data: null as any,
-  preClass: String
 })
 </script>
 
 <template>
-  <div>
+  <div class="space-y-2">
     <pre
-      :class="`text-s mb-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white overflow-scroll ${preClass}`"
+      class="text-s bg-gray-100 dark:bg-gray-900 text-black dark:text-white overflow-scroll max-h-96"
       >{{ data }}</pre
     >
     <ClipboardCopy :data="data" />

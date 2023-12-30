@@ -7,6 +7,6 @@ import Freetext from '../components/Freetext.vue'
 <template>
   <SectionBorder>
     <SectionTitle anchor="abstract" title="Abstract" />
-    <Freetext input-class="min-h-60" />
+    <Freetext />
   </SectionBorder>
 </template>

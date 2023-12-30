@@ -96,6 +96,6 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         />
       </div>
     </form>
-    <Output v-show="selected" pre-class="max-h-96" :data="distributionOption"></Output>
+    <Output v-show="selected" :data="distributionOption"></Output>
   </div>
 </template>

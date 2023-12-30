@@ -24,5 +24,5 @@ let additionalClasses: ComputedRef<string[]> = computed(() => {
 </script>
 
 <template>
-  <div class="prose p-2 border w-full max-w-none" :class="additionalClasses" v-html="content"></div>
+  <div class="prose border w-full max-w-none" :class="additionalClasses" v-html="content"></div>
 </template>

@@ -16,7 +16,7 @@ defineProps({
 <template>
   <SectionBorder class="border-sky-500">
     <SectionTitle anchor="toc" title="Elements" />
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid grid-cols-4 gap-4">
       <Link v-for="item in items" :key="item.anchor" :href="`#${item.anchor}`">{{
         item.title
       }}</Link>

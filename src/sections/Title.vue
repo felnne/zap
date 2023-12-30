@@ -24,6 +24,6 @@ watch(
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
     />
-    <Freetext @update:input="title = $event" />
+    <Freetext input-class="min-h-10" @update:input="title = $event" />
   </SectionBorder>
 </template>
