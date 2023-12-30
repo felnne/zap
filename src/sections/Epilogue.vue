@@ -19,7 +19,7 @@ let time: ComputedRef<string> = computed(() => {
 })
 
 let commitDisplay: ComputedRef<string> = computed(() => {
-  return commit.value.substring(0, 7)
+  return commit.value.substring(0, 8)
 })
 
 let timeDisplay: ComputedRef<string> = computed(() => {
