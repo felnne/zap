@@ -49,7 +49,7 @@ watch(selected, (value) => {
       />
       Esri (BAS AGOL account)
     </FormLabel>
-    <FormLabel class="text-gray-500">Item ID</FormLabel>
+    <FormLabel class="text-neutral-500">Item ID</FormLabel>
     <FormInput
       type="text"
       name="identifier-esri-id"

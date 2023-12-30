@@ -101,7 +101,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
   <SubSectionBorder class="space-y-2">
     <form>
       <input
-        class="file:py-1 file:px-2 file:text-xs file:border file:bg-white file:border-black file:hover:bg-gray-100 file:shadow file:cursor-pointer"
+        class="file:py-1 file:px-2 file:text-xs file:border file:bg-white file:border-black file:hover:bg-neutral-100 file:shadow file:cursor-pointer"
         type="file"
         :id="'download-' + index"
         @change="onFileChange"

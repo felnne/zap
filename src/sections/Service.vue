@@ -87,7 +87,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
         {{ service.name }}
       </FormLabel>
       <div class="flex flex-grow space-x-2">
-        <FormLabel :for="'service-' + service.slug + '-endpoint'" class="text-gray-500">Endpoint</FormLabel>
+        <FormLabel :for="'service-' + service.slug + '-endpoint'" class="text-neutral-500">Endpoint</FormLabel>
         <FormInput
           type="url"
           :name="'service-' + service.slug + '-endpoint'"

@@ -3,7 +3,7 @@ defineProps({
   borderColourClass: {
     type: String,
     required: false,
-    default: 'border-gray-500'
+    default: 'border-neutral-500'
   }
 })
 </script>

@@ -36,9 +36,9 @@ let timeDisplay: ComputedRef<string> = computed(() => {
       </div>
       <div class="flex-1 text-right">
         {{ release }}
-        <span v-if="commit" class="text-gray-300">/</span>
+        <span v-if="commit" class="text-neutral-300">/</span>
         <abbr :title="commit"></abbr> {{ commitDisplay }}
-        <span v-if="time" class="text-gray-300">/</span>
+        <span v-if="time" class="text-neutral-300">/</span>
         <time :datetime="time"></time> {{ timeDisplay }}
       </div>
     </div>

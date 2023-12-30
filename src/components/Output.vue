@@ -12,7 +12,7 @@ defineProps({
 <template>
   <div class="space-y-2">
     <pre
-      class="text-s bg-gray-100 dark:bg-gray-900 border border-black dark:border-white overflow-scroll max-h-96"
+      class="text-s bg-neutral-100 dark:bg-neutral-900 border border-black dark:border-white overflow-scroll max-h-96"
       >{{ data }}</pre
     >
     <ClipboardCopy :data="data" />
