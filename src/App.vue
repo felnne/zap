@@ -63,7 +63,10 @@ const tocItems: TocItem[] = [
       <TableOfContents :items="tocItems" />
       <FileIdentifier @update:fileIdentifier="record.fileIdentifier = $event" />
       <ResourceType @update:resourceType="record.resourceType = $event" />
-      <Identifiers :fileIdentifier="record.fileIdentifier" @update:identifiers="record.identifiers = $event" />
+      <Identifiers
+        :fileIdentifier="record.fileIdentifier"
+        @update:identifiers="record.identifiers = $event"
+      />
       <Edition @update:edition="record.edition = $event" />
       <Title @update:title="record.title = $event" />
       <Abstract />

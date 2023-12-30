@@ -8,7 +8,6 @@ variables:
   VITE_BUILD_HASH: "$CI_COMMIT_SHA"
   VITE_BUILD_TIME: "$CI_COMMIT_TIMESTAMP"
 
-  DEPLOY_SRC_PATH: dist/
   DEPLOY_USER: felnne
   DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
   DEPLOY_PATH: /users/felnne/public_html/apps/zap
@@ -16,7 +15,7 @@ variables:
   DEPLOY_URL_BASE: http://basweb.nerc-bas.ac.uk/~felnne/apps/zap
 
 image:
-    name: node:lts-alpine
+  name: node:lts-alpine
 
 cache:
   paths:
@@ -40,7 +39,6 @@ before_script:
     - chmod 700 ~/.ssh
     - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - 'if [ -n "$CI_COMMIT_TAG" ]; then export DEPLOY_DIR="$CI_COMMIT_TAG"; else export DEPLOY_DIR="$CI_COMMIT_SHORT_SHA"; fi'
 
 lint:
   stage: 📋 lint
@@ -51,7 +49,7 @@ lint:
     - npm run lint:format
   rules:
     -
-      if: '$CI_COMMIT_TAG != null'
+      if: '$CI_COMMIT_BRANCH != "main"'
 
 build:
   stage: 🏗 build
@@ -62,64 +60,70 @@ build:
     paths:
       - dist/
     expire_in: 1 month
+  rules:
+    -
+      if: '$CI_COMMIT_TAG == null'
 
 deploy:
-    stage: 🚀 deploy
-    needs: ["build"]
-    <<: *before_script_deploy
-    script:
-      - mkdir $DEPLOY_DIR
-      - cp -r $DEPLOY_SRC_PATH/* $DEPLOY_DIR
-      - rsync -avz $DEPLOY_DIR $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  stage: 🚀 deploy
+  needs: ["build"]
+  <<: *before_script_deploy
+  script:
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "mkdir -p $DEPLOY_PATH/$CI_COMMIT_SHORT_SHA"
+    - rsync -avz dist/* $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/$CI_COMMIT_SHORT_SHA
+  rules:
+    -
+      if: '$CI_COMMIT_TAG == null'
 
 deploy_int:
-    stage: 🚀 deploy
-    needs: ["deploy"]
-    <<: *before_script_deploy
-    script:
-      - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/integration"
-    environment:
-      name: Integration
-      url: $DEPLOY_URL_BASE/integration
-    rules:
-      -
-        if: '$CI_COMMIT_BRANCH == "main"'
+  stage: 🚀 deploy
+  needs: ["deploy"]
+  <<: *before_script_deploy
+  script:
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -snf $DEPLOY_PATH/$CI_COMMIT_SHORT_SHA $DEPLOY_PATH/integration"
+  environment:
+    name: Integration
+    url: $DEPLOY_URL_BASE/integration
+  rules:
+    -
+      if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null'
 
 deploy_prod:
-    stage: 🚀 deploy
-    needs: ["deploy"]
-    <<: *before_script_deploy
-    script:
-      - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/prod"
-    environment:
-      name: Production
-      url: $DEPLOY_URL_BASE/prod
-    rules:
-      -
-        if: '$CI_COMMIT_TAG != null'
+  stage: 🚀 deploy
+  needs: []
+  <<: *before_script_deploy
+  script:
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -snf $DEPLOY_PATH/$CI_COMMIT_SHORT_SHA $DEPLOY_PATH/$CI_COMMIT_TAG"
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -snf $DEPLOY_PATH/$CI_COMMIT_TAG $DEPLOY_PATH/prod"
+  environment:
+    name: Production
+    url: $DEPLOY_URL_BASE/prod
+  rules:
+    -
+      if: '$CI_COMMIT_TAG != null'
 
 review:
   stage: 🚀 deploy
   needs: ["deploy"]
   <<: *before_script_deploy
   script:
-    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -sf $DEPLOY_PATH/$DEPLOY_DIR $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -snf $DEPLOY_PATH/$CI_COMMIT_TAG $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
   environment:
     name: Review/$CI_COMMIT_REF_NAME
     url: $DEPLOY_URL_BASE/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG
     on_stop: review_stop
   rules:
     -
-      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG != null'
+      if: '$CI_COMMIT_BRANCH != "main"'
 
 review_stop:
-    stage: 🚀 deploy
-    variables:
-      GIT_STRATEGY: none
-    when: manual
-    <<: *before_script_deploy
-    script:
-        - ssh $DEPLOY_USER@$DEPLOY_HOST "rm $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
-    environment:
-        name: Review/$CI_COMMIT_REF_NAME
-        action: stop
+  stage: 🚀 deploy
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  <<: *before_script_deploy
+  script:
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "rm $DEPLOY_PATH/$DEPLOY_REVIEW_APP_PREFIX-$CI_COMMIT_REF_SLUG"
+  environment:
+    name: Review/$CI_COMMIT_REF_NAME
+    action: stop
