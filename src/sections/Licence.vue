@@ -5,6 +5,7 @@ import Output from '../components/Output.vue'
 import SectionBorder from '../components/SectionBorder.vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import FormLabel from '../components/FormLabel.vue'
+import TwoColumn from '../components/TwoColumn.vue'
 
 import type { Licence } from '../types/app'
 import type { Constraint } from '../types/iso'
@@ -38,8 +39,8 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 <template>
   <SectionBorder>
     <SectionTitle anchor="licence" title="Licence" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
         <FormLabel v-for="licence in licences" :key="licence.url">
           <input
             type="radio"
@@ -50,10 +51,10 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
           />
           {{ licence.name }}
         </FormLabel>
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+      </template>
+      <template v-slot:right>
         <Output :data="licenceConstraint"></Output>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
   </SectionBorder>
 </template>

@@ -10,6 +10,7 @@ import Output from '../components/Output.vue'
 import GuidanceText from '../components/GuidanceText.vue'
 import FormLabel from '../components/FormLabel.vue'
 import FormInput from '../components/FormInput.vue'
+import TwoColumn from '../components/TwoColumn.vue'
 
 const emit = defineEmits(['update:dates'])
 
@@ -76,43 +77,45 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle anchor="dates" title="Dates" sub-title="Publication date" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col gap-y-2">
-        <fieldset class="flex gap-x-2">
-          <div class="space-y-2">
-            <FormLabel for="date-year" class="block">Year</FormLabel>
-            <FormInput class="w-16" type="number" name="date" id="date-year" v-model="year" />
-          </div>
-          <div class="space-y-2">
-            <FormLabel for="date-month" class="block">Month</FormLabel>
-            <FormInput
-              class="w-14"
-              type="number"
-              min="0"
-              max="12"
-              name="date"
-              id="date-month"
-              v-model="month"
-            />
-          </div>
-          <div class="space-y-2">
-            <FormLabel for="date-day" class="block">Day</FormLabel>
-            <FormInput
-              class="w-14"
-              type="number"
-              min="0"
-              max="31"
-              name="date"
-              id="date-day"
-              v-model="day"
-            />
-          </div>
-        </fieldset>
-        <GuidanceText>If month or day are unknown, use 0. Year is required.</GuidanceText>
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
+        <div class="space-y-2">
+          <fieldset class="flex space-x-4">
+            <div class="space-y-2">
+              <FormLabel for="date-year" class="block">Year</FormLabel>
+              <FormInput class="w-16" type="number" name="date" id="date-year" v-model="year" />
+            </div>
+            <div class="space-y-2">
+              <FormLabel for="date-month" class="block">Month</FormLabel>
+              <FormInput
+                class="w-14"
+                type="number"
+                min="0"
+                max="12"
+                name="date"
+                id="date-month"
+                v-model="month"
+              />
+            </div>
+            <div class="space-y-2">
+              <FormLabel for="date-day" class="block">Day</FormLabel>
+              <FormInput
+                class="w-14"
+                type="number"
+                min="0"
+                max="31"
+                name="date"
+                id="date-day"
+                v-model="day"
+              />
+            </div>
+          </fieldset>
+          <GuidanceText>If month or day are unknown, use 0. Year is required.</GuidanceText>
+        </div>
+      </template>
+      <template v-slot:right>
         <Output :data="datesIso"></Output>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
   </SectionBorder>
 </template>

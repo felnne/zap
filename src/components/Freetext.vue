@@ -6,6 +6,7 @@ import Output from './Output.vue'
 import SectionLabel from './SectionLabel.vue'
 import Prose from './Prose.vue'
 import FormTextarea from './FormTextarea.vue'
+import TwoColumn from './TwoColumn.vue'
 
 const markdown = new MarkdownIt()
 
@@ -59,9 +60,9 @@ watch(
 </script>
 
 <template>
-    <div class="flex mb-4">
-      <form class="w-1/2 pr-2 flex flex-col">
   <div class="space-y-4">
+    <TwoColumn>
+      <template v-slot:left>
         <SectionLabel>Input</SectionLabel>
         <FormTextarea
           class="w-full flex-grow"
@@ -70,12 +71,12 @@ watch(
           id="freetext"
           v-model="text"
         ></FormTextarea>
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+      </template>
+      <template v-slot:right>
         <SectionLabel class="text-sky-500">Preview</SectionLabel>
         <Prose class="flex-grow" :content="textMarkdown"></Prose>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
     <Output :data="textJson"></Output>
   </div>
 </template>

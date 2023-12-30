@@ -25,6 +25,7 @@
 - Refactoring section components to separate (sections) module
 - Upgrading VueJS to 3.4 and other dependencies to latest versions
 - Refactoring spacing classes to a consistent set of values
+- Refactoring two column layout into a `TwoColumn` component
 
 ## [0.4.0] - 2023-12-27
 

@@ -5,6 +5,7 @@ import SectionBorder from '../components/SectionBorder.vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import Output from '../components/Output.vue'
 import FormLabel from '../components/FormLabel.vue'
+import TwoColumn from '../components/TwoColumn.vue'
 
 import type { WellKnownExtent } from '../types/app'
 import type { Extent } from '../types/iso'
@@ -40,8 +41,8 @@ let extent: ComputedRef<Extent> = computed(() => {
 <template>
   <SectionBorder>
     <SectionTitle anchor="spatial-extent" title="Spatial extent" sub-title="Well-known extents" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
         <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
           <input
             type="radio"
@@ -52,10 +53,10 @@ let extent: ComputedRef<Extent> = computed(() => {
           />
           {{ wke.name }}
         </FormLabel>
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+      </template>
+      <template v-slot:right>
         <Output :data="extent"></Output>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
   </SectionBorder>
 </template>

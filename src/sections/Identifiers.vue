@@ -7,6 +7,7 @@ import Output from '../components/Output.vue'
 import IdentifierSelf from './IdentifierSelf.vue'
 import IdentifierDoi from './IdentifierDoi.vue'
 import IdentifierEsri from './IdentifierEsri.vue'
+import TwoColumn from '../components/TwoColumn.vue'
 
 import type { Identifier } from '../types/iso'
 
@@ -40,8 +41,8 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle anchor="identifiers" title="Identifiers" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
         <IdentifierSelf :fileIdentifier="fileIdentifier" @add:identifier="addIdentifier($event)" />
         <IdentifierDoi
           :fileIdentifier="fileIdentifier"
@@ -52,10 +53,10 @@ watch(
           @add:identifier="addIdentifier($event)"
           @remove:identifier="removeIdentifier($event)"
         />
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+      </template>
+      <template v-slot:right>
         <Output :data="identifiers"></Output>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
   </SectionBorder>
 </template>

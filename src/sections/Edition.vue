@@ -5,6 +5,7 @@ import SectionBorder from '../components/SectionBorder.vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import Output from '../components/Output.vue'
 import FormInput from '../components/FormInput.vue'
+import TwoColumn from '../components/TwoColumn.vue'
 
 const emit = defineEmits(['update:edition'])
 
@@ -25,13 +26,15 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle anchor="edition" title="Edition" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col">
-        <FormInput type="text" name="edition" id="edition" v-model="edition" />
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
+        <div>
+          <FormInput type="text" name="edition" id="edition" v-model="edition" class="w-full" />
+        </div>
+      </template>
+      <template v-slot:right>
         <Output :data="edition"></Output>
-      </div>
-    </div>
+      </template>
+    </TwoColumn>
   </SectionBorder>
 </template>

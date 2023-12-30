@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Output from '../components/Output.vue'
-import FormLabel from '../components/FormLabel.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Output from '@/components/Output.vue'
+import FormLabel from '@/components/FormLabel.vue'
+import TwoColumn from '@/components/TwoColumn.vue'
 
 import type { Individual, Organisation } from '../types/app'
 import type { PointOfContact as Contact } from '../types/iso'
@@ -78,8 +79,8 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle anchor="contacts" title="Contacts" />
-    <div class="flex">
-      <form class="w-1/2 pr-2 flex flex-col">
+    <TwoColumn>
+      <template v-slot:left>
         <FormLabel v-for="individual in individuals" :key="individual.email">
           <input
             type="checkbox"
@@ -90,10 +91,8 @@ watch(
           />
           {{ individual.name }}
         </FormLabel>
-      </form>
-      <div class="w-1/2 pl-2 flex flex-col">
-        <Output pre-class="max-h-96" :data="contacts"></Output>
-      </div>
-    </div>
+      </template>
+      <template v-slot:right><Output :data="contacts"></Output></template>
+    </TwoColumn>
   </SectionBorder>
 </template>
