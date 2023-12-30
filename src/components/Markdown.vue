@@ -7,6 +7,7 @@ import SectionLabel from '@/components/SectionLabel.vue'
 import Prose from '@/components/Prose.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
+import Link from '@/components/Link.vue'
 
 const markdown = new MarkdownIt()
 
@@ -63,7 +64,7 @@ watch(
   <div class="space-y-4">
     <TwoColumn>
       <template v-slot:left>
-        <SectionLabel>Input</SectionLabel>
+          <SectionLabel>Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel>
         <FormTextarea
           class="w-full flex-grow"
           :class="inputClass"

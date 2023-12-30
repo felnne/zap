@@ -31,6 +31,7 @@
 - Switching from `gray` to `neutral` Tailwind greyscale pallet
 - Using `@/` path alias for component imports
 - Renaming `Freetext` component to `Markdown` to better reflect purpose
+- Adding link to Markdown reference in `Markdown` component
 
 ## [0.4.0] - 2023-12-27
 
