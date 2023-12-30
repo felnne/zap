@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* Initial test (unit and e2e using Vitest and Playwright)
+
 ## [0.5.3] - 2023-12-30
 
 ### Fixed
