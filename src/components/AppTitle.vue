@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center mb-10 space-x-4">
+  <header id="app-title" class="flex items-center mb-10 space-x-4">
     <img class="rounded-full object-cover h-28" src="/logo.png" />
     <h1 class="space-y-2 text-3xl font-semibold">
       <p class="italic">Zap ⚡️</p>
