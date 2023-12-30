@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import ClipboardCopy from './ClipboardCopy.vue'
+import ClipboardCopy from '@/components/ClipboardCopy.vue'
 
 defineProps({
-  data: null as any,
-  preClass: String
+  data: {
+    type: null as any,
+    required: true
+  }
 })
 </script>
 
 <template>
-  <div>
+  <div class="space-y-2">
     <pre
-      :class="`text-s mb-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white overflow-scroll ${preClass}`"
+      class="text-s bg-neutral-100 dark:bg-neutral-900 border border-black dark:border-white overflow-scroll max-h-96"
       >{{ data }}</pre
     >
     <ClipboardCopy :data="data" />

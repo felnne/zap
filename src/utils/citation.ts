@@ -1,7 +1,7 @@
 import axios from 'axios'
 import removeMd from 'remove-markdown'
 
-import type { Identifier } from '../types/iso'
+import type { Identifier } from '@/types/iso'
 
 function formatName(name: string): string {
   /*
