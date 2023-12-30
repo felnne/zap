@@ -6,7 +6,7 @@ import type { DateImprecise, Organisation } from '@/types/app'
 import type { PointOfContact as Contact, Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
-import Freetext from '@/components/Freetext.vue'
+import Freetext from '@/components/Markdown.vue'
 import GuidanceText from '@/components/GuidanceText.vue'
 import Link from '@/components/Link.vue'
 import Button from '@/components/Button.vue'

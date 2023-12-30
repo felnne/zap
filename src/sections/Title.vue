@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
-import Freetext from '@/components/Freetext.vue'
+import Markdown from '@/components/Markdown.vue'
 
 const emit = defineEmits(['update:title'])
 
@@ -24,6 +24,6 @@ watch(
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
     />
-    <Freetext input-class="min-h-10" @update:input="title = $event" />
+    <Markdown input-class="min-h-10" @update:input="title = $event" />
   </SectionBorder>
 </template>

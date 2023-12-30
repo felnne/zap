@@ -30,6 +30,7 @@
 - Refactoring sub-section wrappers into a `SubSectionBorder` component
 - Switching from `gray` to `neutral` Tailwind greyscale pallet
 - Using `@/` path alias for component imports
+- Renaming `Freetext` component to `Markdown` to better reflect purpose
 
 ## [0.4.0] - 2023-12-27
 
