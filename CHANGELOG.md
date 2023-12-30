@@ -2,9 +2,12 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-12-30
+
 ### Fixed
 
 - Back to top link moved to a component and no longer effects page layout
+- Including missing link to Markdown reference
 
 ### Changed
 
@@ -31,7 +34,6 @@
 - Switching from `gray` to `neutral` Tailwind greyscale pallet
 - Using `@/` path alias for component imports
 - Renaming `Freetext` component to `Markdown` to better reflect purpose
-- Adding link to Markdown reference in `Markdown` component
 - Refactoring element variables in `App` component into `Record` type
 
 ## [0.4.0] - 2023-12-27
