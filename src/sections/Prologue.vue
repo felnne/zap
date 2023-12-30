@@ -4,7 +4,7 @@ import SectionTitle from '../components/SectionTitle.vue'
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-amber-400">
+  <SectionBorder border-colour-class="border-amber-500">
     <SectionTitle anchor="prologue" title="⚠️ Experimental" />
     <div class="space-y-2">
       <p class="font-bold">This tool is experimental and must not be relied upon.</p>

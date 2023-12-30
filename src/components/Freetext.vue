@@ -73,7 +73,7 @@ watch(
         ></FormTextarea>
       </template>
       <template v-slot:right>
-        <SectionLabel class="text-sky-500">Preview</SectionLabel>
+        <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>
         <Prose class="flex-grow" :content="textMarkdown"></Prose>
       </template>
     </TwoColumn>

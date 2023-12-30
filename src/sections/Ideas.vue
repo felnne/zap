@@ -37,7 +37,7 @@ import Idea from './Idea.vue'
         <Idea>Button to load sample data for all sections.</Idea>
         <Idea>Record history (deep link to GitLab file history).</Idea>
       </div>
-      <p class="text-black dark:text-white">
+      <p>
         <em
           >If there's something else you think would be a good idea let
           <strong>@felnne</strong> know.</em

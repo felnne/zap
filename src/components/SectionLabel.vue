@@ -1,3 +1,12 @@
+<script setup lang="ts">
+defineProps({
+  textColourClass: {
+    type: String,
+    required: false,
+    default: 'text-gray-500'
+  }
+})
+</script>
 <template>
-  <label class="text-gray-500 dark:text-gray-300 mb-2"><slot></slot></label>
+  <label class="mb-2" :class="textColourClass"><slot></slot></label>
 </template>

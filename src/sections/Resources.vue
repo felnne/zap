@@ -7,7 +7,7 @@ import Link from '../components/Link.vue'
 <template>
   <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle anchor="resources" title="Resources" />
-    <p class="text-black dark:text-white">
+    <p>
       Examples of completed records can be found in the
       <Link href="https://gitlab.data.bas.ac.uk/MAGIC/add-catalogue-records-production"
         >Data Catalogue Records</Link

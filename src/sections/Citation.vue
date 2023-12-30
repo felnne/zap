@@ -155,7 +155,7 @@ watch(
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose
-        border-colour-class="border-gray-500"
+        border-colour-class="border-black bg-gray-100"
         :prose-classes="citationProseClasses"
         :content="citation"
       ></Prose>

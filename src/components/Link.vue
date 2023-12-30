@@ -24,7 +24,7 @@ let rel: ComputedRef<string | undefined> = computed(() => {
 </script>
 
 <template>
-  <a class="underline text-blue-700 dark:text-blue-200" :href="href" :target="target" :rel="rel"
+  <a class="underline text-blue-700 dark:text-blue-500" :href="href" :target="target" :rel="rel"
     ><slot></slot
   ></a>
 </template>

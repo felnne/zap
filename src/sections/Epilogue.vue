@@ -34,11 +34,11 @@ let timeDisplay: ComputedRef<string> = computed(() => {
       <div class="flex-1 space-y-2">
         <Link href="https://gitlab.data.bas.ac.uk/felnne/zap">GitLab Project</Link>
       </div>
-      <div class="flex-1 text-right text-black dark:text-white">
+      <div class="flex-1 text-right">
         {{ release }}
-        <span v-if="commit" class="text-gray-500 dark:text-gray-300">/</span>
+        <span v-if="commit" class="text-gray-300">/</span>
         <abbr :title="commit"></abbr> {{ commitDisplay }}
-        <span v-if="time" class="text-gray-500 dark:text-gray-300">/</span>
+        <span v-if="time" class="text-gray-300">/</span>
         <time :datetime="time"></time> {{ timeDisplay }}
       </div>
     </div>

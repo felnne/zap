@@ -54,7 +54,7 @@ const tocItems: TocItem[] = [
 </script>
 
 <template>
-  <main class="bg-white dark:bg-gray-800 font-sans-serif p-10">
+  <main class="bg-white dark:bg-black text-black dark:text-white font-sans-serif p-10">
     <BackToTop />
     <AppTitle />
     <div class="space-y-4">

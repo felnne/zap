@@ -10,7 +10,7 @@ import Button from '../components/Button.vue'
 let count = ref(0)
 </script>
 <template>
-  <SectionBorder>
+  <SectionBorder class="space-y-4">
     <SectionTitle anchor="downloads" title="Downloads" />
     <div class="space-y-4">
       <Download v-for="index in count" :key="index"></Download>
