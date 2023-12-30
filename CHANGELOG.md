@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [0.5.1] - 2023-12-30
+
+### Fixed
+
+- Prettifier formatting errors
+- Incorrect rules for linting CI task
+
+### Improved
+
+- Continuous Deployment workflow
+
 ## [0.5.0] - 2023-12-30
 
 ### Fixed

@@ -36,13 +36,13 @@ export type Organisation = {
 }
 
 export type Record = {
-    fileIdentifier: string
-    resourceType: string
-    identifiers: Identifier[]
-    edition: string
-    title: string
-    dates: DateImprecise[]
-    contacts: Contact[]
+  fileIdentifier: string
+  resourceType: string
+  identifiers: Identifier[]
+  edition: string
+  title: string
+  dates: DateImprecise[]
+  contacts: Contact[]
 }
 
 type Service = {

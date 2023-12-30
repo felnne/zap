@@ -64,7 +64,9 @@ watch(
   <div class="space-y-4">
     <TwoColumn>
       <template v-slot:left>
-          <SectionLabel>Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel>
+        <SectionLabel
+          >Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel
+        >
         <FormTextarea
           class="w-full flex-grow"
           :class="inputClass"
