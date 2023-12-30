@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Idea from './Idea.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Idea from '@/sections/Idea.vue'
 </script>
 
 <template>

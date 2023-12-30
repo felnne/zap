@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import type { DateImprecise } from '../types/app'
-import type { Dates as DatesIso } from '../types/iso'
+import type { DateImprecise } from '@/types/app'
+import type { Dates as DatesIso } from '@/types/iso'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Output from '../components/Output.vue'
-import GuidanceText from '../components/GuidanceText.vue'
-import FormLabel from '../components/FormLabel.vue'
-import FormInput from '../components/FormInput.vue'
-import TwoColumn from '../components/TwoColumn.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Output from '@/components/Output.vue'
+import GuidanceText from '@/components/GuidanceText.vue'
+import FormLabel from '@/components/FormLabel.vue'
+import FormInput from '@/components/FormInput.vue'
+import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits(['update:dates'])
 

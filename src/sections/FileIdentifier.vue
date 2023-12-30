@@ -2,9 +2,9 @@
 import { onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Output from '../components/Output.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Output from '@/components/Output.vue'
 
 const uuid = uuidv4()
 

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import SectionBorder from '../components/SectionBorder.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
 
-import SectionTitle from '../components/SectionTitle.vue'
-import Download from './Download.vue'
-import Button from '../components/Button.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Download from '@/sections/Download.vue'
+import Button from '@/components/Button.vue'
 
 let count = ref(0)
 </script>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Output from '../components/Output.vue'
-import IdentifierSelf from './IdentifierSelf.vue'
-import IdentifierDoi from './IdentifierDoi.vue'
-import IdentifierEsri from './IdentifierEsri.vue'
-import TwoColumn from '../components/TwoColumn.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Output from '@/components/Output.vue'
+import IdentifierSelf from '@/sections/IdentifierSelf.vue'
+import IdentifierDoi from '@/sections/IdentifierDoi.vue'
+import IdentifierEsri from '@/sections/IdentifierEsri.vue'
+import TwoColumn from '@/components/TwoColumn.vue'
 
-import type { Identifier } from '../types/iso'
+import type { Identifier } from '@/types/iso'
 
 defineProps({
   fileIdentifier: {

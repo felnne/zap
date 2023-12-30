@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
-import Link from '../components/Link.vue'
+import Link from '@/components/Link.vue'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
 
 let release: ComputedRef<string> = computed(() => {
   return import.meta.env.VITE_BUILD_RELEASE || 'dev'

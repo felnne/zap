@@ -2,11 +2,11 @@
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import MarkdownIt from 'markdown-it'
 
-import Output from './Output.vue'
-import SectionLabel from './SectionLabel.vue'
-import Prose from './Prose.vue'
-import FormTextarea from './FormTextarea.vue'
-import TwoColumn from './TwoColumn.vue'
+import Output from '@/components/Output.vue'
+import SectionLabel from '@/components/SectionLabel.vue'
+import Prose from '@/components/Prose.vue'
+import FormTextarea from '@/components/FormTextarea.vue'
+import TwoColumn from '@/components/TwoColumn.vue'
 
 const markdown = new MarkdownIt()
 

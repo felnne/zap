@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from '../components/Output.vue'
-import FormLabel from '../components/FormLabel.vue'
-import FormInput from '../components/FormInput.vue'
-import SubSectionBorder from '../components/SubSectionBorder.vue'
+import Output from '@/components/Output.vue'
+import FormLabel from '@/components/FormLabel.vue'
+import FormInput from '@/components/FormInput.vue'
+import SubSectionBorder from '@/components/SubSectionBorder.vue'
 
-import servicesData from '../data/services.json'
-import organisationsData from '../data/organisations.json'
+import servicesData from '@/data/services.json'
+import organisationsData from '@/data/organisations.json'
 
-import type { Organisation, Service, ServiceFormat } from '../types/app'
-import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '../types/iso'
+import type { Organisation, Service, ServiceFormat } from '@/types/app'
+import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '@/types/iso'
 
 const props = defineProps({
   slug: {

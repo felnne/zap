@@ -7,11 +7,11 @@ import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-import type { Individual, Organisation } from '../types/app'
-import type { PointOfContact as Contact } from '../types/iso'
+import type { Individual, Organisation } from '@/types/app'
+import type { PointOfContact as Contact } from '@/types/iso'
 
-import individualsData from '../data/individuals.json'
-import organisationsData from '../data/organisations.json'
+import individualsData from '@/data/individuals.json'
+import organisationsData from '@/data/organisations.json'
 
 const emit = defineEmits(['update:contacts'])
 

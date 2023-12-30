@@ -1,4 +1,4 @@
-import { type Address, type OnlineResource } from './iso'
+import { type Address, type OnlineResource } from '@/iso'
 
 export type DateImprecise = {
   label: string

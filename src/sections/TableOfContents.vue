@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { TocItem } from '../types/app'
+import type { TocItem } from '@/types/app'
 
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionTitle from '../components/SectionTitle.vue'
-import Link from '../components/Link.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Link from '@/components/Link.vue'
 
 defineProps({
   items: {

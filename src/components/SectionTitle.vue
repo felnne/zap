@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
-import type { TocItem } from '../types/app'
+import type { TocItem } from '@/types/app'
 
-import Link from './Link.vue'
+import Link from '@/components/Link.vue'
 
 const props = defineProps({
   anchor: {

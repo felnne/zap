@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ClipboardCopy from './ClipboardCopy.vue'
+import ClipboardCopy from '@/components/ClipboardCopy.vue'
 
 defineProps({
   data: {

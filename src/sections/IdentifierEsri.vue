@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import type { Identifier } from '../types/iso'
+import type { Identifier } from '@/types/iso'
 
-import FormLabel from '../components/FormLabel.vue'
-import FormInput from '../components/FormInput.vue'
+import FormLabel from '@/components/FormLabel.vue'
+import FormInput from '@/components/FormInput.vue'
 
 const account = 'bas'
 

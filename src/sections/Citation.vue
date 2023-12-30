@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import { fetchFakeCitation, formatCitation } from '../utils/citation'
-import type { DateImprecise, Organisation } from '../types/app'
-import type { PointOfContact as Contact, Identifier } from '../types/iso'
+import { fetchFakeCitation, formatCitation } from '@/utils/citation'
+import type { DateImprecise, Organisation } from '@/types/app'
+import type { PointOfContact as Contact, Identifier } from '@/types/iso'
 
-import SectionTitle from '../components/SectionTitle.vue'
-import Freetext from '../components/Freetext.vue'
-import GuidanceText from '../components/GuidanceText.vue'
-import Link from '../components/Link.vue'
-import Button from '../components/Button.vue'
-import SectionBorder from '../components/SectionBorder.vue'
-import SectionLabel from '../components/SectionLabel.vue'
-import Prose from '../components/Prose.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Freetext from '@/components/Freetext.vue'
+import GuidanceText from '@/components/GuidanceText.vue'
+import Link from '@/components/Link.vue'
+import Button from '@/components/Button.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionLabel from '@/components/SectionLabel.vue'
+import Prose from '@/components/Prose.vue'
 
-import organisationsData from '../data/organisations.json'
+import organisationsData from '@/data/organisations.json'
 
 const props = defineProps({
   resourceType: {

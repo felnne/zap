@@ -29,6 +29,7 @@
 - Refactoring colour classes to a consistent set of values
 - Refactoring sub-section wrappers into a `SubSectionBorder` component
 - Switching from `gray` to `neutral` Tailwind greyscale pallet
+- Using `@/` path alias for component imports
 
 ## [0.4.0] - 2023-12-27
 

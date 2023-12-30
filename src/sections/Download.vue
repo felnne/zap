@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from '../components/Output.vue'
-import SubSectionBorder from '../components/SubSectionBorder.vue'
+import Output from '@/components/Output.vue'
+import SubSectionBorder from '@/components/SubSectionBorder.vue'
 
-import type { Format, Organisation } from '../types/app'
+import type { Format, Organisation } from '@/types/app'
 import type {
   DistributionOption,
   Format as FormatIso,
   PointOfContact as Contact,
   OnlineResource,
   Size
-} from '../types/iso'
+} from '@/types/iso'
 
-import formatsData from '../data/formats.json'
-import organisationsData from '../data/organisations.json'
+import formatsData from '@/data/formats.json'
+import organisationsData from '@/data/organisations.json'
 
 defineProps({
   index: Number
