@@ -4,6 +4,7 @@ import { computed, type ComputedRef, ref } from 'vue'
 import Output from '../components/Output.vue'
 import FormLabel from '../components/FormLabel.vue'
 import FormInput from '../components/FormInput.vue'
+import SubSectionBorder from '../components/SubSectionBorder.vue'
 
 import servicesData from '../data/services.json'
 import organisationsData from '../data/organisations.json'
@@ -74,7 +75,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 </script>
 
 <template>
-  <div class="p-2 border-2 border-gray-400 space-y-2">
+  <SubSectionBorder>
     <form class="flex space-x-4">
       <FormLabel>
         <input
@@ -97,5 +98,5 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
       </div>
     </form>
     <Output v-show="selected" :data="distributionOption"></Output>
-  </div>
+  </SubSectionBorder>
 </template>
