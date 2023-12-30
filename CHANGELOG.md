@@ -9,13 +9,13 @@
 ### Changed
 
 - Updating branding
-- Review apps now use a a `review-` prefix rather than a `review` sub-directory
+- Review apps now use a `review-` prefix rather than a `review` subdirectory
 - Skipping `lint` CI task for tags in CI
 - Tweaking Prologue component language
 - Refactoring links into a `Link` base component
 - Refactoring guidance text into a `GuidanceText` base component
 - Refactoring buttons into a `Button` base component
-- Refactoring section sub-titles into a `SectionTitle` component
+- Refactoring section subtitles into a `SectionTitle` component
 - Refactoring form labels into a `FormLabel` component
 - Refactoring labels within sections (e.g. input and preview) into a `SectionLabel` component
 - Refactoring prose HTML output sections into a `Prose` component
@@ -23,11 +23,11 @@
 - Refactoring non-radio/checkbox form inputs into a `FormInput` component
 - Refactoring section wrappers into a `SectionBorder` component
 - Refactoring section components to separate (sections) module
-- Upgrading VueJS to 3.4 and other dependencies to latest versions
+- Upgrading Vue.js to 3.4 and other dependencies to latest versions
 - Refactoring spacing classes to a consistent set of values
 - Refactoring two column layout into a `TwoColumn` component
 - Refactoring colour classes to a consistent set of values
-- Refactoring sub-section wrappers into a `SubSectionBorder` component
+- Refactoring subsection wrappers into a `SubSectionBorder` component
 - Switching from `gray` to `neutral` Tailwind greyscale pallet
 - Using `@/` path alias for component imports
 - Renaming `Freetext` component to `Markdown` to better reflect purpose
