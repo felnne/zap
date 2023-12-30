@@ -36,6 +36,7 @@ import Idea from '@/sections/Idea.vue'
         <Idea>Preserving input values (like GitLab editor).</Idea>
         <Idea>Button to load sample data for all sections.</Idea>
         <Idea>Record history (deep link to GitLab file history).</Idea>
+        <Idea complete>User feedback.</Idea>
       </div>
       <p>
         <em

@@ -5,6 +5,7 @@
 ### Added
 
 * Initial test (unit and e2e using Vitest and Playwright)
+* Sentry error tracking and user feedback collection
 
 ## [0.5.3] - 2023-12-30
 
@@ -75,7 +76,7 @@
 - Epilogue meta section
 - Initial CI pipeline
 
-### Changed 
+### Changed
 
 - Preface meta section renamed to Prologue to fit with new Epilogue section
 
@@ -93,7 +94,7 @@
 
 ## [0.3.0] - 2023-12-26
 
-### Added 
+### Added
 
 - Basic Table of Contents component
 - Example of guidance for sections
@@ -124,7 +125,7 @@
 
 - Adding Typescript, ESlint, Prettier
 
-## v0.1.0 - 2021-07-12 
+## v0.1.0 - 2021-07-12
 ## [0.1.0] - 2021-07-12
 
 ### Added
