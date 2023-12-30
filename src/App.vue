@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import type { DateImprecise } from '@/types/app'
-import type { PointOfContact as Contact, Identifier } from '@/types/iso'
+import type { Record } from '@/types/app'
 
 import Abstract from '@/sections/Abstract.vue'
 import AppTitle from '@/components/AppTitle.vue'
@@ -27,13 +26,15 @@ import TableOfContents from '@/sections/TableOfContents.vue'
 import Title from '@/sections/Title.vue'
 import type { TocItem } from '@/types/app'
 
-const fileIdentifier = ref<string>('')
-const resourceType = ref<string>('')
-const identifiers = ref<Identifier[]>([])
-const edition = ref<string>('')
-const title = ref<string>('')
-const dates = ref<DateImprecise[]>([])
-const contacts = ref<Contact[]>([])
+const record = ref<Record>({
+  fileIdentifier: '',
+  resourceType: '',
+  identifiers: [],
+  edition: '',
+  title: '',
+  dates: [],
+  contacts: []
+})
 
 const tocItems: TocItem[] = [
   { anchor: 'file-identifier', title: 'File identifier' },
@@ -60,23 +61,23 @@ const tocItems: TocItem[] = [
     <div class="space-y-4">
       <Prologue />
       <TableOfContents :items="tocItems" />
-      <FileIdentifier @update:fileIdentifier="fileIdentifier = $event" />
-      <ResourceType @update:resourceType="resourceType = $event" />
-      <Identifiers :fileIdentifier="fileIdentifier" @update:identifiers="identifiers = $event" />
-      <Edition @update:edition="edition = $event" />
-      <Title @update:title="title = $event" />
+      <FileIdentifier @update:fileIdentifier="record.fileIdentifier = $event" />
+      <ResourceType @update:resourceType="record.resourceType = $event" />
+      <Identifiers :fileIdentifier="record.fileIdentifier" @update:identifiers="record.identifiers = $event" />
+      <Edition @update:edition="record.edition = $event" />
+      <Title @update:title="record.title = $event" />
       <Abstract />
-      <Dates @update:dates="dates = $event" />
+      <Dates @update:dates="record.dates = $event" />
       <GeographicExtent />
-      <Contacts @update:contacts="contacts = $event" />
+      <Contacts @update:contacts="record.contacts = $event" />
       <Licence />
       <Citation
-        :resource-type="resourceType"
-        :identifiers="identifiers"
-        :edition="edition"
-        :title="title"
-        :dates="dates"
-        :contacts="contacts"
+        :resource-type="record.resourceType"
+        :identifiers="record.identifiers"
+        :edition="record.edition"
+        :title="record.title"
+        :dates="record.dates"
+        :contacts="record.contacts"
       />
       <Downloads />
       <Services />

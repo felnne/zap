@@ -1,4 +1,4 @@
-import { type Address, type OnlineResource } from '@/iso'
+import type { Address, Identifier, PointOfContact as Contact, OnlineResource } from '@/iso'
 
 export type DateImprecise = {
   label: string
@@ -33,6 +33,16 @@ export type Organisation = {
   phone: string
   address: Address
   online_resource: OnlineResource
+}
+
+export type Record = {
+    fileIdentifier: string
+    resourceType: string
+    identifiers: Identifier[]
+    edition: string
+    title: string
+    dates: DateImprecise[]
+    contacts: Contact[]
 }
 
 type Service = {
