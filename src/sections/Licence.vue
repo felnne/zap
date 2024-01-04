@@ -16,23 +16,17 @@ function createConstraint(licence: Licence): Constraint {
   return {
     type: 'usage',
     restriction_code: 'license',
-    statement: licence.name,
+    statement: licence.statement,
     href: licence.url
   }
 }
 
-const licences: Record<string, Licence> = Object.values(licencesData.licences).reduce(
-  (acc: Record<string, Licence>, licence: Licence) => {
-    acc[licence.url] = licence
-    return acc
-  },
-  {}
-)
+const licences: Record<string, Licence> = licencesData.licences
 
-let selectedLicenceUrl = ref<string>(Object.keys(licences)[0])
+let selectedLicenceSlug = ref<string>(Object.keys(licences)[0])
 
 let licenceConstraint: ComputedRef<Constraint> = computed(() => {
-  return createConstraint(licences[selectedLicenceUrl.value])
+  return createConstraint(licences[selectedLicenceSlug.value])
 })
 </script>
 
@@ -41,13 +35,13 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
     <SectionTitle anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="licence in licences" :key="licence.url">
+        <FormLabel v-for="licence in licences" :key="licence.slug">
           <input
             type="radio"
             name="licences"
-            :id="'licence-' + licence.url"
-            :value="licence.url"
-            v-model="selectedLicenceUrl"
+            :id="'licence-' + licence.slug"
+            :value="licence.slug"
+            v-model="selectedLicenceSlug"
           />
           {{ licence.name }}
         </FormLabel>

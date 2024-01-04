@@ -23,7 +23,7 @@ let id = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   return {
-    identifier: `${id.value}`,
+    identifier: id.value,
     href: `https://${account}.maps.arcgis.com/home/item.html?id=${id.value}`,
     title: `${account}.maps.arcgis.com`
   }
@@ -34,6 +34,15 @@ watch(selected, (value) => {
     create()
   } else {
     remove()
+  }
+})
+
+watch(id, () => {
+  if (selected.value) {
+    // update identifier value by recreating it
+    // (this isn't very efficient when the user is typing but normally the value will be copy/pasted)
+    remove()
+    create()
   }
 })
 </script>

@@ -13,8 +13,8 @@ let count = ref(0)
   <SectionBorder class="space-y-4">
     <SectionTitle anchor="downloads" title="Downloads" />
     <div class="space-y-4">
-      <Download v-for="index in count" :key="index"></Download>
+      <Download v-for="index in count" :key="index" :index="index"></Download>
     </div>
-    <Button @click="count++"> Add Download </Button>
+    <Button id="add-download" @click="count++"> Add Download </Button>
   </SectionBorder>
 </template>

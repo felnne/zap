@@ -40,30 +40,16 @@ function createContact(individual: Individual, organisation: Organisation): Cont
     role: ['author']
   }
 }
-
-function isChecked(email: string) {
-  return selectedEmails.value.includes(email)
-}
-
-function toggleCheck(email: string) {
-  let index = selectedEmails.value.indexOf(email)
-  if (index === -1) {
-    selectedEmails.value.push(email)
-  } else {
-    selectedEmails.value.splice(index, 1)
-  }
-}
-
 const individuals: Individual[] = Object.values(individualsData.contacts).sort(
   (a: Individual, b: Individual) => a.name.localeCompare(b.name)
 )
 const orgBas: Organisation = organisationsData.organisations['bas']
 
-let selectedEmails = ref<string[]>([])
+let selectedSlugs = ref<string[]>([])
 
 let contacts: ComputedRef<Contact[]> = computed(() => {
   const selectedIndividuals = individuals.filter((individual) =>
-    selectedEmails.value.includes(individual.email)
+    selectedSlugs.value.includes(individual.slug)
   )
   return selectedIndividuals.map((individual) => createContact(individual, orgBas))
 })
@@ -81,13 +67,13 @@ watch(
     <SectionTitle anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="individual in individuals" :key="individual.email">
+        <FormLabel v-for="individual in individuals" :key="individual.slug">
           <input
             type="checkbox"
             name="individuals"
-            :id="'individual-' + individual.email"
-            :checked="isChecked(individual.email)"
-            @change="toggleCheck(individual.email)"
+            :id="'individual-' + individual.slug"
+            :value="individual.slug"
+            v-model="selectedSlugs"
           />
           {{ individual.name }}
         </FormLabel>

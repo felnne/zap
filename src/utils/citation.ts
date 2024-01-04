@@ -3,21 +3,34 @@ import removeMd from 'remove-markdown'
 
 import type { Identifier } from '@/types/iso'
 
-function formatName(name: string): string {
+export function formatName(name: string): string {
   /*
-   * In: 'Watson, Connie'
-   * Out: 'Watson, C.'
+   * If name is not in expected format, name is returned unchanged.
+   *
+   * In:
+   * 'Watson, Constance'
+   * 'Watson Constance' (no comma)
+   * 'Watson' (single name)
+   * Out:
+   * 'Watson, C.'
+   * 'Watson Constance'
+   * 'Watson'
    */
-  const [firstName, lastName] = name.split(', ')
-  return `${firstName}, ${lastName.charAt(0)}.`
+  const [lastName, firstName] = name.split(', ')
+
+  if (firstName == undefined) {
+    return name
+  }
+
+  return `${lastName}, ${firstName.charAt(0)}.`
 }
 
-function formatAuthors(authors: string[]): string {
+export function formatAuthors(authors: string[]): string {
   /*
    * In:
-   * ['Watson, Connie']
-   * ['Watson, Connie', 'Cinnamon, John']
-   * ['Watson, Connie', 'Cinnamon, John', 'Rust, Samantha']
+   * ['Watson, Constance']
+   * ['Watson, Constance', 'Cinnamon, John']
+   * ['Watson, Constance', 'Cinnamon, John', 'Rust, Samantha']
    *
    * Out:
    * 'Watson, C.'
@@ -30,7 +43,7 @@ function formatAuthors(authors: string[]): string {
     return formattedAuthors[0]
   }
 
-  if (authors.length > 2) {
+  if (authors.length > 1) {
     // Join authors into a list, using an ampersand for the last author
     const lastAuthor = formattedAuthors.pop()
     return `${formattedAuthors.join(', ')}, &amp; ${lastAuthor}`
@@ -39,38 +52,44 @@ function formatAuthors(authors: string[]): string {
   return ''
 }
 
-function formatYear(year: string): string {
+export function formatYear(year: string): string {
   return `(${year}).`
 }
 
-function formatTitle(title: string): string {
+export function formatTitle(title: string): string {
   return `<i>${removeMd(title)}</i>`
 }
 
-function formatVersion(version: string): string {
+export function formatVersion(version: string): string {
   return `(Version ${version})`
 }
 
-function formatResourceType(resource_type: string): string {
+export function formatResourceType(resource_type: string): string {
+  let value = ''
+
   if (resource_type == 'dataset') {
-    return ' [Data set]. '
-  }
-  if (resource_type == 'product') {
-    return ' [Map]. '
+    value = 'Data set'
+  } else if (resource_type == 'product') {
+    value = 'Map'
   }
 
-  return '  '
+  if (value == '') {
+    return value
+  }
+
+  return `[${value}].`
 }
 
-function formatPublisher(publisher: string): string {
+export function formatPublisher(publisher: string): string {
   return `${publisher}.`
 }
 
-function formatDoi(doi: string): string {
-  const base = 'https://doi.org'
+export function formatDoi(doi: string): string {
   if (doi == '') {
     return ''
   }
+
+  const base = 'https://doi.org'
 
   // skip if already formatted
   if (doi.includes(base)) {
@@ -89,13 +108,13 @@ export function formatCitation(citation: string, url: string = '', doi: string =
    *
    * Steps:
    * 1. replace <i> tags with underscores
-   * 2. encode url as a lowercase MarkDown link
+   * 2. encode url as a MarkDown link
    * 3. format citation as a blockquote and add a standard introduction
    *
-   * For DOI references is included, specified as `[prefix]/[value]` (e.g. '10.5285/93a1479e'):
+   * Where a DOI reference is included, specified as either `[prefix]/[value]` or `https://doi.org/[prefix]/[value]`
+   * (e.g. '10.5285/93a1479e' or 'https://doi.org/10.5285/93a1479e'):
    * - the URL parameter is set to the DOI as a URL (e.g. 'https://doi.org/10.5285/93a1479e')
-   * - to account for UK PDC issued DOIs with uppercase DOI values, the search URL is set to this value to ensure a
-   *   matched and replacement with a normalised (lowercase) version
+   * - note that if the DOI uses uppercase characters, these are converted to lowercase
    *
    * To use, pass the citation string. If the citation includes a URL that is not a DOI, set this as the second
    * parameter. If the citation includes a DOI, set this as the third parameter.
@@ -104,34 +123,34 @@ export function formatCitation(citation: string, url: string = '', doi: string =
    * formatCitation('Watson, C. (2004). Title. Publisher.')
    *
    * Example (DOI reference):
-   * formatCitation('Watson, C. (2004). Title. Publisher. https://doi.org/10.5285/93A1479E-8379-4820-B510-EF8A7639D29D', undefined, '10.5285/93a1479e-8379-4820-b510-ef8a7639d29d')
+   * formatCitation('Watson, C. (2004). Title. Publisher. https://doi.org/10.5285/93A1479E-8379-4820-B510-ef8a7639d29d', undefined, '10.5285/93a1479e-8379-4820-b510-ef8a7639d29d')
    *
    * Example (non-DOI reference):
    * formatCitation('Watson, C. (2004). Title. Publisher. https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d', 'https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d')
    *
-   * Before:
-   * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93A1479E-8379-4820-B510-EF8A7639D29D'
+   * Citation before:
+   * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93a1479e-8379-4820-b510-ef8a7639d29d'
    *
-   * After:
+   * Citation after:
    * 'Watson, C., &amp; Cinnamon, J. (2004). _Ice-cream shop locations_ (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
    */
   if (doi != '') {
-    url = formatDoi(doi).toLowerCase()
-    const urlDoiUpper = formatDoi(doi.toUpperCase())
-
-    if (citation.includes(urlDoiUpper)) {
-      url = urlDoiUpper
-    }
+    url = formatDoi(doi)
   }
 
-  const searchUrl = url
-  const formattedUrl = `[${url.toLowerCase()}](${url.toLowerCase()})`
-  const prefix = 'Required citation: \n > '
+  const formattedUrl = url.toLowerCase()
+  const replaceUrl = `[${formattedUrl}](${formattedUrl})`
+  const prefix = 'Required citation:\n> '
 
-  const formattedCitation =
-    prefix + citation.replace('<i>', '_').replace('</i>', '_').replace(searchUrl, formattedUrl)
-
-  return formattedCitation
+  // if `url` is `''`, the reg-ex `/$^/` is used as the search value to not match anything, making replacement
+  // conditional. Without this, the citation would be prefixed with an empty Markdown link where no URL is provided.
+  return (
+    prefix +
+    citation
+      .replace('<i>', '_')
+      .replace('</i>', '_')
+      .replace(url ? url : /$^/, replaceUrl)
+  )
 }
 
 export function formatReference(identifier: Identifier): string {
@@ -139,7 +158,7 @@ export function formatReference(identifier: Identifier): string {
     return identifier.href
   }
   if (identifier.title == 'doi') {
-    return formatDoi(identifier.identifier)
+    return identifier.href
   }
 
   return ''
@@ -155,7 +174,7 @@ export async function fetchFakeCitation(
   identifier: Identifier
 ): Promise<string> {
   /*
-   * Generated a DOI citation without needing a real DOI.
+   * Generate a DOI citation without needing a real DOI.
    *
    * The method is intended for records that don't yet have a DOI, won't have a DOI and for testing.
    *
@@ -175,7 +194,7 @@ export async function fetchFakeCitation(
   const publisher_ = formatPublisher(publisher)
   const reference_ = formatReference(identifier)
 
-  const citation = `${authors_} ${year_} ${title_} ${version_}${modifier_}${publisher_} ${reference_}`
+  const citation = `${authors_} ${year_} ${title_} ${version_} ${modifier_} ${publisher_} ${reference_}`
   return Promise.resolve(citation)
 }
 
@@ -185,11 +204,6 @@ export async function fetchCitation(doi: string): Promise<string> {
     Accept: 'text/x-bibliography; style=apa'
   }
 
-  try {
-    const response = await axios.get<string>(url, { headers })
-    return response.data
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const response = await axios.get<string>(url, { headers })
+  return response.data
 }

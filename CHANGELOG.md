@@ -4,8 +4,25 @@
 
 ### Added
 
-* Initial test (unit and e2e using Vitest and Playwright)
+* IDs and classes for selecting specific elements needed for tests
+* Initial tests (unit and e2e using Vitest and Playwright)
 * Sentry error tracking and user feedback collection
+
+### Fixed
+
+* Changing slugs for licences in data files to remove characters that can't be used in IDs
+* Including slugs as properties in data files for consistency
+* Using valid values for identifying individuals and licences (i.e. the value ID attributes are based on)
+* Missing event emission for changes to Esri identifier value
+* Allowing identifiers with changing values to be correctly updated
+* Setting missing index prop for downloads
+* Typo in CC licence statement
+* Wrong property used for setting licence output (name instead of statement)
+* Fixing/tweaking citation utils classes
+
+### Changed
+
+* Major refactoring of dates component, extracting logic to utils and updating related types
 
 ## [0.5.3] - 2023-12-30
 

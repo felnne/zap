@@ -27,7 +27,7 @@ const remove = () => {
 let selected = ref<boolean>(false)
 
 let identifier: ComputedRef<Identifier> = computed(() => {
-  let doi: string = `${prefix}/${props.fileIdentifier}`
+  const doi = `${prefix}/${props.fileIdentifier}`
 
   return {
     identifier: doi,

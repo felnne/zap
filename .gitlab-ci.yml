@@ -78,11 +78,13 @@ test_e2e:
     - npx playwright install
     - npm run build-only
   script:
-    - npm run test:e2e
+    - npx playwright test --project chromium
   artifacts:
     when: always
     reports:
       junit: test-results.xml
+    paths:
+      - playwright_screenshots/
     when: always
     expire_in: 1 month
   rules:
