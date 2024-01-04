@@ -1,9 +1,21 @@
 import type { Address, Identifier, PointOfContact as Contact, OnlineResource } from '@/iso'
 
 export type DateImprecise = {
-  label: string
-  value: Date
+  js: Date
+  iso: string
   precision: string
+}
+
+export type DateImpreciseLabelled = {
+  date: DateImprecise
+  label: string
+}
+
+type File = {
+  bytes: number
+  type: string
+  name: string
+  ext: string
 }
 
 export type Format = {
@@ -15,14 +27,17 @@ export type Format = {
 }
 
 export type Individual = {
+  slug: string
   name: string
   orcid: string
   email: string
 }
 
 type Licence = {
+  slug: string
   name: string
   url: string
+  statement: string
 }
 
 export type Organisation = {
@@ -41,7 +56,7 @@ export type Record = {
   identifiers: Identifier[]
   edition: string
   title: string
-  dates: DateImprecise[]
+  dates: DateImpreciseLabelled[]
   contacts: Contact[]
 }
 

@@ -4,6 +4,7 @@
 
 ### Added
 
+* IDs and classes for selecting specific elements needed for tests
 * Initial tests (unit and e2e using Vitest and Playwright)
 * Sentry error tracking and user feedback collection
 
@@ -12,6 +13,7 @@
 * Changing slugs for licences in data files to remove characters that can't be used in IDs
 * Including slugs as properties in data files for consistency
 * Using valid values for identifying individuals and licences (i.e. the value ID attributes are based on)
+* Missing event emission for changes to Esri identifier value
 * Allowing identifiers with changing values to be correctly updated
 * Setting missing index prop for downloads
 * Typo in CC licence statement
