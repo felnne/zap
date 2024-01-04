@@ -7,6 +7,9 @@
 * Initial tests (unit and e2e using Vitest and Playwright)
 * Sentry error tracking and user feedback collection
 
+### Fixed
+
+* Changing slugs for licences in data files to remove characters that can't be used in IDs
 ## [0.5.3] - 2023-12-30
 
 ### Fixed
