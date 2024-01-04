@@ -16,6 +16,7 @@
 * Setting missing index prop for downloads
 * Typo in CC licence statement
 * Wrong property used for setting licence output (name instead of statement)
+* Fixing/tweaking citation utils classes
 
 ### Changed
 
