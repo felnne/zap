@@ -16,7 +16,7 @@ function createConstraint(licence: Licence): Constraint {
   return {
     type: 'usage',
     restriction_code: 'license',
-    statement: licence.name,
+    statement: licence.statement,
     href: licence.url
   }
 }

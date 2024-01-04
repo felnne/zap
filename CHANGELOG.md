@@ -15,6 +15,7 @@
 * Allowing identifiers with changing values to be correctly updated
 * Setting missing index prop for downloads
 * Typo in CC licence statement
+* Wrong property used for setting licence output (name instead of statement)
 
 ### Changed
 
