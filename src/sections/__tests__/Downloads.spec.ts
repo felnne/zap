@@ -20,7 +20,7 @@ describe('Downloads', () => {
     await wrapper.find('button#add-download').trigger('click')
 
     // check there's 1 input element rendered
-    expect(wrapper.find('input#download-1').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-1-input').exists()).toBeTruthy()
   })
 
   it('clicking button multiple times adds multiple downloads', async () => {
@@ -37,7 +37,7 @@ describe('Downloads', () => {
     await wrapper.find('button#add-download').trigger('click')
 
     // // check there's 2 input elements rendered
-    expect(wrapper.find('input#download-1').exists()).toBeTruthy()
-    expect(wrapper.find('input#download-2').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-1-input').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-2-input').exists()).toBeTruthy()
   })
 })

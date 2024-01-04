@@ -14,6 +14,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '' },
       global: {
         directives: {
           clipboard: Clipboard
@@ -42,6 +43,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '' },
       global: {
         directives: {
           clipboard: Clipboard
@@ -76,6 +78,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '' },
       global: {
         directives: {
           clipboard: Clipboard

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import Clipboard from 'v-clipboard'
 
 import Services from '@/sections/Services.vue'
 
@@ -11,7 +12,13 @@ describe('Services', () => {
       a.localeCompare(b)
     )
 
-    const wrapper = mount(Services)
+    const wrapper = mount(Services, {
+      global: {
+        directives: {
+          clipboard: Clipboard
+        }
+      }
+    })
 
     serviceSlugs.every((service) =>
       expect(wrapper.find(`input#service-${service}-selection`).exists()).toBeTruthy()
