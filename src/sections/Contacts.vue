@@ -40,20 +40,6 @@ function createContact(individual: Individual, organisation: Organisation): Cont
     role: ['author']
   }
 }
-
-function isChecked(email: string) {
-  return selectedEmails.value.includes(email)
-}
-
-function toggleCheck(email: string) {
-  let index = selectedEmails.value.indexOf(email)
-  if (index === -1) {
-    selectedEmails.value.push(email)
-  } else {
-    selectedEmails.value.splice(index, 1)
-  }
-}
-
 const individuals: Individual[] = Object.values(individualsData.contacts).sort(
   (a: Individual, b: Individual) => a.name.localeCompare(b.name)
 )
@@ -85,9 +71,9 @@ watch(
           <input
             type="checkbox"
             name="individuals"
-            :checked="isChecked(individual.email)"
-            @change="toggleCheck(individual.email)"
             :id="'individual-' + individual.slug"
+            :value="individual.slug"
+            v-model="selectedSlugs"
           />
           {{ individual.name }}
         </FormLabel>

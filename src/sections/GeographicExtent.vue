@@ -46,8 +46,8 @@ let extent: ComputedRef<Extent> = computed(() => {
         <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
           <input
             type="radio"
-            name="licences"
-            :id="'licence-' + wke.slug"
+            name="extents"
+            :id="'extent-' + wke.slug"
             :value="wke.slug"
             v-model="selectedWkeSlug"
           />

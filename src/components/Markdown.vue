@@ -67,13 +67,7 @@ watch(
         <SectionLabel
           >Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel
         >
-        <FormTextarea
-          class="w-full flex-grow"
-          :class="inputClass"
-          name="freetext"
-          id="freetext"
-          v-model="text"
-        ></FormTextarea>
+        <FormTextarea class="w-full flex-grow" :class="inputClass" v-model="text"></FormTextarea>
       </template>
       <template v-slot:right>
         <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>

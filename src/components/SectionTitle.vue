@@ -24,15 +24,15 @@ const props = defineProps({
   }
 })
 
-const tocSection: TocItem = {
+const tocItem: TocItem = {
   anchor: props.anchor,
   title: props.title
 }
 
-const emit = defineEmits(['update:sections'])
+const emit = defineEmits(['update:tocItems'])
 
 onMounted(() => {
-  emit('update:sections', tocSection)
+  emit('update:tocItems', tocItem)
 })
 </script>
 

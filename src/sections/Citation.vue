@@ -6,7 +6,7 @@ import type { DateImpreciseLabelled, Organisation } from '@/types/app'
 import type { PointOfContact as Contact, Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
-import Freetext from '@/components/Markdown.vue'
+import Markdown from '@/components/Markdown.vue'
 import GuidanceText from '@/components/GuidanceText.vue'
 import Link from '@/components/Link.vue'
 import Button from '@/components/Button.vue'
@@ -58,8 +58,8 @@ const getCitation = async () => {
   // citation.value = await fetchCitation(doi.value)
 }
 
-const setFreetextInput = () => {
-  freetextInput.value = citationFormatted.value
+const setMarkdownInput = () => {
+  markdownInput.value = citationFormatted.value
 }
 
 const orgMagic: Organisation = organisationsData.organisations['basMagic']
@@ -74,7 +74,7 @@ const nullIdentifier: Identifier = {
 const citationProseClasses = ['prose-sm']
 
 let citation = ref<string>('')
-let freetextInput = ref<string>('')
+let markdownInput = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   /*
@@ -116,7 +116,7 @@ let publishedYear: ComputedRef<string> = computed(() => {
   if (publishedDate) {
     return String(publishedDate.date.js.getFullYear())
   }
-  return '?'
+  return ''
 })
 
 let publisher: ComputedRef<string> = computed(() => {
@@ -161,7 +161,7 @@ watch(
         id="citation-preview"
       ></Prose>
       <div class="space-x-2 flex items-center">
-        <Button @click="setFreetextInput">Copy to input</Button>
+        <Button @click="setMarkdownInput">Copy to input</Button>
         <GuidanceText
           >Click to copy this citation (with
           <Link
@@ -171,6 +171,6 @@ watch(
         >
       </div>
     </div>
-    <Freetext v-if="citation" :input="freetextInput" />
+    <Markdown v-if="citation" :input="markdownInput" />
   </SectionBorder>
 </template>
