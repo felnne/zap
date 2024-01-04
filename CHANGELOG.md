@@ -4,7 +4,7 @@
 
 ### Added
 
-* Initial test (unit and e2e using Vitest and Playwright)
+* Initial tests (unit and e2e using Vitest and Playwright)
 * Sentry error tracking and user feedback collection
 
 ## [0.5.3] - 2023-12-30

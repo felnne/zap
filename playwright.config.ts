@@ -21,7 +21,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ? 'junit' : 'html',
-  
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
@@ -39,19 +39,24 @@ export default defineConfig({
     {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome']
+        ...devices['Desktop Chrome'],
+        /* allow access to read clipboard */
+        permissions: ['clipboard-read'],
       }
     },
     {
       name: 'firefox',
       use: {
-        ...devices['Desktop Firefox']
+        ...devices['Desktop Firefox'],
+        /* no permission needed to read clipboard in firefox */
       }
     },
     {
       name: 'webkit',
       use: {
-        ...devices['Desktop Safari']
+        ...devices['Desktop Safari'],
+        /* allow access to read clipboard */
+        permissions: ['clipboard-read'],
       }
     }
 

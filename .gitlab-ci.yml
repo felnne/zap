@@ -83,6 +83,8 @@ test_e2e:
     when: always
     reports:
       junit: test-results.xml
+    paths:
+      - playwright_screenshots/
     when: always
     expire_in: 1 month
   rules:
