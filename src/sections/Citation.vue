@@ -158,6 +158,7 @@ watch(
         border-colour-class="border-black bg-neutral-100"
         :prose-classes="citationProseClasses"
         :content="citation"
+        id="citation-preview"
       ></Prose>
       <div class="space-x-2 flex items-center">
         <Button @click="setFreetextInput">Copy to input</Button>

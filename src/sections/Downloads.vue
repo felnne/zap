@@ -15,6 +15,6 @@ let count = ref(0)
     <div class="space-y-4">
       <Download v-for="index in count" :key="index"></Download>
     </div>
-    <Button @click="count++"> Add Download </Button>
+    <Button id="add-download" @click="count++"> Add Download </Button>
   </SectionBorder>
 </template>

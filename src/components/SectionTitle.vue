@@ -43,8 +43,12 @@ onMounted(() => {
         {{ title }}
       </h2>
       <div class="flex gap-4">
-        <Link v-if="guidanceHref" :href="guidanceHref">View Guidance</Link>
-        <Link class="ml-auto no-underline bg-transparent dark:bg-neutral-300" href="#top">🔝</Link>
+        <Link class="section-guidance" v-if="guidanceHref" :href="guidanceHref">View Guidance</Link>
+        <Link
+          class="section-top ml-auto no-underline bg-transparent dark:bg-neutral-300"
+          href="#top"
+          >🔝</Link
+        >
       </div>
     </div>
     <h3 v-if="subTitle" class="text-xl font-semibold text-neutral-500">

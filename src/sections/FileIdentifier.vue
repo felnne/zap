@@ -8,7 +8,7 @@ import Output from '@/components/Output.vue'
 
 const uuid = uuidv4()
 
-const emit = defineEmits(['update:fileIdentifier'])
+const emit = defineEmits(['update:fileIdentifier', 'update:tocItems'])
 
 onMounted(() => {
   emit('update:fileIdentifier', uuid)
@@ -18,6 +18,6 @@ onMounted(() => {
 <template>
   <SectionBorder>
     <SectionTitle anchor="file-identifier" title="File identifier" />
-    <Output :data="uuid"></Output>
+    <Output id="file-identifier-output" :data="uuid"></Output>
   </SectionBorder>
 </template>
