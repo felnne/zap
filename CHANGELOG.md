@@ -10,6 +10,8 @@
 ### Fixed
 
 * Changing slugs for licences in data files to remove characters that can't be used in IDs
+* Including slugs as properties in data files for consistency
+
 ## [0.5.3] - 2023-12-30
 
 ### Fixed

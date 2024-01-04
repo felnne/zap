@@ -1,11 +1,13 @@
 {
   "licences": {
     "OGL-UK-3-0": {
+      "slug": "OGL-UK-3-0",
       "name": "(UK) Open Government Licence v3.0",
       "url": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
       "statement": "This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/."
     },
     "CC-BY-4-0": {
+      "slug": "CC-BY-4-0",
       "name": "Creative Commons Attribution 4.0 International",
       "url": "https://creativecommons.org/licenses/by/4.0/",
       "statement": "This information is licensed under the Create Commons Attribution 4.0 International Licence (CC BY 4.0). To view this licence, visit https://creativecommons.org/licenses/by/4.0/."

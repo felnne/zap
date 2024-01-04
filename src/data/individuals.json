@@ -1,46 +1,55 @@
 {
   "contacts": {
     "https://orcid.org/0000-0001-5835-7975": {
+      "slug": "0000-0001-5835-7975",
       "name": "Fenney, Nathan",
       "orcid": "https://orcid.org/0000-0001-5835-7975",
       "email": "natnne@bas.ac.uk"
     },
     "https://orcid.org/0000-0001-7477-0671": {
+      "slug": "0000-0001-7477-0671",
       "name": "Fox, Adrian",
       "orcid": "https://orcid.org/0000-0001-7477-0671",
       "email": "ajfo@bas.ac.uk"
     },
     "https://orcid.org/0000-0002-0143-4527": {
+      "slug": "0000-0002-0143-4527",
       "name": "Fleming, Andrew",
       "orcid": "https://orcid.org/0000-0002-0143-4527",
       "email": "ahf@bas.ac.uk"
     },
     "https://orcid.org/0000-0002-1330-6733": {
+      "slug": "0000-0002-1330-6733",
       "name": "Cziferszky, Andreas",
       "orcid": "https://orcid.org/0000-0002-1330-6733",
       "email": "ancz@bas.ac.uk"
     },
     "https://orcid.org/0000-0002-1988-5844": {
+      "slug": "0000-0002-1988-5844",
       "name": "Fretwell, Peter",
       "orcid": "https://orcid.org/0000-0002-1988-5844",
       "email": "ptf@bas.ac.uk"
     },
     "https://orcid.org/0000-0003-0586-7626": {
+      "slug": "0000-0003-0586-7626",
       "name": "Field, Elena",
       "orcid": "https://orcid.org/0000-0003-0586-7626",
       "email": "eleeld@bas.ac.uk"
     },
     "https://orcid.org/0000-0003-0960-0486": {
+      "slug": "0000-0003-0960-0486",
       "name": "Ireland, Louise",
       "orcid": "https://orcid.org/0000-0003-0960-0486",
       "email": "louela@bas.ac.uk"
     },
     "https://orcid.org/0000-0003-1410-9122": {
+      "slug": "0000-0003-1410-9122",
       "name": "Gerrish, Laura",
       "orcid": "https://orcid.org/0000-0003-1410-9122",
       "email": "lauger@bas.ac.uk"
     },
     "https://orcid.org/0000-0003-3703-3888": {
+      "slug": "0000-0003-3703-3888",
       "name": "Fennell, Felix",
       "orcid": "https://orcid.org/0000-0003-3703-3888",
       "email": "felnne@bas.ac.uk"
