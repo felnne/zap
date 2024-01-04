@@ -13,6 +13,7 @@
 * Including slugs as properties in data files for consistency
 * Using valid values for identifying individuals and licences (i.e. the value ID attributes are based on)
 * Allowing identifiers with changing values to be correctly updated
+* Setting missing index prop for downloads
 
 ## [0.5.3] - 2023-12-30
 
