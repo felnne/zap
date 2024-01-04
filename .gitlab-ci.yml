@@ -78,7 +78,7 @@ test_e2e:
     - npx playwright install
     - npm run build-only
   script:
-    - npm run test:e2e
+    - npx playwright test --project chromium
   artifacts:
     when: always
     reports:
