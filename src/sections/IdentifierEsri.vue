@@ -36,6 +36,15 @@ watch(selected, (value) => {
     remove()
   }
 })
+
+watch(id, () => {
+  if (selected.value) {
+    // update identifier value by recreating it
+    // (this isn't very efficient when the user is typing but normally the value will be copy/pasted)
+    remove()
+    create()
+  }
+})
 </script>
 
 <template>
