@@ -7,6 +7,7 @@
 * IDs and classes for selecting specific elements needed for tests
 * Initial tests (unit and e2e using Vitest and Playwright)
 * Sentry error tracking and user feedback collection
+* Static health check endpoint (`heartbeat.txt`)
 
 ### Fixed
 
