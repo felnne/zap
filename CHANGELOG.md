@@ -12,6 +12,7 @@
 * Changing slugs for licences in data files to remove characters that can't be used in IDs
 * Including slugs as properties in data files for consistency
 * Using valid values for identifying individuals and licences (i.e. the value ID attributes are based on)
+* Allowing identifiers with changing values to be correctly updated
 
 ## [0.5.3] - 2023-12-30
 

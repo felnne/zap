@@ -25,7 +25,8 @@ const addIdentifier = (identifier: Identifier) => {
 }
 
 const removeIdentifier = (identifier: Identifier) => {
-  identifiers.value = identifiers.value.filter((i) => i.identifier !== identifier.identifier)
+  // remove identifiers based on scheme (title) as values may be updating
+  identifiers.value = identifiers.value.filter((i) => i.title !== identifier.title)
 }
 
 const identifiers = ref<Identifier[]>([])
