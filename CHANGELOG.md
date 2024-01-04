@@ -14,6 +14,7 @@
 * Using valid values for identifying individuals and licences (i.e. the value ID attributes are based on)
 * Allowing identifiers with changing values to be correctly updated
 * Setting missing index prop for downloads
+* Typo in CC licence statement
 
 ### Changed
 
