@@ -59,11 +59,11 @@ const individuals: Individual[] = Object.values(individualsData.contacts).sort(
 )
 const orgBas: Organisation = organisationsData.organisations['bas']
 
-let selectedEmails = ref<string[]>([])
+let selectedSlugs = ref<string[]>([])
 
 let contacts: ComputedRef<Contact[]> = computed(() => {
   const selectedIndividuals = individuals.filter((individual) =>
-    selectedEmails.value.includes(individual.email)
+    selectedSlugs.value.includes(individual.slug)
   )
   return selectedIndividuals.map((individual) => createContact(individual, orgBas))
 })
@@ -81,13 +81,13 @@ watch(
     <SectionTitle anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="individual in individuals" :key="individual.email">
+        <FormLabel v-for="individual in individuals" :key="individual.slug">
           <input
             type="checkbox"
             name="individuals"
-            :id="'individual-' + individual.email"
             :checked="isChecked(individual.email)"
             @change="toggleCheck(individual.email)"
+            :id="'individual-' + individual.slug"
           />
           {{ individual.name }}
         </FormLabel>
