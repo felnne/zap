@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import type { DateImprecise } from '@/types/app'
+import type { DateImprecise, DateImpreciseLabelled } from '@/types/app'
 import type { Dates as DatesIso } from '@/types/iso'
+
+import { getImpreciseDate } from '@/utils/dates'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -14,21 +16,6 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits(['update:dates'])
 
-const getIsodate = (date: DateImprecise) => {
-  const month = String(date.value.getMonth() + 1).padStart(2, '0')
-  const day = String(date.value.getDate()).padStart(2, '0')
-
-  let value = `${date.value.getFullYear()}`
-  if (date.precision === 'month') {
-    value = `${value}-${month}`
-  }
-  if (date.precision === 'day') {
-    value = `${value}-${month}-${day}`
-  }
-
-  return value
-}
-
 const label = 'published'
 const now = new Date()
 
@@ -36,29 +23,24 @@ const year = ref<number>(now.getFullYear())
 const month = ref<number>(now.getMonth() + 1)
 const day = ref<number>(now.getDate())
 
-let date: ComputedRef<DateImprecise> = computed(() => {
-  const value = new Date(year.value, 1, 1)
-  let precision = 'year'
-
-  if (month.value) {
-    value.setMonth(month.value - 1)
-    precision = 'month'
-  }
-  if (day.value) {
-    value.setDate(day.value)
-    precision = 'day'
-  }
-
-  return { label: label, value: value, precision: precision }
+let monthIndex: ComputedRef<number> = computed(() => {
+  return month.value - 1
 })
 
-let dates: ComputedRef<DateImprecise[]> = computed(() => {
+let date: ComputedRef<DateImpreciseLabelled> = computed(() => {
+  return {
+    label,
+    date: getImpreciseDate(year.value, monthIndex.value, day.value != 0 ? day.value : -1)
+  }
+})
+
+let dates: ComputedRef<DateImpreciseLabelled[]> = computed(() => {
   return [date.value]
 })
 
 let datesIso: ComputedRef<DatesIso> = computed(() => {
   return {
-    [label]: getIsodate(date.value)
+    [date.value.label]: date.value.date.iso
   }
 })
 

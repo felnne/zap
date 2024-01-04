@@ -15,6 +15,10 @@
 * Allowing identifiers with changing values to be correctly updated
 * Setting missing index prop for downloads
 
+### Changed
+
+* Major refactoring of dates component, extracting logic to utils and updating related types
+
 ## [0.5.3] - 2023-12-30
 
 ### Fixed

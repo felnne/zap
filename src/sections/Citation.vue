@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '@/utils/citation'
-import type { DateImprecise, Organisation } from '@/types/app'
+import type { DateImpreciseLabelled, Organisation } from '@/types/app'
 import type { PointOfContact as Contact, Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -30,7 +30,7 @@ const props = defineProps({
     required: true
   },
   dates: {
-    type: Array as () => DateImprecise[],
+    type: Array as () => DateImpreciseLabelled[],
     required: true
   },
   contacts: {
@@ -114,7 +114,7 @@ let authors: ComputedRef<string[]> = computed(() => {
 let publishedYear: ComputedRef<string> = computed(() => {
   const publishedDate = props.dates.find((date) => date.label === 'published')
   if (publishedDate) {
-    return String(publishedDate.value.getFullYear())
+    return String(publishedDate.date.js.getFullYear())
   }
   return '?'
 })
