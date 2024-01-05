@@ -2,14 +2,18 @@ import { describe, it, expect } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import type { DateImpreciseLabelled } from '@/types/app'
+import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
-import Citation from '@/sections/Citation_v1_0.vue'
+import Citation from '@/sections/Citation_v2_0.vue'
 
-const defaultProps = {
+const identifier = '12345'
+const doiIdentifier = `123/${identifier}`
+
+const record: Record = {
+  fileIdentifier: identifier,
   resourceType: 'dataset',
   identifiers: [
-    { identifier: '123/12345', href: 'https://doi.org/123/12345', title: 'doi' }
+    { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, title: 'doi' }
   ] as Identifier[],
   edition: '1.0',
   dates: [
@@ -22,7 +26,7 @@ const defaultProps = {
 describe('Citation', () => {
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
-      props: defaultProps,
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard
@@ -33,12 +37,12 @@ describe('Citation', () => {
     // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
     await flushPromises()
 
-    expect(wrapper.find('div#citation-preview').html()).toContain(`<i>${defaultProps.title}</i>`)
+    expect(wrapper.find('div#citation-preview').html()).toContain(`<i>${record.title}</i>`)
   })
 
   it('copies citation preview to input', async () => {
     const wrapper = mount(Citation, {
-      props: defaultProps,
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard
@@ -52,6 +56,6 @@ describe('Citation', () => {
     wrapper.find('button').trigger('click')
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.find('textarea').element.value).toContain(`_${defaultProps.title}_`)
+    expect(wrapper.find('textarea').element.value).toContain(`_${record.title}_`)
   })
 })
