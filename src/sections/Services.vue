@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import { getServiceSlugs } from '@/utils/data'
+
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Service from '@/sections/Service.vue'
 
-import servicesData from '@/data/services.json'
-
-const serviceSlugs: string[] = Object.keys(servicesData.services).sort((a: string, b: string) =>
-  a.localeCompare(b)
-)
+const serviceSlugs = getServiceSlugs()
 </script>
 <template>
   <SectionBorder>

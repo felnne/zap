@@ -19,8 +19,8 @@
         "function": "information"
       }
     },
-    "basMagic": {
-      "slug": "basMagic",
+    "bas_magic": {
+      "slug": "bas_magic",
       "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
       "ror": "https://ror.org/01rhff309",
       "email": "magic@bas.ac.uk",
@@ -39,8 +39,8 @@
         "function": "information"
       }
     },
-    "nercEdsPdc": {
-      "slug": "nercEdsPdc",
+    "nerc_eds_pdc": {
+      "slug": "nerc_eds_pdc",
       "name": "NERC EDS UK Polar Data Centre",
       "ror": "https://ror.org/02b5d8509",
       "email": "pdcservicedesk@bas.ac.uk",

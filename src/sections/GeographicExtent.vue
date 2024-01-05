@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
+import { getExtents, getExtent } from '@/utils/data'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
@@ -10,31 +11,18 @@ import TwoColumn from '@/components/TwoColumn.vue'
 import type { WellKnownExtent } from '@/types/app'
 import type { Extent } from '@/types/iso'
 
-import extentsData from '@/data/extents.json'
-
 function createExtent(wke: WellKnownExtent): Extent {
   return {
     geographic: wke.extent.geographic
   }
 }
 
-const wellKnownExtents: Record<string, WellKnownExtent> = Object.values(
-  extentsData.geographic
-).reduce((acc: Record<string, WellKnownExtent>, wke: WellKnownExtent) => {
-  acc[wke.slug] = {
-    slug: wke.slug,
-    name: wke.name,
-    extent: {
-      geographic: wke.extent.geographic
-    }
-  }
-  return acc
-}, {})
+const wellKnownExtents = getExtents()
 
-let selectedWkeSlug = ref<string>(Object.keys(wellKnownExtents)[0])
+let selectedWkeSlug = ref<string>(wellKnownExtents[0].slug)
 
 let extent: ComputedRef<Extent> = computed(() => {
-  return createExtent(wellKnownExtents[selectedWkeSlug.value])
+  return createExtent(getExtent(selectedWkeSlug.value))
 })
 </script>
 

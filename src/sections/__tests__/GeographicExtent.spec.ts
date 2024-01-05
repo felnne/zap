@@ -37,8 +37,8 @@ describe('GeographicExtent', () => {
       }
     })
 
-    // set radio input with id 'extent-subAntarctica' to checked
-    await wrapper.find('input#extent-subAntarctica').setValue()
+    // set radio input with id 'extent-sub_antarctica' to checked
+    await wrapper.find('input#extent-sub_antarctica').setValue()
 
     expect(wrapper.find('pre').text()).toContain(expectedValueInExtent)
   })

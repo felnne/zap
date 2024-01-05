@@ -2,7 +2,8 @@
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '@/utils/citation'
-import type { DateImpreciseLabelled, Organisation } from '@/types/app'
+import { getOrganisation } from '@/utils/data'
+import type { DateImpreciseLabelled } from '@/types/app'
 import type { PointOfContact as Contact, Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -13,8 +14,6 @@ import Button from '@/components/Button.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionLabel from '@/components/SectionLabel.vue'
 import Prose from '@/components/Prose.vue'
-
-import organisationsData from '@/data/organisations.json'
 
 const props = defineProps({
   resourceType: {
@@ -62,8 +61,8 @@ const setMarkdownInput = () => {
   markdownInput.value = citationFormatted.value
 }
 
-const orgMagic: Organisation = organisationsData.organisations['basMagic']
-const orgPdc: Organisation = organisationsData.organisations['nercEdsPdc']
+const orgMagic = getOrganisation('bas_magic')
+const orgPdc = getOrganisation('nerc_eds_pdc')
 
 const nullIdentifier: Identifier = {
   identifier: '',

@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import Service from '@/sections/Service.vue'
 
-const expectedService = 'test'
+const expectedService = 'wms'
 
 describe('Service', () => {
   it('renders output when selected', async () => {
@@ -20,12 +20,10 @@ describe('Service', () => {
     })
 
     // enable service
-    // `input#service--selection` should be `input#service-${expectedService}-selection` but can't until refactoring
-    await wrapper.find(`input#service--selection`).setValue()
+    await wrapper.find(`input#service-wms-selection`).setValue()
 
     // set endpoint (needs to be after it's enabled)
-    // `input#service--endpoint` should be `input#service-${expectedService}-endpoint` but can't until refactoring
-    await wrapper.find(`input#service--endpoint`).setValue(expectedEndpoint)
+    await wrapper.find(`input#service-wms-endpoint`).setValue(expectedEndpoint)
 
     expect(wrapper.find('pre').text()).toContain(expectedEndpoint)
   })
@@ -40,8 +38,7 @@ describe('Service', () => {
       }
     })
 
-    // `input#service--endpoint` should be `input#service-${expectedService}-endpoint` but can't until refactoring
-    const inputElement = wrapper.find(`input#service--endpoint`)
+    const inputElement = wrapper.find(`input#service-wms-endpoint`)
     expect(inputElement.attributes().disabled).toBe('')
   })
 })

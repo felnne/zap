@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
+import { getLicences, getLicence } from '@/utils/data'
 import Output from '@/components/Output.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -9,8 +10,6 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 import type { Licence } from '@/types/app'
 import type { Constraint } from '@/types/iso'
-
-import licencesData from '@/data/licences.json'
 
 function createConstraint(licence: Licence): Constraint {
   return {
@@ -21,12 +20,12 @@ function createConstraint(licence: Licence): Constraint {
   }
 }
 
-const licences: Record<string, Licence> = licencesData.licences
+const licences = getLicences()
 
-let selectedLicenceSlug = ref<string>(Object.keys(licences)[0])
+let selectedLicenceSlug = ref<string>(licences[0].slug)
 
 let licenceConstraint: ComputedRef<Constraint> = computed(() => {
-  return createConstraint(licences[selectedLicenceSlug.value])
+  return createConstraint(getLicence(selectedLicenceSlug.value))
 })
 </script>
 

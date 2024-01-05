@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
+import { getOrganisation, getService } from '@/utils/data'
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import FormInput from '@/components/FormInput.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
-
-import servicesData from '@/data/services.json'
-import organisationsData from '@/data/organisations.json'
 
 import type { Organisation, Service, ServiceFormat } from '@/types/app'
 import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '@/types/iso'
@@ -19,20 +17,8 @@ const props = defineProps({
   }
 })
 
-const nullFormat: ServiceFormat = {
-  name: '',
-  href: '',
-  version: ''
-}
-const nullService: Service = {
-  slug: '',
-  name: '',
-  description: '',
-  format: nullFormat
-}
-
-const service: Service = (servicesData.services as any)[props.slug] ?? nullService
-const orgMagic: Organisation = organisationsData.organisations['basMagic']
+const service = getService(props.slug)
+const orgMagic = getOrganisation('bas_magic')
 
 const distributor: Contact = {
   organisation: {
