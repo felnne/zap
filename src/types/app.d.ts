@@ -1,3 +1,4 @@
+import { ResourceType } from '@/types/enum'
 import type { Address, Identifier, PointOfContact as Contact, OnlineResource } from '@/iso'
 
 export type DateImprecise = {
@@ -52,7 +53,7 @@ export type Organisation = {
 
 export type Record = {
   fileIdentifier: string
-  resourceType: string
+  resourceType: ResourceType
   identifiers: Identifier[]
   edition: string
   title: string

@@ -30,8 +30,9 @@ import Idea from '@/sections/Idea_v1_0.vue'
         <Idea>Include WMTS, WFS and Esri in services section.</Idea>
         <Idea>Download proxy items.</Idea>
         <Idea>Colour code distribution options like JWTs.</Idea>
+        <Idea complete>Hide selections based on resource type.</Idea>
         <Idea>Aggregations section.</Idea>
-        <Idea>Collections resource type.</Idea>
+        <Idea complete>Collections resource type.</Idea>
         <Idea>Validation.</Idea>
         <Idea>Preserving input values (like GitLab editor).</Idea>
         <Idea>Button to load sample data for all sections.</Idea>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
+import { ResourceType, Stability } from '@/types/enum'
+
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
@@ -8,12 +10,10 @@ import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
-  'update:resourceType': [id: string]
+  'update:resourceType': [id: ResourceType]
 }>()
 
-const resourceTypes = ['dataset', 'product']
-
-const resourceType = ref<string>(resourceTypes[0])
+const resourceType = ref<ResourceType>(ResourceType.Dataset)
 
 onMounted(() => {
   emit('update:resourceType', resourceType.value)
@@ -29,10 +29,15 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="resource-type" title="Resource Type" />
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="resource-type"
+      title="Resource Type"
+    />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="type in resourceTypes" :key="type">
+        <FormLabel v-for="type in ResourceType" :key="type">
           <input
             type="radio"
             name="resource-type"

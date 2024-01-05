@@ -2,11 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import ResourceType from '@/sections/ResourceType_v1_1.vue'
+import { ResourceType as ResourceTypeEM } from '@/types/enum'
+import ResourceType from '@/sections/ResourceType_v2_0.vue'
 
 describe('ResourceType', () => {
   it('emits value when mounted', async () => {
-    const expected = 'dataset'
+    const expected = ResourceTypeEM.Dataset
 
     const wrapper = mount(ResourceType, {
       global: {
@@ -24,8 +25,8 @@ describe('ResourceType', () => {
   })
 
   it('emits value when updated', async () => {
-    const expectedInitial = 'dataset'
-    const expectedUpdated = 'product'
+    const expectedInitial = ResourceTypeEM.Dataset
+    const expectedUpdated = ResourceTypeEM.Product
 
     const wrapper = mount(ResourceType, {
       global: {
@@ -42,8 +43,11 @@ describe('ResourceType', () => {
       expect(emittedResourceType[0]).toEqual([expectedInitial])
     }
 
-    const inputElement = wrapper.find('input')
-    expect(inputElement.element.value).toBe(expectedInitial)
+    // get the second input as 'dataset' comes after 'collection'
+    const inputElement = wrapper.findAll('input').at(1)
+    if (inputElement) {
+      expect(inputElement.element.value).toBe(expectedInitial)
+    }
 
     // set radio input with id 'resource-type-product' to checked
     await wrapper.find('input#resource-type-product').setValue()

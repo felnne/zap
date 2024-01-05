@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { showSection } from '@/utils/control'
+import { ResourceType as ResourceTypeEM } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 
@@ -17,12 +19,12 @@ import Epilogue from '@/sections/Epilogue_v1_0.vue'
 import FileIdentifier from '@/sections/FileIdentifier_v1_1.vue'
 import GeographicExtent from '@/sections/GeographicExtent_v1_0.vue'
 import Ideas from '@/sections/Ideas_v1_0.vue'
-import Identifiers from '@/sections/Identifiers_v1_1.vue'
+import Identifiers from '@/sections/Identifiers_v2_0.vue'
 import Licence from '@/sections/Licence_v1_0.vue'
 import Lineage from '@/sections/Lineage_v1_0.vue'
 import Prologue from '@/sections/Prologue_v1_0.vue'
 import Resources from '@/sections/Resources_v1_0.vue'
-import ResourceType from '@/sections/ResourceType_v1_1.vue'
+import ResourceType from '@/sections/ResourceType_v2_0.vue'
 import Services from '@/sections/Services_v1_0.vue'
 import TableOfContents from '@/sections/TableOfContents_v1_0.vue'
 import Title from '@/sections/Title_v1_1.vue'
@@ -30,7 +32,7 @@ import type { TocItem } from '@/types/app'
 
 const record = ref<Record>({
   fileIdentifier: '',
-  resourceType: '',
+  resourceType: ResourceTypeEM.Dataset,
   identifiers: [],
   edition: '',
   title: '',
@@ -54,6 +56,10 @@ const tocItems: TocItem[] = [
   { anchor: 'services', title: 'Services' },
   { anchor: 'lineage', title: 'Lineage' }
 ]
+
+function show(section: string): boolean {
+  return showSection(section, record.value.resourceType)
+}
 </script>
 
 <template>
@@ -64,11 +70,12 @@ const tocItems: TocItem[] = [
       <Prologue />
       <TableOfContents :items="tocItems" />
       <FileIdentifier @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)" />
-      <!-- @update:input="(event: string) => title = event"-->
-
-      <ResourceType @update:resourceType="(event: string) => (record.resourceType = event)" />
+      <ResourceType
+        @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"
+      />
       <Identifiers
         :fileIdentifier="record.fileIdentifier"
+        :resourceType="record.resourceType"
         @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
       />
       <Edition @update:edition="(event: string) => (record.edition = event)" />
@@ -76,12 +83,15 @@ const tocItems: TocItem[] = [
       <Abstract />
       <Dates @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)" />
       <GeographicExtent />
-      <Contacts @update:contacts="(event: Contact[]) => (record.contacts = event)" />
-      <Licence />
-      <Citation :record="record" />
-      <Downloads />
-      <Services />
-      <Lineage />
+      <Contacts
+        v-if="show('contacts')"
+        @update:contacts="(event: Contact[]) => (record.contacts = event)"
+      />
+      <Licence v-if="show('licence')" />
+      <Citation v-if="show('citation')" :record="record" />
+      <Downloads v-if="show('downloads')" />
+      <Services v-if="show('services')" />
+      <Lineage v-if="show('lineage')" />
       <Resources />
       <Ideas />
       <Epilogue />

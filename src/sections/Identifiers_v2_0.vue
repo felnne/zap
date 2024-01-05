@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { type PropType, ref, watch } from 'vue'
 
+import { showSection } from '@/utils/control'
+import { ResourceType, Stability } from '@/types/enum'
 import type { Identifier } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
@@ -14,6 +16,10 @@ import TwoColumn from '@/components/TwoColumn.vue'
 defineProps({
   fileIdentifier: {
     type: String,
+    required: true
+  },
+  resourceType: {
+    type: String as PropType<ResourceType>,
     required: true
   }
 })
@@ -43,7 +49,12 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="identifiers" title="Identifiers" />
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="identifiers"
+      title="Identifiers"
+    />
     <TwoColumn>
       <template v-slot:left>
         <IdentifierSelf
@@ -51,11 +62,13 @@ watch(
           @add:identifier="(event: Identifier) => addIdentifier(event)"
         />
         <IdentifierDoi
+          v-if="showSection('identifierDoi', resourceType)"
           :fileIdentifier="fileIdentifier"
           @add:identifier="addIdentifier($event)"
           @remove:identifier="removeIdentifier($event)"
         />
         <IdentifierEsri
+          v-if="showSection('identifierEsri', resourceType)"
           @add:identifier="(event: Identifier) => addIdentifier(event)"
           @remove:identifier="(event: Identifier) => removeIdentifier(event)"
         />

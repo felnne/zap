@@ -3,8 +3,8 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '@/utils/citation'
 import { getOrganisation } from '@/utils/data'
-import type { DateImpreciseLabelled, Record } from '@/types/app'
-import type { PointOfContact as Contact, Identifier } from '@/types/iso'
+import type { Record } from '@/types/app'
+import type { Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
 import Markdown from '@/components/Markdown.vue'
