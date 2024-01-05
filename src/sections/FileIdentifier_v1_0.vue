@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="file-identifier" title="File identifier" />
+    <SectionTitle version="1.0" anchor="file-identifier" title="File identifier" />
     <Output id="file-identifier-output" :data="uuid"></Output>
   </SectionBorder>
 </template>

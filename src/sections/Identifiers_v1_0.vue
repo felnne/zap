@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
+import type { Identifier } from '@/types/iso'
+
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
-import IdentifierSelf from '@/sections/IdentifierSelf.vue'
-import IdentifierDoi from '@/sections/IdentifierDoi.vue'
-import IdentifierEsri from '@/sections/IdentifierEsri.vue'
+import IdentifierSelf from '@/sections/IdentifierSelf_v1_0.vue'
+import IdentifierDoi from '@/sections/IdentifierDoi_v1_0.vue'
+import IdentifierEsri from '@/sections/IdentifierEsri_v1_0.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-
-import type { Identifier } from '@/types/iso'
 
 defineProps({
   fileIdentifier: {
@@ -41,7 +41,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="identifiers" title="Identifiers" />
+    <SectionTitle version="1.0" anchor="identifiers" title="Identifiers" />
     <TwoColumn>
       <template v-slot:left>
         <IdentifierSelf :fileIdentifier="fileIdentifier" @add:identifier="addIdentifier($event)" />

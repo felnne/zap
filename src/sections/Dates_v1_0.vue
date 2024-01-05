@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import type { DateImprecise, DateImpreciseLabelled } from '@/types/app'
-import type { Dates as DatesIso } from '@/types/iso'
-
 import { getImpreciseDate } from '@/utils/dates'
+import type { DateImpreciseLabelled } from '@/types/app'
+import type { Dates as DatesIso } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -58,7 +57,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="dates" title="Dates" sub-title="Publication date" />
+    <SectionTitle version="1.0" anchor="dates" title="Dates" sub-title="Publication date" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">

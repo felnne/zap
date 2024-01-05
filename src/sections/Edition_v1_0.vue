@@ -25,7 +25,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="edition" title="Edition" />
+    <SectionTitle version="1.0" anchor="edition" title="Edition" />
     <TwoColumn>
       <template v-slot:left>
         <div>

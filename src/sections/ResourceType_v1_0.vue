@@ -27,7 +27,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="resource-type" title="Resource Type" />
+    <SectionTitle version="1.0" anchor="resource-type" title="Resource Type" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="type in resourceTypes" :key="type">

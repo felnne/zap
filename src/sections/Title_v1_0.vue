@@ -20,6 +20,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
+      version="1.0"
       anchor="title"
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"

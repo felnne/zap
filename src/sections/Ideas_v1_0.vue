@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
-import Idea from '@/sections/Idea.vue'
+import Idea from '@/sections/Idea_v1_0.vue'
 </script>
 
 <template>
   <SectionBorder border-colour-class="border-sky-500">
-    <SectionTitle anchor="ideas" title="Ideas" />
+    <SectionTitle version="1.0" anchor="ideas" title="Ideas" />
     <div class="space-y-4">
       <div class="space-y-2">
         <Idea>BAS Research Topics topic keywords.</Idea>
