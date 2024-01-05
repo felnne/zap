@@ -28,7 +28,12 @@ let extent: ComputedRef<Extent> = computed(() => {
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="spatial-extent" title="Spatial extent" sub-title="Well-known extents" />
+    <SectionTitle
+      version="1.0"
+      anchor="spatial-extent"
+      title="Spatial extent"
+      sub-title="Well-known extents"
+    />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">

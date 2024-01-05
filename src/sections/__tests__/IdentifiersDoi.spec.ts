@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Identifier } from '@/types/iso'
-import IdentifierDoi from '@/sections/IdentifierDoi.vue'
+import IdentifierDoi from '@/sections/IdentifierDoi_v1_0.vue'
 
 const uuid = uuidv4()
 

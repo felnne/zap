@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import type { Individual } from '@/types/app'
 import type { PointOfContact as Contact } from '@/types/iso'
-import Contacts from '@/sections/Contacts.vue'
+import Contacts from '@/sections/Contacts_v1_0.vue'
 
 import individualsData from '@/data/individuals.json'
 

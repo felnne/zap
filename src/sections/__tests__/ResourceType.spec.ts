@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import ResourceType from '@/sections/ResourceType.vue'
+import ResourceType from '@/sections/ResourceType_v1_0.vue'
 
 describe('ResourceType', () => {
   it('emits value when mounted', async () => {

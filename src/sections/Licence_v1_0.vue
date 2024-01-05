@@ -31,7 +31,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="licence" title="Licence" />
+    <SectionTitle version="1.0" anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="licence in licences" :key="licence.slug">

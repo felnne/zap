@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { TocItem } from '@/types/app'
-import TableOfContents from '@/sections/TableOfContents.vue'
+import TableOfContents from '@/sections/TableOfContents_v1_0.vue'
 
 describe('TableOfContents', () => {
   it('renders properly', async () => {

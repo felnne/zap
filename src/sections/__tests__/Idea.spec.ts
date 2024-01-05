@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import Idea from '@/sections/Idea.vue'
+import Idea from '@/sections/Idea_v1_0.vue'
 
 describe('Idea', () => {
   it('renders properly when completed', async () => {

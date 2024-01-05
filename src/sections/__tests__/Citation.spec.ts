@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import type { DateImpreciseLabelled } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
-import Citation from '@/sections/Citation.vue'
+import Citation from '@/sections/Citation_v1_0.vue'
 
 const defaultProps = {
   resourceType: 'dataset',

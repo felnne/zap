@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import type { WellKnownExtent } from '@/types/app'
 import type { Extent } from '@/types/iso'
-import GeographicExtent from '@/sections/GeographicExtent.vue'
+import GeographicExtent from '@/sections/GeographicExtent_v1_0.vue'
 
 import extentsData from '@/data/extents.json'
 

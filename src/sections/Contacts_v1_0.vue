@@ -60,7 +60,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="contacts" title="Contacts" />
+    <SectionTitle version="1.0" anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="individual in individuals" :key="individual.slug">

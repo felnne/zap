@@ -63,14 +63,12 @@ const setMarkdownInput = () => {
 
 const orgMagic = getOrganisation('bas_magic')
 const orgPdc = getOrganisation('nerc_eds_pdc')
-
+const citationProseClasses = ['prose-sm']
 const nullIdentifier: Identifier = {
   identifier: '',
   href: '',
   title: 'null'
 }
-
-const citationProseClasses = ['prose-sm']
 
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
@@ -150,7 +148,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="citation" title="Citation" />
+    <SectionTitle version="1.0" anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose

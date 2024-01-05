@@ -6,7 +6,7 @@ import Markdown from '@/components/Markdown.vue'
 
 <template>
   <SectionBorder>
-    <SectionTitle anchor="lineage" title="Lineage" />
+    <SectionTitle version="1.0" anchor="abstract" title="Abstract" />
     <Markdown />
   </SectionBorder>
 </template>
