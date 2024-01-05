@@ -1,9 +1,15 @@
-*.tsbuildinfo
+# Tools
 .idea/
-node_modules/
-dist/
 /playwright-report
 /playwright-screenshots
+
+# App
+*.tsbuildinfo
+node_modules/
+dist/
+
+# Local
+notes.md
 
 # Sentry Config File
 .env.sentry-build-plugin

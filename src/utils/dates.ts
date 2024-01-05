@@ -49,7 +49,7 @@ export const getImpreciseDate = (
   return { js: value, iso: isoValue, precision: precision }
 }
 
-const getImpreciseIsoDate = (date: Date, precision: string) => {
+const getImpreciseIsoDate = (date: Date, precision: string): string => {
   /*
    * Returns an ISO date string with the specified precision.
    *

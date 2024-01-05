@@ -2,14 +2,14 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { getIndividuals, getOrganisation } from '@/utils/data'
+import type { Individual, Organisation } from '@/types/app'
+import type { PointOfContact as Contact } from '@/types/iso'
+
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-
-import type { Individual, Organisation } from '@/types/app'
-import type { PointOfContact as Contact } from '@/types/iso'
 
 const emit = defineEmits(['update:contacts'])
 

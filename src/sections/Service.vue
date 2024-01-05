@@ -2,13 +2,12 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import { getOrganisation, getService } from '@/utils/data'
+import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '@/types/iso'
+
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import FormInput from '@/components/FormInput.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
-
-import type { Organisation, Service, ServiceFormat } from '@/types/app'
-import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '@/types/iso'
 
 const props = defineProps({
   slug: {
