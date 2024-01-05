@@ -25,6 +25,7 @@
 
 * Major refactoring of dates component, extracting logic to utils and updating related types
 * Sentry disabled in development environment
+* Data loading functions refactored into utils module and refactored to return consistent data structures
 * external data files aligned to use snake case slugs
 
 ## [0.5.3] - 2023-12-30

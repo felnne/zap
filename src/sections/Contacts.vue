@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
+import { getIndividuals, getOrganisation } from '@/utils/data'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
@@ -9,9 +10,6 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 import type { Individual, Organisation } from '@/types/app'
 import type { PointOfContact as Contact } from '@/types/iso'
-
-import individualsData from '@/data/individuals.json'
-import organisationsData from '@/data/organisations.json'
 
 const emit = defineEmits(['update:contacts'])
 
@@ -40,10 +38,8 @@ function createContact(individual: Individual, organisation: Organisation): Cont
     role: ['author']
   }
 }
-const individuals: Individual[] = Object.values(individualsData.contacts).sort(
-  (a: Individual, b: Individual) => a.name.localeCompare(b.name)
-)
-const orgBas: Organisation = organisationsData.organisations['bas']
+const individuals = getIndividuals()
+const orgBas = getOrganisation('bas')
 
 let selectedSlugs = ref<string[]>([])
 

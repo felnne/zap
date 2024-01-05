@@ -3,8 +3,8 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import Output from '@/components/Output.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
-
-import type { Format, Organisation } from '@/types/app'
+import { getFormats, getOrganisation } from '@/utils/data'
+import type { Format } from '@/types/app'
 import type {
   DistributionOption,
   Format as FormatIso,
@@ -13,15 +13,13 @@ import type {
   Size
 } from '@/types/iso'
 
-import formatsData from '@/data/formats.json'
-import organisationsData from '@/data/organisations.json'
 
 defineProps({
   index: Number
 })
 
-const formats: Format[] = Object.values(formatsData.formats)
-const orgMagic: Organisation = organisationsData.organisations['basMagic']
+const formats = getFormats()
+const orgMagic = getOrganisation('bas_magic')
 
 const unknownFormat: Format = {
   slug: 'unknown',
