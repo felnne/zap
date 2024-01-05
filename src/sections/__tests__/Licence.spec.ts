@@ -10,7 +10,7 @@ import licencesData from '@/data/licences.json'
 
 describe('Licence', () => {
   it('renders licence from choice', async () => {
-    const expectedLicence: LicenceT = licencesData['licences']['OGL-UK-3-0']
+    const expectedLicence: LicenceT = licencesData['licences']['OGL_UK_3_0']
     const expectedConstraint: Constraint = {
       type: 'usage',
       restriction_code: 'license',
@@ -40,8 +40,8 @@ describe('Licence', () => {
       }
     })
 
-    // set radio input with id 'licence-CC-BY-4.0' to checked
-    await wrapper.find('input#licence-CC-BY-4-0').setValue()
+    // set radio input with id 'licence-CC_BY_4_0' to checked
+    await wrapper.find('input#licence-CC_BY_4_0').setValue()
 
     expect(wrapper.find('pre').text()).toContain(expectedLicenceName)
   })

@@ -14,8 +14,8 @@
         }
       }
     },
-    "subAntarctica": {
-      "slug": "subAntarctica",
+    "sub_antarctica": {
+      "slug": "sub_antarctica",
       "name": "Sub-Antarctica",
       "extent": {
         "geographic": {
