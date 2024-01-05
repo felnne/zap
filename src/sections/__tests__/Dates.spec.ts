@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import type { DateImpreciseLabelled } from '@/types/app'
-import Dates from '@/sections/Dates.vue'
+import Dates from '@/sections/Dates_v1_0.vue'
 
 const label = 'published'
 const impreciseValue = '0'
