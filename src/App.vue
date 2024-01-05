@@ -7,7 +7,7 @@ import AppTitle from '@/components/AppTitle.vue'
 import BackToTop from '@/components/BackToTop.vue'
 
 import Abstract from '@/sections/Abstract_v1_0.vue'
-import Citation from '@/sections/Citation_v1_0.vue'
+import Citation from '@/sections/Citation_v2_0.vue'
 import Contacts from '@/sections/Contacts_v1_0.vue'
 import Dates from '@/sections/Dates_v1_0.vue'
 import Downloads from '@/sections/Downloads_v1_0.vue'
@@ -75,14 +75,7 @@ const tocItems: TocItem[] = [
       <GeographicExtent />
       <Contacts @update:contacts="record.contacts = $event" />
       <Licence />
-      <Citation
-        :resource-type="record.resourceType"
-        :identifiers="record.identifiers"
-        :edition="record.edition"
-        :title="record.title"
-        :dates="record.dates"
-        :contacts="record.contacts"
-      />
+      <Citation :record="record" />
       <Downloads />
       <Services />
       <Lineage />
