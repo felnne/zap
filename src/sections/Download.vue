@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import Output from '@/components/Output.vue'
-import SubSectionBorder from '@/components/SubSectionBorder.vue'
 import { getFormats, getOrganisation } from '@/utils/data'
 import type { Format } from '@/types/app'
 import type {
@@ -13,6 +11,8 @@ import type {
   Size
 } from '@/types/iso'
 
+import Output from '@/components/Output.vue'
+import SubSectionBorder from '@/components/SubSectionBorder.vue'
 
 defineProps({
   index: Number

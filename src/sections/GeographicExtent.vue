@@ -2,14 +2,14 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import { getExtents, getExtent } from '@/utils/data'
+import type { WellKnownExtent } from '@/types/app'
+import type { Extent } from '@/types/iso'
+
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-
-import type { WellKnownExtent } from '@/types/app'
-import type { Extent } from '@/types/iso'
 
 function createExtent(wke: WellKnownExtent): Extent {
   return {

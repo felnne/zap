@@ -2,14 +2,14 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import { getLicences, getLicence } from '@/utils/data'
+import type { Licence } from '@/types/app'
+import type { Constraint } from '@/types/iso'
+
 import Output from '@/components/Output.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-
-import type { Licence } from '@/types/app'
-import type { Constraint } from '@/types/iso'
 
 function createConstraint(licence: Licence): Constraint {
   return {

@@ -44,7 +44,7 @@ const tocItems: TocItem[] = [
   { anchor: 'title', title: 'Title' },
   { anchor: 'abstract', title: 'Abstract' },
   { anchor: 'dates', title: 'Dates' },
-  { anchor: 'geographic-extent', title: 'Spatial extent' },
+  { anchor: 'spatial-extent', title: 'Spatial extent' },
   { anchor: 'contacts', title: 'Contacts' },
   { anchor: 'citation', title: 'Citation' },
   { anchor: 'licence', title: 'Licence' },
