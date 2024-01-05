@@ -7,7 +7,9 @@ import Output from '@/components/Output.vue'
 import FormInput from '@/components/FormInput.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-const emit = defineEmits(['update:edition'])
+const emit = defineEmits<{
+  'update:edition': [id: string]
+}>()
 
 const edition = ref<string>('1.0')
 
@@ -25,7 +27,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="edition" title="Edition" />
+    <SectionTitle version="1.1" anchor="edition" title="Edition" />
     <TwoColumn>
       <template v-slot:left>
         <div>

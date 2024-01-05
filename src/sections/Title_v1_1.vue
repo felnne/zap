@@ -5,7 +5,9 @@ import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Markdown from '@/components/Markdown.vue'
 
-const emit = defineEmits(['update:title'])
+const emit = defineEmits<{
+  'update:title': [id: string]
+}>()
 
 const title = ref<string>('')
 
@@ -20,11 +22,11 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.0"
+      version="1.1"
       anchor="title"
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
     />
-    <Markdown input-class="min-h-10" @update:input="title = $event" />
+    <Markdown input-class="min-h-10" @update:input="(event: string) => (title = event)" />
   </SectionBorder>
 </template>

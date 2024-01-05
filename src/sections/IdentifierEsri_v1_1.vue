@@ -8,7 +8,10 @@ import FormInput from '@/components/FormInput.vue'
 
 const account = 'bas'
 
-const emit = defineEmits(['add:identifier', 'remove:identifier'])
+const emit = defineEmits<{
+  'add:identifier': [id: Identifier]
+  'remove:identifier': [id: Identifier]
+}>()
 
 const create = () => {
   emit('add:identifier', identifier.value)

@@ -13,7 +13,9 @@ import FormLabel from '@/components/FormLabel.vue'
 import FormInput from '@/components/FormInput.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-const emit = defineEmits(['update:dates'])
+const emit = defineEmits<{
+  'update:dates': [id: DateImpreciseLabelled[]]
+}>()
 
 const label = 'published'
 const now = new Date()
@@ -57,7 +59,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="dates" title="Dates" sub-title="Publication date" />
+    <SectionTitle version="1.1" anchor="dates" title="Dates" sub-title="Publication date" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">
