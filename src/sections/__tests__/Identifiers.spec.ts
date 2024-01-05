@@ -2,8 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
+import { ResourceType } from '@/types/enum'
 import type { Identifier } from '@/types/iso'
-import Identifiers from '@/sections/Identifiers_v1_1.vue'
+import Identifiers from '@/sections/Identifiers_v2_0.vue'
 
 describe('Identifiers', () => {
   it('adds an identifier and emits identifiers', async () => {
@@ -14,7 +15,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '' },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
           clipboard: Clipboard
@@ -43,7 +44,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '' },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
           clipboard: Clipboard
@@ -78,7 +79,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '' },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
           clipboard: Clipboard
@@ -97,5 +98,24 @@ describe('Identifiers', () => {
 
     expect(wrapper.find('pre').text()).toContain(expectedIdentifierB.identifier)
     expect(wrapper.find('pre').text()).not.toContain(expectedIdentifierA.identifier)
+  })
+
+  it('hides identifiers based on resource type', async () => {
+    ;[ResourceType.Collection, ResourceType.Product].forEach((resourceType) => {
+      const wrapper = mount(Identifiers, {
+        props: { fileIdentifier: '', resourceType: resourceType },
+        global: {
+          directives: {
+            clipboard: Clipboard
+          }
+        }
+      })
+
+      const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
+      expect(doiIdentifier.exists()).toBeFalsy()
+
+      const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri_v1_1' })
+      expect(esriIdentifier.exists()).toBeFalsy()
+    })
   })
 })

@@ -10,6 +10,8 @@
 * Static health check endpoint (`heartbeat.txt`)
 * Version and stability metadata for section components
 * Typing for event emits and handlers
+* Collection resource type
+* Logic to hide sections that don't apply to different resource types
 
 ### Fixed
 
@@ -31,6 +33,7 @@
 * Data loading functions refactored into utils module and refactored to return consistent data structures
 * external data files aligned to use snake case slugs
 * Refactored citation section to use a record instance as a single prop
+* Refactored resource type to use an enum
 
 ## [0.5.3] - 2023-12-30
 

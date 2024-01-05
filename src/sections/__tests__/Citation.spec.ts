@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
+import { ResourceType } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 import Citation from '@/sections/Citation_v2_0.vue'
@@ -11,7 +12,7 @@ const doiIdentifier = `123/${identifier}`
 
 const record: Record = {
   fileIdentifier: identifier,
-  resourceType: 'dataset',
+  resourceType: ResourceType.Dataset,
   identifiers: [
     { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, title: 'doi' }
   ] as Identifier[],
