@@ -7,7 +7,9 @@ import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-const emit = defineEmits(['update:resourceType'])
+const emit = defineEmits<{
+  'update:resourceType': [id: string]
+}>()
 
 const resourceTypes = ['dataset', 'product']
 
@@ -27,7 +29,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="resource-type" title="Resource Type" />
+    <SectionTitle version="1.1" anchor="resource-type" title="Resource Type" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="type in resourceTypes" :key="type">

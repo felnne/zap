@@ -14,7 +14,10 @@ const props = defineProps({
 
 const prefix = '10.5285'
 
-const emit = defineEmits(['add:identifier', 'remove:identifier'])
+const emit = defineEmits<{
+  'add:identifier': [id: Identifier]
+  'remove:identifier': [id: Identifier]
+}>()
 
 const create = () => {
   emit('add:identifier', identifier.value)

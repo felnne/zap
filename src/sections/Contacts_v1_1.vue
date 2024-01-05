@@ -11,7 +11,9 @@ import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-const emit = defineEmits(['update:contacts'])
+const emit = defineEmits<{
+  'update:contacts': [id: Contact[]]
+}>()
 
 function createContact(individual: Individual, organisation: Organisation): Contact {
   return {
@@ -60,7 +62,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="contacts" title="Contacts" />
+    <SectionTitle version="1.1" anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="individual in individuals" :key="individual.slug">

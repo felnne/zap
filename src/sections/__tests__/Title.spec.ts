@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import Title from '@/sections/Title_v1_0.vue'
+import Title from '@/sections/Title_v1_1.vue'
 
 describe('Title', () => {
   it('emits value when updated', async () => {

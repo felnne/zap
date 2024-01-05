@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import type { Identifier } from '@/types/iso'
-import Identifiers from '@/sections/Identifiers_v1_0.vue'
+import Identifiers from '@/sections/Identifiers_v1_1.vue'
 
 describe('Identifiers', () => {
   it('adds an identifier and emits identifiers', async () => {
@@ -23,7 +23,7 @@ describe('Identifiers', () => {
     })
 
     // simulate event from child component
-    const childComponent = wrapper.findComponent({ name: 'IdentifierSelf_v1_0' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierSelf_v1_1' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
 
     expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
@@ -55,7 +55,7 @@ describe('Identifiers', () => {
     expect(wrapper.find('pre').text()).toBe(JSON.stringify([], null, 2))
 
     // add identifier (needs to use a component that also emits remove:identifier)
-    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_0' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
     expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
 
@@ -87,7 +87,7 @@ describe('Identifiers', () => {
     })
 
     // initial identifier
-    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_0' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifierA)
     expect(wrapper.find('pre').text()).toContain(expectedIdentifierA.title)
 

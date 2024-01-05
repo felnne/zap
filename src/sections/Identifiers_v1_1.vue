@@ -6,9 +6,9 @@ import type { Identifier } from '@/types/iso'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
-import IdentifierSelf from '@/sections/IdentifierSelf_v1_0.vue'
-import IdentifierDoi from '@/sections/IdentifierDoi_v1_0.vue'
-import IdentifierEsri from '@/sections/IdentifierEsri_v1_0.vue'
+import IdentifierSelf from '@/sections/IdentifierSelf_v1_1.vue'
+import IdentifierDoi from '@/sections/IdentifierDoi_v1_1.vue'
+import IdentifierEsri from '@/sections/IdentifierEsri_v1_1.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
 defineProps({
@@ -18,7 +18,9 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:identifiers'])
+const emit = defineEmits<{
+  'update:identifiers': [id: Identifier[]]
+}>()
 
 const addIdentifier = (identifier: Identifier) => {
   identifiers.value = [...identifiers.value, identifier]
@@ -41,18 +43,21 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="identifiers" title="Identifiers" />
+    <SectionTitle version="1.1" anchor="identifiers" title="Identifiers" />
     <TwoColumn>
       <template v-slot:left>
-        <IdentifierSelf :fileIdentifier="fileIdentifier" @add:identifier="addIdentifier($event)" />
+        <IdentifierSelf
+          :fileIdentifier="fileIdentifier"
+          @add:identifier="(event: Identifier) => addIdentifier(event)"
+        />
         <IdentifierDoi
           :fileIdentifier="fileIdentifier"
           @add:identifier="addIdentifier($event)"
           @remove:identifier="removeIdentifier($event)"
         />
         <IdentifierEsri
-          @add:identifier="addIdentifier($event)"
-          @remove:identifier="removeIdentifier($event)"
+          @add:identifier="(event: Identifier) => addIdentifier(event)"
+          @remove:identifier="(event: Identifier) => removeIdentifier(event)"
         />
       </template>
       <template v-slot:right>

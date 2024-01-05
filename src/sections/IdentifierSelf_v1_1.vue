@@ -15,7 +15,10 @@ const props = defineProps({
 const namespace = 'data.bas.ac.uk'
 const endpoint = `https://${namespace}/items/`
 
-const emit = defineEmits(['add:identifier'])
+const emit = defineEmits<{
+  'add:identifier': [id: Identifier]
+  'remove:identifier': [id: Identifier]
+}>()
 
 let selected = true
 
