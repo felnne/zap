@@ -11,7 +11,7 @@ test('output value and clipboard contents match', async ({ page, browserName }) 
   // click a button named 'Copy' within a `div#file-identifier-output` element
   await page.click('div#file-identifier-output >> text=Copy');
 
-  const outputText = await page.textContent('#file-identifier-output pre');
+  const outputText = await page.textContent('#file-identifier-output >> pre');
   const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
   expect(outputText).toBe(clipboardText);
 })

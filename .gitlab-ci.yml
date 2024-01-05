@@ -49,8 +49,8 @@ lint:
     - npm run lint
     - npm run lint:format
   rules:
-    -
-      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
+    # Only run on merge requests
+    - if: '$CI_MERGE_REQUEST_ID != null'
 
 test_unit:
   stage: 🧪 test
