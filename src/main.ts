@@ -6,6 +6,8 @@ import { initSentry } from '@/utils/sentry'
 import './main.css'
 
 const app = createApp(App)
-initSentry(app)
+if (import.meta.env.MODE !== 'development') {
+  initSentry(app)
+}
 app.use(Clipboard)
 app.mount('#app')
