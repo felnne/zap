@@ -24,6 +24,7 @@
 ### Changed
 
 * Major refactoring of dates component, extracting logic to utils and updating related types
+* Sentry disabled in development environment
 
 ## [0.5.3] - 2023-12-30
 
