@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { Identifier } from '@/types/iso'
-import IdentifierBasGitlab from '@/sections/IdentifierBasGitlab_v1_0.vue'
+import IdentifierBasGitlab from '@/sections/IdentifierBasGitlab.vue'
 
 describe('IdentifierBasGitlab', () => {
   it('emits value when selected and filled in', async () => {

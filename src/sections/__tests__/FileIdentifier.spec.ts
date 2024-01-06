@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import FileIdentifier from '@/sections/FileIdentifier_v1_1.vue'
+import FileIdentifier from '@/sections/FileIdentifier.vue'
 
 describe('FileIdentifier', () => {
   it('emits value when mounted', async () => {

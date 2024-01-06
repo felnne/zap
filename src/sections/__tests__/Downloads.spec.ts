@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 import Clipboard from 'v-clipboard'
 
-import Downloads from '@/sections/Downloads_v1_0.vue'
+import Downloads from '@/sections/Downloads.vue'
 
 describe('Downloads', () => {
   it('clicking button adds a new download', async () => {

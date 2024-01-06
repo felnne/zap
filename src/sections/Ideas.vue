@@ -3,7 +3,7 @@ import { getIdeas } from '@/utils/data'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
-import Idea from '@/sections/Idea_v2_0.vue'
+import Idea from '@/sections/Idea.vue'
 import GuidanceText from '@/components/GuidanceText.vue'
 
 const ideas = getIdeas()
