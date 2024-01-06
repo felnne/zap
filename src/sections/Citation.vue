@@ -44,11 +44,6 @@ const setMarkdownInput = () => {
 const orgMagic = getOrganisation('bas_magic')
 const orgPdc = getOrganisation('nerc_eds_pdc')
 const citationProseClasses = ['prose-sm']
-const nullIdentifier: Identifier = {
-  identifier: '',
-  href: '',
-  title: 'null'
-}
 
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
@@ -67,12 +62,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
     return doiIdentifier
   }
 
-  const selfIdentifier = props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
-  if (selfIdentifier) {
-    return selfIdentifier
-  }
-
-  return nullIdentifier
+  return props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
 })
 
 let doi: ComputedRef<string> = computed(() => {
@@ -128,7 +118,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.0" anchor="citation" title="Citation" />
+    <SectionTitle version="2.1" anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose

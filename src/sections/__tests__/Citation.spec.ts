@@ -5,7 +5,7 @@ import Clipboard from 'v-clipboard'
 import { ResourceType } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
-import Citation from '@/sections/Citation_v2_0.vue'
+import Citation from '@/sections/Citation.vue'
 
 const identifier = '12345'
 const doiIdentifier = `123/${identifier}`

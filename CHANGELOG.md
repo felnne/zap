@@ -39,6 +39,7 @@
 * Refactoring build information out of epilogue component into utils module
 * Refactoring PointOfContact construction to utils module from contacts module
 * Refactoring usage constraint construction to utils module from licence component
+* Minor refactoring for citation component to remove unnecessary null identifier logic
 
 ## [0.5.3] - 2023-12-30
 
