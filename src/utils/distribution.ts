@@ -28,7 +28,7 @@ export const getFileFormat = (file: File): Format => {
   if (format) return format
 
   // raise an exception
-  throw new Error(`Cannot determine format for file '${file.name}'`)
+  throw new Error(`Cannot determine format.`)
 }
 
 export const createDistributionOption = (

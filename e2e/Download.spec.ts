@@ -55,3 +55,19 @@ test('supported file types are handled correctly', async ({ page }) => {
   const download5 = await page.textContent('#download-5-output pre');
   expect(download5).toContain('"href": "https://www.iana.org/assignments/media-types/application/pdf"');
 })
+
+test('unsupported file types are rejected correctly', async ({ page }) => {
+  await page.goto('/');
+
+  await page.click('text=Add Download');
+
+  await page.setInputFiles('input#download-1-input', './sample-data/invalid/sample.x');
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toEqual('File format for \'sample.x\' is not supported, rejecting.')
+    await dialog.accept()
+  })
+
+  const element = await page.$('#download-1-output pre');
+  expect(element).toBeNull();
+})

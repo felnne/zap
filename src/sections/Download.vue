@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, type PropType, ref } from 'vue'
+import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import { ResourceType } from '@/types/enum'
 import { getOrganisation } from '@/utils/data'
@@ -30,17 +30,42 @@ function onFileChange(e: Event) {
   if (files) file.value = files[0]
 }
 
+function clearFile() {
+  file.value = null
+  if (fileInput.value) {
+    fileInput.value.value = ''
+  }
+}
+
 let file = ref<File | null>(null)
+let fileInput = ref<HTMLInputElement | null>(null)
 
 let distributor: ComputedRef<Organisation> = computed(() => {
   if (props.resourceType === ResourceType.Dataset) return orgPdc
   return orgMagic
 })
 
-let distributionOption: ComputedRef<DistributionOption | null> = computed(() => {
+let distributionOption: ComputedRef<DistributionOption | boolean | null> = computed(() => {
   if (!file.value) return null
 
-  return createDownloadDistributionOption(file.value, endpoint, distributor.value)
+  try {
+    return createDownloadDistributionOption(file.value, endpoint, distributor.value)
+  } catch (e) {
+    if (e instanceof Error && e.message == 'Cannot determine format.') {
+      alert(`File format for '${file.value.name}' is not supported, rejecting.`)
+      // have to return something other than 'null' to cause a change in value,
+      // otherwise the watch() won't fire to clear the file input.
+      return false
+    }
+  }
+
+  return null
+})
+
+watch(distributionOption, (value: DistributionOption | boolean | null) => {
+  if (value === false) {
+    clearFile()
+  }
 })
 </script>
 
@@ -48,6 +73,7 @@ let distributionOption: ComputedRef<DistributionOption | null> = computed(() => 
   <SubSectionBorder class="space-y-2">
     <form>
       <input
+        ref="fileInput"
         class="file:py-1 file:px-2 file:text-xs file:border file:bg-white file:border-black file:hover:bg-neutral-100 file:shadow file:cursor-pointer"
         type="file"
         :id="'download-' + index + '-input'"
