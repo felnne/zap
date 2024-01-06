@@ -19,16 +19,10 @@ export type AppEnvironment = {
   time?: string
 }
 
-type File = {
-  bytes: number
-  type: string
-  name: string
-  ext: string
-}
-
 export type Format = {
   slug: string
   extensions?: string[]
+  mediaTypes?: string[]
   name: string
   version?: string
   url: string

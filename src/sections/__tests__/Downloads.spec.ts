@@ -1,13 +1,15 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-
 import Clipboard from 'v-clipboard'
+
+import { ResourceType } from '@/types/enum'
 
 import Downloads from '@/sections/Downloads.vue'
 
 describe('Downloads', () => {
   it('clicking button adds a new download', async () => {
     const wrapper = mount(Downloads, {
+      props: { resourceType: ResourceType.Dataset },
       global: {
         directives: {
           clipboard: Clipboard
@@ -24,6 +26,7 @@ describe('Downloads', () => {
 
   it('clicking button multiple times adds multiple downloads', async () => {
     const wrapper = mount(Downloads, {
+      props: { resourceType: ResourceType.Dataset },
       global: {
         directives: {
           clipboard: Clipboard

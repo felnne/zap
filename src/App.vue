@@ -90,7 +90,7 @@ function show(section: string): boolean {
       />
       <Licence v-if="show('licence')" />
       <Citation v-if="show('citation')" :record="record" />
-      <Downloads v-if="show('downloads')" />
+      <Downloads v-if="show('downloads')" :resourceType="record.resourceType" />
       <Services v-if="show('services')" />
       <Lineage v-if="show('lineage')" />
       <Resources />
