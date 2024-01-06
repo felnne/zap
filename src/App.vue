@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { getAppEnvironment } from '@/utils/env'
 import { showSection } from '@/utils/control'
 import { ResourceType as ResourceTypeEM } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
@@ -14,12 +15,12 @@ import Citation from '@/sections/Citation_v2_0.vue'
 import Contacts from '@/sections/Contacts_v1_1.vue'
 import Dates from '@/sections/Dates_v1_1.vue'
 import Downloads from '@/sections/Downloads_v1_0.vue'
-import Edition from '@/sections/Edition_v1_1.vue'
 import Epilogue from '@/sections/Epilogue_v1_0.vue'
 import FileIdentifier from '@/sections/FileIdentifier_v1_1.vue'
 import GeographicExtent from '@/sections/GeographicExtent_v1_0.vue'
 import Ideas from '@/sections/Ideas_v2_0.vue'
 import Identifiers from '@/sections/Identifiers_v3_0.vue'
+import Edition from '@/sections/Edition.vue'
 import Licence from '@/sections/Licence_v1_0.vue'
 import Lineage from '@/sections/Lineage_v1_0.vue'
 import Prologue from '@/sections/Prologue_v1_0.vue'
@@ -94,7 +95,7 @@ function show(section: string): boolean {
       <Lineage v-if="show('lineage')" />
       <Resources />
       <Ideas />
-      <Epilogue />
+      <Epilogue :app-env="getAppEnvironment()" />
     </div>
   </main>
 </template>

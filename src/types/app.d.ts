@@ -12,6 +12,13 @@ export type DateImpreciseLabelled = {
   label: string
 }
 
+export type AppEnvironment = {
+  mode: string
+  release?: string
+  commit?: string
+  time?: string
+}
+
 type File = {
   bytes: number
   type: string
