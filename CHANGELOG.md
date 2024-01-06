@@ -45,6 +45,7 @@
 * Refactoring download component to determine distribution format via media-type where available
 * Selecting relevant distributor organisation based on resource type
 * Refactoring formats to make version optional
+* Refactored setting like values/constants to settings data file
 
 ## [0.5.3] - 2023-12-30
 

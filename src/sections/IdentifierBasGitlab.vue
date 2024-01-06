@@ -2,11 +2,12 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import type { Identifier } from '@/types/iso'
+import { getSetting } from '@/utils/data'
 
 import FormLabel from '@/components/FormLabel.vue'
 import FormInput from '@/components/FormInput.vue'
 
-const instance = 'https://gitlab.data.bas.ac.uk'
+const instance = getSetting('bas_gitlab_domain')
 
 const emit = defineEmits<{
   'add:identifier': [id: Identifier]
