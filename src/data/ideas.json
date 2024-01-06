@@ -32,8 +32,13 @@
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
     { "label": "Validation.", "state": "todo" },
+    { "label": "Support depositing downloads", "state": "todo" },
     { "label": "Preserving input values (like GitLab editor)", "state": "todo" },
     { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },
-    { "label": "User feedback.", "state": "complete" }
+    { "label": "User feedback.", "state": "complete" },
+    { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },
+    { "label": "Support for files in OneDrive.", "state": "todo" },
+    { "label": "Support for files on the SAN.", "state": "todo" },
+    { "label": "Get spatial extent from geo-enabled downloads.", "state": "todo" }
   ]
 }
