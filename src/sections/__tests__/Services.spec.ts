@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import Services from '@/sections/Services_v1_0.vue'
+import Services from '@/sections/Services.vue'
 
 import servicesData from '@/data/services.json'
 

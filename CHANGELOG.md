@@ -36,6 +36,15 @@
 * Refactored citation section to use a record instance as a single prop
 * Refactored resource type to use an enum
 * Refactoring ideas into a data file and adding cancelled state
+* Refactoring build information out of epilogue component into utils module
+* Refactoring point of contact construction to utils module from contacts component
+* Refactoring usage constraint construction to utils module from licence component
+* Minor refactoring for citation component to remove unnecessary null identifier logic
+* Refactoring service component to generate distribution option via util functions
+* Refactoring download component to generate distribution option via util functions
+* Refactoring download component to determine distribution format via media-type where available
+* Selecting relevant distributor organisation based on resource type
+* Refactoring formats to make version optional
 
 ## [0.5.3] - 2023-12-30
 

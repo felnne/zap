@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import type { Licence as LicenceT } from '@/types/app'
 import type { Constraint } from '@/types/iso'
-import Licence from '@/sections/Licence_v1_0.vue'
+import Licence from '@/sections/Licence.vue'
 
 import licencesData from '@/data/licences.json'
 

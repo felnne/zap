@@ -12,18 +12,19 @@ export type DateImpreciseLabelled = {
   label: string
 }
 
-type File = {
-  bytes: number
-  type: string
-  name: string
-  ext: string
+export type AppEnvironment = {
+  mode: string
+  release?: string
+  commit?: string
+  time?: string
 }
 
 export type Format = {
   slug: string
-  ext: string[]
+  extensions?: string[]
+  mediaTypes?: string[]
   name: string
-  version: string
+  version?: string
   url: string
 }
 
@@ -70,13 +71,6 @@ type Service = {
   slug: string
   name: string
   description: string
-  format: ServiceFormat
-}
-
-export type ServiceFormat = {
-  name: string
-  version: string
-  href: string
 }
 
 export type TocItem = {

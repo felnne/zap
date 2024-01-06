@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { Idea as IdeaT } from '@/types/app'
-import Idea from '@/sections/Idea_v2_0.vue'
+import Idea from '@/sections/Idea.vue'
 
 const label = 'My big idea'
 

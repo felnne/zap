@@ -1,8 +1,13 @@
 import { describe, it, expect } from 'vitest'
 
+import type { Format } from '@/types/app'
+
 import {
   getExtent,
   getExtents,
+  getFormat,
+  getFormatByExtension,
+  getFormatByType,
   getFormats,
   getIdeas,
   getIndividuals,
@@ -26,6 +31,15 @@ const checkExtent = {
       }
     }
   }
+}
+
+const checkFormat: Format = {
+  slug: 'gpkg',
+  name: 'GeoPackage',
+  version: '1.2',
+  extensions: ['.gpkg'],
+  mediaTypes: ['application/geopackage+sqlite3'],
+  url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
 }
 
 const checkLicence = {
@@ -52,20 +66,38 @@ describe('getExtents', () => {
   })
 })
 
+describe('getFormat', () => {
+  it('loads expected format', () => {
+    expect(getFormat(checkFormat.slug)).toEqual(checkFormat)
+  })
+})
+
+describe('getFormatByExtension', () => {
+  it('loads expected format', () => {
+    expect(getFormatByExtension('.gpkg')).toEqual(checkFormat)
+  })
+
+  it('does not load unexpected format', () => {
+    expect(getFormatByExtension('.foo')).toBeUndefined()
+  })
+})
+
+describe('getFormatByType', () => {
+  it('loads expected format', () => {
+    expect(getFormatByType('application/geopackage+sqlite3')).toEqual(checkFormat)
+  })
+
+  it('does not load unexpected format', () => {
+    expect(getFormatByType('application/foo')).toBeUndefined()
+  })
+})
+
 describe('getFormats', () => {
   it('loads some data', () => {
     expect(getFormats().length).toBeGreaterThan(0)
   })
 
   it('includes expected format', () => {
-    const checkFormat = {
-      slug: 'gpkg',
-      ext: ['.gpkg'],
-      name: 'GeoPackage',
-      version: '1.2',
-      url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
-    }
-
     expect(getFormats()).toContainEqual(checkFormat)
   })
 })
@@ -151,6 +183,18 @@ describe('getOrganisation', () => {
   })
 })
 
+describe('getService', () => {
+  it('loads expected service', () => {
+    const checkService = {
+      slug: 'wms',
+      name: 'OGC Web Map Service (WMS)',
+      description: 'Access information as a OGC Web Map Service layer.'
+    }
+
+    expect(getService(checkService.slug)).toEqual(checkService)
+  })
+})
+
 describe('getServiceSlugs', () => {
   it('loads some data', () => {
     expect(getServiceSlugs().length).toBeGreaterThan(0)
@@ -167,22 +211,5 @@ describe('getServiceSlugs', () => {
     const sortedServiceSlugs = serviceSlugs.sort((a, b) => a.localeCompare(b))
 
     expect(serviceSlugs).toEqual(sortedServiceSlugs)
-  })
-})
-
-describe('getService', () => {
-  it('loads expected service', () => {
-    const checkService = {
-      slug: 'wms',
-      name: 'OGC Web Map Service (WMS)',
-      description: 'Access information as a OGC Web Map Service layer.',
-      format: {
-        name: 'Web Map Service',
-        href: 'https://www.ogc.org/standards/wms',
-        version: '1.3.0'
-      }
-    }
-
-    expect(getService(checkService.slug)).toEqual(checkService)
   })
 })

@@ -30,7 +30,7 @@ type Extent = {
 export type Format = {
   format: string
   href: string
-  version: string
+  version?: string
 }
 
 type GeographicExtent = {

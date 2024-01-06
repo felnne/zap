@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType as ResourceTypeEM } from '@/types/enum'
-import ResourceType from '@/sections/ResourceType_v2_0.vue'
+import ResourceType from '@/sections/ResourceType.vue'
 
 describe('ResourceType', () => {
   it('emits value when mounted', async () => {

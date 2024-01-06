@@ -3,12 +3,7 @@
     "wms": {
       "slug": "wms",
       "name": "OGC Web Map Service (WMS)",
-      "description": "Access information as a OGC Web Map Service layer.",
-      "format": {
-        "name": "Web Map Service",
-        "href": "https://www.ogc.org/standards/wms",
-        "version": "1.3.0"
-      }
+      "description": "Access information as a OGC Web Map Service layer."
     }
   }
 }

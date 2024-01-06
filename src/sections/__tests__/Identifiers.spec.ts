@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
 import type { Identifier } from '@/types/iso'
-import Identifiers from '@/sections/Identifiers_v3_0.vue'
+import Identifiers from '@/sections/Identifiers.vue'
 
 describe('Identifiers', () => {
   it('adds an identifier and emits identifiers', async () => {
@@ -24,7 +24,7 @@ describe('Identifiers', () => {
     })
 
     // simulate event from child component
-    const childComponent = wrapper.findComponent({ name: 'IdentifierSelf_v1_1' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierSelf' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
 
     expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
@@ -56,7 +56,7 @@ describe('Identifiers', () => {
     expect(wrapper.find('pre').text()).toBe(JSON.stringify([], null, 2))
 
     // add identifier (needs to use a component that also emits remove:identifier)
-    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
     expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
 
@@ -88,7 +88,7 @@ describe('Identifiers', () => {
     })
 
     // initial identifier
-    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
+    const childComponent = wrapper.findComponent({ name: 'IdentifierDoi' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifierA)
     expect(wrapper.find('pre').text()).toContain(expectedIdentifierA.title)
 
@@ -111,10 +111,10 @@ describe('Identifiers', () => {
         }
       })
 
-      const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi_v1_1' })
+      const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
       expect(doiIdentifier.exists()).toBeFalsy()
 
-      const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri_v1_1' })
+      const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri' })
       expect(esriIdentifier.exists()).toBeFalsy()
     })
   })

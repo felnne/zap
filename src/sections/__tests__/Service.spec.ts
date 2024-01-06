@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import Service from '@/sections/Service_v1_0.vue'
+import Service from '@/sections/Service.vue'
 
 const expectedService = 'wms'
 

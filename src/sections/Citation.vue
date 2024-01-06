@@ -3,8 +3,8 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import { fetchFakeCitation, formatCitation } from '@/utils/citation'
 import { getOrganisation } from '@/utils/data'
-import type { DateImpreciseLabelled } from '@/types/app'
-import type { PointOfContact as Contact, Identifier } from '@/types/iso'
+import type { Record } from '@/types/app'
+import type { Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/SectionTitle.vue'
 import Markdown from '@/components/Markdown.vue'
@@ -16,28 +16,8 @@ import SectionLabel from '@/components/SectionLabel.vue'
 import Prose from '@/components/Prose.vue'
 
 const props = defineProps({
-  resourceType: {
-    type: String,
-    required: true
-  },
-  identifiers: {
-    type: Array as () => Identifier[],
-    required: true
-  },
-  edition: {
-    type: String,
-    required: true
-  },
-  dates: {
-    type: Array as () => DateImpreciseLabelled[],
-    required: true
-  },
-  contacts: {
-    type: Array as () => Contact[],
-    required: true
-  },
-  title: {
-    type: String,
+  record: {
+    type: Object as () => Record,
     required: true
   }
 })
@@ -46,9 +26,9 @@ const getCitation = async () => {
   citation.value = await fetchFakeCitation(
     authors.value,
     publishedYear.value,
-    props.title,
-    props.edition,
-    props.resourceType,
+    props.record.title,
+    props.record.edition,
+    props.record.resourceType,
     publisher.value,
     identifier.value
   )
@@ -64,11 +44,6 @@ const setMarkdownInput = () => {
 const orgMagic = getOrganisation('bas_magic')
 const orgPdc = getOrganisation('nerc_eds_pdc')
 const citationProseClasses = ['prose-sm']
-const nullIdentifier: Identifier = {
-  identifier: '',
-  href: '',
-  title: 'null'
-}
 
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
@@ -82,17 +57,17 @@ let identifier: ComputedRef<Identifier> = computed(() => {
    *
    * If neither of these identifiers are available, a null identifier if returned.
    */
-  const doiIdentifier = props.identifiers.find((i) => i.title === 'doi')
+  const doiIdentifier = props.record.identifiers.find((i) => i.title === 'doi')
   if (doiIdentifier) {
     return doiIdentifier
   }
 
-  const selfIdentifier = props.identifiers.find((i) => i.title === 'data.bas.ac.uk')
+  const selfIdentifier = props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
   if (selfIdentifier) {
     return selfIdentifier
   }
 
-  return nullIdentifier
+  return { title: '', identifier: '', href: '' }
 })
 
 let doi: ComputedRef<string> = computed(() => {
@@ -103,13 +78,13 @@ let doi: ComputedRef<string> = computed(() => {
 })
 
 let authors: ComputedRef<string[]> = computed(() => {
-  return props.contacts
+  return props.record.contacts
     .map((contact) => contact.individual?.name ?? '')
     .filter((contact) => contact !== '')
 })
 
 let publishedYear: ComputedRef<string> = computed(() => {
-  const publishedDate = props.dates.find((date) => date.label === 'published')
+  const publishedDate = props.record.dates.find((date) => date.label === 'published')
   if (publishedDate) {
     return String(publishedDate.date.js.getFullYear())
   }
@@ -133,10 +108,10 @@ onMounted(() => {
 
 watch(
   [
-    () => props.resourceType,
+    () => props.record.resourceType,
     () => identifier.value,
-    () => props.edition,
-    () => props.title,
+    () => props.record.edition,
+    () => props.record.title,
     () => publishedYear.value,
     () => authors.value
   ],
@@ -148,7 +123,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="citation" title="Citation" />
+    <SectionTitle version="2.1" anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose

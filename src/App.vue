@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { getAppEnvironment } from '@/utils/env'
 import { showSection } from '@/utils/control'
 import { ResourceType as ResourceTypeEM } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
@@ -9,25 +10,25 @@ import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 import AppTitle from '@/components/AppTitle.vue'
 import BackToTop from '@/components/BackToTop.vue'
 
-import Abstract from '@/sections/Abstract_v1_0.vue'
-import Citation from '@/sections/Citation_v2_0.vue'
-import Contacts from '@/sections/Contacts_v1_1.vue'
-import Dates from '@/sections/Dates_v1_1.vue'
-import Downloads from '@/sections/Downloads_v1_0.vue'
-import Edition from '@/sections/Edition_v1_1.vue'
-import Epilogue from '@/sections/Epilogue_v1_0.vue'
-import FileIdentifier from '@/sections/FileIdentifier_v1_1.vue'
-import GeographicExtent from '@/sections/GeographicExtent_v1_0.vue'
-import Ideas from '@/sections/Ideas_v2_0.vue'
-import Identifiers from '@/sections/Identifiers_v3_0.vue'
-import Licence from '@/sections/Licence_v1_0.vue'
-import Lineage from '@/sections/Lineage_v1_0.vue'
-import Prologue from '@/sections/Prologue_v1_0.vue'
-import Resources from '@/sections/Resources_v1_0.vue'
-import ResourceType from '@/sections/ResourceType_v2_0.vue'
-import Services from '@/sections/Services_v1_0.vue'
-import TableOfContents from '@/sections/TableOfContents_v1_0.vue'
-import Title from '@/sections/Title_v1_1.vue'
+import Abstract from '@/sections/Abstract.vue'
+import Citation from '@/sections/Citation.vue'
+import Contacts from '@/sections/Contacts.vue'
+import Dates from '@/sections/Dates.vue'
+import Downloads from '@/sections/Downloads.vue'
+import Edition from '@/sections/Edition.vue'
+import Epilogue from '@/sections/Epilogue.vue'
+import FileIdentifier from '@/sections/FileIdentifier.vue'
+import GeographicExtent from '@/sections/GeographicExtent.vue'
+import Ideas from '@/sections/Ideas.vue'
+import Identifiers from '@/sections/Identifiers.vue'
+import Licence from '@/sections/Licence.vue'
+import Lineage from '@/sections/Lineage.vue'
+import Prologue from '@/sections/Prologue.vue'
+import Resources from '@/sections/Resources.vue'
+import ResourceType from '@/sections/ResourceType.vue'
+import Services from '@/sections/Services.vue'
+import TableOfContents from '@/sections/TableOfContents.vue'
+import Title from '@/sections/Title.vue'
 import type { TocItem } from '@/types/app'
 
 const record = ref<Record>({
@@ -89,12 +90,12 @@ function show(section: string): boolean {
       />
       <Licence v-if="show('licence')" />
       <Citation v-if="show('citation')" :record="record" />
-      <Downloads v-if="show('downloads')" />
+      <Downloads v-if="show('downloads')" :resourceType="record.resourceType" />
       <Services v-if="show('services')" />
       <Lineage v-if="show('lineage')" />
       <Resources />
       <Ideas />
-      <Epilogue />
+      <Epilogue :app-env="getAppEnvironment()" />
     </div>
   </main>
 </template>

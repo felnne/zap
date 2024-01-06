@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { Identifier } from '@/types/iso'
-import IdentifierEsri from '@/sections/IdentifierEsri_v1_1.vue'
+import IdentifierEsri from '@/sections/IdentifierEsri.vue'
 
 describe('IdentifierEsri', () => {
   it('emits value when selected and filled in', async () => {

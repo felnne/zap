@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { getIndividuals, getOrganisation } from '@/utils/data'
-import type { Individual, Organisation } from '@/types/app'
+import { createContact } from '@/utils/contacts'
 import type { PointOfContact as Contact } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
@@ -15,31 +15,6 @@ const emit = defineEmits<{
   'update:contacts': [id: Contact[]]
 }>()
 
-function createContact(individual: Individual, organisation: Organisation): Contact {
-  return {
-    individual: {
-      name: individual.name,
-      href: individual.orcid,
-      title: 'ocrid'
-    },
-    organisation: {
-      name: organisation.name,
-      href: organisation.ror,
-      title: 'ror'
-    },
-    email: individual.email,
-    phone: organisation.phone,
-    address: organisation.address,
-    online_resource: {
-      href: individual.orcid,
-      title: 'ORCID record',
-      description:
-        'ORCID is an open, non-profit, community-driven effort to create and maintain a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.',
-      function: 'information'
-    },
-    role: ['author']
-  }
-}
 const individuals = getIndividuals()
 const orgBas = getOrganisation('bas')
 
@@ -62,7 +37,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="contacts" title="Contacts" />
+    <SectionTitle version="2.0" anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="individual in individuals" :key="individual.slug">

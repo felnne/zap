@@ -1,0 +1,261 @@
+import { describe, it, expect } from 'vitest'
+
+import {
+  createDistributor,
+  getFileFormat,
+  createDistributionOption,
+  createDownloadDistributionOption,
+  createServiceDistributionOption
+} from '@/utils/distribution'
+
+const organisation = {
+  slug: 'bas',
+  name: 'British Antarctic Survey',
+  ror: 'https://ror.org/01rhff309',
+  phone: '+44 (0)1223 221400',
+  email: 'info@bas.ac.uk',
+  address: {
+    delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+    city: 'Cambridge',
+    administrative_area: 'Cambridgeshire',
+    postal_code: 'CB3 0ET',
+    country: 'United Kingdom'
+  },
+  online_resource: {
+    href: 'https://www.bas.ac.uk',
+    title: 'British Antarctic Survey - BAS public website',
+    description: 'Homepage for the British Antarctic Survey (BAS) public website.',
+    function: 'information'
+  }
+}
+
+const expectedFormat = {
+  slug: 'png',
+  name: 'PNG',
+  extensions: ['.png'],
+  mediaTypes: ['image/png'],
+  url: 'https://www.iana.org/assignments/media-types/image/png'
+}
+
+const expectedDistributor = {
+  organisation: {
+    name: organisation.name,
+    href: organisation.ror,
+    title: 'ror'
+  },
+  phone: organisation.phone,
+  address: organisation.address,
+  email: organisation.email!,
+  online_resource: organisation.online_resource,
+  role: ['distributor']
+}
+
+describe('createDistributor', () => {
+  it('builds a distributor from an organisation', () => {
+    expect(createDistributor(organisation)).toStrictEqual(expectedDistributor)
+  })
+})
+
+describe('getFileFormat', () => {
+  it('returns format for file, identified by media type', () => {
+    const file: File = {
+      name: 'foo.png.x',
+      type: 'image/png',
+      lastModified: 0,
+      webkitRelativePath: '',
+      size: 0,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      slice: () => new Blob(),
+      stream: () => new ReadableStream(),
+      text: () => Promise.resolve('')
+    }
+
+    expect(getFileFormat(file)).toStrictEqual(expectedFormat)
+  })
+
+  it('returns format for file, identified by file extension', () => {
+    const file: File = {
+      name: 'foo.png',
+      type: '',
+      lastModified: 0,
+      webkitRelativePath: '',
+      size: 0,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      slice: () => new Blob(),
+      stream: () => new ReadableStream(),
+      text: () => Promise.resolve('')
+    }
+
+    expect(getFileFormat(file)).toStrictEqual(expectedFormat)
+  })
+
+  it('raises error when format cannot be determined', () => {
+    const file: File = {
+      name: 'foo.bar',
+      type: '',
+      lastModified: 0,
+      webkitRelativePath: '',
+      size: 0,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      slice: () => new Blob(),
+      stream: () => new ReadableStream(),
+      text: () => Promise.resolve('')
+    }
+
+    expect(() => getFileFormat(file)).toThrow("Cannot determine format for file 'foo.bar'")
+  })
+})
+
+describe('createDistributionOption', () => {
+  it('builds a distribution option from a format (without format), online resource and organisation', () => {
+    const format = expectedFormat
+    const onlineResource = {
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
+    }
+    const expectedDistributionOption = {
+      format: {
+        format: format.name,
+        href: format.url
+      },
+      transfer_option: {
+        online_resource: onlineResource
+      },
+      distributor: expectedDistributor
+    }
+
+    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
+
+  it('builds a distribution option from a format (with format), online resource and organisation', () => {
+    const format = {
+      slug: 'gpkg',
+      name: 'GeoPackage',
+      version: '1.2',
+      extensions: ['.gpkg'],
+      mediaTypes: ['application/geopackage+sqlite3'],
+      url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
+    }
+    const onlineResource = {
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
+    }
+    const expectedDistributionOption = {
+      format: {
+        format: format.name,
+        href: format.url,
+        version: format.version
+      },
+      transfer_option: {
+        online_resource: onlineResource
+      },
+      distributor: expectedDistributor
+    }
+
+    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
+
+  it('builds a distribution option from a format, online resource, organisation and size', () => {
+    const format = expectedFormat
+    const onlineResource = {
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
+    }
+    const sizeBytes = 123
+    const expectedDistributionOption = {
+      format: {
+        format: format.name,
+        href: format.url
+      },
+      transfer_option: {
+        online_resource: onlineResource,
+        size: {
+          magnitude: sizeBytes,
+          unit: 'bytes'
+        }
+      },
+      distributor: expectedDistributor
+    }
+
+    expect(createDistributionOption(format, onlineResource, organisation, sizeBytes)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
+})
+
+describe('createDownloadDistributionOption', () => {
+  it('builds a distribution option from a file, endpoint and organisation', () => {
+    const file: File = {
+      name: 'foo.png',
+      type: 'image/png',
+      lastModified: 0,
+      webkitRelativePath: '',
+      size: 0,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      slice: () => new Blob(),
+      stream: () => new ReadableStream(),
+      text: () => Promise.resolve('')
+    }
+    const endpoint = 'https://example.com'
+    const expectedDistributionOption = {
+      format: {
+        format: 'PNG',
+        href: 'https://www.iana.org/assignments/media-types/image/png'
+      },
+      transfer_option: {
+        online_resource: {
+          href: endpoint,
+          title: '...',
+          description: '...',
+          function: 'download'
+        }
+      },
+      distributor: expectedDistributor
+    }
+
+    expect(createDownloadDistributionOption(file, endpoint, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
+})
+
+describe('createServiceDistributionOption', () => {
+  it('builds a distribution option from a service, online resource and organisation', () => {
+    const service = {
+      slug: 'wms',
+      name: 'OGC Web Map Service (WMS)',
+      description: 'Access information as a OGC Web Map Service layer.'
+    }
+    const endpoint = 'https://example.com'
+    const expectedDistributionOption = {
+      format: {
+        format: 'OGC Web Map Service (WMS)',
+        href: 'https://www.ogc.org/standards/wms',
+        version: '1.3.0'
+      },
+      transfer_option: {
+        online_resource: {
+          href: endpoint,
+          title: service.name,
+          description: service.description,
+          function: 'download'
+        }
+      },
+      distributor: expectedDistributor
+    }
+
+    expect(createServiceDistributionOption(service, endpoint, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
+})
