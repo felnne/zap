@@ -4,9 +4,7 @@ import { computed, type ComputedRef, type PropType, ref } from 'vue'
 import { ResourceType } from '@/types/enum'
 import { getOrganisation } from '@/utils/data'
 import { createDownloadDistributionOption } from '@/utils/distribution'
-import type {
-  DistributionOption,
-} from '@/types/iso'
+import type { DistributionOption } from '@/types/iso'
 
 import Output from '@/components/Output.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
@@ -56,6 +54,10 @@ let distributionOption: ComputedRef<DistributionOption | null> = computed(() => 
         @change="onFileChange"
       />
     </form>
-    <Output v-if="distributionOption" :id="'download-' + index + '-output'" :data="distributionOption"></Output>
+    <Output
+      v-if="distributionOption"
+      :id="'download-' + index + '-output'"
+      :data="distributionOption"
+    ></Output>
   </SubSectionBorder>
 </template>

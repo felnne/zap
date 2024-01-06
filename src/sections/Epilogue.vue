@@ -2,7 +2,7 @@
 import { computed, type ComputedRef } from 'vue'
 
 import { Stability } from '@/types/enum'
-import type {AppEnvironment} from '@/types/app'
+import type { AppEnvironment } from '@/types/app'
 import Link from '@/components/Link.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -29,7 +29,12 @@ let timeDisplay: ComputedRef<string> = computed(() => {
 
 <template>
   <SectionBorder border-colour-class="border-sky-500">
-    <SectionTitle version="2.0" :stability="Stability.Experimental" anchor="epilogue" title="Meta" />
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="epilogue"
+      title="Meta"
+    />
     <div class="flex">
       <div class="flex-1 space-y-2">
         <Link href="https://gitlab.data.bas.ac.uk/felnne/zap">GitLab Project</Link>

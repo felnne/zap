@@ -10,7 +10,12 @@ const serviceSlugs = getServiceSlugs()
 </script>
 <template>
   <SectionBorder>
-    <SectionTitle version="2.0" :stability="Stability.Experimental" anchor="services" title="Services" />
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="services"
+      title="Services"
+    />
     <div class="space-y-4">
       <Service v-for="slug in serviceSlugs" v-bind:key="slug" :slug="slug" />
     </div>

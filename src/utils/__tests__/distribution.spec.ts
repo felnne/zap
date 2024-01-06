@@ -1,34 +1,40 @@
 import { describe, it, expect } from 'vitest'
 
-import { createDistributor, getFileFormat, createDistributionOption, createDownloadDistributionOption, createServiceDistributionOption } from '@/utils/distribution'
+import {
+  createDistributor,
+  getFileFormat,
+  createDistributionOption,
+  createDownloadDistributionOption,
+  createServiceDistributionOption
+} from '@/utils/distribution'
 
 const organisation = {
-  "slug": "bas",
-  "name": "British Antarctic Survey",
-  "ror": "https://ror.org/01rhff309",
-  "phone": "+44 (0)1223 221400",
-  "email": "info@bas.ac.uk",
-  "address": {
-    "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
-    "city": "Cambridge",
-    "administrative_area": "Cambridgeshire",
-    "postal_code": "CB3 0ET",
-    "country": "United Kingdom"
+  slug: 'bas',
+  name: 'British Antarctic Survey',
+  ror: 'https://ror.org/01rhff309',
+  phone: '+44 (0)1223 221400',
+  email: 'info@bas.ac.uk',
+  address: {
+    delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+    city: 'Cambridge',
+    administrative_area: 'Cambridgeshire',
+    postal_code: 'CB3 0ET',
+    country: 'United Kingdom'
   },
-  "online_resource": {
-    "href": "https://www.bas.ac.uk",
-    "title": "British Antarctic Survey - BAS public website",
-    "description": "Homepage for the British Antarctic Survey (BAS) public website.",
-    "function": "information"
+  online_resource: {
+    href: 'https://www.bas.ac.uk',
+    title: 'British Antarctic Survey - BAS public website',
+    description: 'Homepage for the British Antarctic Survey (BAS) public website.',
+    function: 'information'
   }
 }
 
 const expectedFormat = {
-  "slug": "png",
-  "name": "PNG",
-  "extensions": [".png"],
-  "mediaTypes": ["image/png"],
-  "url": "https://www.iana.org/assignments/media-types/image/png"
+  slug: 'png',
+  name: 'PNG',
+  extensions: ['.png'],
+  mediaTypes: ['image/png'],
+  url: 'https://www.iana.org/assignments/media-types/image/png'
 }
 
 const expectedDistributor = {
@@ -61,8 +67,8 @@ describe('getFileFormat', () => {
       arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
-      text: () => Promise.resolve(''),
-    };
+      text: () => Promise.resolve('')
+    }
 
     expect(getFileFormat(file)).toStrictEqual(expectedFormat)
   })
@@ -77,8 +83,8 @@ describe('getFileFormat', () => {
       arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
-      text: () => Promise.resolve(''),
-    };
+      text: () => Promise.resolve('')
+    }
 
     expect(getFileFormat(file)).toStrictEqual(expectedFormat)
   })
@@ -93,8 +99,8 @@ describe('getFileFormat', () => {
       arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
-      text: () => Promise.resolve(''),
-    };
+      text: () => Promise.resolve('')
+    }
 
     expect(() => getFileFormat(file)).toThrow("Cannot determine format for file 'foo.bar'")
   })
@@ -104,10 +110,10 @@ describe('createDistributionOption', () => {
   it('builds a distribution option from a format (without format), online resource and organisation', () => {
     const format = expectedFormat
     const onlineResource = {
-      "href": "https://example.com",
-      "title": "Example",
-      "description": "Example description",
-      "function": "download"
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
     }
     const expectedDistributionOption = {
       format: {
@@ -120,46 +126,50 @@ describe('createDistributionOption', () => {
       distributor: expectedDistributor
     }
 
-    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(expectedDistributionOption)
+    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
   })
 
-    it('builds a distribution option from a format (with format), online resource and organisation', () => {
-      const format = {
-        "slug": "gpkg",
-        "name": "GeoPackage",
-        "version": "1.2",
-        "extensions": [".gpkg"],
-        "mediaTypes": ["application/geopackage+sqlite3"],
-        "url": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3"
-      }
-      const onlineResource = {
-        "href": "https://example.com",
-        "title": "Example",
-        "description": "Example description",
-        "function": "download"
-      }
-      const expectedDistributionOption = {
-        format: {
-          format: format.name,
-          href: format.url,
-          version: format.version
-        },
-        transfer_option: {
-          online_resource: onlineResource
-        },
-        distributor: expectedDistributor
-      }
+  it('builds a distribution option from a format (with format), online resource and organisation', () => {
+    const format = {
+      slug: 'gpkg',
+      name: 'GeoPackage',
+      version: '1.2',
+      extensions: ['.gpkg'],
+      mediaTypes: ['application/geopackage+sqlite3'],
+      url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
+    }
+    const onlineResource = {
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
+    }
+    const expectedDistributionOption = {
+      format: {
+        format: format.name,
+        href: format.url,
+        version: format.version
+      },
+      transfer_option: {
+        online_resource: onlineResource
+      },
+      distributor: expectedDistributor
+    }
 
-      expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(expectedDistributionOption)
-    })
+    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
+  })
 
   it('builds a distribution option from a format, online resource, organisation and size', () => {
     const format = expectedFormat
     const onlineResource = {
-      "href": "https://example.com",
-      "title": "Example",
-      "description": "Example description",
-      "function": "download"
+      href: 'https://example.com',
+      title: 'Example',
+      description: 'Example description',
+      function: 'download'
     }
     const sizeBytes = 123
     const expectedDistributionOption = {
@@ -177,7 +187,9 @@ describe('createDistributionOption', () => {
       distributor: expectedDistributor
     }
 
-    expect(createDistributionOption(format, onlineResource, organisation, sizeBytes)).toStrictEqual(expectedDistributionOption)
+    expect(createDistributionOption(format, onlineResource, organisation, sizeBytes)).toStrictEqual(
+      expectedDistributionOption
+    )
   })
 })
 
@@ -192,8 +204,8 @@ describe('createDownloadDistributionOption', () => {
       arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
-      text: () => Promise.resolve(''),
-    };
+      text: () => Promise.resolve('')
+    }
     const endpoint = 'https://example.com'
     const expectedDistributionOption = {
       format: {
@@ -211,16 +223,18 @@ describe('createDownloadDistributionOption', () => {
       distributor: expectedDistributor
     }
 
-    expect(createDownloadDistributionOption(file, endpoint, organisation)).toStrictEqual(expectedDistributionOption)
+    expect(createDownloadDistributionOption(file, endpoint, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
   })
 })
 
 describe('createServiceDistributionOption', () => {
   it('builds a distribution option from a service, online resource and organisation', () => {
     const service = {
-      "slug": "wms",
-      "name": "OGC Web Map Service (WMS)",
-      "description": "Access information as a OGC Web Map Service layer."
+      slug: 'wms',
+      name: 'OGC Web Map Service (WMS)',
+      description: 'Access information as a OGC Web Map Service layer.'
     }
     const endpoint = 'https://example.com'
     const expectedDistributionOption = {
@@ -240,6 +254,8 @@ describe('createServiceDistributionOption', () => {
       distributor: expectedDistributor
     }
 
-    expect(createServiceDistributionOption(service, endpoint, organisation)).toStrictEqual(expectedDistributionOption)
+    expect(createServiceDistributionOption(service, endpoint, organisation)).toStrictEqual(
+      expectedDistributionOption
+    )
   })
 })

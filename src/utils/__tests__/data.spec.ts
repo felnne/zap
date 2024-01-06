@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import type {Format} from '@/types/app'
+import type { Format } from '@/types/app'
 
 import {
   getExtent,

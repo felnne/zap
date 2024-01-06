@@ -9,7 +9,7 @@ describe('Epilogue', () => {
     const minimalEnvironment: AppEnvironment = {
       mode: 'development'
     }
-    const wrapper = mount(Epilogue, {props: {appEnv: minimalEnvironment}})
+    const wrapper = mount(Epilogue, { props: { appEnv: minimalEnvironment } })
 
     expect(wrapper.find('#app-build-info').text()).toContain(minimalEnvironment.mode)
   })
@@ -21,15 +21,17 @@ describe('Epilogue', () => {
       commit: '1c0c6597176700465b8df44e1a78f9b9733a6818',
       time: '2024-01-05T12:59:51+00:00'
     }
-    const wrapper = mount(Epilogue, {props: {appEnv: maximumEnvironment}})
+    const wrapper = mount(Epilogue, { props: { appEnv: maximumEnvironment } })
 
     // expect 3 '/' in the rendered text
-    const separatorCount = wrapper.find('#app-build-info').text().split('/').length -1;
+    const separatorCount = wrapper.find('#app-build-info').text().split('/').length - 1
     expect(separatorCount).toBe(3)
 
     expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.mode)
     expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.release)
-    expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.commit?.substring(0, 8))
+    expect(wrapper.find('#app-build-info').text()).toContain(
+      maximumEnvironment.commit?.substring(0, 8)
+    )
     expect(wrapper.find('#app-build-info').text()).toContain('2024-01-05 12:59:51Z')
   })
 })

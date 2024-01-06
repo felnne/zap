@@ -29,12 +29,16 @@ export const getFormat = (slug: string): Format => {
 }
 
 export const getFormatByExtension = (extension: string): Format | undefined => {
-  const match = Object.values(formatsData.formats).find((format: Format) => format.extensions?.includes(extension))
+  const match = Object.values(formatsData.formats).find(
+    (format: Format) => format.extensions?.includes(extension)
+  )
   if (match) return match
 }
 
 export const getFormatByType = (type: string): Format | undefined => {
-  const match = Object.values(formatsData.formats).find((format: Format) => format.mediaTypes?.includes(type))
+  const match = Object.values(formatsData.formats).find(
+    (format: Format) => format.mediaTypes?.includes(type)
+  )
   if (match) return match
 }
 
