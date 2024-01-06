@@ -2,7 +2,8 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import { getOrganisation, getService } from '@/utils/data'
-import type { DistributionOption, OnlineResource, PointOfContact as Contact } from '@/types/iso'
+import { createServiceDistributionOption } from '@/utils/distribution'
+import type { DistributionOption } from '@/types/iso'
 
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
@@ -19,43 +20,11 @@ const props = defineProps({
 const service = getService(props.slug)
 const orgMagic = getOrganisation('bas_magic')
 
-const distributor: Contact = {
-  organisation: {
-    name: orgMagic.name,
-    href: orgMagic.ror,
-    title: 'ror'
-  },
-  phone: orgMagic.phone,
-  address: orgMagic.address,
-  email: orgMagic.email!,
-  online_resource: orgMagic.online_resource,
-  role: ['distributor']
-}
-
 let selected = ref<boolean>(false)
 let endpoint = ref<string>('')
 
-let onlineResource: ComputedRef<OnlineResource> = computed(() => {
-  return {
-    href: endpoint.value,
-    title: service.name,
-    description: service.description,
-    function: 'download'
-  }
-})
-
 let distributionOption: ComputedRef<DistributionOption> = computed(() => {
-  return {
-    format: {
-      format: service.format.name,
-      href: service.format.href,
-      version: service.format.version
-    },
-    transfer_option: {
-      online_resource: onlineResource.value
-    },
-    distributor: distributor
-  }
+  return createServiceDistributionOption(service, endpoint.value, orgMagic)
 })
 </script>
 

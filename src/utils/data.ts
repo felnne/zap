@@ -24,6 +24,10 @@ export const getExtents = (): WellKnownExtent[] => {
   return Object.values(extentsData.geographic)
 }
 
+export const getFormat = (slug: string): Format => {
+  return (formatsData.formats as Record<string, Format>)[slug]
+}
+
 export const getFormats = (): Format[] => {
   return Object.values(formatsData.formats)
 }

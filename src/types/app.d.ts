@@ -28,7 +28,7 @@ type File = {
 
 export type Format = {
   slug: string
-  ext: string[]
+  extensions?: string[]
   name: string
   version: string
   url: string
@@ -77,13 +77,6 @@ type Service = {
   slug: string
   name: string
   description: string
-  format: ServiceFormat
-}
-
-export type ServiceFormat = {
-  name: string
-  version: string
-  href: string
 }
 
 export type TocItem = {
