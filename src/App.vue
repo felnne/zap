@@ -12,7 +12,7 @@ import BackToTop from '@/components/BackToTop.vue'
 
 import Abstract from '@/sections/Abstract.vue'
 import Citation from '@/sections/Citation_v2_0.vue'
-import Contacts from '@/sections/Contacts_v1_1.vue'
+import Contacts from '@/sections/Contacts.vue'
 import Dates from '@/sections/Dates.vue'
 import Downloads from '@/sections/Downloads.vue'
 import Edition from '@/sections/Edition.vue'
