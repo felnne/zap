@@ -27,6 +27,11 @@ export type Format = {
   url: string
 }
 
+export type Idea = {
+  label: string
+  state: string
+}
+
 export type Individual = {
   slug: string
   name: string

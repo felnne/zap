@@ -1,5 +1,6 @@
 import type {
   Format,
+  Idea,
   Individual,
   Licence,
   Organisation,
@@ -9,6 +10,7 @@ import type {
 
 import extentsData from '@/data/extents.json'
 import formatsData from '@/data/formats.json'
+import ideasData from '@/data/ideas.json'
 import individualsData from '@/data/individuals.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
@@ -24,6 +26,10 @@ export const getExtents = (): WellKnownExtent[] => {
 
 export const getFormats = (): Format[] => {
   return Object.values(formatsData.formats)
+}
+
+export const getIdeas = (): Idea[] => {
+  return Object.values(ideasData.ideas)
 }
 
 export const getIndividuals = (): Individual[] => {

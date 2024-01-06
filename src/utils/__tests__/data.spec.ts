@@ -4,6 +4,7 @@ import {
   getExtent,
   getExtents,
   getFormats,
+  getIdeas,
   getIndividuals,
   getLicence,
   getLicences,
@@ -66,6 +67,21 @@ describe('getFormats', () => {
     }
 
     expect(getFormats()).toContainEqual(checkFormat)
+  })
+})
+
+describe('getIdeas', () => {
+  it('loads some data', () => {
+    expect(getIdeas().length).toBeGreaterThan(0)
+  })
+
+  it('includes expected idea', () => {
+    const checkIdea = {
+      label: 'Dark mode.',
+      state: 'complete'
+    }
+
+    expect(getIdeas()).toContainEqual(checkIdea)
   })
 })
 

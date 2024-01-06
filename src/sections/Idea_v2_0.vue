@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { Idea } from '@/types/app'
+
 defineProps({
-  complete: {
-    type: Boolean,
-    default: false
+  idea: {
+    type: Object as () => Idea,
+    required: true
   }
 })
 </script>
@@ -14,10 +16,15 @@ defineProps({
       >Idea</span
     >
     <span
-      v-if="complete"
+      v-if="idea.state === 'complete'"
       class="inline-flex items-center bg-green-50 dark:bg-green-950 px-2 py-1 text-xs font-medium text-green-500 ring-1 ring-inset ring-green-700/10 dark:ring-green-100/10"
       >Done</span
     >
-    <div class="text-black dark:text-white"><slot></slot></div>
+    <span
+      v-if="idea.state === 'cancelled'"
+      class="inline-flex items-center bg-red-50 dark:bg-red-950 px-2 py-1 text-xs font-medium text-red-500 ring-1 ring-inset ring-red-700/10 dark:ring-red-100/10"
+      >Cancelled</span
+    >
+    <div class="text-black dark:text-white">{{ idea.label }}</div>
   </article>
 </template>
