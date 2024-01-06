@@ -52,7 +52,7 @@ watch(issueUrl, () => {
 </script>
 
 <template>
-  <div class="space-x-2">
+  <form class="flex space-x-4">
     <FormLabel>
       <input
         type="checkbox"
@@ -70,5 +70,5 @@ watch(issueUrl, () => {
       :disabled="!selected"
       v-model="issueUrl"
     />
-  </div>
+  </form>
 </template>

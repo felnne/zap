@@ -37,19 +37,21 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.0" anchor="contacts" title="Contacts" />
+    <SectionTitle version="2.1" anchor="contacts" title="Contacts" />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="individual in individuals" :key="individual.slug">
-          <input
-            type="checkbox"
-            name="individuals"
-            :id="'individual-' + individual.slug"
-            :value="individual.slug"
-            v-model="selectedSlugs"
-          />
-          {{ individual.name }}
-        </FormLabel>
+        <div class="space-y-2">
+          <FormLabel v-for="individual in individuals" :key="individual.slug">
+            <input
+              type="checkbox"
+              name="individuals"
+              :id="'individual-' + individual.slug"
+              :value="individual.slug"
+              v-model="selectedSlugs"
+            />
+            {{ individual.name }}
+          </FormLabel>
+        </div>
       </template>
       <template v-slot:right><Output :data="contacts"></Output></template>
     </TwoColumn>

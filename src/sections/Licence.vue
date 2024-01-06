@@ -23,19 +23,21 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.0" anchor="licence" title="Licence" />
+    <SectionTitle version="2.1" anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="licence in licences" :key="licence.slug">
-          <input
-            type="radio"
-            name="licences"
-            :id="'licence-' + licence.slug"
-            :value="licence.slug"
-            v-model="selectedLicenceSlug"
-          />
-          {{ licence.name }}
-        </FormLabel>
+        <div class="space-y-2">
+          <FormLabel v-for="licence in licences" :key="licence.slug">
+            <input
+              type="radio"
+              name="licences"
+              :id="'licence-' + licence.slug"
+              :value="licence.slug"
+              v-model="selectedLicenceSlug"
+            />
+            {{ licence.name }}
+          </FormLabel>
+        </div>
       </template>
       <template v-slot:right>
         <Output :data="licenceConstraint"></Output>
