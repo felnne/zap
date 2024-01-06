@@ -37,6 +37,7 @@ const checkFormat: Format = {
   slug: 'gpkg',
   name: 'GeoPackage',
   version: '1.2',
+  description: 'an OGC GeoPackage',
   extensions: ['.gpkg'],
   mediaTypes: ['application/geopackage+sqlite3'],
   url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'

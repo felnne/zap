@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
+import type { Format } from '@/types/app'
+
 import {
   createDistributor,
   getFileFormat,
@@ -29,9 +31,10 @@ const organisation = {
   }
 }
 
-const expectedFormat = {
+const expectedFormat: Format = {
   slug: 'png',
   name: 'PNG',
+  description: 'a PNG image',
   extensions: ['.png'],
   mediaTypes: ['image/png'],
   url: 'https://www.iana.org/assignments/media-types/image/png'
@@ -215,8 +218,8 @@ describe('createDownloadDistributionOption', () => {
       transfer_option: {
         online_resource: {
           href: endpoint,
-          title: '...',
-          description: '...',
+          title: 'PNG',
+          description: 'Download information as a PNG image',
           function: 'download'
         }
       },
