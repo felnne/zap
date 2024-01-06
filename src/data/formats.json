@@ -3,6 +3,7 @@
     "gpkg": {
       "slug": "gpkg",
       "name": "GeoPackage",
+      "description": "an OGC GeoPackage",
       "version": "1.2",
       "extensions": [".gpkg"],
       "mediaTypes": ["application/geopackage+sqlite3"],
@@ -11,6 +12,7 @@
     "jpeg": {
       "slug": "jpeg",
       "name": "JPEG",
+      "description": "a JPEG image",
       "extensions": [".jpg", ".jpeg"],
       "mediaTypes": ["image/jpeg"],
       "url": "https://jpeg.org/jpeg/"
@@ -18,6 +20,7 @@
     "pdf": {
       "slug": "pdf",
       "name": "PDF",
+      "description": "an Adobe PDF",
       "extensions": [".pdf"],
       "mediaTypes": ["application/pdf"],
       "url": "https://www.iana.org/assignments/media-types/application/pdf"
@@ -25,6 +28,7 @@
     "png": {
       "slug": "png",
       "name": "PNG",
+      "description": "a PNG image",
       "extensions": [".png"],
       "mediaTypes": ["image/png"],
       "url": "https://www.iana.org/assignments/media-types/image/png"
@@ -38,6 +42,7 @@
     "shp": {
       "slug": "shp",
       "name": "Shapefile",
+      "description": "an Esri Shapefile (Zipped)",
       "ext": [".shp.zip"],
       "url": "https://support.esri.com/en/white-paper/279"
     }

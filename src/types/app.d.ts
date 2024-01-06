@@ -24,6 +24,7 @@ export type Format = {
   extensions?: string[]
   mediaTypes?: string[]
   name: string
+  description?: string
   version?: string
   url: string
 }

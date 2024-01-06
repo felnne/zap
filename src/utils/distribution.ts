@@ -71,8 +71,8 @@ export const createDownloadDistributionOption = (
 
   const onlineResource: OnlineResource = {
     href: endpoint,
-    title: '...',
-    description: '...',
+    title: fileFormat.name,
+    description: `Download information as ${fileFormat.description}`,
     function: 'download'
   }
 
