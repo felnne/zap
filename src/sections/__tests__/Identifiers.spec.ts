@@ -4,7 +4,7 @@ import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
 import type { Identifier } from '@/types/iso'
-import Identifiers from '@/sections/Identifiers_v2_0.vue'
+import Identifiers from '@/sections/Identifiers_v3_0.vue'
 
 describe('Identifiers', () => {
   it('adds an identifier and emits identifiers', async () => {
@@ -117,5 +117,64 @@ describe('Identifiers', () => {
       const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri_v1_1' })
       expect(esriIdentifier.exists()).toBeFalsy()
     })
+  })
+})
+
+describe('Identifiers (Integration)', () => {
+  it('toggling doi identifier updates output correctly', async () => {
+    const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      global: {
+        directives: {
+          clipboard: Clipboard
+        }
+      }
+    })
+
+    // set the checkbox button with an id #identifier-doi-selection to selected
+    await wrapper.find('input#identifier-doi-selection').setValue()
+    expect(wrapper.find('pre').text()).toContain('https://doi.org/')
+
+    // set the checkbox button with an id #identifier-doi-selection to un-selected
+    await wrapper.find('input#identifier-doi-selection').setValue(false)
+    expect(wrapper.find('pre').text()).not.toContain('https://doi.org/')
+  })
+
+  it('toggling esri identifier updates output correctly', async () => {
+    const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      global: {
+        directives: {
+          clipboard: Clipboard
+        }
+      }
+    })
+
+    // set the checkbox button with an id #identifier-esri-selection to selected
+    await wrapper.find('input#identifier-esri-selection').setValue()
+    expect(wrapper.find('pre').text()).toContain('https://bas.maps.arcgis.com')
+
+    // set the checkbox button with an id #identifier-esri-selection to un-selected
+    await wrapper.find('input#identifier-esri-selection').setValue(false)
+    expect(wrapper.find('pre').text()).not.toContain('https://bas.maps.arcgis.com')
+  })
+
+  it('toggling gitlab identifier updates output correctly', async () => {
+    const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      global: {
+        directives: {
+          clipboard: Clipboard
+        }
+      }
+    })
+
+    // set the checkbox button with an id #identifier-bas-gitlab-selection to selected
+    await wrapper.find('input#identifier-bas-gitlab-selection').setValue()
+    expect(wrapper.find('pre').text()).toContain('https://gitlab.data.bas.ac.uk')
+
+    // set the checkbox button with an id #identifier-bas-gitlab-selection to un-selected
+    await wrapper.find('input#identifier-bas-gitlab-selection').setValue(false)
+    expect(wrapper.find('pre').text()).not.toContain('https://gitlab.data.bas.ac.uk')
   })
 })

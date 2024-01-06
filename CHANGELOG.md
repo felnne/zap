@@ -12,6 +12,7 @@
 * Typing for event emits and handlers
 * Collection resource type
 * Logic to hide sections that don't apply to different resource types
+* GitLab identifier
 
 ### Fixed
 
