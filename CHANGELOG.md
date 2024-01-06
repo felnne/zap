@@ -35,6 +35,7 @@
 * external data files aligned to use snake case slugs
 * Refactored citation section to use a record instance as a single prop
 * Refactored resource type to use an enum
+* Refactoring ideas into a data file and adding cancelled state
 
 ## [0.5.3] - 2023-12-30
 

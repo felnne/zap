@@ -1,0 +1,39 @@
+{
+  "ideas": [
+    { "label": "BAS Research Topics topic keywords.", "state": "todo" },
+    { "label": "ISO topic mapped from research topic.", "state": "todo" },
+    { "label": "Place keywords based on Well-Known Extents.", "state": "todo" },
+    { "label": "Table of contents.", "state": "complete" },
+    { "label": "Dark mode.", "state": "complete" },
+    { "label": "DOI identifier based on file identifier.", "state": "complete" },
+    { "label": "Esri identifier.", "state": "complete" },
+    { "label": "Citation.", "state": "complete" },
+    {
+      "label": "Citation based on real DOI (using CrossCite formatting service).",
+      "state": "complete"
+    },
+    {
+      "label": "Citation based on resource type, identifier, title, edition, publication date and contacts.",
+      "state": "complete"
+    },
+    { "label": "Resource type section.", "state": "complete" },
+    { "label": "(Published) date section.", "state": "complete" },
+    { "label": "Additional dates.", "state": "todo" },
+    { "label": "Edition section.", "state": "complete" },
+    {
+      "label": "Include `protocol: 'WWW:LINK-1.0-http--link'` in download distribution options.",
+      "state": "todo"
+    },
+    { "label": "Include WMTS, WFS and Esri in services section.", "state": "todo" },
+    { "label": "Download proxy items.", "state": "todo" },
+    { "label": "Colour code distribution options like JWTs.", "state": "cancelled" },
+    { "label": "Hide sections based on resource type.", "state": "complete" },
+    { "label": "Aggregations section.", "state": "todo" },
+    { "label": "Collections resource type.", "state": "complete" },
+    { "label": "GitLab identifier.", "state": "complete" },
+    { "label": "Validation.", "state": "todo" },
+    { "label": "Preserving input values (like GitLab editor)", "state": "todo" },
+    { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },
+    { "label": "User feedback.", "state": "complete" }
+  ]
+}
