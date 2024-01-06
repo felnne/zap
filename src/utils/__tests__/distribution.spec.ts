@@ -102,7 +102,7 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve('')
     }
 
-    expect(() => getFileFormat(file)).toThrow("Cannot determine format for file 'foo.bar'")
+    expect(() => getFileFormat(file)).toThrow('Cannot determine format.')
   })
 })
 
