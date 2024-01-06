@@ -29,23 +29,25 @@ let extent: ComputedRef<Extent> = computed(() => {
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.0"
+      version="1.1"
       anchor="spatial-extent"
       title="Spatial extent"
       sub-title="Well-known extents"
     />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
-          <input
-            type="radio"
-            name="extents"
-            :id="'extent-' + wke.slug"
-            :value="wke.slug"
-            v-model="selectedWkeSlug"
-          />
-          {{ wke.name }}
-        </FormLabel>
+        <div class="space-y-2">
+          <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
+            <input
+              type="radio"
+              name="extents"
+              :id="'extent-' + wke.slug"
+              :value="wke.slug"
+              v-model="selectedWkeSlug"
+            />
+            {{ wke.name }}
+          </FormLabel>
+        </div>
       </template>
       <template v-slot:right>
         <Output :data="extent"></Output>

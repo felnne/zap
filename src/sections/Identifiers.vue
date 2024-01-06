@@ -51,7 +51,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="3.0"
+      version="3.1"
       :stability="Stability.Experimental"
       anchor="identifiers"
       title="Identifiers"

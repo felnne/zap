@@ -26,6 +26,7 @@
 * Wrong property used for setting licence output (name instead of statement)
 * Fixing/tweaking citation utils classes
 * Typo in ToC anchor not matching section title anchor
+* Spacing for lists of radio and checkbox inputs
 
 ### Changed
 

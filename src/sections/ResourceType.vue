@@ -30,23 +30,25 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="2.0"
+      version="2.1"
       :stability="Stability.Experimental"
       anchor="resource-type"
       title="Resource Type"
     />
     <TwoColumn>
       <template v-slot:left>
-        <FormLabel v-for="type in ResourceType" :key="type">
-          <input
-            type="radio"
-            name="resource-type"
-            :id="'resource-type-' + type"
-            :value="type"
-            v-model="resourceType"
-          />
-          {{ type }}
-        </FormLabel>
+        <div class="space-y-2">
+          <FormLabel v-for="type in ResourceType" :key="type">
+            <input
+              type="radio"
+              name="resource-type"
+              :id="'resource-type-' + type"
+              :value="type"
+              v-model="resourceType"
+            />
+            {{ type }}
+          </FormLabel>
+        </div>
       </template>
       <template v-slot:right>
         <Output :data="resourceType"></Output>
