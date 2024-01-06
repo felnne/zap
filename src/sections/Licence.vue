@@ -3,7 +3,6 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import { getLicences, getLicence } from '@/utils/data'
 import { createConstraint } from '@/utils/constraints'
-import type { Licence } from '@/types/app'
 import type { Constraint } from '@/types/iso'
 
 import Output from '@/components/Output.vue'
