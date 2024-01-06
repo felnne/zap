@@ -54,6 +54,22 @@ test('supported file types are handled correctly', async ({ page }) => {
   await page.setInputFiles('input#download-5-input', './sample-data/pdf/sample.pdf');
   const download5 = await page.textContent('#download-5-output pre');
   expect(download5).toContain('"href": "https://www.iana.org/assignments/media-types/application/pdf"');
+
+  // Shapefiles (Zipped)
+  //
+
+  await page.click('text=Add Download');
+  await page.setInputFiles('input#download-6-input', './sample-data/shp_zip/sample.shp.zip');
+  const download6 = await page.textContent('#download-6-output pre');
+  expect(download6).toContain('"href": "https://metadata-standards.data.bas.ac.uk/media-types/application/shapefile+zip"');
+
+  // GeoPackages (Zipped)
+  //
+
+  await page.click('text=Add Download');
+  await page.setInputFiles('input#download-7-input', './sample-data/gpkg_zip/sample.gpkg.zip');
+  const download7 = await page.textContent('#download-7-output pre');
+  expect(download7).toContain('"href": "https://metadata-standards.data.bas.ac.uk/media-types/application/geopackage+sqlite3+zip"');
 })
 
 test('unsupported file types are rejected correctly', async ({ page }) => {
