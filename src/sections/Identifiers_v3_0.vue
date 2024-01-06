@@ -11,6 +11,7 @@ import Output from '@/components/Output.vue'
 import IdentifierSelf from '@/sections/IdentifierSelf_v1_1.vue'
 import IdentifierDoi from '@/sections/IdentifierDoi_v1_1.vue'
 import IdentifierEsri from '@/sections/IdentifierEsri_v1_1.vue'
+import IdentifierBasGitlab from '@/sections/IdentifierBasGitlab_v1_0.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
 defineProps({
@@ -50,28 +51,34 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="2.0"
+      version="3.0"
       :stability="Stability.Experimental"
       anchor="identifiers"
       title="Identifiers"
     />
     <TwoColumn>
       <template v-slot:left>
-        <IdentifierSelf
-          :fileIdentifier="fileIdentifier"
-          @add:identifier="(event: Identifier) => addIdentifier(event)"
-        />
-        <IdentifierDoi
-          v-if="showSection('identifierDoi', resourceType)"
-          :fileIdentifier="fileIdentifier"
-          @add:identifier="addIdentifier($event)"
-          @remove:identifier="removeIdentifier($event)"
-        />
-        <IdentifierEsri
-          v-if="showSection('identifierEsri', resourceType)"
-          @add:identifier="(event: Identifier) => addIdentifier(event)"
-          @remove:identifier="(event: Identifier) => removeIdentifier(event)"
-        />
+        <div class="space-y-2">
+          <IdentifierSelf
+            :fileIdentifier="fileIdentifier"
+            @add:identifier="(event: Identifier) => addIdentifier(event)"
+          />
+          <IdentifierDoi
+            v-if="showSection('identifierDoi', resourceType)"
+            :fileIdentifier="fileIdentifier"
+            @add:identifier="addIdentifier($event)"
+            @remove:identifier="removeIdentifier($event)"
+          />
+          <IdentifierEsri
+            v-if="showSection('identifierEsri', resourceType)"
+            @add:identifier="(event: Identifier) => addIdentifier(event)"
+            @remove:identifier="(event: Identifier) => removeIdentifier(event)"
+          />
+          <IdentifierBasGitlab
+            @add:identifier="(event: Identifier) => addIdentifier(event)"
+            @remove:identifier="(event: Identifier) => removeIdentifier(event)"
+          />
+        </div>
       </template>
       <template v-slot:right>
         <Output :data="identifiers"></Output>
