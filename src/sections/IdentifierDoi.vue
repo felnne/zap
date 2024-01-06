@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import type { Identifier } from '@/types/iso'
+import { getSetting } from '@/utils/data'
 
 import FormLabel from '@/components/FormLabel.vue'
 
@@ -12,7 +13,7 @@ const props = defineProps({
   }
 })
 
-const prefix = '10.5285'
+const prefix = getSetting('pdc_doi_prefix')
 
 const emit = defineEmits<{
   'add:identifier': [id: Identifier]

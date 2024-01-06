@@ -15,6 +15,7 @@ import individualsData from '@/data/individuals.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
 import servicesData from '@/data/services.json'
+import settingsData from '@/data/settings.json'
 
 export const getExtent = (slug: string): WellKnownExtent => {
   return (extentsData.geographic as Record<string, WellKnownExtent>)[slug]
@@ -76,4 +77,8 @@ export const getService = (slug: string): Service => {
 export const getServiceSlugs = (): string[] => {
   // sorted alphabetically
   return Object.keys(servicesData.services).sort((a: string, b: string) => a.localeCompare(b))
+}
+
+export const getSetting = (key: string): string => {
+  return (settingsData as Record<string, string>)[key]
 }

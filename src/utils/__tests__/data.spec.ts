@@ -15,7 +15,8 @@ import {
   getLicences,
   getOrganisation,
   getServiceSlugs,
-  getService
+  getService,
+  getSetting
 } from '@/utils/data'
 
 const checkExtent = {
@@ -212,5 +213,11 @@ describe('getServiceSlugs', () => {
     const sortedServiceSlugs = serviceSlugs.sort((a, b) => a.localeCompare(b))
 
     expect(serviceSlugs).toEqual(sortedServiceSlugs)
+  })
+})
+
+describe('getSetting', () => {
+  it('loads expected setting', () => {
+    expect(getSetting('bas_esri_agol_slug')).toEqual('bas')
   })
 })

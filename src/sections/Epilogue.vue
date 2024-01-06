@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
-import { Stability } from '@/types/enum'
 import type { AppEnvironment } from '@/types/app'
+import { Stability } from '@/types/enum'
+import { getSetting } from '@/utils/data'
+
 import Link from '@/components/Link.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -30,14 +32,14 @@ let timeDisplay: ComputedRef<string> = computed(() => {
 <template>
   <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle
-      version="2.0"
+      version="2.1"
       :stability="Stability.Experimental"
       anchor="epilogue"
       title="Meta"
     />
     <div class="flex">
       <div class="flex-1 space-y-2">
-        <Link href="https://gitlab.data.bas.ac.uk/felnne/zap">GitLab Project</Link>
+        <Link :href="getSetting('app_gitlab_url')">GitLab Project</Link>
       </div>
       <div id="app-build-info" class="flex-1 text-right">
         <span title="Build mode">{{ appEnv.mode }}</span>
