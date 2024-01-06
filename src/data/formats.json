@@ -10,21 +10,18 @@
     "jpeg": {
       "slug": "jpeg",
       "name": "JPEG",
-      "version": "1",
       "extensions": [".jpg", ".jpeg"],
       "url": "https://jpeg.org/jpeg/"
     },
     "pdf": {
       "slug": "pdf",
       "name": "PDF",
-      "version": "1.6",
       "extensions": [".pdf"],
       "url": "https://www.iana.org/assignments/media-types/application/pdf"
     },
     "png": {
       "slug": "png",
       "name": "PNG",
-      "version": "1",
       "extensions": [".png"],
       "url": "https://www.iana.org/assignments/media-types/image/png"
     },
@@ -39,7 +36,6 @@
       "name": "Shapefile",
       "ext": [".shp.zip"],
       "url": "https://support.esri.com/en/white-paper/279",
-      "version": "1"
     }
   }
 }

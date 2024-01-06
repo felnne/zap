@@ -41,6 +41,7 @@
 * Refactoring usage constraint construction to utils module from licence component
 * Minor refactoring for citation component to remove unnecessary null identifier logic
 * Refactoring service component to generate distribution option via util functions
+* Refactoring formats to make version optional
 
 ## [0.5.3] - 2023-12-30
 

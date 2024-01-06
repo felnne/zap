@@ -30,7 +30,7 @@ export type Format = {
   slug: string
   extensions?: string[]
   name: string
-  version: string
+  version?: string
   url: string
 }
 
