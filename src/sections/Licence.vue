@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, ref } from 'vue'
 
 import { getLicences, getLicence } from '@/utils/data'
+import { createConstraint } from '@/utils/constraints'
 import type { Licence } from '@/types/app'
 import type { Constraint } from '@/types/iso'
 
@@ -10,15 +11,6 @@ import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-
-function createConstraint(licence: Licence): Constraint {
-  return {
-    type: 'usage',
-    restriction_code: 'license',
-    statement: licence.statement,
-    href: licence.url
-  }
-}
 
 const licences = getLicences()
 
@@ -31,7 +23,7 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="licence" title="Licence" />
+    <SectionTitle version="2.0" anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
         <FormLabel v-for="licence in licences" :key="licence.slug">

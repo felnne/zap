@@ -38,6 +38,7 @@
 * Refactoring ideas into a data file and adding cancelled state
 * Refactoring build information out of epilogue component into utils module
 * Refactoring PointOfContact construction to utils module from contacts module
+* Refactoring usage constraint construction to utils module from licence component
 
 ## [0.5.3] - 2023-12-30
 
