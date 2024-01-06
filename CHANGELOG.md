@@ -37,7 +37,7 @@
 * Refactored resource type to use an enum
 * Refactoring ideas into a data file and adding cancelled state
 * Refactoring build information out of epilogue component into utils module
-* Refactoring PointOfContact construction to utils module from contacts module
+* Refactoring point of contact construction to utils module from contacts component
 * Refactoring usage constraint construction to utils module from licence component
 * Minor refactoring for citation component to remove unnecessary null identifier logic
 * Refactoring service component to generate distribution option via util functions

@@ -62,7 +62,12 @@ let identifier: ComputedRef<Identifier> = computed(() => {
     return doiIdentifier
   }
 
-  return props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
+  const selfIdentifier = props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
+  if (selfIdentifier) {
+    return selfIdentifier
+  }
+
+  return { title: '', identifier: '', href: '' }
 })
 
 let doi: ComputedRef<string> = computed(() => {

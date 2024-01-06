@@ -29,7 +29,7 @@ let distributionOption: ComputedRef<DistributionOption> = computed(() => {
 </script>
 
 <template>
-  <SubSectionBorder>
+  <SubSectionBorder class="space-y-2">
     <form class="flex space-x-4">
       <FormLabel>
         <input

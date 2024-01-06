@@ -39,6 +39,7 @@ watch(
 </script>
 
 <template>
+  <div>
   <FormLabel>
     <input
       class="cursor-not-allowed"
@@ -50,4 +51,5 @@ watch(
     />
     BAS Data Catalogue (<em>required</em>)
   </FormLabel>
+  </div>
 </template>
