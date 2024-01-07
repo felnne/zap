@@ -17,18 +17,16 @@ describe('Epilogue', () => {
   it('renders properly with full information', async () => {
     const maximumEnvironment: AppEnvironment = {
       mode: 'production',
-      release: 'v0.6.0',
       commit: '1c0c6597176700465b8df44e1a78f9b9733a6818',
       time: '2024-01-05T12:59:51+00:00'
     }
     const wrapper = mount(Epilogue, { props: { appEnv: maximumEnvironment } })
 
-    // expect 3 '/' in the rendered text
-    const separatorCount = wrapper.find('#app-build-info').text().split('/').length - 1
-    expect(separatorCount).toBe(3)
+    // expect 2 '/' in the rendered text
+    const separatorCount = wrapper.find('#app-build-info').text().split(' / ').length - 1
+    expect(separatorCount).toBe(2)
 
     expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.mode)
-    expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.release)
     expect(wrapper.find('#app-build-info').text()).toContain(
       maximumEnvironment.commit?.substring(0, 8)
     )
