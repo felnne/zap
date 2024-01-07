@@ -9,6 +9,7 @@ import {
   getFormatByExtension,
   getFormatByType,
   getFormats,
+  getFormatExtensions,
   getIdeas,
   getIndividuals,
   getLicence,
@@ -101,6 +102,23 @@ describe('getFormats', () => {
 
   it('includes expected format', () => {
     expect(getFormats()).toContainEqual(checkFormat)
+  })
+})
+
+describe('getFormatExtensions', () => {
+  it('loads some data', () => {
+    expect(getFormatExtensions().length).toBeGreaterThan(0)
+  })
+
+  it('includes expected format extension', () => {
+    expect(getFormatExtensions()).toContain('.gpkg')
+  })
+
+  it('is sorted alphabetically', () => {
+    const formatExtensions = getFormatExtensions()
+    const sortedFormatExtensions = formatExtensions.sort((a, b) => a.localeCompare(b))
+
+    expect(formatExtensions).toEqual(sortedFormatExtensions)
   })
 })
 

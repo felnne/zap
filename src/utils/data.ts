@@ -47,6 +47,12 @@ export const getFormats = (): Format[] => {
   return Object.values(formatsData.formats)
 }
 
+export const getFormatExtensions = (): string[] => {
+  return Object.values(formatsData.formats)
+    .flatMap((format: Format) => format.extensions || [])
+    .filter((extension: string) => extension !== undefined)
+}
+
 export const getIdeas = (): Idea[] => {
   return Object.values(ideasData.ideas)
 }

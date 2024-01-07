@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
+import { getFormatExtensions } from '@/utils/data'
 
 import Downloads from '@/sections/Downloads.vue'
 
@@ -41,5 +42,25 @@ describe('Downloads', () => {
     // // check there's 2 input elements rendered
     expect(wrapper.find('input#download-1-input').exists()).toBeTruthy()
     expect(wrapper.find('input#download-2-input').exists()).toBeTruthy()
+  })
+
+  it('displays supported extensions', async () => {
+    const expectedExtensions = getFormatExtensions()
+
+    const wrapper = mount(Downloads, {
+      props: { resourceType: ResourceType.Dataset },
+      global: {
+        directives: {
+          clipboard: Clipboard
+        }
+      }
+    })
+
+    // check all extensions are in a code element
+    const extensions = wrapper.findAll('code')
+    expectedExtensions.every((extension) => {
+      const found = extensions.find((e) => e.text() === extension)
+      expect(found).toBeTruthy()
+    })
   })
 })
