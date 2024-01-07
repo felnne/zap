@@ -10,6 +10,7 @@ dist/
 
 # Local
 notes.md
+README.Local.md
 
 # Sentry Config File
 .env.sentry-build-plugin

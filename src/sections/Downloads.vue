@@ -25,7 +25,7 @@ let count = ref(0)
   <SectionBorder class="space-y-4">
     <SectionTitle
       version="2.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="downloads"
       title="Downloads"
     />
