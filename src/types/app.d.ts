@@ -14,7 +14,6 @@ export type DateImpreciseLabelled = {
 
 export type AppEnvironment = {
   mode: string
-  release?: string
   commit?: string
   time?: string
 }

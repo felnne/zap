@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.6.1] - 2024-01-07
+
+### Fixed
+
+* Missing spacing around first build info separator
+
+###
+
+* Release/tag element from build info (as this would never be set)
+
 ## [0.6.0] - 2024-01-07
 
 ### Added

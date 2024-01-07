@@ -31,18 +31,16 @@ let timeDisplay: ComputedRef<string> = computed(() => {
 
 <template>
   <SectionBorder border-colour-class="border-sky-500">
-    <SectionTitle version="2.1" :stability="Stability.Stable" anchor="epilogue" title="Meta" />
+    <SectionTitle version="3" :stability="Stability.Stable" anchor="epilogue" title="Meta" />
     <div class="flex">
       <div class="flex-1 space-y-2">
         <Link :href="getSetting('app_gitlab_url')">GitLab Project</Link>
       </div>
       <div id="app-build-info" class="flex-1 text-right">
         <span title="Build mode">{{ appEnv.mode }}</span>
-        <span v-if="appEnv.release" class="text-neutral-300">/</span>
-        <span title="Build tag">{{ appEnv.release }}</span>
-        <span v-if="appEnv.commit" class="text-neutral-300">/</span>
+        <span v-if="appEnv.commit" class="text-neutral-300"> / </span>
         <abbr :title="appEnv.commit"></abbr> {{ commitDisplay }}
-        <span v-if="appEnv.time" class="text-neutral-300">/</span>
+        <span v-if="appEnv.time" class="text-neutral-300"> / </span>
         <time :datetime="appEnv.time"></time> {{ timeDisplay }}
       </div>
     </div>
