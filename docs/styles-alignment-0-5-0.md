@@ -1,5 +1,9 @@
 # App Styles Review (v0.5.0)
 
+And amended for:
+
+- v0.6.0
+
 Focus:
 
 - [spacing](#spacing)
@@ -48,8 +52,8 @@ Remaining:
 - `p-2` used for prose, downloads and services (i.e. subsections)
 - `p-4` only used once in section border
 - `p-10` only used once for main app component
-- `px-2` used for idea instances and buttons 
-- `py-1` used for idea instances and buttons 
+- `px-2` used for idea instances and buttons
+- `py-1` used for idea instances and buttons
 
 ### Height
 
@@ -133,6 +137,10 @@ Remaining:
 - `text-2xl` used for section titles
 - `text-3xl` used for app title
 
+Additional [0.6.0]:
+
+- `text-[8px]` used for section version/stability
+
 ## Colours
 
 Following rationalisation.
@@ -169,6 +177,10 @@ Following rationalisation.
 - preview hints/labels: `sky-500` (text only, same for dark mode)
 - secondary input labels: `neutral-500` (text only, same for dark mode)
 - back to top links: `neutral-300` (dark mode background only)
+
+Additional [0.6.0]:
+
+- supported file extensions background: `emerald-900` (dark `emerald-100`)
 
 ### Exceptions
 

@@ -31,7 +31,7 @@ watch(
   <SectionBorder>
     <SectionTitle
       version="2.1"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="resource-type"
       title="Resource Type"
     />

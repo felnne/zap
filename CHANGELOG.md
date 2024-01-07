@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2024-01-07
+
 ### Added
 
 * IDs and classes for selecting specific elements needed for tests
@@ -166,7 +168,6 @@
 
 - Adding Typescript, ESlint, Prettier
 
-## v0.1.0 - 2021-07-12
 ## [0.1.0] - 2021-07-12
 
 ### Added
