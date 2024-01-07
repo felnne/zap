@@ -2,6 +2,7 @@
 import { ref, type PropType } from 'vue'
 
 import { ResourceType, Stability } from '@/types/enum'
+import { getFormatExtensions } from '@/utils/data'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -15,6 +16,8 @@ defineProps({
     required: true
   }
 })
+
+const supportedExtensions = getFormatExtensions()
 
 let count = ref(0)
 </script>
@@ -34,7 +37,13 @@ let count = ref(0)
     ></Download>
     <div class="space-x-2 flex items-center">
       <Button id="add-download" @click="count++"> Add Download </Button>
-      <GuidanceText>Supported formats: PNG, JPEG, PDF, GeoPackages.</GuidanceText>
+      <GuidanceText
+        >Supported formats:
+        <template v-for="(ext, index) in supportedExtensions" v-bind:key="ext">
+          <code class="bg-emerald-50 dark:bg-emerald-950">{{ ext }}</code>
+          <template v-if="index < supportedExtensions.length - 1">, </template>
+        </template>
+      </GuidanceText>
     </div>
   </SectionBorder>
 </template>
