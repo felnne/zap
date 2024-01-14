@@ -9,8 +9,8 @@ import FormLabel from '@/components/FormLabel.vue'
 const props = defineProps({
   fileIdentifier: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const prefix = getSetting('pdc_doi_prefix')
@@ -36,7 +36,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: doi,
     href: `https://doi.org/${doi}`,
-    title: 'doi'
+    title: 'doi',
   }
 })
 

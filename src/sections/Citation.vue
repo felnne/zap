@@ -18,8 +18,8 @@ import Prose from '@/components/Prose.vue'
 const props = defineProps({
   record: {
     type: Object as () => Record,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const getCitation = async () => {
@@ -113,7 +113,7 @@ watch(
     () => props.record.edition,
     () => props.record.title,
     () => publishedYear.value,
-    () => authors.value
+    () => authors.value,
   ],
   () => {
     getCitation()

@@ -8,7 +8,7 @@ describe('createContact', () => {
       slug: 'https_orcid_org_0000_0000_0000_0000',
       name: 'Watson, Connie',
       orcid: 'https://orcid.org/0000-0000-0000-0000',
-      email: 'conwat@bas.ac.uk'
+      email: 'conwat@bas.ac.uk',
     }
     const organisation = {
       slug: 'bas',
@@ -20,25 +20,25 @@ describe('createContact', () => {
         city: 'Cambridge',
         administrative_area: 'Cambridgeshire',
         postal_code: 'CB3 0ET',
-        country: 'United Kingdom'
+        country: 'United Kingdom',
       },
       online_resource: {
         href: 'https://www.bas.ac.uk',
         title: 'British Antarctic Survey - BAS public website',
         description: 'Homepage for the British Antarctic Survey (BAS) public website.',
-        function: 'information'
-      }
+        function: 'information',
+      },
     }
     const expectedContact = {
       individual: {
         name: individual.name,
         href: individual.orcid,
-        title: 'ocrid'
+        title: 'ocrid',
       },
       organisation: {
         name: organisation.name,
         href: organisation.ror,
-        title: 'ror'
+        title: 'ror',
       },
       email: individual.email,
       phone: organisation.phone,
@@ -48,9 +48,9 @@ describe('createContact', () => {
         title: 'ORCID record',
         description:
           'ORCID is an open, non-profit, community-driven effort to create and maintain a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.',
-        function: 'information'
+        function: 'information',
       },
-      role: ['author']
+      role: ['author'],
     }
 
     expect(createContact(individual, organisation)).toStrictEqual(expectedContact)

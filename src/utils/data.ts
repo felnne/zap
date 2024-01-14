@@ -5,7 +5,7 @@ import type {
   Licence,
   Organisation,
   Service,
-  WellKnownExtent
+  WellKnownExtent,
 } from '@/types/app'
 
 import extentsData from '@/data/extents.json'

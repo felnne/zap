@@ -5,7 +5,7 @@ import {
   createUsageConstraint,
   decodeAccessConstraintPermissions,
 } from '@/utils/constraints'
-import type { AccessRestriction } from '@/types/app'
+import type { AccessRestriction, Licence } from '@/types/app'
 
 describe('createAccessConstraint', () => {
   it('builds an access constraint with permissions', () => {
@@ -52,12 +52,13 @@ describe('createAccessConstraint', () => {
 
 describe('createUsageConstraint', () => {
   it('builds a licence usage constraint', () => {
-    const licence = {
+    const licence: Licence = {
       slug: 'OGL_UK_3_0',
       name: '(UK) Open Government Licence v3.0',
       url: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
       statement:
         'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
+      open: true,
     }
     const expectedConstraint = {
       type: 'usage',

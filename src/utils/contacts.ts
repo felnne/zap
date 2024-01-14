@@ -6,12 +6,12 @@ export const createContact = (individual: Individual, organisation: Organisation
     individual: {
       name: individual.name,
       href: individual.orcid,
-      title: 'ocrid'
+      title: 'ocrid',
     },
     organisation: {
       name: organisation.name,
       href: organisation.ror,
-      title: 'ror'
+      title: 'ror',
     },
     email: individual.email,
     phone: organisation.phone,
@@ -21,8 +21,8 @@ export const createContact = (individual: Individual, organisation: Organisation
       title: 'ORCID record',
       description:
         'ORCID is an open, non-profit, community-driven effort to create and maintain a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.',
-      function: 'information'
+      function: 'information',
     },
-    role: ['author']
+    role: ['author'],
   }
 }

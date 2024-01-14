@@ -8,13 +8,13 @@ export const createDistributor = (org: Organisation): Contact => {
     organisation: {
       name: org.name,
       href: org.ror,
-      title: 'ror'
+      title: 'ror',
     },
     phone: org.phone,
     address: org.address,
     email: org.email!,
     online_resource: org.online_resource,
-    role: ['distributor']
+    role: ['distributor'],
   }
 }
 
@@ -40,12 +40,12 @@ export const createDistributionOption = (
   const distributionOption: DistributionOption = {
     format: {
       format: format.name,
-      href: format.url
+      href: format.url,
     },
     transfer_option: {
-      online_resource: onlineResource
+      online_resource: onlineResource,
     },
-    distributor: createDistributor(org)
+    distributor: createDistributor(org),
   }
 
   if (format.version) {
@@ -55,7 +55,7 @@ export const createDistributionOption = (
   if (sizeBytes) {
     distributionOption.transfer_option['size'] = {
       magnitude: sizeBytes,
-      unit: 'bytes'
+      unit: 'bytes',
     }
   }
 
@@ -73,7 +73,7 @@ export const createDownloadDistributionOption = (
     href: endpoint,
     title: fileFormat.name,
     description: `Download information as ${fileFormat.description}`,
-    function: 'download'
+    function: 'download',
   }
 
   return createDistributionOption(fileFormat, onlineResource, org, file.size)
@@ -90,7 +90,7 @@ export const createServiceDistributionOption = (
     href: endpoint,
     title: service.name,
     description: service.description,
-    function: 'download'
+    function: 'download',
   }
 
   return createDistributionOption(serviceFormat, onlineResource, org)

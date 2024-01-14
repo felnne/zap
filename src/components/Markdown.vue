@@ -14,13 +14,13 @@ const markdown = new MarkdownIt()
 const props = defineProps({
   input: {
     type: String,
-    required: false
+    required: false,
   },
   inputClass: {
     type: String,
     required: false,
-    default: 'min-h-60'
-  }
+    default: 'min-h-60',
+  },
 })
 
 const emit = defineEmits(['update:input'])

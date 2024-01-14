@@ -11,9 +11,9 @@ describe('Title', () => {
     const wrapper = mount(Title, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     const inputElement = wrapper.find('textarea')
@@ -21,10 +21,10 @@ describe('Title', () => {
     expect(inputElement.element.value).toBe(expectedUpdated)
 
     await wrapper.vm.$nextTick()
-    const emittedTitle = wrapper.emitted('update:title')
+    const emittedTitle: unknown[][] | undefined = wrapper.emitted('update:title')
     expect(emittedTitle).toBeTruthy()
     if (emittedTitle) {
-      expect(emittedTitle[0]).toEqual([expectedUpdated])
+      expect(emittedTitle[0][0]).toEqual(expectedUpdated)
     }
   })
 })

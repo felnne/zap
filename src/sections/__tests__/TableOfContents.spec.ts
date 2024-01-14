@@ -8,7 +8,7 @@ describe('TableOfContents', () => {
   it('renders properly', async () => {
     const items: TocItem[] = [
       { anchor: 'foo', title: 'Foo' },
-      { anchor: 'bar', title: 'Bar' }
+      { anchor: 'bar', title: 'Bar' },
     ]
 
     const wrapper = mount(TableOfContents, { props: { items: items } })

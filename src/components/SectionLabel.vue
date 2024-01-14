@@ -3,8 +3,8 @@ defineProps({
   textColourClass: {
     type: String,
     required: false,
-    default: 'text-neutral-500'
-  }
+    default: 'text-neutral-500',
+  },
 })
 </script>
 <template>

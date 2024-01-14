@@ -13,8 +13,8 @@ import GuidanceText from '@/components/GuidanceText.vue'
 defineProps({
   resourceType: {
     type: String as PropType<ResourceType>,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const supportedExtensions = getFormatExtensions()

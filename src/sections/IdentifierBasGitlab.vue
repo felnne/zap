@@ -29,7 +29,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: issueUrl.value,
     href: issueUrl.value,
-    title: instance
+    title: instance,
   }
 })
 

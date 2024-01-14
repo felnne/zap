@@ -8,7 +8,7 @@ const propDefaults = { borderColourClass: 'border-neutral-300 dark:border-neutra
 describe('SubSectionBorder', () => {
   it('renders properly with default classes', () => {
     const wrapper = mount(SubSectionBorder, {
-      props: { borderColourClass: propDefaults.borderColourClass }
+      props: { borderColourClass: propDefaults.borderColourClass },
     })
 
     propDefaults.borderColourClass

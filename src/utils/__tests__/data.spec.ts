@@ -18,7 +18,7 @@ import {
   getOrganisation,
   getServiceSlugs,
   getService,
-  getSetting
+  getSetting,
 } from '@/utils/data'
 
 const checkExtent = {
@@ -30,10 +30,10 @@ const checkExtent = {
         west_longitude: 180,
         east_longitude: -60,
         south_latitude: -90,
-        north_latitude: -180
-      }
-    }
-  }
+        north_latitude: -180,
+      },
+    },
+  },
 }
 
 const checkFormat: Format = {
@@ -43,7 +43,7 @@ const checkFormat: Format = {
   description: 'an OGC GeoPackage',
   extensions: ['.gpkg'],
   mediaTypes: ['application/geopackage+sqlite3'],
-  url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
+  url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3',
 }
 
 const checkLicence: Licence = {
@@ -132,7 +132,7 @@ describe('getIdeas', () => {
   it('includes expected idea', () => {
     const checkIdea = {
       label: 'Dark mode.',
-      state: 'complete'
+      state: 'complete',
     }
 
     expect(getIdeas()).toContainEqual(checkIdea)
@@ -149,7 +149,7 @@ describe('getIndividuals', () => {
       slug: 'https_orcid_org_0000_0003_3703_3888',
       name: 'Fennell, Felix',
       orcid: 'https://orcid.org/0000-0003-3703-3888',
-      email: 'felnne@bas.ac.uk'
+      email: 'felnne@bas.ac.uk',
     }
 
     expect(getIndividuals()).toContainEqual(checkIndividual)
@@ -203,14 +203,14 @@ describe('getOrganisation', () => {
         city: 'Cambridge',
         administrative_area: 'Cambridgeshire',
         postal_code: 'CB3 0ET',
-        country: 'United Kingdom'
+        country: 'United Kingdom',
       },
       online_resource: {
         href: 'https://www.bas.ac.uk',
         title: 'British Antarctic Survey - BAS public website',
         description: 'Homepage for the British Antarctic Survey (BAS) public website.',
-        function: 'information'
-      }
+        function: 'information',
+      },
     }
 
     expect(getOrganisation(checkOrganisation.slug)).toEqual(checkOrganisation)
@@ -222,7 +222,7 @@ describe('getService', () => {
     const checkService = {
       slug: 'wms',
       name: 'OGC Web Map Service (WMS)',
-      description: 'Access information as a OGC Web Map Service layer.'
+      description: 'Access information as a OGC Web Map Service layer.',
     }
 
     expect(getService(checkService.slug)).toEqual(checkService)

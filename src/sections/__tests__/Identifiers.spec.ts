@@ -11,16 +11,16 @@ describe('Identifiers', () => {
     const expectedIdentifier: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: 'z'
+      title: 'z',
     }
 
     const wrapper = mount(Identifiers, {
       props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // simulate event from child component
@@ -29,10 +29,10 @@ describe('Identifiers', () => {
 
     expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
 
-    const emittedIdentifier = wrapper.emitted('update:identifiers')
+    const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('update:identifiers')
     expect(emittedIdentifier).toBeTruthy()
     if (emittedIdentifier) {
-      expect(emittedIdentifier[0]).toEqual([[expectedIdentifier]])
+      expect(emittedIdentifier[0][0]).toEqual([expectedIdentifier])
     }
   })
 
@@ -40,16 +40,16 @@ describe('Identifiers', () => {
     const expectedIdentifier: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: 'z'
+      title: 'z',
     }
 
     const wrapper = mount(Identifiers, {
       props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // check output is initially an empty list
@@ -69,22 +69,22 @@ describe('Identifiers', () => {
     const expectedIdentifierA: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: '-'
+      title: '-',
     }
 
     const expectedIdentifierB: Identifier = {
       identifier: 'a',
       href: `b`,
-      title: `-`
+      title: `-`,
     }
 
     const wrapper = mount(Identifiers, {
       props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // initial identifier
@@ -106,16 +106,16 @@ describe('Identifiers', () => {
         props: { fileIdentifier: '', resourceType: resourceType },
         global: {
           directives: {
-            clipboard: Clipboard
-          }
-        }
+            clipboard: Clipboard,
+          },
+        },
       })
 
       const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
-      expect(doiIdentifier.exists()).toBeFalsy()
+      expect(doiIdentifier.exists()).not.toBeTruthy()
 
       const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri' })
-      expect(esriIdentifier.exists()).toBeFalsy()
+      expect(esriIdentifier.exists()).not.toBeTruthy()
     })
   })
 })
@@ -126,9 +126,9 @@ describe('Identifiers (Integration)', () => {
       props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set the checkbox button with an id #identifier-doi-selection to selected
@@ -145,9 +145,9 @@ describe('Identifiers (Integration)', () => {
       props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set the checkbox button with an id #identifier-esri-selection to selected
@@ -164,9 +164,9 @@ describe('Identifiers (Integration)', () => {
       props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set the checkbox button with an id #identifier-bas-gitlab-selection to selected

@@ -14,8 +14,8 @@ const expectedInitialDateIsoValue = expectedInitialDateValue.toISOString().split
 const expectedInitial: DateImpreciseLabelled[] = [
   {
     label: label,
-    date: { js: expectedInitialDateValue, iso: expectedInitialDateIsoValue, precision: 'day' }
-  }
+    date: { js: expectedInitialDateValue, iso: expectedInitialDateIsoValue, precision: 'day' },
+  },
 ]
 
 describe('Dates', () => {
@@ -23,9 +23,9 @@ describe('Dates', () => {
     const wrapper = mount(Dates, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     const yearElement = wrapper.find('input#date-year')
@@ -48,15 +48,15 @@ describe('Dates', () => {
     const wrapper = mount(Dates, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
-    const emittedDates = wrapper.emitted('update:dates')
+    const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
     expect(emittedDates).toBeTruthy()
     if (emittedDates) {
-      expect(emittedDates[0]).toEqual([expectedInitial])
+      expect(emittedDates[0][0]).toEqual(expectedInitial)
     }
   })
 
@@ -68,23 +68,23 @@ describe('Dates', () => {
     const expectedUpdated: DateImpreciseLabelled[] = [
       {
         label: label,
-        date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'day' }
-      }
+        date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'day' },
+      },
     ]
 
     const wrapper = mount(Dates, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // initial value
-    const emittedDates = wrapper.emitted('update:dates')
+    const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
     expect(emittedDates).toBeTruthy()
     if (emittedDates) {
-      expect(emittedDates[0]).toEqual([expectedInitial])
+      expect(emittedDates[0][0]).toEqual(expectedInitial)
     }
 
     const inputElement = wrapper.find('input#date-year')
@@ -101,7 +101,7 @@ describe('Dates', () => {
 
     // updated value
     if (emittedDates) {
-      expect(emittedDates[1]).toEqual([expectedUpdated])
+      expect(emittedDates[1][0]).toEqual(expectedUpdated)
     }
   })
 
@@ -114,18 +114,18 @@ describe('Dates', () => {
     const expectedUpdated: DateImpreciseLabelled[] = [
       {
         label: label,
-        date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'year' }
-      }
+        date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'year' },
+      },
     ]
 
     const wrapper = mount(Dates, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
-    const emittedDates = wrapper.emitted('update:dates')
+    const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
 
     // only need to set the month to unknown as we don't allow day to be set without month
     const inputElement = wrapper.find('input#date-month')
@@ -137,7 +137,7 @@ describe('Dates', () => {
     // updated value
     expect(emittedDates).toBeTruthy()
     if (emittedDates) {
-      expect(emittedDates[1]).toEqual([expectedUpdated])
+      expect(emittedDates[1][0]).toEqual(expectedUpdated)
     }
   })
 
@@ -153,18 +153,22 @@ describe('Dates', () => {
     const expectedUpdated: DateImpreciseLabelled[] = [
       {
         label: label,
-        date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'month' }
-      }
+        date: {
+          js: expectedUpdatedDateValue,
+          iso: expectedUpdatedDateIsoValue,
+          precision: 'month',
+        },
+      },
     ]
 
     const wrapper = mount(Dates, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
-    const emittedDates = wrapper.emitted('update:dates')
+    const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
 
     const inputElement = wrapper.find('input#date-day')
     await inputElement.setValue(impreciseValue)
@@ -175,7 +179,7 @@ describe('Dates', () => {
     // updated value
     expect(emittedDates).toBeTruthy()
     if (emittedDates) {
-      expect(emittedDates[1]).toEqual([expectedUpdated])
+      expect(emittedDates[1][0]).toEqual(expectedUpdated)
     }
   })
 })

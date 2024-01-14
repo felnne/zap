@@ -12,8 +12,8 @@ import SectionTitle from '@/components/SectionTitle.vue'
 const props = defineProps({
   appEnv: {
     type: Object as () => AppEnvironment,
-    required: true
-  }
+    required: true,
+  },
 })
 
 let commitDisplay: ComputedRef<string> = computed(() => {

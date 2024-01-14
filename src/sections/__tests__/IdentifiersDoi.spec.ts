@@ -14,7 +14,7 @@ describe('IdentifierDoi', () => {
     const expectedIdentifier: Identifier = {
       identifier: expectedIdentifierValue,
       href: `https://doi.org/${expectedIdentifierValue}`,
-      title: 'doi'
+      title: 'doi',
     }
 
     const wrapper = mount(IdentifierDoi, { props: { fileIdentifier: '' } })
@@ -24,10 +24,10 @@ describe('IdentifierDoi', () => {
     // enable identifier
     await wrapper.find(`input#identifier-doi-selection`).setValue()
 
-    const emittedIdentifier = wrapper.emitted('add:identifier')
+    const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('add:identifier')
     expect(emittedIdentifier).toBeTruthy()
     if (emittedIdentifier) {
-      expect(emittedIdentifier[0]).toEqual([expectedIdentifier])
+      expect(emittedIdentifier[0][0]).toEqual(expectedIdentifier)
     }
   })
 

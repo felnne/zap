@@ -11,15 +11,15 @@ describe('Edition', () => {
     const wrapper = mount(Edition, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
-    const emittedEdition = wrapper.emitted('update:edition')
+    const emittedEdition: unknown[][] | undefined = wrapper.emitted('update:edition')
     expect(emittedEdition).toBeTruthy()
     if (emittedEdition) {
-      expect(emittedEdition[0]).toEqual([expected])
+      expect(emittedEdition[0][0]).toEqual(expected)
     }
   })
 
@@ -30,16 +30,16 @@ describe('Edition', () => {
     const wrapper = mount(Edition, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // initial value
-    const emittedEdition = wrapper.emitted('update:edition')
+    const emittedEdition: unknown[][] | undefined = wrapper.emitted('update:edition')
     expect(emittedEdition).toBeTruthy()
     if (emittedEdition) {
-      expect(emittedEdition[0]).toEqual([expectedInitial])
+      expect(emittedEdition[0][0]).toEqual(expectedInitial)
     }
 
     const inputElement = wrapper.find('input')
@@ -52,7 +52,7 @@ describe('Edition', () => {
 
     // updated value
     if (emittedEdition) {
-      expect(emittedEdition[1]).toEqual([expectedUpdated])
+      expect(emittedEdition[1][0]).toEqual(expectedUpdated)
     }
   })
 })

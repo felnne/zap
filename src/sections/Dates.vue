@@ -31,7 +31,7 @@ let monthIndex: ComputedRef<number> = computed(() => {
 let date: ComputedRef<DateImpreciseLabelled> = computed(() => {
   return {
     label,
-    date: getImpreciseDate(year.value, monthIndex.value, day.value != 0 ? day.value : -1)
+    date: getImpreciseDate(year.value, monthIndex.value, day.value != 0 ? day.value : -1),
   }
 })
 
@@ -41,7 +41,7 @@ let dates: ComputedRef<DateImpreciseLabelled[]> = computed(() => {
 
 let datesIso: ComputedRef<DatesIso> = computed(() => {
   return {
-    [date.value.label]: date.value.date.iso
+    [date.value.label]: date.value.date.iso,
   }
 })
 

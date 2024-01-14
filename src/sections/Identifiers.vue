@@ -17,12 +17,12 @@ import TwoColumn from '@/components/TwoColumn.vue'
 defineProps({
   fileIdentifier: {
     type: String,
-    required: true
+    required: true,
   },
   resourceType: {
     type: String as PropType<ResourceType>,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const emit = defineEmits<{

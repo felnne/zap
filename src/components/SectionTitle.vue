@@ -9,33 +9,33 @@ import Link from '@/components/Link.vue'
 const props = defineProps({
   version: {
     type: String,
-    required: true
+    required: true,
   },
   stability: {
     type: String as PropType<Stability>,
-    default: Stability.Stable
+    default: Stability.Stable,
   },
   anchor: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   subTitle: {
     type: String,
-    required: false
+    required: false,
   },
   guidanceHref: {
     type: String,
-    required: false
-  }
+    required: false,
+  },
 })
 
 const tocItem: TocItem = {
   anchor: props.anchor,
-  title: props.title
+  title: props.title,
 }
 
 const emit = defineEmits(['update:tocItems'])

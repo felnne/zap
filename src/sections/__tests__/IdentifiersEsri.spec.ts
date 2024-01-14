@@ -11,7 +11,7 @@ describe('IdentifierEsri', () => {
     const expectedIdentifier: Identifier = {
       identifier: identifier,
       href: `https://${account}.maps.arcgis.com/home/item.html?id=${identifier}`,
-      title: `${account}.maps.arcgis.com`
+      title: `${account}.maps.arcgis.com`,
     }
 
     const wrapper = mount(IdentifierEsri)
@@ -22,11 +22,11 @@ describe('IdentifierEsri', () => {
     // set identifier (needs to be after it's enabled)
     await wrapper.find('input#identifier-esri-id').setValue(identifier)
 
-    const emittedIdentifier = wrapper.emitted('add:identifier')
+    const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('add:identifier')
     expect(emittedIdentifier).toBeTruthy()
     if (emittedIdentifier) {
       // the first event ([0]) is the initial value when the identifier is enabled so check the next
-      expect(emittedIdentifier[1]).toEqual([expectedIdentifier])
+      expect(emittedIdentifier[1][0]).toEqual(expectedIdentifier)
     }
   })
 

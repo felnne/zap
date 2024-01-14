@@ -201,7 +201,7 @@ export async function fetchFakeCitation(
 export async function fetchCitation(doi: string): Promise<string> {
   const url = `https://doi.org/${doi}`
   const headers = {
-    Accept: 'text/x-bibliography; style=apa'
+    Accept: 'text/x-bibliography; style=apa',
   }
 
   const response = await axios.get<string>(url, { headers })

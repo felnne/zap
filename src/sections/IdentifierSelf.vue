@@ -8,8 +8,8 @@ import FormLabel from '@/components/FormLabel.vue'
 const props = defineProps({
   fileIdentifier: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const namespace = 'data.bas.ac.uk'
@@ -26,7 +26,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: props.fileIdentifier,
     href: `${endpoint}${props.fileIdentifier}`,
-    title: namespace
+    title: namespace,
   }
 })
 

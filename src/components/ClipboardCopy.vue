@@ -2,7 +2,7 @@
 import Button from '@/components/Button.vue'
 
 defineProps({
-  data: null as any
+  data: null as any,
 })
 </script>
 

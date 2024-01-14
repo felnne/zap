@@ -13,12 +13,12 @@ import type { Organisation } from '@/types/app'
 const props = defineProps({
   index: {
     type: Number,
-    required: true
+    required: true,
   },
   resourceType: {
     type: String as PropType<ResourceType>,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const orgMagic = getOrganisation('bas_magic')

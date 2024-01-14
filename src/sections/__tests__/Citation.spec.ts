@@ -14,14 +14,23 @@ const record: Record = {
   fileIdentifier: identifier,
   resourceType: ResourceType.Dataset,
   identifiers: [
-    { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, title: 'doi' }
+    { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, title: 'doi' },
   ] as Identifier[],
   edition: '1.0',
   dates: [
-    { date: { js: new Date(2014, 0, 20), iso: '2014-01-20', precision: 'day' }, label: 'published' }
+    {
+      date: { js: new Date(2014, 0, 20), iso: '2014-01-20', precision: 'day' },
+      label: 'published',
+    },
   ] as DateImpreciseLabelled[],
   contacts: [{ individual: { name: 'Watson, C.' } }] as Contact[],
-  title: 'test'
+  title: 'test',
+  accessRestriction: {
+    slug: 'other',
+    restriction: 'access',
+    label: 'Other access restriction',
+    permissions: [],
+  },
 }
 
 describe('Citation', () => {
@@ -30,9 +39,9 @@ describe('Citation', () => {
       props: { record: record },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
@@ -46,9 +55,9 @@ describe('Citation', () => {
       props: { record: record },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // getCitation() is async, so need to wait for it to resolve otherwise element will be empty

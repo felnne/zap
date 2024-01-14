@@ -12,15 +12,15 @@ describe('ResourceType', () => {
     const wrapper = mount(ResourceType, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
-    const emittedResourceType = wrapper.emitted('update:resourceType')
+    const emittedResourceType: unknown[][] | undefined = wrapper.emitted('update:resourceType')
     expect(emittedResourceType).toBeTruthy()
     if (emittedResourceType) {
-      expect(emittedResourceType[0]).toEqual([expected])
+      expect(emittedResourceType[0][0]).toEqual(expected)
     }
   })
 
@@ -31,16 +31,16 @@ describe('ResourceType', () => {
     const wrapper = mount(ResourceType, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // initial value
-    const emittedResourceType = wrapper.emitted('update:resourceType')
+    const emittedResourceType: unknown[][] | undefined = wrapper.emitted('update:resourceType')
     expect(emittedResourceType).toBeTruthy()
     if (emittedResourceType) {
-      expect(emittedResourceType[0]).toEqual([expectedInitial])
+      expect(emittedResourceType[0][0]).toEqual(expectedInitial)
     }
 
     // get the second input as 'dataset' comes after 'collection'
@@ -56,7 +56,7 @@ describe('ResourceType', () => {
 
     // updated value
     if (emittedResourceType) {
-      expect(emittedResourceType[1]).toEqual([expectedUpdated])
+      expect(emittedResourceType[1][0]).toEqual(expectedUpdated)
     }
   })
 })

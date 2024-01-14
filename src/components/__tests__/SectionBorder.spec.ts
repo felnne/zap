@@ -8,7 +8,7 @@ const propDefaults = { borderColourClass: 'border-neutral-500' }
 describe('SectionBorder', () => {
   it('renders properly with default classes', () => {
     const wrapper = mount(SectionBorder, {
-      props: { borderColourClass: propDefaults.borderColourClass }
+      props: { borderColourClass: propDefaults.borderColourClass },
     })
 
     expect(wrapper.find('section').classes()).toContain(propDefaults.borderColourClass)

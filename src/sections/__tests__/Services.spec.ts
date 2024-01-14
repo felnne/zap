@@ -15,9 +15,9 @@ describe('Services', () => {
     const wrapper = mount(Services, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     serviceSlugs.every((service) =>

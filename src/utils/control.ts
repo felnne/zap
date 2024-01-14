@@ -11,7 +11,7 @@ export const showSection = (section: string, resourceType: ResourceType): boolea
     'access',
     'licence',
     'lineage',
-    'services'
+    'services',
   ]
 
   if (resourceType == ResourceType.Collection) {

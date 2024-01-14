@@ -18,8 +18,8 @@ export function initSentry(app: App) {
         namePlaceholder: 'Connie',
         messageLabel: 'Feedback',
         messagePlaceholder: 'I like it but...',
-        successMessageText: "I'll have a think."
-      })
-    ]
+        successMessageText: "I'll have a think.",
+      }),
+    ],
   })
 }

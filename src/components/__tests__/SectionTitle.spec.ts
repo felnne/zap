@@ -20,8 +20,8 @@ describe('SectionTitle', () => {
         anchor: anchor,
         title: title,
         subTitle: subTitle,
-        guidanceHref: guidanceHref
-      }
+        guidanceHref: guidanceHref,
+      },
     })
 
     expect(wrapper.find('h2').attributes().id).toBe(anchor)
@@ -36,7 +36,7 @@ describe('SectionTitle', () => {
 
   it('renders properly without subtitle and guidance', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, anchor: anchor, title: title }
+      props: { version: version, anchor: anchor, title: title },
     })
 
     expect(wrapper.find('h3').exists()).toBe(false)
@@ -45,7 +45,7 @@ describe('SectionTitle', () => {
 
   it('renders properly with experimental stability', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, stability: Stability.Experimental, anchor: anchor, title: title }
+      props: { version: version, stability: Stability.Experimental, anchor: anchor, title: title },
     })
 
     expect(wrapper.find('div.section-stability').text()).toBe(Stability.Experimental)
@@ -55,11 +55,11 @@ describe('SectionTitle', () => {
   it('emits toc item', async () => {
     const expected: TocItem = {
       anchor: anchor,
-      title: title
+      title: title,
     }
 
     const wrapper = mount(SectionTitle, {
-      props: { version: version, anchor: anchor, title: title }
+      props: { version: version, anchor: anchor, title: title },
     })
 
     const emittedTocItem = wrapper.emitted('update:tocItems')

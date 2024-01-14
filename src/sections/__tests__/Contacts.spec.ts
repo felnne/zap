@@ -15,9 +15,9 @@ describe('Contacts', () => {
     const wrapper = mount(Contacts, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     expectedIndividuals.every((person) =>
@@ -31,9 +31,9 @@ describe('Contacts', () => {
     const wrapper = mount(Contacts, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set radio input with id 'individual-0000-0001-5835-7975' to checked
@@ -50,9 +50,9 @@ describe('Contacts', () => {
     const wrapper = mount(Contacts, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set first two contacts to checked
@@ -77,9 +77,9 @@ describe('Contacts', () => {
     const wrapper = mount(Contacts, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     await wrapper.find(`input#individual-${individualA.slug}`).setValue()
