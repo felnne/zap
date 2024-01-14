@@ -4,18 +4,18 @@ import { computed, type ComputedRef } from 'vue'
 const props = defineProps({
   content: {
     type: String,
-    required: true
+    required: true,
   },
   proseClasses: {
     type: Array<string>,
     required: false,
-    default: ['lg:prose-lg']
+    default: ['lg:prose-lg'],
   },
   borderColourClass: {
     type: String,
     required: false,
-    default: 'border-sky-500'
-  }
+    default: 'border-sky-500',
+  },
 })
 
 let additionalClasses: ComputedRef<string[]> = computed(() => {

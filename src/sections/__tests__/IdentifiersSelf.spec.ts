@@ -13,17 +13,17 @@ describe('IdentifierSelf', () => {
     const expectedIdentifier: Identifier = {
       identifier: expectedIdentifierValue,
       href: `https://data.bas.ac.uk/items/${expectedIdentifierValue}`,
-      title: 'data.bas.ac.uk'
+      title: 'data.bas.ac.uk',
     }
 
     const wrapper = mount(IdentifierSelf, { props: { fileIdentifier: '' } })
 
     await wrapper.setProps({ fileIdentifier: expectedIdentifierValue })
 
-    const emittedIdentifier = wrapper.emitted('add:identifier')
+    const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('add:identifier')
     expect(emittedIdentifier).toBeTruthy()
     if (emittedIdentifier) {
-      expect(emittedIdentifier[0]).toEqual([expectedIdentifier])
+      expect(emittedIdentifier[0][0]).toEqual(expectedIdentifier)
     }
   })
 })

@@ -12,12 +12,30 @@ describe('Output', () => {
       props: { data: text },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     expect(wrapper.find('pre').text()).toBe(text)
     expect(wrapper.find('button').text()).toBe('Copy')
+  })
+
+  it('renders properly with copy disabled', () => {
+    const text = 'text'
+
+    const wrapper = mount(Output, {
+      props: { data: text, enableCopy: false },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    expect(wrapper.find('pre').text()).toBe(text)
+
+    // don't expect there to be any button elements
+    expect(wrapper.find('button').exists()).not.toBeTruthy()
   })
 })

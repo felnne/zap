@@ -4,8 +4,8 @@ import type { Idea } from '@/types/app'
 defineProps({
   idea: {
     type: Object as () => Idea,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 

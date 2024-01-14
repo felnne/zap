@@ -1,10 +1,6 @@
 import { ResourceType } from '@/types/enum'
 import type { Address, Identifier, PointOfContact as Contact, OnlineResource } from '@/iso'
 
-export type DateImprecise = {
-  js: Date
-  iso: string
-  precision: string
 type AccessPermission = {
   scheme: string
   schemeVersion: string
@@ -12,8 +8,6 @@ type AccessPermission = {
   objectId: string | null
 }
 
-export type DateImpreciseLabelled = {
-  date: DateImprecise
 type AccessRestriction = {
   slug: string
   restriction: string
@@ -25,6 +19,17 @@ export type AppEnvironment = {
   mode: string
   commit?: string
   time?: string
+}
+
+export type DateImprecise = {
+  js: Date
+  iso: string
+  precision: string
+}
+
+export type DateImpreciseLabelled = {
+  date: DateImprecise
+  label: string
 }
 
 export type Format = {

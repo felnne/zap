@@ -8,7 +8,7 @@ describe('Link', () => {
     const url = '#top'
 
     const wrapper = mount(Link, {
-      props: { href: url }
+      props: { href: url },
     })
 
     expect(wrapper.attributes().href).toBe(url)
@@ -20,7 +20,7 @@ describe('Link', () => {
     const url = 'https://example.com'
 
     const wrapper = mount(Link, {
-      props: { href: url }
+      props: { href: url },
     })
 
     expect(wrapper.attributes().href).toBe(url)

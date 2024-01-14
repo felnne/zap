@@ -13,9 +13,9 @@ describe('Downloads', () => {
       props: { resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // click button labelled "Add download"
@@ -30,9 +30,9 @@ describe('Downloads', () => {
       props: { resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // click button labelled "Add download"
@@ -51,9 +51,9 @@ describe('Downloads', () => {
       props: { resourceType: ResourceType.Dataset },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // check all extensions are in a code element

@@ -14,9 +14,9 @@ describe('Service', () => {
       props: { slug: expectedService },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // enable service
@@ -33,9 +33,9 @@ describe('Service', () => {
       props: { slug: expectedService },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     const inputElement = wrapper.find(`input#service-wms-endpoint`)

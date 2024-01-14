@@ -13,7 +13,7 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 function createExtent(wke: WellKnownExtent): Extent {
   return {
-    geographic: wke.extent.geographic
+    geographic: wke.extent.geographic,
   }
 }
 

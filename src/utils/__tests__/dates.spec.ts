@@ -12,7 +12,7 @@ describe('getImpreciseDate', () => {
     expect(getImpreciseDate(year)).toStrictEqual({
       js: expectedDate,
       iso: '2014',
-      precision: 'year'
+      precision: 'year',
     })
   })
 
@@ -26,7 +26,7 @@ describe('getImpreciseDate', () => {
     expect(getImpreciseDate(year, monthIndex)).toStrictEqual({
       js: expectedDate,
       iso: '2014-03',
-      precision: 'month'
+      precision: 'month',
     })
   })
 
@@ -41,7 +41,7 @@ describe('getImpreciseDate', () => {
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,
       iso: '2014-03-20',
-      precision: 'day'
+      precision: 'day',
     })
   })
 
@@ -56,7 +56,7 @@ describe('getImpreciseDate', () => {
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,
       iso: '2014-01',
-      precision: 'month'
+      precision: 'month',
     })
   })
 
@@ -71,7 +71,7 @@ describe('getImpreciseDate', () => {
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,
       iso: '2014-01-01',
-      precision: 'day'
+      precision: 'day',
     })
   })
 })

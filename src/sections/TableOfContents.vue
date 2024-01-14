@@ -8,8 +8,8 @@ import Link from '@/components/Link.vue'
 defineProps({
   items: {
     type: Array as () => TocItem[],
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 

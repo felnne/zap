@@ -11,9 +11,9 @@ describe('Markdown', () => {
     const wrapper = mount(Markdown, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     expect(wrapper.find('textarea').classes()).toContain(propDefaults.inputClass)
@@ -26,9 +26,9 @@ describe('Markdown', () => {
       props: { inputClass: expected },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     expect(wrapper.find('textarea').classes()).toContain(expected)
@@ -42,9 +42,9 @@ describe('Markdown', () => {
       props: { input: expected },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
     // allow component to set textarea value
     await wrapper.vm.$nextTick()
@@ -58,9 +58,9 @@ describe('Markdown', () => {
     const wrapper = mount(Markdown, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
     // allow component to set textarea value (if set) to avoid false positive
     await wrapper.vm.$nextTick()
@@ -80,9 +80,9 @@ describe('Markdown', () => {
     const wrapper = mount(Markdown, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // update input value
@@ -105,9 +105,9 @@ describe('Markdown', () => {
       props: { input: input },
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
     // allow component to set textarea and derived output values
     await wrapper.vm.$nextTick()

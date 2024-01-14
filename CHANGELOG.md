@@ -6,10 +6,16 @@
 
 * Access restrictions section
 
+### Fixed
+
+* Clarifying types/structure for event emit tests
+
 ### Changed
 
 * Licences now classified by whether they are 'open' or not
 * Licences now filtered by access restriction (open/closed)
+* Prettier config (commas)
+* Extending output core component to allow copy button to be disabled
 
 ## [0.6.1] - 2024-01-07
 

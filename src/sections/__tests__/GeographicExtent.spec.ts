@@ -12,15 +12,15 @@ describe('GeographicExtent', () => {
   it('renders extent from choice', async () => {
     const expectedWKE: WellKnownExtent = extentsData['geographic']['antarctica']
     const expectedExtent: Extent = {
-      geographic: expectedWKE.extent.geographic
+      geographic: expectedWKE.extent.geographic,
     }
 
     const wrapper = mount(GeographicExtent, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     expect(wrapper.find('pre').text()).toBe(JSON.stringify(expectedExtent, null, 2))
@@ -32,9 +32,9 @@ describe('GeographicExtent', () => {
     const wrapper = mount(GeographicExtent, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
     // set radio input with id 'extent-sub_antarctica' to checked

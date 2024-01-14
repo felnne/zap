@@ -4,8 +4,8 @@ import { computed, type ComputedRef } from 'vue'
 const props = defineProps({
   href: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
 let target: ComputedRef<string> = computed(() => {

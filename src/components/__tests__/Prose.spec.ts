@@ -11,7 +11,7 @@ describe('Prose', () => {
     const expectedClasses = [...propDefaults.proseClasses, propDefaults.borderColourClass]
 
     const wrapper = mount(Prose, {
-      props: { content: html }
+      props: { content: html },
     })
 
     expect(wrapper.find('div').html()).toContain(html)
@@ -28,7 +28,7 @@ describe('Prose', () => {
     const unexpectedClasses = [...propDefaults.proseClasses, propDefaults.borderColourClass]
 
     const wrapper = mount(Prose, {
-      props: { content: html, proseClasses: proseClasses, borderColourClass: borderColourClass }
+      props: { content: html, proseClasses: proseClasses, borderColourClass: borderColourClass },
     })
 
     expect(wrapper.find('div').html()).toContain(html)

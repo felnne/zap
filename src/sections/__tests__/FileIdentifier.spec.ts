@@ -12,15 +12,18 @@ describe('FileIdentifier', () => {
     const wrapper = mount(FileIdentifier, {
       global: {
         directives: {
-          clipboard: Clipboard
-        }
-      }
+          clipboard: Clipboard,
+        },
+      },
     })
 
-    const emittedEdition: string[] | undefined = wrapper.emitted('update:fileIdentifier')
-    expect(emittedEdition).toBeTruthy()
-    if (emittedEdition) {
-      expect(uuidv4Regex.test(emittedEdition[0])).toBe(true)
+    const emittedFileIdentifier: unknown[][] | undefined = wrapper.emitted('update:fileIdentifier')
+    expect(emittedFileIdentifier).toBeTruthy()
+    if (emittedFileIdentifier) {
+      expect(typeof emittedFileIdentifier[0][0]).toBe('string')
+      if (typeof emittedFileIdentifier[0][0] === 'string') {
+        expect(uuidv4Regex.test(emittedFileIdentifier[0][0])).toBe(true)
+      }
     }
   })
 })

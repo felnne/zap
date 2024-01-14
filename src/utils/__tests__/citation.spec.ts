@@ -11,7 +11,7 @@ import {
   formatDoi,
   formatCitation,
   formatReference,
-  fetchFakeCitation
+  fetchFakeCitation,
 } from '@/utils/citation'
 
 describe('formatName', () => {
@@ -151,7 +151,7 @@ describe('formatReference', () => {
       formatReference({
         title: 'data.bas.ac.uk',
         identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-        href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
+        href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
       })
     ).toBe('https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564')
   })
@@ -161,7 +161,7 @@ describe('formatReference', () => {
       formatReference({
         title: 'doi',
         identifier: '10.5066/f7vq30rm',
-        href: 'https://doi.org/10.5066/f7vq30rm'
+        href: 'https://doi.org/10.5066/f7vq30rm',
       })
     ).toBe('https://doi.org/10.5066/f7vq30rm')
   })
@@ -171,7 +171,7 @@ describe('formatReference', () => {
       formatReference({
         title: 'x',
         identifier: 'y',
-        href: 'z'
+        href: 'z',
       })
     ).toBe('')
   })
@@ -190,7 +190,7 @@ describe('fetchFakeCitation', () => {
         {
           title: 'data.bas.ac.uk',
           identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-          href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
+          href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
         }
       )
     ).toBe(
@@ -204,7 +204,7 @@ describe('integration_fetchAndFormatFakeCitation', () => {
     const identifier = {
       title: 'data.bas.ac.uk',
       identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-      href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
+      href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
     }
     const citation = await fetchFakeCitation(
       ['Watson, Constance'],

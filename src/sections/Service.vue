@@ -13,8 +13,8 @@ import SubSectionBorder from '@/components/SubSectionBorder.vue'
 const props = defineProps({
   slug: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const service = getService(props.slug)

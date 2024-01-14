@@ -63,7 +63,7 @@ const tocItems: TocItem[] = [
   { anchor: 'licence', title: 'Licence' },
   { anchor: 'downloads', title: 'Downloads' },
   { anchor: 'services', title: 'Services' },
-  { anchor: 'lineage', title: 'Lineage' }
+  { anchor: 'lineage', title: 'Lineage' },
 ]
 
 function show(section: string): boolean {
