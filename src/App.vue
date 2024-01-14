@@ -4,13 +4,14 @@ import { ref } from 'vue'
 import { getAppEnvironment } from '@/utils/env'
 import { showSection } from '@/utils/control'
 import { ResourceType as ResourceTypeEM } from '@/types/enum'
-import type { DateImpreciseLabelled, Record } from '@/types/app'
+import type { AccessRestriction, DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 
 import AppTitle from '@/components/AppTitle.vue'
 import BackToTop from '@/components/BackToTop.vue'
 
 import Abstract from '@/sections/Abstract.vue'
+import Access from './sections/Access.vue'
 import Citation from '@/sections/Citation.vue'
 import Contacts from '@/sections/Contacts.vue'
 import Dates from '@/sections/Dates.vue'
@@ -38,7 +39,13 @@ const record = ref<Record>({
   edition: '',
   title: '',
   dates: [],
-  contacts: []
+  contacts: [],
+  accessRestriction: {
+    slug: 'unknown',
+    restriction: 'restricted',
+    label: 'Unknown',
+    permissions: [],
+  },
 })
 
 const tocItems: TocItem[] = [
@@ -52,6 +59,7 @@ const tocItems: TocItem[] = [
   { anchor: 'spatial-extent', title: 'Spatial extent' },
   { anchor: 'contacts', title: 'Contacts' },
   { anchor: 'citation', title: 'Citation' },
+  { anchor: 'access', title: 'Access' },
   { anchor: 'licence', title: 'Licence' },
   { anchor: 'downloads', title: 'Downloads' },
   { anchor: 'services', title: 'Services' },
@@ -88,7 +96,11 @@ function show(section: string): boolean {
         v-if="show('contacts')"
         @update:contacts="(event: Contact[]) => (record.contacts = event)"
       />
-      <Licence v-if="show('licence')" />
+      <Access
+        v-if="show('access')"
+        @update:access="(event: AccessRestriction) => (record.accessRestriction = event)"
+      />
+      <Licence v-if="show('licence')" :accessRestriction="record.accessRestriction" />
       <Citation v-if="show('citation')" :record="record" />
       <Downloads v-if="show('downloads')" :resourceType="record.resourceType" />
       <Services v-if="show('services')" />

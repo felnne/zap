@@ -9,8 +9,8 @@ export type Address = {
 type Constraint = {
   type: string
   restriction_code: string
-  statement: string
-  href: string
+  statement?: string
+  href?: string
 }
 
 export type Dates = {

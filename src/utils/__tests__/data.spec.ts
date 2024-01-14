@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Format } from '@/types/app'
+import type { Format, Licence } from '@/types/app'
 
 import {
   getExtent,
@@ -14,6 +14,7 @@ import {
   getIndividuals,
   getLicence,
   getLicences,
+  getLicencesFiltered,
   getOrganisation,
   getServiceSlugs,
   getService,
@@ -45,12 +46,13 @@ const checkFormat: Format = {
   url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3'
 }
 
-const checkLicence = {
+const checkLicence: Licence = {
   slug: 'OGL_UK_3_0',
   name: '(UK) Open Government Licence v3.0',
   url: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
   statement:
-    'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.'
+    'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
+  open: true,
 }
 
 describe('getExtent', () => {
@@ -174,6 +176,18 @@ describe('getLicences', () => {
 
   it('includes expected licence', () => {
     expect(getLicences()).toContainEqual(checkLicence)
+  })
+})
+
+describe('getLicencesFiltered', () => {
+  it('returns an expected open licence', () => {
+    const openLicence = getLicencesFiltered(true)
+    expect(openLicence).toContainEqual(checkLicence)
+  })
+
+  it('does not return an open licence when closed licences sought', () => {
+    const openLicence = getLicencesFiltered(false)
+    expect(openLicence).not.toContainEqual(checkLicence)
   })
 })
 

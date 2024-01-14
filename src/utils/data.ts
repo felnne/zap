@@ -72,6 +72,11 @@ export const getLicences = (): Licence[] => {
   return Object.values(licencesData.licences)
 }
 
+export const getLicencesFiltered = (open: boolean): Licence[] => {
+  // filter licences based on their `open` property
+  return getLicences().filter((licence) => licence.open === open)
+}
+
 export const getOrganisation = (slug: string): Organisation => {
   return (organisationsData.organisations as Record<string, Organisation>)[slug]
 }
