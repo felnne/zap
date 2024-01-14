@@ -5,11 +5,20 @@ export type DateImprecise = {
   js: Date
   iso: string
   precision: string
+type AccessPermission = {
+  scheme: string
+  schemeVersion: string
+  directoryId: string
+  objectId: string | null
 }
 
 export type DateImpreciseLabelled = {
   date: DateImprecise
+type AccessRestriction = {
+  slug: string
+  restriction: string
   label: string
+  permissions: AccessPermission[]
 }
 
 export type AppEnvironment = {
@@ -45,6 +54,7 @@ type Licence = {
   name: string
   url: string
   statement: string
+  open: boolean
 }
 
 export type Organisation = {
@@ -65,6 +75,7 @@ export type Record = {
   title: string
   dates: DateImpreciseLabelled[]
   contacts: Contact[]
+  accessRestriction: AccessRestriction
 }
 
 type Service = {

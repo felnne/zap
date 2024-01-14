@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+* Access restrictions section
+
+### Changed
+
+* Licences now classified by whether they are 'open' or not
+* Licences now filtered by access restriction (open/closed)
+
 ## [0.6.1] - 2024-01-07
 
 ### Fixed
