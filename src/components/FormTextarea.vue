@@ -4,7 +4,7 @@ const model = defineModel() as unknown as string | number | undefined
 
 <template>
   <textarea
-    class="bg-white dark:bg-black border border-black dark:border-white"
+    class="border border-black bg-white dark:border-white dark:bg-black"
     v-model="model"
   ></textarea>
 </template>

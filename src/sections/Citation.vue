@@ -132,7 +132,7 @@ watch(
         :content="citation"
         id="citation-preview"
       ></Prose>
-      <div class="space-x-2 flex items-center">
+      <div class="flex items-center space-x-2">
         <Button @click="setMarkdownInput">Copy to input</Button>
         <GuidanceText
           >Click to copy this citation (with

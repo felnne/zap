@@ -4,7 +4,7 @@ const model = defineModel()
 
 <template>
   <input
-    class="flex-grow bg-white dark:bg-black border border-black dark:border-white disabled:bg-neutral-100 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+    class="flex-grow border border-black bg-white disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-white dark:bg-black dark:disabled:bg-neutral-700"
     v-model="model"
   />
 </template>
