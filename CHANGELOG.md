@@ -5,6 +5,7 @@
 ### Added
 
 * Access restrictions section
+* Tailwind plugin for Prettier to sort class names consistently
 
 ### Fixed
 
