@@ -8,5 +8,5 @@ defineProps({
 })
 </script>
 <template>
-  <section class="p-4 border-4" :class="borderColourClass"><slot></slot></section>
+  <section class="border-4 p-4" :class="borderColourClass"><slot></slot></section>
 </template>

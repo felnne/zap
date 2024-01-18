@@ -72,7 +72,7 @@ function show(section: string): boolean {
 </script>
 
 <template>
-  <main class="bg-white dark:bg-black text-black dark:text-white font-sans-serif p-10">
+  <main class="font-sans-serif bg-white p-10 text-black dark:bg-black dark:text-white">
     <BackToTop />
     <AppTitle />
     <div class="space-y-4">

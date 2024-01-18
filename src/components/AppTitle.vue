@@ -1,6 +1,6 @@
 <template>
-  <header id="app-title" class="flex items-center mb-10 space-x-4">
-    <img class="rounded-full object-cover h-28" src="/logo.png" />
+  <header id="app-title" class="mb-10 flex items-center space-x-4">
+    <img class="h-28 rounded-full object-cover" src="/logo.png" />
     <h1 class="space-y-2 text-3xl font-semibold">
       <p class="italic">Zap ⚡️</p>
       <p>Experimental MAGIC ISO 19115 metadata tools</p>

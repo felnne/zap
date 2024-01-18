@@ -1,3 +1,3 @@
 <template>
-  <a id="top" href="#" class="h-0 block invisible">Top</a>
+  <a id="top" href="#" class="invisible block h-0">Top</a>
 </template>

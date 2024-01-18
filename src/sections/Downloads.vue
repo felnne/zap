@@ -35,7 +35,7 @@ let count = ref(0)
       :resource-type="resourceType"
       :index="index"
     ></Download>
-    <div class="space-x-2 flex items-center">
+    <div class="flex items-center space-x-2">
       <Button id="add-download" @click="count++"> Add Download </Button>
       <GuidanceText
         >Supported formats:

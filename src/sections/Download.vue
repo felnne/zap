@@ -74,7 +74,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
     <form>
       <input
         ref="fileInput"
-        class="file:py-1 file:px-2 file:text-xs file:border file:bg-white file:border-black file:hover:bg-neutral-100 file:shadow file:cursor-pointer"
+        class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow file:hover:bg-neutral-100"
         type="file"
         :id="'download-' + index + '-input'"
         @change="onFileChange"
