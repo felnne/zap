@@ -37,7 +37,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.1" anchor="contacts" title="Contacts" />
+    <SectionTitle version="2.2" anchor="contacts" title="Contacts" sub-title="Authors" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">
