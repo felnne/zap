@@ -30,7 +30,6 @@ import ResourceType from '@/sections/ResourceType.vue'
 import Services from '@/sections/Services.vue'
 import TableOfContents from '@/sections/TableOfContents.vue'
 import Title from '@/sections/Title.vue'
-import type { TocItem } from '@/types/app'
 
 const record = ref<Record>({
   fileIdentifier: '',
@@ -48,24 +47,6 @@ const record = ref<Record>({
   },
 })
 
-const tocItems: TocItem[] = [
-  { anchor: 'file-identifier', title: 'File identifier' },
-  { anchor: 'resource-type', title: 'Resource type' },
-  { anchor: 'identifiers', title: 'Identifiers' },
-  { anchor: 'edition', title: 'Edition' },
-  { anchor: 'title', title: 'Title' },
-  { anchor: 'abstract', title: 'Abstract' },
-  { anchor: 'dates', title: 'Dates' },
-  { anchor: 'spatial-extent', title: 'Spatial extent' },
-  { anchor: 'contacts', title: 'Contacts' },
-  { anchor: 'citation', title: 'Citation' },
-  { anchor: 'access', title: 'Access' },
-  { anchor: 'licence', title: 'Licence' },
-  { anchor: 'downloads', title: 'Downloads' },
-  { anchor: 'services', title: 'Services' },
-  { anchor: 'lineage', title: 'Lineage' },
-]
-
 function show(section: string): boolean {
   return showSection(section, record.value.resourceType)
 }
@@ -77,7 +58,7 @@ function show(section: string): boolean {
     <AppTitle />
     <div class="space-y-4">
       <Prologue />
-      <TableOfContents :items="tocItems" />
+      <TableOfContents />
       <FileIdentifier @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)" />
       <ResourceType
         @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"

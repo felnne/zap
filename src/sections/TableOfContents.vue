@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import type { TocItem } from '@/types/app'
+import { Stability } from '@/types/enum'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
-import Link from '@/components/Link.vue'
-
-defineProps({
-  items: {
-    type: Array as () => TocItem[],
-    required: true,
-  },
-})
 </script>
 
 <template>
   <SectionBorder class="border-sky-500">
-    <SectionTitle version="1.0" anchor="toc" title="Elements" />
-    <div class="grid grid-cols-4 gap-4">
-      <Link v-for="item in items" :key="item.anchor" :href="`#${item.anchor}`">{{
-        item.title
-      }}</Link>
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="toc"
+      title="Elements"
+      :add-toc="false"
+    />
+    <div id="toc-items" class="grid grid-cols-4 gap-4">
+      <!-- Items are teleported into this element from the SectionTitle component. -->
     </div>
   </SectionBorder>
 </template>
