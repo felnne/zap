@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import SectionTitle from '@/components/SectionTitle.vue'
-import type { TocItem } from '@/types/app'
 import { Stability } from '@/types/enum'
 
 const version = '1.0'
@@ -52,20 +51,44 @@ describe('SectionTitle', () => {
     expect(wrapper.find('div.section-stability').attributes().class).toContain('text-purple-500')
   })
 
-  it('emits toc item', async () => {
-    const expected: TocItem = {
-      anchor: anchor,
-      title: title,
-    }
+  it('renders teleported content', async () => {
+    // TOC link will be teleported into a '#toc-items' element so create a fake one
+    const tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
 
     const wrapper = mount(SectionTitle, {
       props: { version: version, anchor: anchor, title: title },
     })
 
-    const emittedTocItem = wrapper.emitted('update:tocItems')
-    expect(emittedTocItem).toBeTruthy()
-    if (emittedTocItem) {
-      expect(emittedTocItem[0]).toEqual([expected])
-    }
+    await wrapper.vm.$nextTick() // wait for onMount and teleport to occur
+
+    const tocItemLink = document.querySelector('a.toc-item')
+    expect(tocItemLink).not.toBeNull()
+    expect(tocItemLink?.attributes.getNamedItem('href')?.value).toBe(`#${anchor}`)
+
+    // clean up
+    wrapper.unmount()
+    document.body.removeChild(tocItemsDiv)
+  })
+
+  it('does not render teleported content when TOC disabled', async () => {
+    // TOC link will be teleported into a '#toc-items' element so create a fake one
+    const tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+
+    const wrapper = mount(SectionTitle, {
+      props: { version: version, anchor: anchor, title: title, addToc: false },
+    })
+
+    await wrapper.vm.$nextTick() // wait for onMount and teleport to occur
+
+    const tocItemLink = document.querySelector('a.toc-item')
+    expect(tocItemLink).toBeNull()
+
+    // clean up
+    wrapper.unmount()
+    document.body.removeChild(tocItemsDiv)
   })
 })

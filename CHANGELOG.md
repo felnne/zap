@@ -18,6 +18,7 @@
 * Licences now filtered by access restriction (open/closed)
 * Prettier config (commas)
 * Extending output core component to allow copy button to be disabled
+* Table of Contents items now teleported from SectionTitle into TOC container, avoiding duplicate listings
 
 ## [0.6.1] - 2024-01-07
 

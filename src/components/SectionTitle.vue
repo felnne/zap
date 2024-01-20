@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, type PropType, onMounted } from 'vue'
+import { computed, type ComputedRef, type PropType, onMounted, ref } from 'vue'
 
 import { Stability } from '@/types/enum'
-import type { TocItem } from '@/types/app'
 
 import Link from '@/components/Link.vue'
 
@@ -31,14 +30,14 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  addToc: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
 })
 
-const tocItem: TocItem = {
-  anchor: props.anchor,
-  title: props.title,
-}
-
-const emit = defineEmits(['update:tocItems'])
+let teleport = ref<boolean>(false)
 
 let stabilityClasses: ComputedRef<string[]> = computed(() => {
   const classes = []
@@ -53,7 +52,7 @@ let stabilityClasses: ComputedRef<string[]> = computed(() => {
 })
 
 onMounted(() => {
-  emit('update:tocItems', tocItem)
+  teleport.value = true
 })
 </script>
 
@@ -80,4 +79,7 @@ onMounted(() => {
       {{ subTitle }}
     </h3>
   </header>
+  <Teleport to="#toc-items" v-if="teleport && addToc">
+    <Link class="toc-item" :href="`#${anchor}`">{{ title }}</Link>
+  </Teleport>
 </template>

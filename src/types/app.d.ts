@@ -89,11 +89,6 @@ type Service = {
   description: string
 }
 
-export type TocItem = {
-  anchor: string
-  title: string
-}
-
 type WellKnownExtent = {
   slug: string
   name: string
