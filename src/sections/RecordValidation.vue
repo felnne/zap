@@ -1,0 +1,103 @@
+<script setup lang="ts">
+import { computed, type ComputedRef, ref, watch } from 'vue'
+import { type DefinedError } from 'ajv'
+
+import { Stability } from '@/types/enum'
+import { validateRecordText } from '@/utils/validation'
+
+import FormTextarea from '@/components/FormTextarea.vue'
+import SectionBorder from '@/components/SectionBorder.vue'
+import SectionTitle from '@/components/SectionTitle.vue'
+import Pre from '@/components/Pre.vue'
+
+/*
+ * This component has 4 states:
+ * 1. Empty (input is blank, initial state)
+ * 2. Valid (input is present, can be parsed as JSON and complies with schema)
+ * 3. Invalid (input is present, can be parsed as JSON but does not comply with schema)
+ * 4. Error (input is present, but cannot be parsed as JSON)
+ */
+enum State {
+  Empty,
+  Error,
+  Invalid,
+  Valid,
+}
+
+let state = ref<State>(State.Empty)
+let errors = ref<DefinedError[]>([])
+let input = ref<string>('')
+
+let validityMessage: ComputedRef<String> = computed(() => {
+  if (state.value == State.Error) {
+    return '😕 Record cannot be understood (invalid format).'
+  } else if (state.value == State.Invalid) {
+    return '😩 Record is invalid.'
+  } else if (state.value == State.Valid) {
+    return '😀 Record is valid.'
+  } else {
+    // State.Empty and catch-all
+    return ''
+  }
+})
+
+let validityClass: ComputedRef<String[]> = computed(() => {
+  const negativeClass = ['text-red-500']
+
+  if (state.value == State.Error) {
+    return negativeClass
+  } else if (state.value == State.Invalid) {
+    return negativeClass
+  } else if (state.value == State.Valid) {
+    return ['text-green-500']
+  } else {
+    // State.Empty and catch-all
+    return []
+  }
+})
+
+watch(
+  () => input.value,
+  () => {
+    let result: DefinedError[] = []
+
+    if (input.value.length === 0) {
+      state.value = State.Empty
+      return
+    }
+
+    try {
+      result = validateRecordText(input.value)
+    } catch {
+      state.value = State.Error
+      return
+    }
+
+    if (result.length === 0) {
+      state.value = State.Valid
+    } else {
+      state.value = State.Invalid
+      errors.value = result
+    }
+  }
+)
+</script>
+
+<template>
+  <SectionBorder border-colour-class="border-sky-500">
+    <SectionTitle
+      version="1.0"
+      :stability="Stability.Experimental"
+      anchor="validate"
+      title="Record Validation"
+      :add-toc="false"
+    />
+    <div class="space-y-2">
+      <FormTextarea class="w-full flex-grow" v-model="input"></FormTextarea>
+      <div id="validation-message" v-if="state != State.Empty" :class="validityClass">
+        {{ validityMessage }}
+      </div>
+      <Pre id="validation-errors" v-if="errors.length > 0">{{ errors }}</Pre>
+    </div>
+  </SectionBorder>
+</template>

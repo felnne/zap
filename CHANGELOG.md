@@ -7,6 +7,7 @@
 * Access restrictions section
 * Tailwind plugin for Prettier to sort class names consistently
 * 'Author' subtitle to contacts section to reflect contact role
+* Record validation against JSON schema
 
 ### Fixed
 

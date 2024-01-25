@@ -166,8 +166,9 @@ Following rationalisation.
 | Background         | Non-interactivity    | Disabled form fields, buttons  | `neutral-100`     | `neutral-700`  |
 | Background         | Contextual (Info)    | Badges                         | `sky-50`          | `sky-950`      |
 | Text               | Contextual (Info)    | Badges                         | `sky-500`         | `sky-500`      |
-| Background         | Contextual (Success) | Badges                         | `green-50`        | `green-950`    |
-| Text               | Contextual (Success) | Badges                         | `green-500`       | `green-500`    |
+| Background         | Contextual (Success) | Badges, Validity               | `green-50`        | `green-950`    |
+| Text               | Contextual (Success) | Badges, Validity               | `green-500`       | `green-500`    |
+| Text               | Contextual (Error) | Validity                         | `red-500`         | `red-500`      |
 
 ### Extras
 
