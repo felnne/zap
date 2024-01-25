@@ -27,7 +27,6 @@ export const getFileFormat = (file: File): Format => {
   format = getFormatByExtension(fileExt)
   if (format) return format
 
-  // raise an exception
   throw new Error(`Cannot determine format.`)
 }
 

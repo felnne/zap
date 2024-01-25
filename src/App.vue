@@ -25,6 +25,7 @@ import Identifiers from '@/sections/Identifiers.vue'
 import Licence from '@/sections/Licence.vue'
 import Lineage from '@/sections/Lineage.vue'
 import Prologue from '@/sections/Prologue.vue'
+import RecordValidation from './sections/RecordValidation.vue'
 import Resources from '@/sections/Resources.vue'
 import ResourceType from '@/sections/ResourceType.vue'
 import Services from '@/sections/Services.vue'
@@ -87,6 +88,7 @@ function show(section: string): boolean {
       <Services v-if="show('services')" />
       <Lineage v-if="show('lineage')" />
       <Resources />
+      <RecordValidation />
       <Ideas />
       <Epilogue :app-env="getAppEnvironment()" />
     </div>
