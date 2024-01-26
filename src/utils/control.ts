@@ -11,6 +11,7 @@ export const showSection = (section: string, resourceType: ResourceType): boolea
     'access',
     'licence',
     'lineage',
+    'researchTopics',
     'services',
   ]
 
