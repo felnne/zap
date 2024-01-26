@@ -2,6 +2,7 @@ import type {
   Format,
   Idea,
   Individual,
+  KeywordSet,
   Licence,
   Organisation,
   Service,
@@ -12,6 +13,7 @@ import extentsData from '@/data/extents.json'
 import formatsData from '@/data/formats.json'
 import ideasData from '@/data/ideas.json'
 import individualsData from '@/data/individuals.json'
+import keywordSetData from '@/data/keywords.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
 import servicesData from '@/data/services.json'
@@ -62,6 +64,10 @@ export const getIndividuals = (): Individual[] => {
   return Object.values(individualsData.contacts).sort((a: Individual, b: Individual) =>
     a.name.localeCompare(b.name)
   )
+}
+
+export const getKeywordSet = (slug: string): KeywordSet => {
+  return (keywordSetData.keywords as Record<string, KeywordSet>)[slug]
 }
 
 export const getLicence = (slug: string): Licence => {

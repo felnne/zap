@@ -26,6 +26,7 @@ import Licence from '@/sections/Licence.vue'
 import Lineage from '@/sections/Lineage.vue'
 import Prologue from '@/sections/Prologue.vue'
 import RecordValidation from './sections/RecordValidation.vue'
+import ResearchTopics from './sections/ResearchTopics.vue'
 import Resources from '@/sections/Resources.vue'
 import ResourceType from '@/sections/ResourceType.vue'
 import Services from '@/sections/Services.vue'
@@ -83,6 +84,7 @@ function show(section: string): boolean {
         @update:access="(event: AccessRestriction) => (record.accessRestriction = event)"
       />
       <Licence v-if="show('licence')" :accessRestriction="record.accessRestriction" />
+      <ResearchTopics v-if="show('researchTopics')" />
       <Citation v-if="show('citation')" :record="record" />
       <Downloads v-if="show('downloads')" :resourceType="record.resourceType" />
       <Services v-if="show('services')" />

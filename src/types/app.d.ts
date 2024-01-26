@@ -1,5 +1,11 @@
 import { ResourceType } from '@/types/enum'
-import type { Address, Identifier, PointOfContact as Contact, OnlineResource } from '@/iso'
+import type {
+  Address,
+  Identifier,
+  KeywordSet as KeywordSetIso,
+  PointOfContact as Contact,
+  OnlineResource,
+} from '@/iso'
 
 type AccessPermission = {
   scheme: string
@@ -52,6 +58,18 @@ export type Individual = {
   name: string
   orcid: string
   email: string
+}
+
+export type KeywordSet = {
+  slug: string
+  terms: KeywordTerm[]
+}
+
+export type KeywordTerm = {
+  slug: string
+  name: string
+  keywords: KeywordSetIso[]
+  isoTopics: string[]
 }
 
 type Licence = {

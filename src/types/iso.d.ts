@@ -54,6 +54,27 @@ export type Individual = {
   title: string
 }
 
+export type KeywordSet = {
+  terms: KeywordTerm[]
+  type: string
+  thesaurus: KeywordThesaurus
+}
+
+export type KeywordTerm = {
+  term: string
+  href?: string
+}
+
+export type KeywordThesaurus = {
+  title: {
+    value: string
+    href?: string
+  }
+  dates?: Record<string, string>
+  edition: string
+  contact?: PointOfContact
+}
+
 export type OnlineResource = {
   href: string
   title: string

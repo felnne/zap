@@ -1,7 +1,7 @@
 {
   "ideas": [
-    { "label": "BAS Research Topics topic keywords.", "state": "todo" },
-    { "label": "ISO topic mapped from research topic.", "state": "todo" },
+    { "label": "BAS Research Topics topic keywords.", "state": "complete" },
+    { "label": "ISO topic mapped from research topic.", "state": "complete" },
     { "label": "Place keywords based on Well-Known Extents.", "state": "todo" },
     { "label": "Table of contents.", "state": "complete" },
     { "label": "Dark mode.", "state": "complete" },

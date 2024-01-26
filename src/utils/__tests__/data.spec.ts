@@ -12,6 +12,7 @@ import {
   getFormatExtensions,
   getIdeas,
   getIndividuals,
+  getKeywordSet,
   getLicence,
   getLicences,
   getLicencesFiltered,
@@ -160,6 +161,17 @@ describe('getIndividuals', () => {
     const sortedIndividuals = individuals.sort((a, b) => a.name.localeCompare(b.name))
 
     expect(individuals).toEqual(sortedIndividuals)
+  })
+})
+
+describe('getKeywordSet', () => {
+  it('loads expected keyword set', () => {
+    const checkKeywordSet = {
+      slug: '_test_keyword_set',
+      terms: [],
+    }
+
+    expect(getKeywordSet(checkKeywordSet.slug)).toEqual(checkKeywordSet)
   })
 })
 
