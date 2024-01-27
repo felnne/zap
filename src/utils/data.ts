@@ -5,6 +5,7 @@ import type {
   KeywordSet,
   Licence,
   Organisation,
+  Projection,
   Service,
   WellKnownExtent,
 } from '@/types/app'
@@ -16,6 +17,7 @@ import individualsData from '@/data/individuals.json'
 import keywordSetData from '@/data/keywords.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
+import ProjectionsData from '@/data/projections.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
 
@@ -85,6 +87,10 @@ export const getLicencesFiltered = (open: boolean): Licence[] => {
 
 export const getOrganisation = (slug: string): Organisation => {
   return (organisationsData.organisations as Record<string, Organisation>)[slug]
+}
+
+export const getProjection = (slug: string): Projection => {
+  return (ProjectionsData.projections as Record<string, Projection>)[slug]
 }
 
 export const getService = (slug: string): Service => {

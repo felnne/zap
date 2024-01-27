@@ -12,7 +12,8 @@
             "north_latitude": -180
           }
         }
-      }
+      },
+      "projectionSlug": "epsg_3031"
     },
     "sub_antarctica": {
       "slug": "sub_antarctica",
@@ -26,7 +27,8 @@
             "north_latitude": -180
           }
         }
-      }
+      },
+      "projectionSlug": "epsg_3031"
     }
   }
 }

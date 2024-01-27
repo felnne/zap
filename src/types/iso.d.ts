@@ -98,6 +98,12 @@ export type PointOfContact = {
   role: string[]
 }
 
+export type ReferenceSystemInfo = {
+  authority: {}
+  code: {}
+  version: string
+}
+
 export type Size = {
   unit: string
   magnitude: number

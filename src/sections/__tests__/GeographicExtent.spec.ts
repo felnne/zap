@@ -2,17 +2,22 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import type { WellKnownExtent } from '@/types/app'
-import type { Extent } from '@/types/iso'
+import type { Extent, ReferenceSystemInfo } from '@/types/iso'
+import { getExtent, getProjection } from '@/utils/data'
 import GeographicExtent from '@/sections/GeographicExtent.vue'
-
-import extentsData from '@/data/extents.json'
 
 describe('GeographicExtent', () => {
   it('renders extent from choice', async () => {
-    const expectedWKE: WellKnownExtent = extentsData['geographic']['antarctica']
+    const wke = getExtent('antarctica')
+    const projection = getProjection(wke.projectionSlug)
+
     const expectedExtent: Extent = {
-      geographic: expectedWKE.extent.geographic,
+      geographic: wke.extent.geographic,
+    }
+    const expectedCRS: ReferenceSystemInfo = {
+      authority: projection.authority,
+      code: projection.code,
+      version: projection.version,
     }
 
     const wrapper = mount(GeographicExtent, {
@@ -23,7 +28,10 @@ describe('GeographicExtent', () => {
       },
     })
 
-    expect(wrapper.find('pre').text()).toBe(JSON.stringify(expectedExtent, null, 2))
+    expect(wrapper.find('#geographic-extent pre').text()).toBe(
+      JSON.stringify(expectedExtent, null, 2)
+    )
+    expect(wrapper.find('#spatial-crs pre').text()).toBe(JSON.stringify(expectedCRS, null, 2))
   })
 
   it('updates extent from choice', async () => {

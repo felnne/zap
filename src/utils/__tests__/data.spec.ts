@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Format, Licence } from '@/types/app'
+import type { Format, Licence, WellKnownExtent } from '@/types/app'
 
 import {
   getExtent,
@@ -17,12 +17,13 @@ import {
   getLicences,
   getLicencesFiltered,
   getOrganisation,
+  getProjection,
   getServiceSlugs,
   getService,
   getSetting,
 } from '@/utils/data'
 
-const checkExtent = {
+const checkExtent: WellKnownExtent = {
   slug: 'antarctica',
   name: 'Antarctica',
   extent: {
@@ -35,6 +36,7 @@ const checkExtent = {
       },
     },
   },
+  projectionSlug: 'epsg_3031',
 }
 
 const checkFormat: Format = {
@@ -226,6 +228,14 @@ describe('getOrganisation', () => {
     }
 
     expect(getOrganisation(checkOrganisation.slug)).toEqual(checkOrganisation)
+  })
+})
+
+describe('getProjection', () => {
+  it('loads expected projection', () => {
+    const checkProjectionSlug = 'epsg_3031'
+
+    expect(getProjection(checkProjectionSlug).slug).toEqual(checkProjectionSlug)
   })
 })
 
