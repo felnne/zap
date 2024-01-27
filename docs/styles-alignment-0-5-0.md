@@ -3,6 +3,7 @@
 And amended for:
 
 - v0.6.0
+- v0.7.0
 
 Focus:
 
@@ -111,6 +112,10 @@ Remaining:
 
 - `space-x-2`, `space-x-4` used extensively
 
+Additional [0.6.0]:
+
+- `space-x-1` used for guidance text (between text and logo)
+
 ### Space Y
 
 Remaining:
@@ -168,13 +173,17 @@ Following rationalisation.
 | Text               | Contextual (Info)    | Badges                         | `sky-500`         | `sky-500`      |
 | Background         | Contextual (Success) | Badges, Validity               | `green-50`        | `green-950`    |
 | Text               | Contextual (Success) | Badges, Validity               | `green-500`       | `green-500`    |
-| Text               | Contextual (Error) | Validity                         | `red-500`         | `red-500`      |
+| Text               | Contextual (Error)   | Validity                       | `red-500`         | `red-500`      |
+
+Additional [0.7.0]:
+
+- 'Text Contextual (Error)' added as red-500
 
 ### Extras
 
 - experimental warning: `amber-500` (border only, same for dark mode)
 - hyperlinks: `blue-700` (text only, `blue-500` for dark mode)
-- help/guidance text: `emerald-700` (text only, `emerald-500` for dark mode)
+- help/guidance text: `orange-700` (text only, `orange-500` for dark mode)
 - preview hints/labels: `sky-500` (text only, same for dark mode)
 - secondary input labels: `neutral-500` (text only, same for dark mode)
 - back to top links: `neutral-300` (dark mode background only)
@@ -182,6 +191,10 @@ Following rationalisation.
 Additional [0.6.0]:
 
 - supported file extensions background: `emerald-900` (dark `emerald-100`)
+
+Additional [0.7.0]:
+
+- help/guidance text changed, it was `emerald-700` (text only, `emerald-500` for dark mode)
 
 ### Exceptions
 
