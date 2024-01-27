@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref } from 'vue'
 
-import { getExtents, getExtent } from '@/utils/data'
+import { Stability } from '@/types/enum'
+import { getExtents, getExtent, getProjection } from '@/utils/data'
+import { createExtent, createProjection } from '@/utils/extents'
 import type { WellKnownExtent } from '@/types/app'
-import type { Extent } from '@/types/iso'
+import type { Extent, ReferenceSystemInfo } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -11,25 +13,28 @@ import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-function createExtent(wke: WellKnownExtent): Extent {
-  return {
-    geographic: wke.extent.geographic,
-  }
-}
-
 const wellKnownExtents = getExtents()
 
 let selectedWkeSlug = ref<string>(wellKnownExtents[0].slug)
 
+let wellKnownExtent: ComputedRef<WellKnownExtent> = computed(() => {
+  return getExtent(selectedWkeSlug.value)
+})
+
 let extent: ComputedRef<Extent> = computed(() => {
-  return createExtent(getExtent(selectedWkeSlug.value))
+  return createExtent(wellKnownExtent.value)
+})
+
+let projection: ComputedRef<ReferenceSystemInfo> = computed(() => {
+  return createProjection(getProjection(wellKnownExtent.value.projectionSlug))
 })
 </script>
 
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.1"
+      version="2.0"
+      :stability="Stability.Experimental"
       anchor="spatial-extent"
       title="Spatial extent"
       sub-title="Well-known extents"
@@ -50,7 +55,16 @@ let extent: ComputedRef<Extent> = computed(() => {
         </div>
       </template>
       <template v-slot:right>
-        <Output :data="extent"></Output>
+        <div class="space-y-4">
+          <div id="geographic-extent" class="space-y-2">
+            <p>Extent:</p>
+            <Output :data="extent"></Output>
+          </div>
+          <div id="spatial-crs" class="space-y-2">
+            <p>Projection:</p>
+            <Output :data="projection"></Output>
+          </div>
+        </div>
       </template>
     </TwoColumn>
   </SectionBorder>

@@ -1,0 +1,33 @@
+{
+  "projections": {
+    "epsg_3031": {
+      "slug": "epsg_3031",
+      "authority": {
+        "title": {
+          "value": "European Petroleum Survey Group (EPSG) Geodetic Parameter Registry"
+        },
+        "dates": {
+          "publication": "2024-01-15"
+        },
+        "contact": {
+          "organisation": {
+            "name": "European Petroleum Survey Group"
+          },
+          "email": "feedback@epsg.org",
+          "online_resource": {
+            "href": "https://epsg.org/",
+            "title": "EPSG Geodetic Parameter Dataset",
+            "description": "The EPSG Geodetic Parameter Dataset is a structured dataset of Coordinate Reference Systems and Coordinate Transformations, accessible through this online registry.",
+            "function": "information"
+          },
+          "role": ["publisher"]
+        }
+      },
+      "code": {
+        "value": "3031",
+        "href": "https://epsg.org/crs_3031/WGS-84-Antarctic-Polar-Stereographic.html"
+      },
+      "version": "11.003"
+    }
+  }
+}

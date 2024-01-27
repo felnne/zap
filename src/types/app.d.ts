@@ -3,8 +3,9 @@ import type {
   Address,
   Identifier,
   KeywordSet as KeywordSetIso,
-  PointOfContact as Contact,
   OnlineResource,
+  PointOfContact,
+  ReferenceSystemInfo,
 } from '@/iso'
 
 type AccessPermission = {
@@ -90,6 +91,10 @@ export type Organisation = {
   online_resource: OnlineResource
 }
 
+export type Projection = ReferenceSystemInfo & {
+  slug: string
+}
+
 export type Record = {
   fileIdentifier: string
   resourceType: ResourceType
@@ -97,7 +102,7 @@ export type Record = {
   edition: string
   title: string
   dates: DateImpreciseLabelled[]
-  contacts: Contact[]
+  contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
 }
@@ -114,4 +119,5 @@ type WellKnownExtent = {
   extent: {
     geographic: GeographicExtent
   }
+  projectionSlug: string
 }

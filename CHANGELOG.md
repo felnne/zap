@@ -9,6 +9,7 @@
 * 'Author' subtitle to contacts section to reflect contact role
 * Record validation section using JSON schema validation
 * BAS Research Topic section
+* CRS added to spatial extent
 
 ### Fixed
 
