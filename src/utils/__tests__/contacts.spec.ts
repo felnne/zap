@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 
-import { createContact } from '@/utils/contacts'
+import type { Licence } from '@/types/app'
+import { ResourceType } from '@/types/enum'
+import { createContact, getPublisherOrgSlug } from '@/utils/contacts'
 
 describe('createContact', () => {
   it('builds a contact', () => {
@@ -54,5 +56,39 @@ describe('createContact', () => {
     }
 
     expect(createContact(individual, organisation)).toStrictEqual(expectedContact)
+  })
+})
+
+describe('getPublisherSlug', () => {
+  const openLicence: Licence = {
+    slug: 'x',
+    name: 'x',
+    open: true,
+    url: 'x',
+    statement: 'x',
+  }
+
+  const closedLicence: Licence = {
+    slug: 'x',
+    name: 'x',
+    open: false,
+    url: 'x',
+    statement: 'x',
+  }
+
+  it('returns PDC for open datasets', () => {
+    expect(getPublisherOrgSlug(ResourceType.Dataset, openLicence)).toBe('nerc_eds_pdc')
+  })
+
+  it('returns MAGIC for closed datasets', () => {
+    expect(getPublisherOrgSlug(ResourceType.Dataset, closedLicence)).toBe('bas_magic')
+  })
+
+  it('returns MAGIC for open products', () => {
+    expect(getPublisherOrgSlug(ResourceType.Product, openLicence)).toBe('bas_magic')
+  })
+
+  it('returns MAGIC for closed products', () => {
+    expect(getPublisherOrgSlug(ResourceType.Product, closedLicence)).toBe('bas_magic')
   })
 })

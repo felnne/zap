@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref, watch } from 'vue'
+import { computed, type ComputedRef, onBeforeUnmount, ref, watch } from 'vue'
 
 import type { Identifier } from '@/types/iso'
 import { getSetting } from '@/utils/data'
@@ -37,6 +37,12 @@ let identifier: ComputedRef<Identifier> = computed(() => {
     identifier: doi,
     href: `https://doi.org/${doi}`,
     title: 'doi',
+  }
+})
+
+onBeforeUnmount(() => {
+  if (selected.value) {
+    remove()
   }
 })
 

@@ -4,7 +4,12 @@ import { ref } from 'vue'
 import { getAppEnvironment } from '@/utils/env'
 import { showSection } from '@/utils/control'
 import { ResourceType as ResourceTypeEM } from '@/types/enum'
-import type { AccessRestriction, DateImpreciseLabelled, Record } from '@/types/app'
+import type {
+  AccessRestriction,
+  DateImpreciseLabelled,
+  Licence as LicenceT,
+  Record,
+} from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 
 import AppTitle from '@/components/AppTitle.vue'
@@ -47,6 +52,13 @@ const record = ref<Record>({
     label: 'Unknown',
     permissions: [],
   },
+  licence: {
+    slug: 'unknown',
+    name: 'Unknown',
+    url: '',
+    statement: '',
+    open: false,
+  },
 })
 
 function show(section: string): boolean {
@@ -68,6 +80,7 @@ function show(section: string): boolean {
       <Identifiers
         :fileIdentifier="record.fileIdentifier"
         :resourceType="record.resourceType"
+        :licence="record.licence"
         @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
       />
       <Edition @update:edition="(event: string) => (record.edition = event)" />
@@ -83,10 +96,18 @@ function show(section: string): boolean {
         v-if="show('access')"
         @update:access="(event: AccessRestriction) => (record.accessRestriction = event)"
       />
-      <Licence v-if="show('licence')" :accessRestriction="record.accessRestriction" />
+      <Licence
+        v-if="show('licence')"
+        :accessRestriction="record.accessRestriction"
+        @update:licence="(event: LicenceT) => (record.licence = event)"
+      />
       <ResearchTopics v-if="show('researchTopics')" />
       <Citation v-if="show('citation')" :record="record" />
-      <Downloads v-if="show('downloads')" :resourceType="record.resourceType" />
+      <Downloads
+        v-if="show('downloads')"
+        :resourceType="record.resourceType"
+        :licence="record.licence"
+      />
       <Services v-if="show('services')" />
       <Lineage v-if="show('lineage')" />
       <Resources />

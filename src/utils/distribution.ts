@@ -1,7 +1,8 @@
-import type { Format, Organisation, Service } from '@/types/app'
+import { ResourceType } from '@/types/enum'
+import type { Format, Licence, Organisation, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
 
-import { getFormat, getFormatByExtension, getFormatByType } from '@/utils/data'
+import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/utils/data'
 
 export const createDistributor = (org: Organisation): Contact => {
   return {
@@ -16,6 +17,34 @@ export const createDistributor = (org: Organisation): Contact => {
     online_resource: org.online_resource,
     role: ['distributor'],
   }
+}
+
+export const getDistributorOrgSlug = (
+  resourceType: ResourceType,
+  licence: Licence
+): string | null => {
+  /*
+   * Determine which team will act as the distributor for a resource
+   *
+   * Implements logic from https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41 which depends on whether the
+   * resource is a dataset and whether it's under a closed licence.
+   *
+   * If an open dataset:
+   * - the distributor is the PDC
+   * If an open or closed product:
+   * - the distributor is MAGIC
+   * Otherwise:
+   * - the distributor is unknown/null
+   *
+   * Returns the slug of the distributor organisation, which can be retrieved using `getOrganisation()`, or `null`.
+   */
+  if (resourceType == ResourceType.Dataset && licence.open) {
+    return getOrganisation('nerc_eds_pdc').slug
+  } else if (resourceType == ResourceType.Product) {
+    return getOrganisation('bas_magic').slug
+  }
+
+  return null
 }
 
 export const getFileFormat = (file: File): Format => {

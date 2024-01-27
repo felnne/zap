@@ -21,6 +21,10 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  'update:licence': [id: Licence]
+}>()
+
 const refreshInitialLicence = () => {
   if (!filteredLicences.value.find((licence) => licence.slug === selectedLicenceSlug.value)) {
     selectedLicenceSlug.value = filteredLicences.value[0].slug
@@ -31,18 +35,23 @@ const licences = getLicences()
 
 let selectedLicenceSlug = ref<string>(licences[0].slug)
 
+let selectedLicence: ComputedRef<Licence> = computed(() => {
+  return getLicence(selectedLicenceSlug.value)
+})
+
 let filteredLicences: ComputedRef<Licence[]> = computed(() => {
   const open = props.accessRestriction.restriction === 'unrestricted'
   return getLicencesFiltered(open)
 })
 
 let licenceConstraint: ComputedRef<Constraint> = computed(() => {
-  return createUsageConstraint(getLicence(selectedLicenceSlug.value))
+  return createUsageConstraint(selectedLicence.value)
 })
 
 onMounted(() => {
   // the initial licence is always the first in the data file, which may not relevant
   refreshInitialLicence()
+  emit('update:licence', selectedLicence.value)
 })
 
 watch(
@@ -52,12 +61,18 @@ watch(
     refreshInitialLicence()
   }
 )
+watch(
+  () => selectedLicence.value,
+  () => {
+    emit('update:licence', selectedLicence.value)
+  }
+)
 </script>
 
 <template>
   <SectionBorder>
     <SectionTitle
-      version="3.0"
+      version="4.0"
       :stability="Stability.Experimental"
       anchor="licence"
       title="Licence"

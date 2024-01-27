@@ -3,14 +3,15 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import { getFormatExtensions } from '@/utils/data'
-
+import { getFormatExtensions, getLicence } from '@/utils/data'
 import Downloads from '@/sections/Downloads.vue'
+
+const licence = getLicence('OGL_UK_3_0')
 
 describe('Downloads', () => {
   it('clicking button adds a new download', async () => {
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset },
+      props: { resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -18,7 +19,7 @@ describe('Downloads', () => {
       },
     })
 
-    // click button labelled "Add download"
+    // click button
     await wrapper.find('button#add-download').trigger('click')
 
     // check there's 1 input element rendered
@@ -27,7 +28,7 @@ describe('Downloads', () => {
 
   it('clicking button multiple times adds multiple downloads', async () => {
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset },
+      props: { resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -35,7 +36,7 @@ describe('Downloads', () => {
       },
     })
 
-    // click button labelled "Add download"
+    // click button twice
     await wrapper.find('button#add-download').trigger('click')
     await wrapper.find('button#add-download').trigger('click')
 
@@ -48,7 +49,7 @@ describe('Downloads', () => {
     const expectedExtensions = getFormatExtensions()
 
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset },
+      props: { resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -62,5 +63,20 @@ describe('Downloads', () => {
       const found = extensions.find((e) => e.text() === extension)
       expect(found).toBeTruthy()
     })
+  })
+
+  it('prevents adding downloads if no distributor', async () => {
+    const closedLicence = getLicence('X_FAKE_CLOSED')
+    const wrapper = mount(Downloads, {
+      props: { resourceType: ResourceType.Dataset, licence: closedLicence },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // expect button to be disabled
+    expect(wrapper.find('button#add-download').attributes('disabled')).toBe('')
   })
 })

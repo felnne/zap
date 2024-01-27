@@ -22,6 +22,7 @@
 * Extending output core component to allow copy button to be disabled
 * Table of Contents items now teleported from SectionTitle into TOC container, avoiding duplicate listings
 * Guidance text now uses brand colour (orange)
+* Resource type and licence now determine publisher and distributor, inc. whether DOI option shown
 
 ## [0.6.1] - 2024-01-07
 

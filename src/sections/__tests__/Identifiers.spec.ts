@@ -4,7 +4,10 @@ import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
 import type { Identifier } from '@/types/iso'
+import { getLicence } from '@/utils/data'
 import Identifiers from '@/sections/Identifiers.vue'
+
+const licence = getLicence('OGL_UK_3_0')
 
 describe('Identifiers', () => {
   it('adds an identifier and emits identifiers', async () => {
@@ -15,7 +18,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -44,7 +47,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -79,7 +82,7 @@ describe('Identifiers', () => {
     }
 
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -99,11 +102,13 @@ describe('Identifiers', () => {
     expect(wrapper.find('pre').text()).toContain(expectedIdentifierB.identifier)
     expect(wrapper.find('pre').text()).not.toContain(expectedIdentifierA.identifier)
   })
+})
 
-  it('hides identifiers based on resource type', async () => {
+describe('Identifiers (Integration)', () => {
+  it('hides DOI identifier based on publisher based on resource type', async () => {
     ;[ResourceType.Collection, ResourceType.Product].forEach((resourceType) => {
       const wrapper = mount(Identifiers, {
-        props: { fileIdentifier: '', resourceType: resourceType },
+        props: { fileIdentifier: '', resourceType: resourceType, licence: licence },
         global: {
           directives: {
             clipboard: Clipboard,
@@ -113,17 +118,46 @@ describe('Identifiers', () => {
 
       const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
       expect(doiIdentifier.exists()).not.toBeTruthy()
-
-      const esriIdentifier = wrapper.findComponent({ name: 'IdentifierEsri' })
-      expect(esriIdentifier.exists()).not.toBeTruthy()
     })
   })
-})
 
-describe('Identifiers (Integration)', () => {
+  it('hides DOI identifier based on publisher based on licence type', async () => {
+    const closedLicence = getLicence('X_FAKE_CLOSED')
+    const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '', resourceType: ResourceType.Dataset, licence: closedLicence },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    const esriIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
+    expect(esriIdentifier.exists()).not.toBeTruthy()
+  })
+
+  it('removes DOI identifier when publisher changes', async () => {
+    const wrapper = mount(Identifiers, {
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset, licence: licence },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // set the checkbox button with an id #identifier-doi-selection to selected
+    await wrapper.find('input#identifier-doi-selection').setValue()
+    expect(wrapper.find('pre').text()).toContain('https://doi.org/')
+
+    // change the resource type, to change the publisher away from PDC, which should remove the DOI identifier
+    await wrapper.setProps({ resourceType: ResourceType.Product })
+    expect(wrapper.find('pre').text()).not.toContain('https://doi.org/')
+  })
+
   it('toggling doi identifier updates output correctly', async () => {
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -142,7 +176,7 @@ describe('Identifiers (Integration)', () => {
 
   it('toggling esri identifier updates output correctly', async () => {
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -161,7 +195,7 @@ describe('Identifiers (Integration)', () => {
 
   it('toggling gitlab identifier updates output correctly', async () => {
     const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset },
+      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset, licence: licence },
       global: {
         directives: {
           clipboard: Clipboard,
