@@ -3,12 +3,12 @@ import { ResourceType } from '@/types/enum'
 export const showSection = (section: string, resourceType: ResourceType): boolean => {
   const notForProducts = ['identifierDoi', 'identifierEsri', 'services']
   const notForCollections = [
+    'access',
     'citation',
     'contacts',
     'downloads',
     'identifierDoi',
     'identifierEsri',
-    'access',
     'licence',
     'lineage',
     'researchTopics',

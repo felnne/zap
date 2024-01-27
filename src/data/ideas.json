@@ -34,6 +34,8 @@
     { "label": "Syntax highlighting for outputs.", "state": "todo" },
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
+    { "label": "Thumbnails.", "state": "todo" },
+    { "label": "Coordinate reference system.", "state": "todo" },
     { "label": "Validation.", "state": "complete" },
     { "label": "Support depositing downloads", "state": "todo" },
     { "label": "Preserving input values (like GitLab editor).", "state": "todo" },
@@ -43,7 +45,15 @@
     { "label": "Support for files in OneDrive.", "state": "todo" },
     { "label": "Support for files on the SAN.", "state": "todo" },
     {
-      "label": "Get spatial extent from geo-enabled downloads (world files, geoPDFs).",
+      "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
+      "state": "todo"
+    },
+    {
+      "label": "Embargos.",
+      "state": "todo"
+    },
+    {
+      "label": "Checksums.",
       "state": "todo"
     }
   ]

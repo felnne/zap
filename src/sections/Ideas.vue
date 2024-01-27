@@ -7,8 +7,7 @@ import Idea from '@/sections/Idea.vue'
 import GuidanceText from '@/components/GuidanceText.vue'
 
 const ideas = getIdeas()
-const feedbackText =
-  "If there's something else you think would be a good idea please use the feedback tool (bottom right)."
+const feedbackText = 'Thought of a good idea? Suggest it using feedback tool (bottom right).'
 </script>
 
 <template>
