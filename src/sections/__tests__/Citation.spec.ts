@@ -5,6 +5,7 @@ import Clipboard from 'v-clipboard'
 import { ResourceType } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
+import { getLicence } from '@/utils/data'
 import Citation from '@/sections/Citation.vue'
 
 const identifier = '12345'
@@ -31,6 +32,7 @@ const record: Record = {
     label: 'Other access restriction',
     permissions: [],
   },
+  licence: getLicence('OGL_UK_3_0'),
 }
 
 describe('Citation', () => {

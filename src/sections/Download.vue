@@ -2,9 +2,10 @@
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import { ResourceType } from '@/types/enum'
-import { getOrganisation } from '@/utils/data'
-import { createDownloadDistributionOption } from '@/utils/distribution'
+import type { Licence } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
+import { getOrganisation } from '@/utils/data'
+import { createDownloadDistributionOption, getDistributorOrgSlug } from '@/utils/distribution'
 
 import Output from '@/components/Output.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
@@ -19,10 +20,12 @@ const props = defineProps({
     type: String as PropType<ResourceType>,
     required: true,
   },
+  licence: {
+    type: Object as PropType<Licence>,
+    required: true,
+  },
 })
 
-const orgMagic = getOrganisation('bas_magic')
-const orgPdc = getOrganisation('nerc_eds_pdc')
 const endpoint = '...'
 
 function onFileChange(e: Event) {
@@ -41,8 +44,11 @@ let file = ref<File | null>(null)
 let fileInput = ref<HTMLInputElement | null>(null)
 
 let distributor: ComputedRef<Organisation> = computed(() => {
-  if (props.resourceType === ResourceType.Dataset) return orgPdc
-  return orgMagic
+  const distributorSlug = getDistributorOrgSlug(props.resourceType, props.licence)
+  if (!distributorSlug) {
+    throw new Error('No distributor.')
+  }
+  return getOrganisation(distributorSlug)
 })
 
 let distributionOption: ComputedRef<DistributionOption | boolean | null> = computed(() => {

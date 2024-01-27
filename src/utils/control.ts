@@ -1,7 +1,12 @@
 import { ResourceType } from '@/types/enum'
 
 export const showSection = (section: string, resourceType: ResourceType): boolean => {
-  const notForProducts = ['identifierDoi', 'identifierEsri', 'services']
+  /*
+   * Determine whether a given section should be shown based on the resource type
+   *
+   * Collections for example only hold other records and so don't have downloads.
+   */
+  const notForProducts = ['services']
   const notForCollections = [
     'access',
     'citation',

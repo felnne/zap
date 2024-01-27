@@ -1,9 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Format } from '@/types/app'
+import { ResourceType } from '@/types/enum'
+import type { Format, Licence } from '@/types/app'
 
 import {
   createDistributor,
+  getDistributorOrgSlug,
   getFileFormat,
   createDistributionOption,
   createDownloadDistributionOption,
@@ -56,6 +58,44 @@ const expectedDistributor = {
 describe('createDistributor', () => {
   it('builds a distributor from an organisation', () => {
     expect(createDistributor(organisation)).toStrictEqual(expectedDistributor)
+  })
+})
+
+describe('getDistributorOrgSlug', () => {
+  const openLicence: Licence = {
+    slug: 'x',
+    name: 'x',
+    open: true,
+    url: 'x',
+    statement: 'x',
+  }
+
+  const closedLicence: Licence = {
+    slug: 'x',
+    name: 'x',
+    open: false,
+    url: 'x',
+    statement: 'x',
+  }
+
+  it('returns PDC for open datasets', () => {
+    expect(getDistributorOrgSlug(ResourceType.Dataset, openLicence)).toBe('nerc_eds_pdc')
+  })
+
+  it('returns null for closed datasets', () => {
+    expect(getDistributorOrgSlug(ResourceType.Dataset, closedLicence)).toBe(null)
+  })
+
+  it('returns MAGIC for open products', () => {
+    expect(getDistributorOrgSlug(ResourceType.Product, openLicence)).toBe('bas_magic')
+  })
+
+  it('returns MAGIC for closed products', () => {
+    expect(getDistributorOrgSlug(ResourceType.Product, closedLicence)).toBe('bas_magic')
+  })
+
+  it('returns null for other resource types', () => {
+    expect(getDistributorOrgSlug(ResourceType.Collection, openLicence)).toBe(null)
   })
 })
 

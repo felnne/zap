@@ -99,6 +99,7 @@ export type Record = {
   dates: DateImpreciseLabelled[]
   contacts: Contact[]
   accessRestriction: AccessRestriction
+  licence: Licence
 }
 
 type Service = {

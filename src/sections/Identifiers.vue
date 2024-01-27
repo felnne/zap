@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { type PropType, ref, watch } from 'vue'
+import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { showSection } from '@/utils/control'
 import { ResourceType, Stability } from '@/types/enum'
+import type { Licence } from '@/types/app'
 import type { Identifier } from '@/types/iso'
+import { getPublisherOrgSlug } from '@/utils/contacts'
 
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
@@ -14,13 +15,17 @@ import IdentifierEsri from '@/sections/IdentifierEsri.vue'
 import IdentifierBasGitlab from '@/sections/IdentifierBasGitlab.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 
-defineProps({
+const props = defineProps({
   fileIdentifier: {
     type: String,
     required: true,
   },
   resourceType: {
     type: String as PropType<ResourceType>,
+    required: true,
+  },
+  licence: {
+    type: Object as PropType<Licence>,
     required: true,
   },
 })
@@ -40,6 +45,12 @@ const removeIdentifier = (identifier: Identifier) => {
 
 const identifiers = ref<Identifier[]>([])
 
+let showDoi: ComputedRef<boolean> = computed(() => {
+  // only show DOI identifier if the publisher is the PDC
+  const publisherSlug = getPublisherOrgSlug(props.resourceType, props.licence)
+  return publisherSlug === 'nerc_eds_pdc' ? true : false
+})
+
 watch(
   () => identifiers.value,
   () => {
@@ -51,8 +62,8 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="3.1"
-      :stability="Stability.Stable"
+      version="4.0"
+      :stability="Stability.Experimental"
       anchor="identifiers"
       title="Identifiers"
     />
@@ -64,13 +75,12 @@ watch(
             @add:identifier="(event: Identifier) => addIdentifier(event)"
           />
           <IdentifierDoi
-            v-if="showSection('identifierDoi', resourceType)"
+            v-if="showDoi"
             :fileIdentifier="fileIdentifier"
             @add:identifier="addIdentifier($event)"
             @remove:identifier="removeIdentifier($event)"
           />
           <IdentifierEsri
-            v-if="showSection('identifierEsri', resourceType)"
             @add:identifier="(event: Identifier) => addIdentifier(event)"
             @remove:identifier="(event: Identifier) => removeIdentifier(event)"
           />

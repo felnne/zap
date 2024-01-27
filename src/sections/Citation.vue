@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
+import { getPublisherOrgSlug } from '@/utils/contacts'
 import { fetchFakeCitation, formatCitation } from '@/utils/citation'
 import { getOrganisation } from '@/utils/data'
 import type { Record } from '@/types/app'
@@ -41,8 +42,6 @@ const setMarkdownInput = () => {
   markdownInput.value = citationFormatted.value
 }
 
-const orgMagic = getOrganisation('bas_magic')
-const orgPdc = getOrganisation('nerc_eds_pdc')
 const citationProseClasses = ['prose-sm']
 
 let citation = ref<string>('')
@@ -92,10 +91,10 @@ let publishedYear: ComputedRef<string> = computed(() => {
 })
 
 let publisher: ComputedRef<string> = computed(() => {
-  if (identifier.value.title === 'doi') {
-    return orgPdc.name
-  }
-  return orgMagic.name
+  const publisher = getOrganisation(
+    getPublisherOrgSlug(props.record.resourceType, props.record.licence)
+  )
+  return publisher.name
 })
 
 let citationFormatted: ComputedRef<string> = computed(() => {
@@ -123,7 +122,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.1" anchor="citation" title="Citation" />
+    <SectionTitle version="3.0" anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose
