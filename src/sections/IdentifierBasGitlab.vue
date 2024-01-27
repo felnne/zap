@@ -60,7 +60,7 @@ watch(issueUrl, () => {
         :id="'identifier-bas-gitlab-selection'"
         v-model="selected"
       />
-      GitLab (BAS self-hosted instance)
+      GitLab (BAS instance)
     </FormLabel>
     <FormLabel class="text-neutral-500">Issue URL</FormLabel>
     <FormInput

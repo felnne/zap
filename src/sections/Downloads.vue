@@ -53,7 +53,7 @@ let disabled: ComputedRef<boolean> = computed(() => {
       <GuidanceText
         >Supported formats:
         <template v-for="(ext, index) in supportedExtensions" v-bind:key="ext">
-          <code class="bg-emerald-50 dark:bg-emerald-950">{{ ext }}</code>
+          <code class="bg-orange-50 dark:bg-orange-950">{{ ext }}</code>
           <template v-if="index < supportedExtensions.length - 1">, </template>
         </template>
       </GuidanceText>

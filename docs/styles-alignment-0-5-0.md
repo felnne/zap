@@ -187,15 +187,17 @@ Additional [0.7.0]:
 - preview hints/labels: `sky-500` (text only, same for dark mode)
 - secondary input labels: `neutral-500` (text only, same for dark mode)
 - back to top links: `neutral-300` (dark mode background only)
+- supported file extensions background: `orange-900` (dark `orange-100`)
 - disabled buttons: `neutral-500` (text only, same for dark mode)
 
 Additional [0.6.0]:
 
-- supported file extensions background: `emerald-900` (dark `emerald-100`)
+- supported file extensions background added: `emerald-900` (dark `emerald-100`)
 
 Additional [0.7.0]:
 
 - help/guidance text changed, it was `emerald-700` (text only, `emerald-500` for dark mode)
+- supported file extensions background changed to `orange-900` (dark `orange-100`)
 - disabled button text added: `neutral-500` (text only, same for dark mode)
 
 ### Exceptions
