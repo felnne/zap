@@ -4,9 +4,13 @@
 /playwright-screenshots
 
 # App
+__pycache__/
 *.tsbuildinfo
 node_modules/
 dist/
+extent-map/.python-version
+extent-map/.venv/
+extent-map/.ruff_cache/
 
 # Local
 notes.md

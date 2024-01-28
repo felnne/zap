@@ -29,10 +29,10 @@ const checkExtent: WellKnownExtent = {
   extent: {
     geographic: {
       bounding_box: {
-        west_longitude: 180,
-        east_longitude: -60,
+        west_longitude: -180,
+        east_longitude: 180,
         south_latitude: -90,
-        north_latitude: -180,
+        north_latitude: -60,
       },
     },
   },

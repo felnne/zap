@@ -1,10 +1,17 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import type { Extent, ReferenceSystemInfo } from '@/types/iso'
 import { getExtent, getProjection } from '@/utils/data'
 import GeographicExtent from '@/sections/GeographicExtent.vue'
+
+vi.mock('@/utils/esri', () => ({
+  initExtentMap: vi.fn().mockReturnValue({ mock: true }),
+  initExtentGlobe: vi.fn().mockReturnValue({ mock: true }),
+  loadCssTheme: vi.fn().mockReturnValue({ mock: true }),
+  parseToken: vi.fn().mockReturnValue({ mock: true }),
+}))
 
 describe('GeographicExtent', () => {
   it('renders extent from choice', async () => {

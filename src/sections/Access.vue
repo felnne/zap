@@ -10,8 +10,8 @@ import Output from '@/components/Output.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
-import AccessAnonymous from './AccessAnonymous.vue'
-import AccessNerc from './AccessNerc.vue'
+import AccessAnonymous from '@/sections/AccessAnonymous.vue'
+import AccessNerc from '@/sections/AccessNerc.vue'
 
 const emit = defineEmits<{
   'update:access': [id: AccessRestriction]

@@ -3,7 +3,7 @@ import Clipboard from 'v-clipboard'
 
 import App from '@/App.vue'
 import { initSentry } from '@/utils/sentry'
-import './main.css'
+import '@/main.css'
 
 const app = createApp(App)
 if (import.meta.env.MODE !== 'development') {

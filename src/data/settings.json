@@ -1,4 +1,6 @@
 {
+  "agol_app_client_id": "fGTBrg82DAryAbY8",
+  "app_extents_layer_endpoint": "https://services7.arcgis.com/tPxy1hrFDhJfZ0Mf/arcgis/rest/services/zap_wke_workaround/FeatureServer/0",
   "bas_esri_agol_slug": "bas",
   "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
   "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",

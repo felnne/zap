@@ -39,6 +39,12 @@ export type DateImpreciseLabelled = {
   label: string
 }
 
+export type EsriToken = {
+  accessToken: string
+  expires_in: number
+  username: string
+}
+
 export type Format = {
   slug: string
   extensions?: string[]

@@ -10,10 +10,13 @@
 * Record validation section using JSON schema validation
 * BAS Research Topic section
 * CRS added to spatial extent
+* 2D map showing selected extent as it would appear in other catalogues
+* 3D map showing selected extent as it naturally appears
 
 ### Fixed
 
 * Clarifying types/structure for event emit tests
+* Incorrect font family class applied to root element (`font-sans-serif` instead of `font-sans`)
 
 ### Changed
 

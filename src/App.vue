@@ -16,7 +16,7 @@ import AppTitle from '@/components/AppTitle.vue'
 import BackToTop from '@/components/BackToTop.vue'
 
 import Abstract from '@/sections/Abstract.vue'
-import Access from './sections/Access.vue'
+import Access from '@/sections/Access.vue'
 import Citation from '@/sections/Citation.vue'
 import Contacts from '@/sections/Contacts.vue'
 import Dates from '@/sections/Dates.vue'
@@ -67,7 +67,7 @@ function show(section: string): boolean {
 </script>
 
 <template>
-  <main class="font-sans-serif bg-white p-10 text-black dark:bg-black dark:text-white">
+  <main class="bg-white p-10 font-sans text-black dark:bg-black dark:text-white">
     <BackToTop />
     <AppTitle />
     <div class="space-y-4">
