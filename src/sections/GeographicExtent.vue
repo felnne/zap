@@ -40,7 +40,7 @@ let projection: ComputedRef<ReferenceSystemInfo> = computed(() => {
 })
 
 watch(wellKnownExtent, async () => {
-  // this is a very basic way to cause maps to update
+  // crude way to update maps when extent changes
   renderMaps.value = false
   await nextTick()
   renderMaps.value = true
@@ -80,7 +80,7 @@ watch(wellKnownExtent, async () => {
             </div>
             <div id="spatial-crs" class="space-y-2">
               <p>Projection:</p>
-              <Output :data="projection"></Output>
+              <Output maxHeightClass="max-h-16" :data="projection"></Output>
             </div>
           </div>
         </template>

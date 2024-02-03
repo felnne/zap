@@ -17,8 +17,28 @@ describe('Output', () => {
       },
     })
 
-    expect(wrapper.find('pre').text()).toBe(text)
+    const pre = wrapper.find('pre')
+    expect(pre.text()).toBe(text)
+    expect(pre.classes()).toContain('max-h-96')
     expect(wrapper.find('button').text()).toBe('Copy')
+  })
+
+  it('renders properly with a custom max height', () => {
+    const text = 'text'
+
+    const wrapper = mount(Output, {
+      props: { data: text, maxHeightClass: 'max-h-24' },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    const pre = wrapper.find('pre')
+    expect(pre.text()).toBe(text)
+    expect(pre.classes()).toContain('max-h-24')
+    expect(pre.classes()).not.toContain('max-h-96')
   })
 
   it('renders properly with copy disabled', () => {
