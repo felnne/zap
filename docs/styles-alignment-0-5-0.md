@@ -78,6 +78,10 @@ Remaining:
 
 - `max-h-96` used for outputs (contacts, download, service), now refactored to default class in output component
 
+Additional [0.7.0]:
+
+- `max-h-16` used for outputs where value will be taken as-is (and would be distracting to show larger)
+
 ### Width
 
 Remaining:

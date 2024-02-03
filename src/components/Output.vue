@@ -11,12 +11,16 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  maxHeightClass: {
+    type: String,
+    default: 'max-h-96',
+  },
 })
 </script>
 
 <template>
   <div class="space-y-2">
-    <Pre>{{ data }}</Pre>
+    <Pre :class="maxHeightClass">{{ data }}</Pre>
     <ClipboardCopy v-if="enableCopy" :data="data" />
   </div>
 </template>

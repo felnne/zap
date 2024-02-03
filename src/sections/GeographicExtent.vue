@@ -80,7 +80,7 @@ watch(wellKnownExtent, async () => {
             </div>
             <div id="spatial-crs" class="space-y-2">
               <p>Projection:</p>
-              <Output :data="projection"></Output>
+              <Output maxHeightClass="max-h-16" :data="projection"></Output>
             </div>
           </div>
         </template>

@@ -28,6 +28,7 @@
 * Table of Contents items now teleported from SectionTitle into TOC container, avoiding duplicate listings
 * Guidance text now uses brand colour (orange)
 * Resource type and licence now determine publisher and distributor, inc. whether DOI option shown
+* Output component height can now be overridden
 
 ## [0.6.1] - 2024-01-07
 
