@@ -6,20 +6,26 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  forceInternal: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
 })
 
 let target: ComputedRef<string> = computed(() => {
-  if (props.href.startsWith('#')) {
+  if (props.href.startsWith('#') || props.forceInternal) {
     return '_self'
   }
   return '_blank'
 })
 
 let rel: ComputedRef<string | undefined> = computed(() => {
-  if (!props.href.startsWith('#')) {
-    return 'noopener noreferrer'
+  if (props.href.startsWith('#') || props.forceInternal) {
+    return undefined
   }
-  return undefined
+
+  return 'noopener noreferrer'
 })
 </script>
 

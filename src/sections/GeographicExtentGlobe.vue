@@ -1,41 +1,52 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted, type PropType } from 'vue'
+import { nextTick, onMounted, type PropType, watch } from 'vue'
 
 import type { EsriToken, WellKnownExtent } from '@/types/app'
-import { getSetting } from '@/utils/data'
-import { initExtentGlobe, loadCssTheme, parseToken } from '@/utils/esri'
+import { initExtentGlobe, loadCssTheme } from '@/utils/esriNoTest'
+
+import Link from '@/components/Link.vue'
 
 const props = defineProps({
   wke: {
     type: Object as PropType<WellKnownExtent>,
     required: true,
   },
+  esriToken: {
+    type: Object as () => EsriToken,
+    required: false,
+  },
 })
 
 const container = 'geographic-extent-globe'
 
-let loginUrl: ComputedRef<string> = computed(() => {
-  const clientId = getSetting('agol_app_client_id')
-  const redirectUri = 'http://localhost:5173'
+const classes = 'h-96 w-full border border-sky-500'
 
-  return `https://www.arcgis.com/sharing/rest/oauth2/authorize?client_id=${clientId}&response_type=token&expiration=20160&redirect_uri=${redirectUri}`
-})
-
-let token: ComputedRef<EsriToken> = computed(() => {
-  return parseToken(window.location.hash)
-})
+watch(
+  () => props.esriToken,
+  async () => {
+    if (props.esriToken) {
+      await nextTick()
+      initExtentGlobe(container, props.wke, props.esriToken)
+    }
+  }
+)
 
 onMounted(() => {
   loadCssTheme()
-  initExtentGlobe(container, props.wke, token.value)
 })
 </script>
 
 <template>
-  <div class="h-96 w-full border border-sky-500" :id="container"></div>
-  <div class="mt-4 border-2 border-red-500 p-4">
-    <p class="text-lg text-red-700">Temporary. Only works locally (hard-coded redirected URL)</p>
-    <a :href="loginUrl">Sign In</a>
-    <pre>{{ token }}</pre>
+  <div
+    v-if="!esriToken"
+    class="flex items-center justify-center text-lg"
+    :class="classes"
+    :id="container"
+  >
+    <p>
+      Sign in to ArcGIS Online in <Link href="#external-services">External Services</Link> to show
+      3D preview.
+    </p>
   </div>
+  <div v-else :class="classes" :id="container"></div>
 </template>
