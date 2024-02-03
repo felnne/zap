@@ -2,7 +2,7 @@
 import { nextTick, onMounted, type PropType, watch } from 'vue'
 
 import type { EsriToken, WellKnownExtent } from '@/types/app'
-import { initExtentGlobe, loadCssTheme, parseToken } from '@/utils/esri'
+import { initExtentGlobe, loadCssTheme } from '@/utils/esriNoTest'
 
 const props = defineProps({
   wke: {

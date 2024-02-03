@@ -6,7 +6,7 @@ import type { Extent, ReferenceSystemInfo } from '@/types/iso'
 import { getExtent, getProjection } from '@/utils/data'
 import GeographicExtent from '@/sections/GeographicExtent.vue'
 
-vi.mock('@/utils/esri', () => ({
+vi.mock('@/utils/esriNoTest', () => ({
   initExtentMap: vi.fn().mockReturnValue({ mock: true }),
   initExtentGlobe: vi.fn().mockReturnValue({ mock: true }),
   loadCssTheme: vi.fn().mockReturnValue({ mock: true }),

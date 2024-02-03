@@ -2,7 +2,7 @@
 import { onMounted, type PropType } from 'vue'
 
 import type { WellKnownExtent } from '@/types/app'
-import { initExtentMap, loadCssTheme } from '@/utils/esri'
+import { loadCssTheme, initExtentMap } from '@/utils/esriNoTest'
 
 const props = defineProps({
   wke: {
