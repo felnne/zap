@@ -40,7 +40,7 @@ let projection: ComputedRef<ReferenceSystemInfo> = computed(() => {
 })
 
 watch(wellKnownExtent, async () => {
-  // this is a very basic way to cause maps to update
+  // crude way to update maps when extent changes
   renderMaps.value = false
   await nextTick()
   renderMaps.value = true
