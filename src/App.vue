@@ -92,7 +92,7 @@ function show(section: string): boolean {
       <Title @update:title="(event: string) => (record.title = event)" />
       <Abstract />
       <Dates @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)" />
-      <GeographicExtent />
+      <GeographicExtent :esri-token="esriToken || undefined" />
       <Contacts
         v-if="show('contacts')"
         @update:contacts="(event: Contact[]) => (record.contacts = event)"

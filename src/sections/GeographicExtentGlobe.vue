@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted, type PropType } from 'vue'
+import { nextTick, onMounted, type PropType, watch } from 'vue'
 
 import type { EsriToken, WellKnownExtent } from '@/types/app'
-import { getSetting } from '@/utils/data'
 import { initExtentGlobe, loadCssTheme, parseToken } from '@/utils/esri'
 
 const props = defineProps({
@@ -10,15 +9,27 @@ const props = defineProps({
     type: Object as PropType<WellKnownExtent>,
     required: true,
   },
+  esriToken: {
+    type: Object as () => EsriToken,
+    required: false,
+  },
 })
 
 const container = 'geographic-extent-globe'
 
 
+watch(
+  () => props.esriToken,
+  async () => {
+    if (props.esriToken) {
+      await nextTick()
+      initExtentGlobe(container, props.wke, props.esriToken)
+    }
+  }
+)
 
 onMounted(() => {
   loadCssTheme()
-  initExtentGlobe(container, props.wke, token.value)
 })
 </script>
 

@@ -4,7 +4,7 @@ import { computed, type ComputedRef, nextTick, ref, watch } from 'vue'
 import { Stability } from '@/types/enum'
 import { getExtents, getExtent, getProjection } from '@/utils/data'
 import { createExtent, createProjection } from '@/utils/extents'
-import type { WellKnownExtent } from '@/types/app'
+import type { EsriToken, WellKnownExtent } from '@/types/app'
 import type { Extent, ReferenceSystemInfo } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
@@ -14,6 +14,13 @@ import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
 import GeographicExtentMap from '@/sections/GeographicExtentMap.vue'
 import GeographicExtentGlobe from '@/sections/GeographicExtentGlobe.vue'
+
+const props = defineProps({
+  esriToken: {
+    type: Object as () => EsriToken,
+    required: false,
+  },
+})
 
 const wellKnownExtents = getExtents()
 
@@ -88,7 +95,11 @@ watch(wellKnownExtent, async () => {
         <template v-slot:right>
           <div class="space-y-2">
             <div class="text-sky-500">Preview (3D)</div>
-            <GeographicExtentGlobe v-if="renderMaps" :wke="wellKnownExtent" />
+            <GeographicExtentGlobe
+              v-if="renderMaps"
+              :wke="wellKnownExtent"
+              :esri-token="esriToken"
+            />
           </div>
         </template>
       </TwoColumn>
