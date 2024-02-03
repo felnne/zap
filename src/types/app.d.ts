@@ -41,7 +41,8 @@ export type DateImpreciseLabelled = {
 
 export type EsriToken = {
   accessToken: string
-  expires_in: number
+  expiresIn: number
+  expiresAt: Date
   username: string
 }
 

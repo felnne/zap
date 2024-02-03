@@ -7,6 +7,7 @@ import { ResourceType as ResourceTypeEM } from '@/types/enum'
 import type {
   AccessRestriction,
   DateImpreciseLabelled,
+  EsriToken,
   Licence as LicenceT,
   Record,
 } from '@/types/app'
@@ -23,6 +24,7 @@ import Dates from '@/sections/Dates.vue'
 import Downloads from '@/sections/Downloads.vue'
 import Edition from '@/sections/Edition.vue'
 import Epilogue from '@/sections/Epilogue.vue'
+import ExternalServices from './sections/ExternalServices.vue'
 import FileIdentifier from '@/sections/FileIdentifier.vue'
 import GeographicExtent from '@/sections/GeographicExtent.vue'
 import Ideas from '@/sections/Ideas.vue'
@@ -37,6 +39,8 @@ import ResourceType from '@/sections/ResourceType.vue'
 import Services from '@/sections/Services.vue'
 import TableOfContents from '@/sections/TableOfContents.vue'
 import Title from '@/sections/Title.vue'
+
+const esriToken = ref<EsriToken | null>(null)
 
 const record = ref<Record>({
   fileIdentifier: '',
@@ -72,6 +76,7 @@ function show(section: string): boolean {
     <AppTitle />
     <div class="space-y-4">
       <Prologue />
+      <ExternalServices @update:esriToken="(event: EsriToken) => (esriToken = event)" />
       <TableOfContents />
       <FileIdentifier @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)" />
       <ResourceType

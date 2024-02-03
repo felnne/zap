@@ -12,6 +12,7 @@
 * CRS added to spatial extent
 * 2D map showing selected extent as it would appear in other catalogues
 * 3D map showing selected extent as it naturally appears
+* External services section for signing into initially ArcGIS Online
 
 ### Fixed
 

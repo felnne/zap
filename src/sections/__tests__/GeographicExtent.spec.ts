@@ -10,7 +10,6 @@ vi.mock('@/utils/esri', () => ({
   initExtentMap: vi.fn().mockReturnValue({ mock: true }),
   initExtentGlobe: vi.fn().mockReturnValue({ mock: true }),
   loadCssTheme: vi.fn().mockReturnValue({ mock: true }),
-  parseToken: vi.fn().mockReturnValue({ mock: true }),
 }))
 
 describe('GeographicExtent', () => {
