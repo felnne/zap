@@ -27,4 +27,16 @@ describe('Link', () => {
     expect(wrapper.attributes().target).toBe('_blank')
     expect(wrapper.attributes().rel).toBe('noopener noreferrer')
   })
+
+  it('renders external link forced as internal properly', () => {
+    const url = 'https://example.com'
+
+    const wrapper = mount(Link, {
+      props: { href: url, forceInternal: true },
+    })
+
+    expect(wrapper.attributes().href).toBe(url)
+    expect(wrapper.attributes().target).toBe('_self')
+    expect(wrapper.attributes().rel).toBe(undefined)
+  })
 })
