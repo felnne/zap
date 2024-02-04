@@ -1,4 +1,5 @@
-import { describe, it, expect, vi } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
+
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -13,6 +14,15 @@ vi.mock('@/utils/esriNoTest', () => ({
 }))
 
 describe('GeographicExtent', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders extent from choice', async () => {
     const wke = getExtent('antarctica')
     const projection = getProjection(wke.projectionSlug)
@@ -55,5 +65,10 @@ describe('GeographicExtent', () => {
     await wrapper.find('input#extent-sub_antarctica').setValue()
 
     expect(wrapper.find('pre').text()).toContain(expectedValueInExtent)
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

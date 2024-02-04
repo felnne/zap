@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -22,6 +22,15 @@ const closedAccessRestriction: AccessRestriction = {
 }
 
 describe('Licence', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders and emits licence from open choice', async () => {
     const expectedLicence = getLicence('OGL_UK_3_0')
     const expectedConstraint: Constraint = {
@@ -144,5 +153,10 @@ describe('Licence', () => {
     if (emittedLicence) {
       expect(emittedLicence[1][0]).toEqual(expectedUpdatedLicence)
     }
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

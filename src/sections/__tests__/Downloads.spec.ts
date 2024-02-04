@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -9,6 +9,15 @@ import Downloads from '@/sections/Downloads.vue'
 const licence = getLicence('OGL_UK_3_0')
 
 describe('Downloads', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('clicking button adds a new download', async () => {
     const wrapper = mount(Downloads, {
       props: { resourceType: ResourceType.Dataset, licence: licence },
@@ -78,5 +87,10 @@ describe('Downloads', () => {
 
     // expect button to be disabled
     expect(wrapper.find('button#add-download').attributes('disabled')).toBe('')
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

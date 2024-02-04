@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -10,6 +10,15 @@ import Identifiers from '@/sections/Identifiers.vue'
 const licence = getLicence('OGL_UK_3_0')
 
 describe('Identifiers', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('adds an identifier and emits identifiers', async () => {
     const expectedIdentifier: Identifier = {
       identifier: 'x',
@@ -102,9 +111,23 @@ describe('Identifiers', () => {
     expect(wrapper.find('pre').text()).toContain(expectedIdentifierB.identifier)
     expect(wrapper.find('pre').text()).not.toContain(expectedIdentifierA.identifier)
   })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
+  })
 })
 
 describe('Identifiers (Integration)', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('hides DOI identifier based on publisher based on resource type', async () => {
     ;[ResourceType.Collection, ResourceType.Product].forEach((resourceType) => {
       const wrapper = mount(Identifiers, {
@@ -210,5 +233,10 @@ describe('Identifiers (Integration)', () => {
     // set the checkbox button with an id #identifier-bas-gitlab-selection to un-selected
     await wrapper.find('input#identifier-bas-gitlab-selection').setValue(false)
     expect(wrapper.find('pre').text()).not.toContain('https://gitlab.data.bas.ac.uk')
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

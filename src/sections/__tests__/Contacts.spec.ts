@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -9,6 +9,15 @@ import Contacts from '@/sections/Contacts.vue'
 import individualsData from '@/data/individuals.json'
 
 describe('Contacts', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders individuals as choices', async () => {
     const expectedIndividuals: Individual[] = Object.values(individualsData.contacts)
 
@@ -99,5 +108,10 @@ describe('Contacts', () => {
     if (emittedContacts[2]) {
       expect(emittedContacts[2][0][0]?.individual?.name).toEqual(individualB.name)
     }
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })
