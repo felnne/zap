@@ -29,7 +29,7 @@ describe('FileIdentifier', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find('a#external-sign-in-agol').exists()).not.toBeTruthy()
-    expect(wrapper.find('div#external-token-token pre').text()).toContain('conwat_BAS')
+    expect(wrapper.find('div#external-token-agol pre').text()).toContain('conwat_BAS')
 
     const emittedEsriToken: unknown[][] | undefined = wrapper.emitted('update:esriToken')
     expect(emittedEsriToken).toBeTruthy()

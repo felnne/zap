@@ -1,4 +1,5 @@
 {
+  "agol_app_account_slug": "bas",
   "agol_app_client_id": "fGTBrg82DAryAbY8",
   "app_extents_layer_endpoint": "https://services7.arcgis.com/tPxy1hrFDhJfZ0Mf/arcgis/rest/services/zap_wke_workaround/FeatureServer/0",
   "app_extents_2d_basemap_light": "gray-vector",

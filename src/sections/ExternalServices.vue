@@ -65,7 +65,7 @@ watch(
       </div>
       <Output
         v-if="agolToken"
-        id="external-token-token"
+        id="external-token-agol"
         :data="agolToken"
         :enable-copy="false"
       ></Output>
