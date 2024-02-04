@@ -71,12 +71,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle
-      version="4.0"
-      :stability="Stability.Experimental"
-      anchor="licence"
-      title="Licence"
-    />
+    <SectionTitle version="4.0" :stability="Stability.Stable" anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">
