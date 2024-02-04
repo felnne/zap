@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
+import dotenv from 'dotenv';
+
+// Read secrets from default ".env" file.
+dotenv.config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
