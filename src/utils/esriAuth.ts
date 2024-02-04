@@ -3,8 +3,8 @@ import { getSetting } from '@/utils/data'
 
 export const getSignInUrl = (): string => {
   const clientId = getSetting('agol_app_client_id')
-  const redirectUri = window.location.origin
   // include custom expiration parameter to give more confidence when detecting the callback URL
+  const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname)
   const expiration = 18720 // 13 days, parameter is in minutes
 
   return `https://www.arcgis.com/sharing/rest/oauth2/authorize?client_id=${clientId}&response_type=token&expiration=${expiration}&redirect_uri=${redirectUri}`
