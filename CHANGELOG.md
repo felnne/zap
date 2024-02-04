@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2024-02-04
+
 ### Added
 
 * Access restrictions section

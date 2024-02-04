@@ -50,7 +50,7 @@ watch(
   <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle
       version="1.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="external-services"
       title="External Services"
       sub-title="ArcGIS Online"

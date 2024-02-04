@@ -63,7 +63,7 @@ watch(
   <SectionBorder>
     <SectionTitle
       version="4.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="identifiers"
       title="Identifiers"
     />

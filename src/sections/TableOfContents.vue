@@ -9,7 +9,7 @@ import SectionTitle from '@/components/SectionTitle.vue'
   <SectionBorder class="border-sky-500">
     <SectionTitle
       version="2.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="toc"
       title="Elements"
       :add-toc="false"

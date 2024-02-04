@@ -35,7 +35,7 @@ let isoTopics: ComputedRef<string[]> = computed(() => {
   <SectionBorder>
     <SectionTitle
       version="1.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="research-topics"
       title="BAS Research Topics"
     />

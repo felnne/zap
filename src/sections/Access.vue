@@ -51,7 +51,7 @@ watch(
   <SectionBorder>
     <SectionTitle
       version="1.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="access"
       title="Access Restrictions"
     />
