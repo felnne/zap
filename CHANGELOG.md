@@ -29,6 +29,7 @@
 * Guidance text now uses brand colour (orange)
 * Resource type and licence now determine publisher and distributor, inc. whether DOI option shown
 * Output component height can now be overridden
+* `utils.contacts.createContact` renamed as `createAuthor` to better reflect purpose
 
 ## [0.6.1] - 2024-01-07
 
