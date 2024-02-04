@@ -11,7 +11,7 @@ describe('getSignInUrl', () => {
 
     const signInUrl = getSignInUrl()
     expect(signInUrl).toContain(`client_id=${clientId}`)
-    expect(signInUrl).toContain(`redirect_uri=${redirectUri}`)
+    expect(signInUrl).toContain(`redirect_uri=${encodeURIComponent(redirectUri)}`)
   })
 })
 
