@@ -8,9 +8,9 @@ __pycache__/
 *.tsbuildinfo
 node_modules/
 dist/
-extent-map/.python-version
-extent-map/.venv/
-extent-map/.ruff_cache/
+extent-map-backend/.python-version
+extent-map-backend/.venv/
+extent-map-backend/.ruff_cache/
 
 # Local
 notes.md

@@ -1,10 +1,19 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import Title from '@/sections/Title.vue'
 
 describe('Title', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('emits value when updated', async () => {
     const expectedUpdated = 'Title'
 
@@ -26,5 +35,10 @@ describe('Title', () => {
     if (emittedTitle) {
       expect(emittedTitle[0][0]).toEqual(expectedUpdated)
     }
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { getIndividuals, getOrganisation } from '@/utils/data'
-import { createContact } from '@/utils/contacts'
+import { createAuthor } from '@/utils/contacts'
 import type { PointOfContact as Contact } from '@/types/iso'
 
 import SectionBorder from '@/components/SectionBorder.vue'
@@ -24,7 +24,7 @@ let contacts: ComputedRef<Contact[]> = computed(() => {
   const selectedIndividuals = individuals.filter((individual) =>
     selectedSlugs.value.includes(individual.slug)
   )
-  return selectedIndividuals.map((individual) => createContact(individual, orgBas))
+  return selectedIndividuals.map((individual) => createAuthor(individual, orgBas))
 })
 
 watch(

@@ -1,10 +1,19 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import ResearchTopics from '@/sections/ResearchTopics.vue'
 
 describe('ResearchTopics', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders research topics as choices', async () => {
     const expectedSlugs = ['living_and_working_in_antarctica', 'topographic_mapping']
 
@@ -54,5 +63,10 @@ describe('ResearchTopics', () => {
     await wrapper.find('input#topic-topographic_mapping').setValue()
 
     expectedTopics.every((topic) => expect(wrapper.find('#iso-topics pre').text()).toContain(topic))
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest'
 
 import type { Licence } from '@/types/app'
 import { ResourceType } from '@/types/enum'
-import { createContact, getPublisherOrgSlug } from '@/utils/contacts'
+import { createAuthor, getPublisherOrgSlug } from '@/utils/contacts'
 
-describe('createContact', () => {
+describe('createAuthor', () => {
   it('builds a contact', () => {
     const individual = {
       slug: 'https_orcid_org_0000_0000_0000_0000',
@@ -55,7 +55,7 @@ describe('createContact', () => {
       role: ['author'],
     }
 
-    expect(createContact(individual, organisation)).toStrictEqual(expectedContact)
+    expect(createAuthor(individual, organisation)).toStrictEqual(expectedContact)
   })
 })
 

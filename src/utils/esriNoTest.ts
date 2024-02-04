@@ -13,7 +13,19 @@ import type { EsriToken, WellKnownExtent } from '@/types/app'
 import { getSetting } from '@/utils/data'
 import { get2dBasemap, get3dBasemap } from '@/utils/esri'
 
+/*
+ * Functions in this module are not tested.
+ *
+ * Dependencies used by the ArcGIS API for JavaScript do not support testing in a Node.js environment used by vitest.
+ * Esri are aware of this limitation, and are investigating a solution, but is dependent on an upstream library they use.
+ */
+
 export const initExtentMap = (container: string, extent: WellKnownExtent) => {
+  /*
+   * Creates a basic 2D map
+   *
+   * Consists of a basemap with a single polygon graphic representing the given extent.
+   */
   const basemap = get2dBasemap()
   const extentGraphic = make2dExtentGraphic(extent)
 
@@ -34,6 +46,12 @@ export const initExtentMap = (container: string, extent: WellKnownExtent) => {
 }
 
 export const initExtentGlobe = (
+  /*
+   * Creates a basic 3D scene
+   *
+   * Consists of a basemap with a feature loaded from a restricted feature service that corresponds to the given extent.
+   * This is needed to load a feature with a densified geometry. This scene cannot show arbitrary geometries.
+   */
   container: string,
   extent: WellKnownExtent,
   accessToken: EsriToken
@@ -66,6 +84,12 @@ export const initExtentGlobe = (
 }
 
 export const loadCssTheme = () => {
+  /*
+   * Imports the appropriate ArcGIS JS SDK CSS theme based on the user's colour preference
+   *
+   * This method does not react to the colour reference changing (I.e. once loaded the app will need reloading to
+   * switch theme).
+   */
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     import('@arcgis/core/assets/esri/themes/dark/main.css')
   } else {
@@ -74,7 +98,22 @@ export const loadCssTheme = () => {
 }
 
 export const make2dExtentGraphic = (extent: WellKnownExtent): Graphic => {
-  // bbox order: [west, east, south, north] / [xmin, ymin, xmax, ymax]
+  /*
+   * Construct a polygon graphic from a Well Known Extent
+   *
+   * The graphic layer is a single polygon with a simple style (mapped to tailwind's colour pallet for consistency)
+   * The polygon geometry is based on the extent's bounding box in the form:
+   *
+   * [
+   *   [bbox[west], bbox[south]],
+   *   [bbox[east], bbox[south]],
+   *   [bbox[east], bbox[north]],
+   *   [bbox[west], bbox[north]],
+   *   [bbox[west], bbox[south]],
+   * ]
+   *
+   * Where: [west, east, south, north] = [xmin, ymin, xmax, ymax]
+   */
   const bbox = [
     extent.extent.geographic.bounding_box.west_longitude,
     extent.extent.geographic.bounding_box.east_longitude,
@@ -110,6 +149,16 @@ export const make2dExtentGraphic = (extent: WellKnownExtent): Graphic => {
 }
 
 export const make3dExtentLayer = (extent: WellKnownExtent, token: EsriToken): FeatureLayer => {
+  /*
+   * Get feature layer from secure feature service
+   *
+   * This feature layer contains features for each Well Know Extent, which use densified geometries to ensure they can
+   * be displayed correctly in 3D and other projections. Each feature maps to a WKE via their slug (a property of the JS
+   * object and attribute in the feature layer). This layer is populated using a related Python script.
+   *
+   * In ArcGIS Online, applications cannot be granted access to restricted feature services, therefore an access token
+   * for a user acquired via OAuth is needed.
+   */
   const endpoint = getSetting('app_extents_layer_endpoint')
   const layer = new FeatureLayer({ url: endpoint, apiKey: token.accessToken })
   layer.definitionExpression = `Slug = '${extent.slug}'`
@@ -118,6 +167,15 @@ export const make3dExtentLayer = (extent: WellKnownExtent, token: EsriToken): Fe
 }
 
 export const navigateToFeature3d = async (view: SceneView, layer: FeatureLayer) => {
+  /*
+   * Zoom to a given feature from a layer in a 3D scene
+   *
+   * The feature to zoom to is the given extent.
+   *
+   * When zoomed to the selected feature likely won't be visible (due to some sort of bug with layer visibility settings).
+   * To work around this, the camera is zoomed out 300% after the initial zoom. This workaround is not suitable as it
+   * doesn't work for all features.
+   */
   const query = layer.createQuery()
   const results = await layer.queryFeatures(query)
 
@@ -128,13 +186,13 @@ export const navigateToFeature3d = async (view: SceneView, layer: FeatureLayer) 
     tilt: 0,
   })
 
-  // This is a workaround for feature visibility issue when not zoomed out enough
+  // Zoom back out to workaround visibility bug
   await view.goTo(
     new Camera({
       position: {
         x: view.camera.position.x,
         y: view.camera.position.y,
-        z: view.viewpoint.camera.position.z * 3, // 300% of previous value (zooming out)
+        z: view.viewpoint.camera.position.z * 3, // zooming out
         spatialReference: view.camera.position.spatialReference,
       },
       heading: view.camera.heading,

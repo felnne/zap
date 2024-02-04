@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -36,6 +36,15 @@ const record: Record = {
 }
 
 describe('Citation', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
       props: { record: record },
@@ -69,5 +78,10 @@ describe('Citation', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find('textarea').element.value).toContain(`_${record.title}_`)
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })
