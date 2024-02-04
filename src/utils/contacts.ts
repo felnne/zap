@@ -5,6 +5,15 @@ import { getOrganisation } from '@/utils/data'
 import { getDistributorOrgSlug } from '@/utils/distribution'
 
 export const createContact = (individual: Individual, organisation: Organisation): Contact => {
+  /*
+   * Create an ISO 19115 Point of Contact from an application individual and organisation object
+   *
+   * Application individual/organisation objects are a superset of an ISO point of contact and have more specific
+   * properties which are mapped to available ISO equivalents (e.g. the schema of the linked identifier is mapped to a
+   * generic 'title').
+   *
+   * The role of the point of contact is fixed as 'author' in this context.
+   */
   return {
     individual: {
       name: individual.name,

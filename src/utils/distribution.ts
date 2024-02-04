@@ -5,6 +5,14 @@ import type { DistributionOption, PointOfContact as Contact, OnlineResource } fr
 import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/utils/data'
 
 export const createDistributor = (org: Organisation): Contact => {
+  /*
+   * Create an ISO 19115 Point of Contact from an application organisation object
+   *
+   * The application organisation is a superset of an ISO point of contact and has more specific properties which are
+   * mapped to available ISO equivalents (e.g. the schema of the linked identifier is mapped to a generic 'title').
+   *
+   * The role of the point of contact is (logically) always 'distributor' in this context.
+   */
   return {
     organisation: {
       name: org.name,
@@ -48,6 +56,15 @@ export const getDistributorOrgSlug = (
 }
 
 export const getFileFormat = (file: File): Format => {
+  /*
+   * Determine the format of a file from its media type and extension
+   *
+   * The media type is preferred but often limited for the types of files we handle (e.g. GeoPackages). Where unknown,
+   * the file extension is used instead.
+   *
+   * Where a format can't be determined, an error is thrown as this app intentionally does not support all file types.
+   */
+
   // 'latin_music_continues.foo.bar.baz' => '.foo.bar.baz'
   const fileExt = `.${file.name.split('.').slice(1).join('.')}`
 
@@ -65,6 +82,17 @@ export const createDistributionOption = (
   org: Organisation,
   sizeBytes: number = 0
 ): DistributionOption => {
+  /*
+   * Construct an ISO 19115 Distribution Option
+   *
+   * Combines:
+   * - a file format (with optional version)
+   * - an online resource (URL)
+   * - a distributor (organisation)
+   * - an optional file size (in bytes)
+   *
+   * Underpins functions for file or service distribution options, which should be used instead of this function.
+   */
   const distributionOption: DistributionOption = {
     format: {
       format: format.name,
@@ -95,6 +123,11 @@ export const createDownloadDistributionOption = (
   endpoint: string,
   org: Organisation
 ): DistributionOption => {
+  /*
+   * Create an ISO 19115 Distribution Option for a file download
+   *
+   * Wrapper for `createDistributionOption()`.
+   */
   const fileFormat = getFileFormat(file)
 
   const onlineResource: OnlineResource = {
@@ -112,6 +145,11 @@ export const createServiceDistributionOption = (
   endpoint: string,
   org: Organisation
 ): DistributionOption => {
+  /*
+   * Create an ISO 19115 Distribution Option for a service linkage
+   *
+   * Wrapper for `createDistributionOption()`.
+   */
   const serviceFormat: Format = getFormat(service.slug)
 
   const onlineResource: OnlineResource = {
