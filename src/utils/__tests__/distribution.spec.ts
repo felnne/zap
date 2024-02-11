@@ -237,7 +237,7 @@ describe('createDistributionOption', () => {
 })
 
 describe('createDownloadDistributionOption', () => {
-  it('builds a distribution option from a file, endpoint and organisation', () => {
+  it('builds a distribution option from a file, url and organisation', () => {
     const file: File = {
       name: 'foo.png',
       type: 'image/png',
@@ -249,7 +249,7 @@ describe('createDownloadDistributionOption', () => {
       stream: () => new ReadableStream(),
       text: () => Promise.resolve(''),
     }
-    const endpoint = 'https://example.com'
+    const url = 'https://example.com'
     const expectedDistributionOption = {
       format: {
         format: 'PNG',
@@ -257,7 +257,7 @@ describe('createDownloadDistributionOption', () => {
       },
       transfer_option: {
         online_resource: {
-          href: endpoint,
+          href: url,
           title: 'PNG',
           description: 'Download information as a PNG image',
           function: 'download',
@@ -266,7 +266,7 @@ describe('createDownloadDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createDownloadDistributionOption(file, endpoint, organisation)).toStrictEqual(
+    expect(createDownloadDistributionOption(file, url, organisation)).toStrictEqual(
       expectedDistributionOption
     )
   })
@@ -279,7 +279,7 @@ describe('createServiceDistributionOption', () => {
       name: 'OGC Web Map Service (WMS)',
       description: 'Access information as a OGC Web Map Service layer.',
     }
-    const endpoint = 'https://example.com'
+    const url = 'https://example.com'
     const expectedDistributionOption = {
       format: {
         format: 'OGC Web Map Service (WMS)',
@@ -288,7 +288,7 @@ describe('createServiceDistributionOption', () => {
       },
       transfer_option: {
         online_resource: {
-          href: endpoint,
+          href: url,
           title: service.name,
           description: service.description,
           function: 'download',
@@ -297,7 +297,7 @@ describe('createServiceDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createServiceDistributionOption(service, endpoint, organisation)).toStrictEqual(
+    expect(createServiceDistributionOption(service, url, organisation)).toStrictEqual(
       expectedDistributionOption
     )
   })

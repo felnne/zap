@@ -36,8 +36,8 @@ let disabled: ComputedRef<boolean> = computed(() => {
 <template>
   <SectionBorder class="space-y-4">
     <SectionTitle
-      version="3.0"
-      :stability="Stability.Stable"
+      version="4.0"
+      :stability="Stability.Experimental"
       anchor="downloads"
       title="Downloads"
     />

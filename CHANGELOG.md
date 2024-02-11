@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* URL parameter for downloads allowing transfer option href to be configured
+
 ## [0.7.0] - 2024-02-04
 
 ### Added

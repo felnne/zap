@@ -32,7 +32,7 @@ describe('Downloads', () => {
     await wrapper.find('button#add-download').trigger('click')
 
     // check there's 1 input element rendered
-    expect(wrapper.find('input#download-1-input').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-1-file').exists()).toBeTruthy()
   })
 
   it('clicking button multiple times adds multiple downloads', async () => {
@@ -50,8 +50,8 @@ describe('Downloads', () => {
     await wrapper.find('button#add-download').trigger('click')
 
     // // check there's 2 input elements rendered
-    expect(wrapper.find('input#download-1-input').exists()).toBeTruthy()
-    expect(wrapper.find('input#download-2-input').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-1-file').exists()).toBeTruthy()
+    expect(wrapper.find('input#download-2-file').exists()).toBeTruthy()
   })
 
   it('displays supported extensions', async () => {
@@ -73,6 +73,10 @@ describe('Downloads', () => {
       expect(found).toBeTruthy()
     })
   })
+
+  // Can't test file inputs as vitest doesn't support file inputs
+
+  // Can't test URL as distribution option not rendered without file selection
 
   it('prevents adding downloads if no distributor', async () => {
     const closedLicence = getLicence('X_FAKE_CLOSED')
