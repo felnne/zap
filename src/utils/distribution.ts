@@ -120,7 +120,7 @@ export const createDistributionOption = (
 
 export const createDownloadDistributionOption = (
   file: File,
-  endpoint: string,
+  url: string,
   org: Organisation
 ): DistributionOption => {
   /*
@@ -131,7 +131,7 @@ export const createDownloadDistributionOption = (
   const fileFormat = getFileFormat(file)
 
   const onlineResource: OnlineResource = {
-    href: endpoint,
+    href: url,
     title: fileFormat.name,
     description: `Download information as ${fileFormat.description}`,
     function: 'download',
@@ -142,7 +142,7 @@ export const createDownloadDistributionOption = (
 
 export const createServiceDistributionOption = (
   service: Service,
-  endpoint: string,
+  url: string,
   org: Organisation
 ): DistributionOption => {
   /*
@@ -153,7 +153,7 @@ export const createServiceDistributionOption = (
   const serviceFormat: Format = getFormat(service.slug)
 
   const onlineResource: OnlineResource = {
-    href: endpoint,
+    href: url,
     title: service.name,
     description: service.description,
     function: 'download',
