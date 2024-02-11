@@ -6,6 +6,10 @@
 
 * URL parameter for downloads allowing transfer option href to be configured
 
+### Fixed
+
+* e2e tests missing from linting/formatter tasks
+
 ## [0.7.0] - 2024-02-04
 
 ### Added

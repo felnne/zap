@@ -14,8 +14,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "lint:format": "prettier --check src/",
-    "format": "prettier --write src/"
+    "lint:format": "prettier --check src/ e2e/",
+    "format": "prettier --write src/ e2e/"
   },
   "dependencies": {
     "@arcgis/core": "^4.28.10",
