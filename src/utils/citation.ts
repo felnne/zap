@@ -211,10 +211,10 @@ export function formatReference(identifier: Identifier): string {
    * be followed. Very well established schemes such as ISBN may return the `identifier.title` alone, as such values are
    * understood by users on their own.
    */
-  if (identifier.title == 'data.bas.ac.uk') {
+  if (identifier.namespace == 'data.bas.ac.uk') {
     return identifier.href
   }
-  if (identifier.title == 'doi') {
+  if (identifier.namespace == 'doi') {
     return identifier.href
   }
 

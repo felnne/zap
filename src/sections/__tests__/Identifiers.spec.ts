@@ -23,7 +23,7 @@ describe('Identifiers', () => {
     const expectedIdentifier: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: 'z',
+      namespace: 'z',
     }
 
     const wrapper = mount(Identifiers, {
@@ -39,7 +39,7 @@ describe('Identifiers', () => {
     const childComponent = wrapper.findComponent({ name: 'IdentifierSelf' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
 
-    expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
+    expect(wrapper.find('pre').text()).toContain(expectedIdentifier.namespace)
 
     const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('update:identifiers')
     expect(emittedIdentifier).toBeTruthy()
@@ -52,7 +52,7 @@ describe('Identifiers', () => {
     const expectedIdentifier: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: 'z',
+      namespace: 'z',
     }
 
     const wrapper = mount(Identifiers, {
@@ -70,7 +70,7 @@ describe('Identifiers', () => {
     // add identifier (needs to use a component that also emits remove:identifier)
     const childComponent = wrapper.findComponent({ name: 'IdentifierDoi' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifier)
-    expect(wrapper.find('pre').text()).toContain(expectedIdentifier.title)
+    expect(wrapper.find('pre').text()).toContain(expectedIdentifier.namespace)
 
     // then remove it and check list is empty again
     await childComponent.vm.$emit('remove:identifier', expectedIdentifier)
@@ -81,13 +81,13 @@ describe('Identifiers', () => {
     const expectedIdentifierA: Identifier = {
       identifier: 'x',
       href: 'y',
-      title: '-',
+      namespace: '-',
     }
 
     const expectedIdentifierB: Identifier = {
       identifier: 'a',
       href: `b`,
-      title: `-`,
+      namespace: `-`,
     }
 
     const wrapper = mount(Identifiers, {
@@ -102,9 +102,9 @@ describe('Identifiers', () => {
     // initial identifier
     const childComponent = wrapper.findComponent({ name: 'IdentifierDoi' })
     await childComponent.vm.$emit('add:identifier', expectedIdentifierA)
-    expect(wrapper.find('pre').text()).toContain(expectedIdentifierA.title)
+    expect(wrapper.find('pre').text()).toContain(expectedIdentifierA.namespace)
 
-    // then remove it and re-add it with a different value (but the same title (namespace))
+    // then remove it and re-add it with a different value (but the same namespace)
     await childComponent.vm.$emit('remove:identifier', expectedIdentifierA)
     await childComponent.vm.$emit('add:identifier', expectedIdentifierB)
 

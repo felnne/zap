@@ -26,7 +26,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: props.fileIdentifier,
     href: `${endpoint}${props.fileIdentifier}`,
-    title: namespace,
+    namespace: namespace,
   }
 })
 

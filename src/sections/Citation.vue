@@ -70,7 +70,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
 })
 
 let doi: ComputedRef<string> = computed(() => {
-  if (identifier.value.title === 'doi') {
+  if (identifier.value.namespace === 'doi') {
     return identifier.value.identifier
   }
   return ''

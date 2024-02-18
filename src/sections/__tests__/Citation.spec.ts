@@ -15,7 +15,7 @@ const record: Record = {
   fileIdentifier: identifier,
   resourceType: ResourceType.Dataset,
   identifiers: [
-    { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, title: 'doi' },
+    { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, namespace: 'doi' },
   ] as Identifier[],
   edition: '1.0',
   dates: [

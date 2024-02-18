@@ -9,6 +9,7 @@
 ### Fixed
 
 * e2e tests missing from linting/formatter tasks
+* identifier schema/type used incorrect term ('title' instead of 'namespace')
 
 ### Changed
 

@@ -29,7 +29,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: id.value,
     href: `https://${account}.maps.arcgis.com/home/item.html?id=${id.value}`,
-    title: `${account}.maps.arcgis.com`,
+    namespace: `${account}.maps.arcgis.com`,
   }
 })
 

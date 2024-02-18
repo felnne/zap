@@ -149,7 +149,7 @@ describe('formatReference', () => {
   it('formats a data.bas.ac.uk reference', () => {
     expect(
       formatReference({
-        title: 'data.bas.ac.uk',
+        namespace: 'data.bas.ac.uk',
         identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
         href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
       })
@@ -159,7 +159,7 @@ describe('formatReference', () => {
   it('formats a doi reference', () => {
     expect(
       formatReference({
-        title: 'doi',
+        namespace: 'doi',
         identifier: '10.5066/f7vq30rm',
         href: 'https://doi.org/10.5066/f7vq30rm',
       })
@@ -169,7 +169,7 @@ describe('formatReference', () => {
   it("doesn't return an unknown reference", () => {
     expect(
       formatReference({
-        title: 'x',
+        namespace: 'x',
         identifier: 'y',
         href: 'z',
       })
@@ -188,7 +188,7 @@ describe('fetchFakeCitation', () => {
         'dataset',
         'Publisher',
         {
-          title: 'data.bas.ac.uk',
+          namespace: 'data.bas.ac.uk',
           identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
           href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
         }
@@ -202,7 +202,7 @@ describe('fetchFakeCitation', () => {
 describe('integration_fetchAndFormatFakeCitation', () => {
   it('fetches and formats a citation', async () => {
     const identifier = {
-      title: 'data.bas.ac.uk',
+      namespace: 'data.bas.ac.uk',
       identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
       href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
     }
