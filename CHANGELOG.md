@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.8.0] - 2024-02-18
+
 ### Added
 
 * URL parameter for downloads allowing transfer option href to be configured
