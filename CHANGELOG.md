@@ -10,6 +10,10 @@
 
 * e2e tests missing from linting/formatter tasks
 
+### Changed
+
+* updating app dependencies
+
 ## [0.7.0] - 2024-02-04
 
 ### Added
