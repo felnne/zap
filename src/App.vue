@@ -111,6 +111,7 @@ function show(section: string): boolean {
       <Downloads
         v-if="show('downloads')"
         :resourceType="record.resourceType"
+        :file-identifier="record.fileIdentifier"
         :licence="record.licence"
       />
       <Services v-if="show('services')" />

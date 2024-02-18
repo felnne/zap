@@ -5,6 +5,7 @@
 ### Added
 
 * URL parameter for downloads allowing transfer option href to be configured
+* basic support for uploading files to a staging area for downloads
 
 ### Fixed
 

@@ -10,7 +10,10 @@ test('can select file, set URL, and output is rendered correctly', async ({ page
   await page.setInputFiles('input#download-1-file', './sample-data/png/sample.png')
   await page.fill('input#download-1-url', url)
 
-  await page.screenshot({ path: 'playwright-screenshots/download-with-file-selected.png' })
+  const browserName = page.context().browser()?.browserType().name()
+  await page.screenshot({
+    path: `playwright-screenshots/download-with-file-selected_${browserName}.png`,
+  })
 
   // assert details about file are in rendered distribution option
   const downloadOutput = await page.textContent('#download-1-output pre')
@@ -100,4 +103,54 @@ test('unsupported file types are rejected correctly', async ({ page }) => {
 
   const element = await page.$('#download-1-output pre')
   expect(element).toBeNull()
+})
+
+test('file upload works', async ({ page }) => {
+  const fileName = 'sample.png'
+
+  await page.goto('/')
+
+  await page.click('text=Add Download')
+
+  await page.setInputFiles('input#download-1-file', `./sample-data/png/${fileName}`)
+
+  await page.click('text=Upload')
+
+  // wait for 3 seconds - workaround for not having an event or state to check that the file has been uploaded
+  await page.waitForTimeout(3000)
+
+  const url = await page.inputValue('input#download-1-url')
+
+  // take screenshot of input#download-1-url
+  const browserName = page.context().browser()?.browserType().name()
+  await page.screenshot({
+    path: `playwright-screenshots/download-with-file-uploaded_${browserName}.png`,
+  })
+
+  expect(url).toContain(fileName)
+})
+
+test('file upload fails if already uploaded', async ({ page }) => {
+  // hardcoded waits to give time for files to upload
+
+  const fileName = 'sample.png'
+
+  await page.goto('/')
+
+  // upload file normally
+  await page.click('text=Add Download')
+  await page.setInputFiles('input#download-1-file', `./sample-data/png/${fileName}`)
+  await page.click('button#download-1-upload')
+  await page.waitForTimeout(3000)
+
+  // upload again and expect error
+  await page.click('text=Add Download')
+  await page.setInputFiles('input#download-2-file', `./sample-data/png/${fileName}`)
+  await page.click('button#download-2-upload')
+  await page.waitForTimeout(3000)
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toEqual('File already exists. Rename and add again.')
+    await dialog.accept()
+  })
 })
