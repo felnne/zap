@@ -13,7 +13,7 @@ describe('IdentifierSelf', () => {
     const expectedIdentifier: Identifier = {
       identifier: expectedIdentifierValue,
       href: `https://data.bas.ac.uk/items/${expectedIdentifierValue}`,
-      title: 'data.bas.ac.uk',
+      namespace: 'data.bas.ac.uk',
     }
 
     const wrapper = mount(IdentifierSelf, { props: { fileIdentifier: '' } })

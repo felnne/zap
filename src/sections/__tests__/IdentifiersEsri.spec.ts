@@ -11,7 +11,7 @@ describe('IdentifierEsri', () => {
     const expectedIdentifier: Identifier = {
       identifier: identifier,
       href: `https://${account}.maps.arcgis.com/home/item.html?id=${identifier}`,
-      title: `${account}.maps.arcgis.com`,
+      namespace: `${account}.maps.arcgis.com`,
     }
 
     const wrapper = mount(IdentifierEsri)

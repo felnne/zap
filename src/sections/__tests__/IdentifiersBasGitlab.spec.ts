@@ -10,7 +10,7 @@ describe('IdentifierBasGitlab', () => {
     const expectedIdentifier: Identifier = {
       identifier: identifier,
       href: identifier,
-      title: 'https://gitlab.data.bas.ac.uk',
+      namespace: 'https://gitlab.data.bas.ac.uk',
     }
 
     const wrapper = mount(IdentifierBasGitlab)

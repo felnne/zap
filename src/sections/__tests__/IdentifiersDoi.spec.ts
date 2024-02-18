@@ -14,7 +14,7 @@ describe('IdentifierDoi', () => {
     const expectedIdentifier: Identifier = {
       identifier: expectedIdentifierValue,
       href: `https://doi.org/${expectedIdentifierValue}`,
-      title: 'doi',
+      namespace: 'doi',
     }
 
     const wrapper = mount(IdentifierDoi, { props: { fileIdentifier: '' } })

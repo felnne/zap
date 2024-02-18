@@ -45,7 +45,7 @@ type GeographicExtent = {
 type Identifier = {
   identifier: string
   href: string
-  title: string
+  namespace: string
 }
 
 export type Individual = {

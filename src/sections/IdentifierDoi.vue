@@ -36,7 +36,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: doi,
     href: `https://doi.org/${doi}`,
-    title: 'doi',
+    namespace: 'doi',
   }
 })
 

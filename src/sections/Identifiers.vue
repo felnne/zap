@@ -39,8 +39,8 @@ const addIdentifier = (identifier: Identifier) => {
 }
 
 const removeIdentifier = (identifier: Identifier) => {
-  // remove identifiers based on scheme (title) as values may be updating
-  identifiers.value = identifiers.value.filter((i) => i.title !== identifier.title)
+  // remove identifiers based on scheme (namespace) as values may be updating
+  identifiers.value = identifiers.value.filter((i) => i.namespace !== identifier.namespace)
 }
 
 const identifiers = ref<Identifier[]>([])
