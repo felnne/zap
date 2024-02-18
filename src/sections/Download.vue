@@ -101,7 +101,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
 
 <template>
   <SubSectionBorder class="space-y-2">
-    <form class="flex space-x-4">
+    <div class="flex space-x-4">
       <div class="flex space-x-2">
         <FormLabel class="text-neutral-500">File</FormLabel>
         <input
@@ -124,7 +124,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
           v-model="url"
         />
       </div>
-    </form>
+    </div>
     <Output
       v-if="distributionOption"
       :id="'download-' + index + '-output'"
