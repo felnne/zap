@@ -33,12 +33,12 @@ const props = defineProps({
   },
 })
 
-function onFileChange(e: Event) {
+const onFileChange = (e: Event) => {
   let files = (e.target as HTMLInputElement).files
   if (files) file.value = files[0]
 }
 
-function clearFile() {
+const clearFile = () => {
   file.value = null
   if (fileInput.value) {
     fileInput.value.value = ''

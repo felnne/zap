@@ -6,11 +6,14 @@
 # App
 __pycache__/
 *.tsbuildinfo
-node_modules/
 dist/
-scripts/extent-map-backend/.python-version
 scripts/extent-map-backend/.venv/
 scripts/extent-map-backend/.ruff_cache/
+
+# Language package managers
+.python-version
+.nvmrc
+node_modules/
 
 # Local
 notes.md

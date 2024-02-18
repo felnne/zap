@@ -83,8 +83,8 @@ function show(section: string): boolean {
         @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"
       />
       <Identifiers
-        :fileIdentifier="record.fileIdentifier"
-        :resourceType="record.resourceType"
+        :file-identifier="record.fileIdentifier"
+        :resource-type="record.resourceType"
         :licence="record.licence"
         @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
       />
@@ -103,15 +103,15 @@ function show(section: string): boolean {
       />
       <Licence
         v-if="show('licence')"
-        :accessRestriction="record.accessRestriction"
+        :access-restriction="record.accessRestriction"
         @update:licence="(event: LicenceT) => (record.licence = event)"
       />
       <ResearchTopics v-if="show('researchTopics')" />
       <Citation v-if="show('citation')" :record="record" />
       <Downloads
         v-if="show('downloads')"
-        :resourceType="record.resourceType"
         :file-identifier="record.fileIdentifier"
+        :resource-type="record.resourceType"
         :licence="record.licence"
       />
       <Services v-if="show('services')" />
