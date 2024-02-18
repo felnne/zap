@@ -119,7 +119,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
         <FormLabel class="text-neutral-500">URL</FormLabel>
         <FormInput
           type="text"
-          name="identifier-bas-gitlab-id"
+          name="'download-' + index + '-url'"
           :id="'download-' + index + '-url'"
           v-model="url"
         />
