@@ -6,6 +6,7 @@
   "app_extents_2d_basemap_dark": "dark-gray-vector",
   "app_extents_3d_basemap_light": "navigation-3d",
   "app_extents_3d_basemap_dark": "navigation-dark-3d",
+  "app_file_upload_endpoint": "http://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/upload.php",
   "bas_esri_agol_slug": "bas",
   "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
   "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",

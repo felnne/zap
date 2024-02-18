@@ -5,16 +5,22 @@ import { ResourceType } from '@/types/enum'
 import type { Licence, Organisation } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getOrganisation } from '@/utils/data'
+import { stageFile } from '@/utils/upload'
 import { createDownloadDistributionOption, getDistributorOrgSlug } from '@/utils/distribution'
 
 import Output from '@/components/Output.vue'
 import SubSectionBorder from '@/components/SubSectionBorder.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import FormInput from '@/components/FormInput.vue'
+import Button from '@/components/Button.vue'
 
 const props = defineProps({
   index: {
     type: Number,
+    required: true,
+  },
+  fileIdentifier: {
+    type: String,
     required: true,
   },
   resourceType: {
@@ -36,6 +42,24 @@ function clearFile() {
   file.value = null
   if (fileInput.value) {
     fileInput.value.value = ''
+  }
+}
+
+const uploadFile = async () => {
+  if (!file.value) return
+
+  try {
+    let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
+    console.log('stagedFileUrl', stagedFileUrl)
+    url.value = stagedFileUrl
+  } catch (e: any) {
+    if (e instanceof Error) {
+      if (e.message.includes('error-file-exists')) {
+        alert('File already exists. Rename and add again.')
+      } else {
+        alert(e.message)
+      }
+    }
   }
 }
 
@@ -87,6 +111,9 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
           :id="'download-' + index + '-file'"
           @change="onFileChange"
         />
+        <Button v-if="file" :id="'download-' + index + '-upload'" @click="uploadFile"
+          >Upload</Button
+        >
       </div>
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">URL</FormLabel>

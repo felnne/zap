@@ -13,6 +13,10 @@ import Download from '@/sections/Download.vue'
 import GuidanceText from '@/components/GuidanceText.vue'
 
 const props = defineProps({
+  fileIdentifier: {
+    type: String,
+    required: true,
+  },
   resourceType: {
     type: String as PropType<ResourceType>,
     required: true,
@@ -44,6 +48,7 @@ let disabled: ComputedRef<boolean> = computed(() => {
     <Download
       v-for="index in count"
       :key="index"
+      :file-identifier="fileIdentifier"
       :resource-type="resourceType"
       :licence="licence"
       :index="index"

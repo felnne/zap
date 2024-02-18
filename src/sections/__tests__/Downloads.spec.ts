@@ -6,6 +6,7 @@ import { ResourceType } from '@/types/enum'
 import { getFormatExtensions, getLicence } from '@/utils/data'
 import Downloads from '@/sections/Downloads.vue'
 
+const fileIdentifier = 'x'
 const licence = getLicence('OGL_UK_3_0')
 
 describe('Downloads', () => {
@@ -20,7 +21,11 @@ describe('Downloads', () => {
 
   it('clicking button adds a new download', async () => {
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset, licence: licence },
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -37,7 +42,11 @@ describe('Downloads', () => {
 
   it('clicking button multiple times adds multiple downloads', async () => {
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset, licence: licence },
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -58,7 +67,11 @@ describe('Downloads', () => {
     const expectedExtensions = getFormatExtensions()
 
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset, licence: licence },
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -81,7 +94,11 @@ describe('Downloads', () => {
   it('prevents adding downloads if no distributor', async () => {
     const closedLicence = getLicence('X_FAKE_CLOSED')
     const wrapper = mount(Downloads, {
-      props: { resourceType: ResourceType.Dataset, licence: closedLicence },
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: closedLicence,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
