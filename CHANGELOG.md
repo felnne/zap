@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+* updating VSCode recommendations to avoid deprecated extensions
+* updating Node packages to latest versions
+
 ## [0.8.0] - 2024-02-18
 
 ### Added

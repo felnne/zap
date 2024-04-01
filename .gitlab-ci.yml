@@ -28,7 +28,7 @@ stages:
   - 🚀 deploy
 
 before_script:
-  - npm install --frozen-lockfile
+  - npm ci
 
 .before_script_deploy_template: &before_script_deploy
   before_script:
@@ -45,9 +45,9 @@ lint:
   stage: 📋 lint
   needs: []
   script:
-    - npm run type-check
-    - npm run lint
-    - npm run lint:format
+    - npm run test:lint
+    - npm run test:types
+    - npm run test:format
   rules:
     # Only run on merge requests
     - if: '$CI_MERGE_REQUEST_ID != null'
@@ -72,11 +72,9 @@ test_e2e:
   variables:
     PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results.xml
   before_script:
-    - npm install --frozen-lockfile
-    - npm i ci
     - npm ci
     - npx playwright install
-    - npm run build-only
+    - npm run build:only
   script:
     - npx playwright test --project chromium
   artifacts:
@@ -95,7 +93,7 @@ build:
   stage: 🏗 build
   needs: []
   script:
-    - npm run build-only
+    - npm run build:only
   artifacts:
     paths:
       - dist/
