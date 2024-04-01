@@ -6,16 +6,15 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
+    "build:only": "vite build",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
+    "test:types": "vue-tsc --build --force",
+    "test:format": "prettier --check src/ e2e/",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "lint:format": "prettier --check src/ e2e/",
-    "format": "prettier --write src/ e2e/"
+    "format": "prettier --write src/ e2e/",
+    "dev": "vite"
   },
   "dependencies": {
     "@arcgis/core": "^4.28.10",
