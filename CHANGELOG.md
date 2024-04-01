@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+* updating VSCode recommendations to avoid deprecated extensions
+
 ## [0.8.0] - 2024-02-18
 
 ### Added
