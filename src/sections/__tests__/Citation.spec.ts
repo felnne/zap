@@ -21,7 +21,7 @@ const record: Record = {
   dates: [
     {
       date: { js: new Date(2014, 0, 20), iso: '2014-01-20', precision: 'day' },
-      label: 'published',
+      label: 'publication',
     },
   ] as DateImpreciseLabelled[],
   contacts: [{ individual: { name: 'Watson, C.' } }] as Contact[],

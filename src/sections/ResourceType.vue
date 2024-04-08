@@ -11,18 +11,21 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
   'update:resourceType': [id: ResourceType]
+  'update:isoHierarchyLevel': [id: string]
 }>()
 
 const resourceType = ref<ResourceType>(ResourceType.Dataset)
 
 onMounted(() => {
   emit('update:resourceType', resourceType.value)
+  emit('update:isoHierarchyLevel', resourceType.value)
 })
 
 watch(
   () => resourceType.value,
   () => {
     emit('update:resourceType', resourceType.value)
+    emit('update:isoHierarchyLevel', resourceType.value)
   }
 )
 </script>

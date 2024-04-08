@@ -7,6 +7,7 @@ import Markdown from '@/components/Markdown.vue'
 
 const emit = defineEmits<{
   'update:title': [id: string]
+  'update:isoTitleValue': [id: string]
 }>()
 
 const title = ref<string>('')
@@ -15,6 +16,7 @@ watch(
   () => title.value,
   () => {
     emit('update:title', title.value)
+    emit('update:isoTitleValue', title.value)
   }
 )
 </script>
@@ -27,6 +29,10 @@ watch(
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
     />
-    <Markdown input-class="min-h-10" @update:input="(event: string) => (title = event)" />
+    <Markdown
+      input-id="title"
+      input-class="min-h-10"
+      @update:input="(event: string) => (title = event)"
+    />
   </SectionBorder>
 </template>

@@ -25,7 +25,6 @@ export async function stageFile(file: File, fileIdentifier: string): Promise<str
     return response.headers.location
   } catch (error: any) {
     if (error && error.response && error.response.data && error.response.data.error) {
-      console.log(error.response.data.error)
       throw new Error(`Error staging file: ${error.response.data.error}`)
     }
 

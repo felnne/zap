@@ -50,7 +50,6 @@ const uploadFile = async () => {
 
   try {
     let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
-    console.log('stagedFileUrl', stagedFileUrl)
     url.value = stagedFileUrl
   } catch (e: any) {
     if (e instanceof Error) {

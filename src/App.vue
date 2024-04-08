@@ -11,7 +11,13 @@ import type {
   Licence as LicenceT,
   Record,
 } from '@/types/app'
-import type { Identifier, PointOfContact as Contact } from '@/types/iso'
+import type {
+  Dates as IsoDates,
+  Extent as IsoExtent,
+  Identifier,
+  PointOfContact as Contact,
+  Record as IsoRecord,
+} from '@/types/iso'
 
 import AppTitle from '@/components/AppTitle.vue'
 import BackToTop from '@/components/BackToTop.vue'
@@ -65,6 +71,38 @@ const record = ref<Record>({
   },
 })
 
+const isoRecord = ref<IsoRecord>({
+  $schema:
+    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
+  hierarchy_level: '',
+  metadata: {
+    language: 'eng',
+    character_set: 'utf8',
+    contacts: [
+      {
+        organisation: {
+          name: 'Mapping and Geographic Information Centre, British Antarctic Survey',
+          href: 'https://ror.org/01rhff309',
+          title: 'ror',
+        },
+        role: ['pointOfContact'],
+      },
+    ],
+    date_stamp: new Date().toISOString().split('T')[0],
+  },
+  identification: {
+    title: {
+      value: '',
+    },
+    dates: {},
+    abstract: '',
+    language: 'eng',
+    character_set: 'utf8',
+    topics: [],
+    extents: [],
+  },
+})
+
 function show(section: string): boolean {
   return showSection(section, record.value.resourceType)
 }
@@ -81,6 +119,7 @@ function show(section: string): boolean {
       <FileIdentifier @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)" />
       <ResourceType
         @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"
+        @update:isoHierarchyLevel="(event: string) => (isoRecord.hierarchy_level = event)"
       />
       <Identifiers
         :file-identifier="record.fileIdentifier"
@@ -89,10 +128,21 @@ function show(section: string): boolean {
         @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
       />
       <Edition @update:edition="(event: string) => (record.edition = event)" />
-      <Title @update:title="(event: string) => (record.title = event)" />
-      <Abstract />
-      <Dates @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)" />
-      <GeographicExtent :esri-token="esriToken || undefined" />
+      <Title
+        @update:title="(event: string) => (record.title = event)"
+        @update:isoTitleValue="(event: string) => (isoRecord.identification.title.value = event)"
+      />
+      <Abstract
+        @update:isoAbstract="(event: string) => (isoRecord.identification.abstract = event)"
+      />
+      <Dates
+        @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
+        @update:isoDates="(event: IsoDates) => (isoRecord.identification.dates = event)"
+      />
+      <GeographicExtent
+        :esri-token="esriToken || undefined"
+        @update:isoExtent="(event: IsoExtent) => (isoRecord.identification.extents = [event])"
+      />
       <Contacts
         v-if="show('contacts')"
         @update:contacts="(event: Contact[]) => (record.contacts = event)"
@@ -106,7 +156,10 @@ function show(section: string): boolean {
         :access-restriction="record.accessRestriction"
         @update:licence="(event: LicenceT) => (record.licence = event)"
       />
-      <ResearchTopics v-if="show('researchTopics')" />
+      <ResearchTopics
+        v-if="show('researchTopics')"
+        @update:isoTopics="(event: string[]) => (isoRecord.identification.topics = event)"
+      />
       <Citation v-if="show('citation')" :record="record" />
       <Downloads
         v-if="show('downloads')"
@@ -117,7 +170,7 @@ function show(section: string): boolean {
       <Services v-if="show('services')" />
       <Lineage v-if="show('lineage')" />
       <Resources />
-      <RecordValidation />
+      <RecordValidation :output-record="isoRecord" />
       <Ideas />
       <Epilogue :app-env="getAppEnvironment()" />
     </div>

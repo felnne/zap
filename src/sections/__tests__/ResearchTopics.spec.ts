@@ -14,6 +14,29 @@ describe('ResearchTopics', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
+  it('emits value when updated', async () => {
+    const expectedTopic = 'society'
+
+    const wrapper = mount(ResearchTopics, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // set radio input with id 'topic-living_and_working_in_antarctica' to checked
+    await wrapper.find('input#topic-living_and_working_in_antarctica').setValue()
+
+    await wrapper.vm.$nextTick()
+
+    const emittedIsoTopics: unknown[][] | undefined = wrapper.emitted('update:isoTopics')
+    expect(emittedIsoTopics).toBeTruthy()
+    if (emittedIsoTopics) {
+      expect(emittedIsoTopics[0][0]).toEqual([expectedTopic])
+    }
+  })
+
   it('renders research topics as choices', async () => {
     const expectedSlugs = ['living_and_working_in_antarctica', 'topographic_mapping']
 

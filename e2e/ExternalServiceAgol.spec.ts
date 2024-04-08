@@ -31,6 +31,5 @@ test('can sign in to AGOL', async ({ page, browserName }) => {
 
   // expect `external-token-agol pre` to contain username
   const tokenText = await page.textContent('div#external-token-agol pre')
-  console.log(tokenText)
   expect(tokenText).toContain(AGOL_USERNAME)
 })

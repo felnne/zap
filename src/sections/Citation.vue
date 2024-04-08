@@ -26,7 +26,7 @@ const props = defineProps({
 const getCitation = async () => {
   citation.value = await fetchFakeCitation(
     authors.value,
-    publishedYear.value,
+    publicationYear.value,
     props.record.title,
     props.record.edition,
     props.record.resourceType,
@@ -82,10 +82,10 @@ let authors: ComputedRef<string[]> = computed(() => {
     .filter((contact) => contact !== '')
 })
 
-let publishedYear: ComputedRef<string> = computed(() => {
-  const publishedDate = props.record.dates.find((date) => date.label === 'published')
-  if (publishedDate) {
-    return String(publishedDate.date.js.getFullYear())
+let publicationYear: ComputedRef<string> = computed(() => {
+  const publicationDate = props.record.dates.find((date) => date.label === 'publication')
+  if (publicationDate) {
+    return String(publicationDate.date.js.getFullYear())
   }
   return ''
 })
@@ -111,7 +111,7 @@ watch(
     () => identifier.value,
     () => props.record.edition,
     () => props.record.title,
-    () => publishedYear.value,
+    () => publicationYear.value,
     () => authors.value,
   ],
   () => {

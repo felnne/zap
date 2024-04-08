@@ -7,6 +7,8 @@ import type { Extent, ReferenceSystemInfo } from '@/types/iso'
 import { getExtent, getProjection } from '@/utils/data'
 import GeographicExtent from '@/sections/GeographicExtent.vue'
 
+const expectedIsoExtentIdentifier = 'bounding'
+
 vi.mock('@/utils/esriNoTest', () => ({
   initExtentMap: vi.fn().mockReturnValue({ mock: true }),
   initExtentGlobe: vi.fn().mockReturnValue({ mock: true }),
@@ -23,11 +25,73 @@ describe('GeographicExtent', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
+  it('emits value when mounted', async () => {
+    const wke = getExtent('antarctica')
+    const expectedExtent: Extent = {
+      identifier: expectedIsoExtentIdentifier,
+      geographic: wke.extent.geographic,
+    }
+
+    const wrapper = mount(GeographicExtent, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    const emittedIsoExtent: unknown[][] | undefined = wrapper.emitted('update:isoExtent')
+    expect(emittedIsoExtent).toBeTruthy()
+    if (emittedIsoExtent) {
+      expect(emittedIsoExtent[0][0]).toEqual(expectedExtent)
+    }
+  })
+
+  it('emits value when updated', async () => {
+    const initialWke = getExtent('antarctica')
+    const expectedInitialIsoExtent: Extent = {
+      identifier: expectedIsoExtentIdentifier,
+      geographic: initialWke.extent.geographic,
+    }
+
+    const updatedWke = getExtent('sub_antarctica')
+    const expectedUpdatedIsoExtent: Extent = {
+      identifier: expectedIsoExtentIdentifier,
+      geographic: updatedWke.extent.geographic,
+    }
+
+    const wrapper = mount(GeographicExtent, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // initial value
+    const emittedIsoExtent: unknown[][] | undefined = wrapper.emitted('update:isoExtent')
+    expect(emittedIsoExtent).toBeTruthy()
+    if (emittedIsoExtent) {
+      expect(emittedIsoExtent[0][0]).toEqual(expectedInitialIsoExtent)
+    }
+
+    // set radio input with id 'extent-sub_antarctica' to checked
+    await wrapper.find('input#extent-sub_antarctica').setValue()
+
+    await wrapper.vm.$nextTick()
+
+    // updated value
+    if (emittedIsoExtent) {
+      expect(emittedIsoExtent[1][0]).toEqual(expectedUpdatedIsoExtent)
+    }
+  })
+
   it('renders extent from choice', async () => {
     const wke = getExtent('antarctica')
     const projection = getProjection(wke.projectionSlug)
 
     const expectedExtent: Extent = {
+      identifier: expectedIsoExtentIdentifier,
       geographic: wke.extent.geographic,
     }
     const expectedCRS: ReferenceSystemInfo = {

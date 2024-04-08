@@ -3,11 +3,14 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 import { type DefinedError } from 'ajv'
 
 import { Stability } from '@/types/enum'
+import type { Record as IsoRecord } from '@/types/iso'
 import { validateRecordText } from '@/utils/validation'
 
 import FormTextarea from '@/components/FormTextarea.vue'
 import SectionBorder from '@/components/SectionBorder.vue'
 import SectionTitle from '@/components/SectionTitle.vue'
+import GuidanceText from '@/components/GuidanceText.vue'
+import Button from '@/components/Button.vue'
 import Pre from '@/components/Pre.vue'
 
 /*
@@ -23,6 +26,20 @@ enum State {
   Invalid,
   Valid,
 }
+
+const useCurrentRecord = () => {
+  if (props.outputRecord == null) {
+    return
+  }
+  input.value = JSON.stringify(props.outputRecord, null, 2)
+}
+
+const props = defineProps({
+  outputRecord: {
+    type: Object as () => IsoRecord,
+    required: false,
+  },
+})
 
 let state = ref<State>(State.Empty)
 let errors = ref<DefinedError[]>([])
@@ -86,14 +103,29 @@ watch(
 <template>
   <SectionBorder border-colour-class="border-sky-500">
     <SectionTitle
-      version="1.0"
-      :stability="Stability.Stable"
+      version="2.0"
+      :stability="Stability.Experimental"
       anchor="validate"
       title="Record Validation"
       :add-toc="false"
     />
     <div class="space-y-2">
-      <FormTextarea class="w-full flex-grow" v-model="input"></FormTextarea>
+      <p>
+        Paste a record below to validate it. Alternatively, click the button below to validate the
+        current record.
+      </p>
+      <div class="flex items-center space-x-2">
+        <Button id="validation-use-current" @click="useCurrentRecord"
+          >Validate Current Record</Button
+        >
+        <GuidanceText>
+          Click to copy values from the sections above into the input below. If these values change
+          you will need to click the button again.
+          <br />
+          Only minimal ISO properties (i.e. not downloads, etc.) are currently validated.
+        </GuidanceText>
+      </div>
+      <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>
       <div id="validation-message" v-if="state != State.Empty" :class="validityClass">
         {{ validityMessage }}
       </div>

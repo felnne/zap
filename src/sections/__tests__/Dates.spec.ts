@@ -5,12 +5,13 @@ import Clipboard from 'v-clipboard'
 import type { DateImpreciseLabelled } from '@/types/app'
 import Dates from '@/sections/Dates.vue'
 
-const label = 'published'
+const label = 'publication'
 const impreciseValue = '0'
-
 const expectedInitialDateValue = new Date()
 expectedInitialDateValue.setHours(0, 0, 0, 0)
+
 const expectedInitialDateIsoValue = expectedInitialDateValue.toISOString().split('T')[0]
+const expectedInitialEmittedDateIsoValue = { [label]: expectedInitialDateIsoValue }
 const expectedInitial: DateImpreciseLabelled[] = [
   {
     label: label,
@@ -53,7 +54,7 @@ describe('Dates', () => {
     )
   })
 
-  it('emits value when mounted', async () => {
+  it('emits values when mounted', async () => {
     const wrapper = mount(Dates, {
       global: {
         directives: {
@@ -67,13 +68,21 @@ describe('Dates', () => {
     if (emittedDates) {
       expect(emittedDates[0][0]).toEqual(expectedInitial)
     }
+
+    const emittedIsoDates: unknown[][] | undefined = wrapper.emitted('update:isoDates')
+    expect(emittedIsoDates).toBeTruthy()
+    if (emittedIsoDates) {
+      expect(emittedIsoDates[0][0]).toEqual(expectedInitialEmittedDateIsoValue)
+    }
   })
 
   it('emits value when year is updated', async () => {
     const expectedUpdatedDateValue = new Date()
     expectedUpdatedDateValue.setHours(0, 0, 0, 0)
     expectedUpdatedDateValue.setFullYear(expectedUpdatedDateValue.getFullYear() - 1)
+
     const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]
+    const expectedUpdatedEmittedDateIsoValue = { [label]: expectedUpdatedDateIsoValue }
     const expectedUpdated: DateImpreciseLabelled[] = [
       {
         label: label,
@@ -90,11 +99,20 @@ describe('Dates', () => {
     })
 
     // initial value
+
     const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
     expect(emittedDates).toBeTruthy()
     if (emittedDates) {
       expect(emittedDates[0][0]).toEqual(expectedInitial)
     }
+
+    const emittedIsoDates: unknown[][] | undefined = wrapper.emitted('update:isoDates')
+    expect(emittedIsoDates).toBeTruthy()
+    if (emittedIsoDates) {
+      expect(emittedIsoDates[0][0]).toEqual(expectedInitialEmittedDateIsoValue)
+    }
+
+    // decrement year value
 
     const inputElement = wrapper.find('input#date-year')
     expect((inputElement.element as HTMLInputElement).value).toBe(
@@ -109,8 +127,12 @@ describe('Dates', () => {
     await wrapper.vm.$nextTick()
 
     // updated value
+
     if (emittedDates) {
       expect(emittedDates[1][0]).toEqual(expectedUpdated)
+    }
+    if (emittedIsoDates) {
+      expect(emittedIsoDates[1][0]).toEqual(expectedUpdatedEmittedDateIsoValue)
     }
   })
 
