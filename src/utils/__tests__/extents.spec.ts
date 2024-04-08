@@ -18,9 +18,13 @@ describe('createExtent', () => {
         },
       },
     }
-    const expectedExtent = extent.extent
+    const identifier = 'bounding'
+    const expectedExtent = {
+      identifier: identifier,
+      geographic: extent.extent.geographic,
+    }
 
-    expect(createExtent(extent)).toStrictEqual(expectedExtent)
+    expect(createExtent(extent, identifier)).toStrictEqual(expectedExtent)
   })
 })
 

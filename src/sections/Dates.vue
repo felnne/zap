@@ -15,9 +15,10 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
   'update:dates': [id: DateImpreciseLabelled[]]
+  'update:isoDates': [id: DatesIso]
 }>()
 
-const label = 'published'
+const label = 'publication'
 const now = new Date()
 
 const year = ref<number>(now.getFullYear())
@@ -47,12 +48,15 @@ let datesIso: ComputedRef<DatesIso> = computed(() => {
 
 onMounted(() => {
   emit('update:dates', dates.value)
+  emit('update:isoDates', datesIso.value)
 })
 
 watch(
   () => dates.value,
   () => {
     emit('update:dates', dates.value)
+    emit('update:isoDates', datesIso.value)
+    console.log(datesIso.value)
   }
 )
 </script>

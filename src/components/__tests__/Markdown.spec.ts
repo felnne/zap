@@ -19,6 +19,21 @@ describe('Markdown', () => {
     expect(wrapper.find('textarea').classes()).toContain(propDefaults.inputClass)
   })
 
+  it('renders properly with an id attribute', async () => {
+    const expected = 'foo'
+
+    const wrapper = mount(Markdown, {
+      props: { inputId: expected },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    expect(wrapper.find('textarea').attributes('id')).toBe(expected)
+  })
+
   it('renders properly with non-default classes', async () => {
     const expected = 'min-h-20'
 

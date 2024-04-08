@@ -31,6 +31,14 @@ describe('ResourceType', () => {
     if (emittedResourceType) {
       expect(emittedResourceType[0][0]).toEqual(expected)
     }
+
+    const emittedIsoHierarchyLevel: unknown[][] | undefined = wrapper.emitted(
+      'update:isoHierarchyLevel'
+    )
+    expect(emittedIsoHierarchyLevel).toBeTruthy()
+    if (emittedIsoHierarchyLevel) {
+      expect(emittedIsoHierarchyLevel[0][0]).toEqual(expected)
+    }
   })
 
   it('emits value when updated', async () => {
@@ -51,6 +59,13 @@ describe('ResourceType', () => {
     if (emittedResourceType) {
       expect(emittedResourceType[0][0]).toEqual(expectedInitial)
     }
+    const emittedIsoHierarchyLevel: unknown[][] | undefined = wrapper.emitted(
+      'update:isoHierarchyLevel'
+    )
+    expect(emittedIsoHierarchyLevel).toBeTruthy()
+    if (emittedIsoHierarchyLevel) {
+      expect(emittedIsoHierarchyLevel[0][0]).toEqual(expectedInitial)
+    }
 
     // get the second input as 'dataset' comes after 'collection'
     const inputElement = wrapper.findAll('input').at(1)
@@ -66,6 +81,9 @@ describe('ResourceType', () => {
     // updated value
     if (emittedResourceType) {
       expect(emittedResourceType[1][0]).toEqual(expectedUpdated)
+    }
+    if (emittedIsoHierarchyLevel) {
+      expect(emittedIsoHierarchyLevel[1][0]).toEqual(expectedUpdated)
     }
   })
 

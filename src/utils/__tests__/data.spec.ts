@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest'
 import type { Format, Licence, WellKnownExtent } from '@/types/app'
 
 import {
+  deepMergeObjects,
   getExtent,
   getExtents,
   getFormat,
@@ -57,6 +58,23 @@ const checkLicence: Licence = {
     'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
   open: true,
 }
+
+describe('deepMergeObjects', () => {
+  it('merges simple objects', () => {
+    const objB = { b: 3, c: 4 }
+    const objC = { a: 1, b: 3, c: 4 }
+
+    expect(deepMergeObjects(objC, objB)).toEqual(objC)
+  })
+
+  it('merges nested objects', () => {
+    const objA = { a: 1, b: { c: { d: 3 } } }
+    const objB = { b: { x: 0, c: { d: 9, e: 5 } }, f: 6 }
+    const objC = { a: 1, b: { x: 0, c: { d: 9, e: 5 } }, f: 6 }
+
+    expect(deepMergeObjects(objA, objB)).toEqual(objC)
+  })
+})
 
 describe('getExtent', () => {
   it('loads expected extent', () => {

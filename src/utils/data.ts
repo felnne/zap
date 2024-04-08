@@ -21,6 +21,28 @@ import ProjectionsData from '@/data/projections.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
 
+function _isObject(item: any) {
+  /* Check if an item is an object */
+  return item && typeof item === 'object' && !Array.isArray(item)
+}
+
+export const deepMergeObjects = (source: any, target: any) => {
+  /* Merge the first object into a clone of the second recursively, returning the new object. */
+  const output = JSON.parse(JSON.stringify(source))
+
+  if (_isObject(target) && _isObject(source)) {
+    Object.keys(target).forEach((key) => {
+      if (_isObject(target[key])) {
+        if (!(key in source)) Object.assign(output, { [key]: target[key] })
+        else output[key] = deepMergeObjects(source[key], target[key])
+      } else {
+        Object.assign(output, { [key]: target[key] })
+      }
+    })
+  }
+  return output
+}
+
 export const getExtent = (slug: string): WellKnownExtent => {
   /* Get information for a specific well known extent */
   return (extentsData.geographic as Record<string, WellKnownExtent>)[slug]

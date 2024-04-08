@@ -17,7 +17,7 @@
       "state": "complete"
     },
     { "label": "Resource type section.", "state": "complete" },
-    { "label": "(Published) date section.", "state": "complete" },
+    { "label": "(Publication) date section.", "state": "complete" },
     { "label": "Additional dates.", "state": "todo" },
     { "label": "Edition section.", "state": "complete" },
     { "label": "Include WMTS, WFS and Esri in services section.", "state": "todo" },
@@ -37,6 +37,14 @@
     { "label": "Preserving input values (like GitLab editor).", "state": "todo" },
     { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },
     { "label": "User feedback.", "state": "complete" },
+    {
+      "label": "Different colour for mandatory sections (based on ISO requirements)",
+      "state": "todo"
+    },
+    { "label": "Current record validation (simulated)", "state": "todo" },
+    { "label": "Current record validation (real)", "state": "todo" },
+    { "label": "Link to invalid sections", "state": "todo" },
+    { "label": "Show validation status for each section", "state": "todo" },
     { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
     { "label": "Support for files on the SAN.", "state": "todo" },

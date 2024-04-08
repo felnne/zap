@@ -1,43 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
 import { validateRecordText } from '@/utils/validation'
+import { minimalRecordAsText } from '@/utils/__tests__/_validation_data'
 
 describe('validateRecordText', () => {
-  it('returns empty error list with valid data', () => {
-    const record = {
-      $schema:
-        'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
-      hierarchy_level: 'dataset',
-      metadata: {
-        language: 'eng',
-        character_set: 'utf-8',
-        contacts: [{ organisation: { name: 'UK Polar Data Centre' }, role: ['pointOfContact'] }],
-        date_stamp: '2018-10-18',
-      },
-      identification: {
-        title: { value: 'Test Record' },
-        dates: { creation: '2018' },
-        abstract:
-          'Test Record for ISO 19115 metadata standard (no profile) with required properties only.',
-        character_set: 'utf-8',
-        language: 'eng',
-        topics: ['environment', 'climatologyMeteorologyAtmosphere'],
-        extents: [
-          {
-            identifier: 'bounding',
-            geographic: {
-              bounding_box: {
-                west_longitude: -45.61521,
-                east_longitude: -27.04976,
-                south_latitude: -68.1511,
-                north_latitude: -54.30761,
-              },
-            },
-          },
-        ],
-      },
-    }
-    const input = JSON.stringify(record)
+  it('returns empty error list with minimal valid data', () => {
+    const input = minimalRecordAsText()
 
     expect(validateRecordText(input)).toHaveLength(0)
   })
@@ -46,5 +14,49 @@ describe('validateRecordText', () => {
     const input = ''
 
     expect(() => validateRecordText(input)).toThrow('Cannot parse input as JSON.')
+  })
+
+  it('returns error list with minimal invalid data (invalid hierarchy_level value)', () => {
+    const input = minimalRecordAsText().replace('dataset', 'invalid')
+
+    const expectedError = {
+      instancePath: '/hierarchy_level',
+      schemaPath: '#/definitions/hierarchy_level/enum',
+      keyword: 'enum',
+      params: {
+        allowedValues: [
+          'aggregate',
+          'application',
+          'attribute',
+          'attributeType',
+          'collection',
+          'collectionHardware',
+          'collectionSession',
+          'dataset',
+          'dimensionGroup',
+          'document',
+          'feature',
+          'featureType',
+          'fieldSession',
+          'initiative',
+          'metadata',
+          'model',
+          'nonGeographicDataset',
+          'product',
+          'propertyType',
+          'repository',
+          'sample',
+          'series',
+          'service',
+          'software',
+          'tile',
+        ],
+      },
+      message: 'must be equal to one of the allowed values',
+    }
+
+    const errors = validateRecordText(input)
+    expect(errors).toHaveLength(1)
+    expect(errors[0]).toEqual(expectedError)
   })
 })

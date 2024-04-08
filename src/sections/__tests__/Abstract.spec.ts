@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import Title from '@/sections/Title.vue'
+import Abstract from '@/sections/Abstract.vue'
 
-describe('Title', () => {
+describe('Abstract', () => {
   let tocItemsDiv: HTMLDivElement
 
   beforeEach(() => {
@@ -15,9 +15,9 @@ describe('Title', () => {
   })
 
   it('emits value when updated', async () => {
-    const expectedUpdated = 'Title'
+    const expectedUpdated = 'Abstract'
 
-    const wrapper = mount(Title, {
+    const wrapper = mount(Abstract, {
       global: {
         directives: {
           clipboard: Clipboard,
@@ -31,16 +31,10 @@ describe('Title', () => {
 
     await wrapper.vm.$nextTick()
 
-    const emittedTitle: unknown[][] | undefined = wrapper.emitted('update:title')
-    expect(emittedTitle).toBeTruthy()
-    if (emittedTitle) {
-      expect(emittedTitle[0][0]).toEqual(expectedUpdated)
-    }
-
-    const emittedIsoValueTitle: unknown[][] | undefined = wrapper.emitted('update:title')
-    expect(emittedIsoValueTitle).toBeTruthy()
-    if (emittedIsoValueTitle) {
-      expect(emittedIsoValueTitle[0][0]).toEqual(expectedUpdated)
+    const emittedIsoAbstract: unknown[][] | undefined = wrapper.emitted('update:isoAbstract')
+    expect(emittedIsoAbstract).toBeTruthy()
+    if (emittedIsoAbstract) {
+      expect(emittedIsoAbstract[0][0]).toEqual(expectedUpdated)
     }
   })
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref } from 'vue'
+import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { Stability } from '@/types/enum'
 import { getKeywordSet } from '@/utils/data'
@@ -12,6 +12,10 @@ import SectionTitle from '@/components/SectionTitle.vue'
 import Output from '@/components/Output.vue'
 import FormLabel from '@/components/FormLabel.vue'
 import TwoColumn from '@/components/TwoColumn.vue'
+
+const emit = defineEmits<{
+  'update:isoTopics': [id: string[]]
+}>()
 
 const keywordSetSlug = 'bas_research_topics'
 const keywordSet = getKeywordSet(keywordSetSlug)
@@ -29,6 +33,13 @@ let keywords: ComputedRef<KeywordSet[]> = computed(() => {
 let isoTopics: ComputedRef<string[]> = computed(() => {
   return getUniqueTopics(selectedTerms.value.flatMap((term) => term.isoTopics))
 })
+
+watch(
+  () => isoTopics.value,
+  () => {
+    emit('update:isoTopics', isoTopics.value)
+  }
+)
 </script>
 
 <template>

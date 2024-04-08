@@ -6,7 +6,7 @@ export type Address = {
   country: string
 }
 
-type Constraint = {
+export type Constraint = {
   type: string
   restriction_code: string
   statement?: string
@@ -17,13 +17,16 @@ export type Dates = {
   [key: string]: string
 }
 
+export type Distribution = DistributionOption[]
+
 export type DistributionOption = {
   format?: Format
   transfer_option: TransferOption
   distributor: Distributor
 }
 
-type Extent = {
+export type Extent = {
+  identifier: string
   geographic: GeographicExtent
 }
 
@@ -33,7 +36,7 @@ export type Format = {
   version?: string
 }
 
-type GeographicExtent = {
+export type GeographicExtent = {
   bounding_box: {
     west_longitude: number
     east_longitude: number
@@ -42,7 +45,17 @@ type GeographicExtent = {
   }
 }
 
-type Identifier = {
+export type Identification = {
+  title: Title
+  dates: Dates
+  abstract: string
+  language: string
+  character_set: string
+  topics: string[]
+  extents: Extent[]
+}
+
+export type Identifier = {
   identifier: string
   href: string
   namespace: string
@@ -75,6 +88,13 @@ export type KeywordThesaurus = {
   contact?: PointOfContact
 }
 
+export type Metadata = {
+  language: string
+  character_set: string
+  contacts: PointOfContact[]
+  date_stamp: string
+}
+
 export type OnlineResource = {
   href: string
   title: string
@@ -91,11 +111,21 @@ export type Organisation = {
 export type PointOfContact = {
   individual?: Individual
   organisation: Organisation
-  email: string
+  email?: string
   phone?: string
   address?: Address
-  online_resource: OnlineResource
+  online_resource?: OnlineResource
   role: string[]
+}
+
+export type Record = {
+  $schema: string
+  file_identifier?: string
+  hierarchy_level: string
+  metadata: Metadata
+  reference_system_info?: ReferenceSystemInfo
+  identification: Identification
+  distribution?: Distribution
 }
 
 export type ReferenceSystemInfo = {
@@ -107,6 +137,10 @@ export type ReferenceSystemInfo = {
 export type Size = {
   unit: string
   magnitude: number
+}
+
+export type Title = {
+  value: string
 }
 
 export type TransferOption = {

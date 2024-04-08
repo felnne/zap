@@ -16,6 +16,10 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  inputId: {
+    type: String,
+    required: false,
+  },
   inputClass: {
     type: String,
     required: false,
@@ -67,7 +71,12 @@ watch(
         <SectionLabel
           >Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel
         >
-        <FormTextarea class="w-full flex-grow" :class="inputClass" v-model="text"></FormTextarea>
+        <FormTextarea
+          :id="inputId"
+          class="w-full flex-grow"
+          :class="inputClass"
+          v-model="text"
+        ></FormTextarea>
       </template>
       <template v-slot:right>
         <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>

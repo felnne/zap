@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, nextTick, ref, watch } from 'vue'
+import { computed, type ComputedRef, nextTick, onMounted, ref, watch } from 'vue'
 
 import { Stability } from '@/types/enum'
 import { getExtents, getExtent, getProjection } from '@/utils/data'
@@ -15,13 +15,18 @@ import TwoColumn from '@/components/TwoColumn.vue'
 import GeographicExtentMap from '@/sections/GeographicExtentMap.vue'
 import GeographicExtentGlobe from '@/sections/GeographicExtentGlobe.vue'
 
-const props = defineProps({
+defineProps({
   esriToken: {
     type: Object as () => EsriToken,
     required: false,
   },
 })
 
+const emit = defineEmits<{
+  'update:isoExtent': [id: Extent]
+}>()
+
+const extentIdentifier = 'bounding'
 const wellKnownExtents = getExtents()
 
 let selectedWkeSlug = ref<string>(wellKnownExtents[0].slug)
@@ -32,11 +37,15 @@ let wellKnownExtent: ComputedRef<WellKnownExtent> = computed(() => {
 })
 
 let extent: ComputedRef<Extent> = computed(() => {
-  return createExtent(wellKnownExtent.value)
+  return createExtent(wellKnownExtent.value, extentIdentifier)
 })
 
 let projection: ComputedRef<ReferenceSystemInfo> = computed(() => {
   return createProjection(getProjection(wellKnownExtent.value.projectionSlug))
+})
+
+onMounted(() => {
+  emit('update:isoExtent', extent.value)
 })
 
 watch(wellKnownExtent, async () => {
@@ -44,6 +53,10 @@ watch(wellKnownExtent, async () => {
   renderMaps.value = false
   await nextTick()
   renderMaps.value = true
+})
+
+watch(extent, () => {
+  emit('update:isoExtent', extent.value)
 })
 </script>
 
