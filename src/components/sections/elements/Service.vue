@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import { computed, type ComputedRef, ref, watch } from 'vue'
+
+import { getOrganisation, getService } from '@/lib/data'
+import { createServiceDistributionOption } from '@/lib/distribution'
+import type { DistributionOption } from '@/types/iso'
+
+import Output from '@/components/bases/Output.vue'
+import FormLabel from '@/components/bases/FormLabel.vue'
+import FormInput from '@/components/bases/FormInput.vue'
+import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
+
+const props = defineProps({
+  slug: {
+    type: String,
+    required: true,
+  },
+})
+
+const emit = defineEmits<{
+  'update:selected': [id: boolean]
+  'update:isoDistributionOption': [id: DistributionOption]
+}>()
+
+const service = getService(props.slug)
+const orgMagic = getOrganisation('bas_magic')
+
+let selected = ref<boolean>(false)
+let endpoint = ref<string>('')
+
+let distributionOption: ComputedRef<DistributionOption> = computed(() => {
+  return createServiceDistributionOption(service, endpoint.value, orgMagic)
+})
+
+watch(
+  () => selected.value,
+  () => {
+    emit('update:selected', selected.value)
+  }
+)
+
+watch(
+  () => distributionOption.value,
+  () => {
+    emit('update:isoDistributionOption', distributionOption.value)
+  }
+)
+</script>
+
+<template>
+  <SubSectionBorder class="space-y-2">
+    <form class="flex space-x-4">
+      <FormLabel>
+        <input
+          type="checkbox"
+          name="services"
+          :id="'service-' + service.slug + '-selection'"
+          v-model="selected"
+        />
+        {{ service.name }}
+      </FormLabel>
+      <div class="flex flex-grow space-x-2">
+        <FormLabel :for="'service-' + service.slug + '-endpoint'" class="text-neutral-500"
+          >Endpoint</FormLabel
+        >
+        <FormInput
+          type="url"
+          :name="'service-' + service.slug + '-endpoint'"
+          :id="'service-' + service.slug + '-endpoint'"
+          :disabled="!selected"
+          v-model="endpoint"
+        />
+      </div>
+    </form>
+    <Output v-show="selected" :data="distributionOption"></Output>
+  </SubSectionBorder>
+</template>
+@/lib/data@/lib/distribution
