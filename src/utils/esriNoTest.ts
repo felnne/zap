@@ -40,9 +40,10 @@ export const initExtentMap = (container: string, extent: WellKnownExtent) => {
       components: ['attribution'],
     },
   })
-
-  view.graphics.add(extentGraphic)
-  view.goTo(extentGraphic)
+  view.when(() => {
+    console.log('view ready')
+    view.graphics.add(extentGraphic)
+  })
 }
 
 export const initExtentGlobe = (
