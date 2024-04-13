@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, type ComputedRef, ref } from 'vue'
 
 import { getAppEnvironment } from '@/utils/env'
 import { showSection } from '@/utils/control'
@@ -12,10 +12,13 @@ import type {
   Record,
 } from '@/types/app'
 import type {
+  Constraint as IsoConstraint,
   Dates as IsoDates,
+  DistributionOption as IsoDistributionOption,
   Extent as IsoExtent,
   Identifier,
-  PointOfContact as Contact,
+  KeywordSet as IsoKeywordSet,
+  PointOfContact as IsoContact,
   Record as IsoRecord,
 } from '@/types/iso'
 
@@ -71,7 +74,29 @@ const record = ref<Record>({
   },
 })
 
-const isoRecord = ref<IsoRecord>({
+const accessConstraint = ref<IsoConstraint | null>(null)
+const licenceConstraint = ref<IsoConstraint | null>(null)
+let constraints: ComputedRef<IsoConstraint[]> = computed(() => {
+  // property needed because constraints are null on init
+  const _: IsoConstraint[] = []
+
+  if (accessConstraint.value) {
+    _.push(accessConstraint.value)
+  }
+  if (licenceConstraint.value) {
+    _.push(licenceConstraint.value)
+  }
+
+  return _
+})
+
+const distributionOptionsDownloads = ref<IsoDistributionOption[]>([])
+const distributionOptionsServices = ref<IsoDistributionOption[]>([])
+let distributionOptions: ComputedRef<IsoDistributionOption[]> = computed(() => {
+  return [...distributionOptionsDownloads.value, ...distributionOptionsServices.value]
+})
+
+const minimalIsoRecord: IsoRecord = {
   $schema:
     'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
   hierarchy_level: '',
@@ -101,11 +126,22 @@ const isoRecord = ref<IsoRecord>({
     topics: [],
     extents: [],
   },
+}
+const isoRecord = ref<IsoRecord>(minimalIsoRecord)
+let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
+  // merge isoRecord and constraints at 'isoRecord.identification.constraints'
+  // merge isoRecord and distribution at 'isoRecord.distribution'
+  return {
+    ...isoRecord.value,
+    identification: {
+      ...isoRecord.value.identification,
+      constraints: constraints.value,
+    },
+    distribution: distributionOptions.value,
+  }
 })
 
-function show(section: string): boolean {
-  return showSection(section, record.value.resourceType)
-}
+const show = (section: string): boolean => showSection(section, record.value.resourceType)
 </script>
 
 <template>
@@ -116,7 +152,10 @@ function show(section: string): boolean {
       <Prologue />
       <ExternalServices @update:esriToken="(event: EsriToken) => (esriToken = event)" />
       <TableOfContents />
-      <FileIdentifier @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)" />
+      <FileIdentifier
+        @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)"
+        @update:isoFileIdentifier="(event: string) => (isoRecord.file_identifier = event)"
+      />
       <ResourceType
         @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"
         @update:isoHierarchyLevel="(event: string) => (isoRecord.hierarchy_level = event)"
@@ -126,8 +165,14 @@ function show(section: string): boolean {
         :resource-type="record.resourceType"
         :licence="record.licence"
         @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
+        @update:isoIdentifiers="
+          (event: Identifier[]) => (isoRecord.identification.identifiers = event)
+        "
       />
-      <Edition @update:edition="(event: string) => (record.edition = event)" />
+      <Edition
+        @update:edition="(event: string) => (record.edition = event)"
+        @update:isoEdition="(event: string) => (isoRecord.identification.edition = event)"
+      />
       <Title
         @update:title="(event: string) => (record.title = event)"
         @update:isoTitleValue="(event: string) => (isoRecord.identification.title.value = event)"
@@ -145,32 +190,55 @@ function show(section: string): boolean {
       />
       <Contacts
         v-if="show('contacts')"
-        @update:contacts="(event: Contact[]) => (record.contacts = event)"
+        @update:contacts="(event: IsoContact[]) => (record.contacts = event)"
+        @update:iso-contacts="(event: IsoContact[]) => (isoRecord.identification.contacts = event)"
       />
       <Access
         v-if="show('access')"
         @update:access="(event: AccessRestriction) => (record.accessRestriction = event)"
+        @update:isoAccess="(event: IsoConstraint) => (accessConstraint = event)"
       />
       <Licence
         v-if="show('licence')"
         :access-restriction="record.accessRestriction"
         @update:licence="(event: LicenceT) => (record.licence = event)"
+        @update:isoLicence="(event: IsoConstraint) => (licenceConstraint = event)"
       />
       <ResearchTopics
         v-if="show('researchTopics')"
+        @update:isoKeywords="
+          (event: IsoKeywordSet[]) => (isoRecord.identification.keywords = event)
+        "
         @update:isoTopics="(event: string[]) => (isoRecord.identification.topics = event)"
       />
-      <Citation v-if="show('citation')" :record="record" />
+      <Citation
+        v-if="show('citation')"
+        :record="record"
+        @update:isoOtherCitationDetails="
+          (event: string) => (isoRecord.identification.other_citation_details = event)
+        "
+      />
       <Downloads
         v-if="show('downloads')"
         :file-identifier="record.fileIdentifier"
         :resource-type="record.resourceType"
         :licence="record.licence"
+        @update:isoDistOptionsDownloads="
+          (event: IsoDistributionOption[]) => (distributionOptionsDownloads = event)
+        "
       />
-      <Services v-if="show('services')" />
-      <Lineage v-if="show('lineage')" />
+      <Services
+        v-if="show('services')"
+        @update:isoDistOptionsServices="
+          (event: IsoDistributionOption[]) => (distributionOptionsServices = event)
+        "
+      />
+      <Lineage
+        v-if="show('lineage')"
+        @update:iso-lineage="(event: string) => (isoRecord.identification.lineage = event)"
+      />
       <Resources />
-      <RecordValidation :output-record="isoRecord" />
+      <RecordValidation :current-record="isoRecordMerged" />
       <Ideas />
       <Epilogue :app-env="getAppEnvironment()" />
     </div>

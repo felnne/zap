@@ -63,7 +63,7 @@ watch(extent, () => {
 <template>
   <SectionBorder>
     <SectionTitle
-      version="3.0"
+      version="4.0"
       :stability="Stability.Experimental"
       anchor="spatial-extent"
       title="Spatial extent"

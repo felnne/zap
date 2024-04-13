@@ -13,6 +13,7 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
   'update:contacts': [id: Contact[]]
+  'update:isoContacts': [id: Contact[]]
 }>()
 
 const individuals = getIndividuals()
@@ -31,13 +32,14 @@ watch(
   () => contacts.value,
   () => {
     emit('update:contacts', contacts.value)
+    emit('update:isoContacts', contacts.value)
   }
 )
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.2" anchor="contacts" title="Contacts" sub-title="Authors" />
+    <SectionTitle version="2.3" anchor="contacts" title="Contacts" sub-title="Authors" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">

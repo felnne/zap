@@ -22,7 +22,7 @@ export type Distribution = DistributionOption[]
 export type DistributionOption = {
   format?: Format
   transfer_option: TransferOption
-  distributor: Distributor
+  distributor: PointOfContact
 }
 
 export type Extent = {
@@ -47,12 +47,19 @@ export type GeographicExtent = {
 
 export type Identification = {
   title: Title
-  dates: Dates
   abstract: string
+  dates: Dates
+  edition?: string
+  other_citation_details?: string
+  identifiers?: Identifier[]
+  contacts?: PointOfContact[]
+  keywords?: KeywordSet[]
+  constraints?: Constraint[]
   language: string
   character_set: string
   topics: string[]
   extents: Extent[]
+  lineage?: string
 }
 
 export type Identifier = {

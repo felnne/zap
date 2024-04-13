@@ -15,16 +15,20 @@ import AccessNerc from '@/sections/AccessNerc.vue'
 
 const emit = defineEmits<{
   'update:access': [id: AccessRestriction]
+  'update:isoAccess': [id: Constraint]
 }>()
 
+const nullRestriction: AccessRestriction = {
+  slug: '-',
+  restriction: '-',
+  label: '-',
+  permissions: [],
+}
+
 let selectedSlug = ref<string>('anonymous')
-let accessRestriction = ref<AccessRestriction | null>(null)
+let accessRestriction = ref<AccessRestriction>(nullRestriction)
 
 let accessConstraint: ComputedRef<Constraint> = computed(() => {
-  if (accessRestriction.value == null) {
-    return { type: 'access', restriction_code: '' }
-  }
-
   return createAccessConstraint(accessRestriction.value)
 })
 
@@ -37,12 +41,18 @@ let accessPermissionsDecoded: ComputedRef<AccessPermission[]> = computed(() => {
 
 watch(
   () => accessRestriction.value,
-  () => {
-    if (accessRestriction.value == null) {
+  (newValue, oldValue) => {
+    if (newValue == nullRestriction) {
       return
     }
-    selectedSlug.value = accessRestriction.value.slug
-    emit('update:access', accessRestriction.value)
+    if (oldValue.slug === newValue.slug) {
+      // needed when testing as we inject an emit which the relevant access component will also then repeat
+      return
+    }
+
+    selectedSlug.value = newValue.slug
+    emit('update:access', newValue)
+    emit('update:isoAccess', accessConstraint.value)
   }
 )
 </script>
@@ -50,7 +60,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.0"
+      version="2.0"
       :stability="Stability.Stable"
       anchor="access"
       title="Access Restrictions"

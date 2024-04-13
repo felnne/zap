@@ -32,6 +32,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   'update:identifiers': [id: Identifier[]]
+  'update:isoIdentifiers': [id: Identifier[]]
 }>()
 
 const addIdentifier = (identifier: Identifier) => {
@@ -55,6 +56,7 @@ watch(
   () => identifiers.value,
   () => {
     emit('update:identifiers', identifiers.value)
+    emit('update:isoIdentifiers', identifiers.value)
   }
 )
 </script>
@@ -62,7 +64,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="5.0"
+      version="5.1"
       :stability="Stability.Stable"
       anchor="identifiers"
       title="Identifiers"
@@ -77,8 +79,8 @@ watch(
           <IdentifierDoi
             v-if="showDoi"
             :fileIdentifier="fileIdentifier"
-            @add:identifier="addIdentifier($event)"
-            @remove:identifier="removeIdentifier($event)"
+            @add:identifier="(event: Identifier) => addIdentifier(event)"
+            @remove:identifier="(event: Identifier) => removeIdentifier(event)"
           />
           <IdentifierEsri
             @add:identifier="(event: Identifier) => addIdentifier(event)"

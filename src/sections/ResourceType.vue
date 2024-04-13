@@ -33,7 +33,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="2.1"
+      version="2.2"
       :stability="Stability.Stable"
       anchor="resource-type"
       title="Resource Type"

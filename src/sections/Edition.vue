@@ -9,25 +9,28 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
   'update:edition': [id: string]
+  'update:isoEdition': [id: string]
 }>()
 
 const edition = ref<string>('1.0')
 
 onMounted(() => {
   emit('update:edition', edition.value)
+  emit('update:isoEdition', edition.value)
 })
 
 watch(
   () => edition.value,
   () => {
     emit('update:edition', edition.value)
+    emit('update:isoEdition', edition.value)
   }
 )
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="edition" title="Edition" />
+    <SectionTitle version="1.2" anchor="edition" title="Edition" />
     <TwoColumn>
       <template v-slot:left>
         <div>

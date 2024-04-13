@@ -28,14 +28,14 @@ enum State {
 }
 
 const useCurrentRecord = () => {
-  if (props.outputRecord == null) {
+  if (props.currentRecord == null) {
     return
   }
-  input.value = JSON.stringify(props.outputRecord, null, 2)
+  input.value = JSON.stringify(props.currentRecord, null, 2)
 }
 
 const props = defineProps({
-  outputRecord: {
+  currentRecord: {
     type: Object as () => IsoRecord,
     required: false,
   },
@@ -121,8 +121,6 @@ watch(
         <GuidanceText>
           Click to copy values from the sections above into the input below. If these values change
           you will need to click the button again.
-          <br />
-          Only minimal ISO properties (i.e. not downloads, etc.) are currently validated.
         </GuidanceText>
       </div>
       <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>

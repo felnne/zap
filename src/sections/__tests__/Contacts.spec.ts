@@ -79,7 +79,7 @@ describe('Contacts', () => {
     expect(wrapper.find('pre').text()).toContain(individualC.name)
   })
 
-  it('emits value when updated', async () => {
+  it('emits values when updated', async () => {
     const individualA: Individual = Object.values(individualsData.contacts)[0]
     const individualB: Individual = Object.values(individualsData.contacts)[1]
 
@@ -99,14 +99,23 @@ describe('Contacts', () => {
     if (emittedContacts[0]) {
       expect(emittedContacts[0][0][0]?.individual?.name).toEqual(individualA.name)
     }
+    const emittedIsoContacts = wrapper.emitted('update:isoContacts') as Contact[][][]
+    expect(emittedIsoContacts).toBeTruthy()
+    if (emittedIsoContacts[0]) {
+      expect(emittedIsoContacts[0][0][0]?.individual?.name).toEqual(individualA.name)
+    }
 
     // update selection, entirely replacing previous selection
     await wrapper.find(`input#individual-${individualB.slug}`).setValue()
     await wrapper.find(`input#individual-${individualA.slug}`).setValue(false)
     await wrapper.vm.$nextTick()
 
+    // index 2 because index 1 is both contacts selected
     if (emittedContacts[2]) {
       expect(emittedContacts[2][0][0]?.individual?.name).toEqual(individualB.name)
+    }
+    if (emittedIsoContacts[2]) {
+      expect(emittedIsoContacts[2][0][0]?.individual?.name).toEqual(individualB.name)
     }
   })
 

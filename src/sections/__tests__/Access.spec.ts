@@ -49,11 +49,19 @@ describe('Access', () => {
     if (emittedIdentifier) {
       expect(emittedIdentifier[0][0]).toEqual(expectedRestriction)
     }
+
+    const emittedIsoAccess: unknown[][] | undefined = wrapper.emitted('update:isoAccess')
+    expect(emittedIsoAccess).toBeTruthy()
+    if (emittedIsoAccess) {
+      expect(emittedIsoAccess[0][0]).toEqual(expectedConstraint)
+    }
   })
 
-  it('updates when access restriction changes', async () => {
-    const initialRestriction = expectedRestriction
-    const updatedRestriction: AccessRestriction = {
+  it('updates and emits when access restriction changes', async () => {
+    const expectedInitialRestriction = expectedRestriction
+    const expectedInitialConstraint = expectedConstraint
+
+    const expectedUpdatedRestriction: AccessRestriction = {
       slug: 'nerc',
       restriction: 'restricted',
       label: 'Closed Access (NERC)',
@@ -66,6 +74,7 @@ describe('Access', () => {
         },
       ],
     }
+    const expectedUpdatedConstraint = createAccessConstraint(expectedUpdatedRestriction)
 
     const wrapper = mount(Access, {
       global: {
@@ -75,21 +84,53 @@ describe('Access', () => {
       },
     })
 
-    // simulate event from child component representing initial selection
-    const initialComponent = wrapper.findComponent({ name: 'AccessAnonymous' })
-    await initialComponent.vm.$emit('update:accessRestriction', initialRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(initialRestriction.label)
+    // wait for initially selected restriction to be rendered
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('pre')[0].text()).toContain(expectedInitialRestriction.label)
+    const emittedAccess: unknown[][] | undefined = wrapper.emitted('update:access')
+    expect(emittedAccess).toBeTruthy()
+    if (emittedAccess) {
+      expect(emittedAccess[0][0]).toEqual(expectedInitialRestriction)
+    }
+    const emittedIsoAccess: unknown[][] | undefined = wrapper.emitted('update:isoAccess')
+    expect(emittedIsoAccess).toBeTruthy()
+    if (emittedIsoAccess) {
+      expect(emittedIsoAccess[0][0]).toEqual(expectedInitialConstraint)
+    }
 
     // simulate event from child component representing updated selection
     const updatedComponent = wrapper.findComponent({ name: 'AccessNerc' })
-    await updatedComponent.vm.$emit('update:accessRestriction', updatedRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(updatedRestriction.label)
+    await updatedComponent.vm.$emit('update:accessRestriction', expectedUpdatedRestriction)
 
-    // do again to ensure inputs can be reselected not just selected once
-    await initialComponent.vm.$emit('update:accessRestriction', initialRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(initialRestriction.label)
-    await updatedComponent.vm.$emit('update:accessRestriction', updatedRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(updatedRestriction.label)
+    expect(wrapper.findAll('pre')[0].text()).toContain(expectedUpdatedRestriction.label)
+    if (emittedAccess) {
+      expect(emittedAccess[1][0]).toEqual(expectedUpdatedRestriction)
+    }
+    if (emittedIsoAccess) {
+      expect(emittedIsoAccess[1][0]).toEqual(expectedUpdatedConstraint)
+    }
+
+    // flip back and forth some more to ensure inputs can be reselected not just selected once
+
+    const initialComponent = wrapper.findComponent({ name: 'AccessAnonymous' })
+    await initialComponent.vm.$emit('update:accessRestriction', expectedInitialRestriction)
+    expect(wrapper.findAll('pre')[0].text()).toContain(expectedInitialRestriction.label)
+    if (emittedAccess) {
+      expect(emittedAccess[2][0]).toEqual(expectedInitialRestriction)
+    }
+    if (emittedIsoAccess) {
+      expect(emittedIsoAccess[2][0]).toEqual(expectedInitialConstraint)
+    }
+
+    await updatedComponent.vm.$emit('update:accessRestriction', expectedUpdatedRestriction)
+    expect(wrapper.findAll('pre')[0].text()).toContain(expectedUpdatedRestriction.label)
+    if (emittedAccess) {
+      expect(emittedAccess[3][0]).toEqual(expectedUpdatedRestriction)
+    }
+    if (emittedIsoAccess) {
+      expect(emittedIsoAccess[3][0]).toEqual(expectedUpdatedConstraint)
+    }
   })
 
   afterEach(() => {

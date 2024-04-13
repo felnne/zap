@@ -5,9 +5,9 @@ export const createAccessConstraint = (restriction: AccessRestriction): Constrai
   /*
    * Create an ISO 19115 access constraint from an application restriction object
    *
-   * Application restriction objects are a superset of an ISO constraint, and need serialising within generic freetext
-   * properties these support. These serialised properties are bespoke to the BAS metadata ecosystem but are valid
-   * string values and will be ignored by other tools.
+   * Application restriction objects are a superset of an ISO constraint, and need serialising within the free text
+   * properties these support. These serialised properties are bespoke to the BAS metadata ecosystem but when
+   * serialised are valid (if unusual) string values and should be ignored by other tools.
    *
    * Serialised permissions are stored as a URL fragment to avoid being shown to users in other catalogues. Whilst this
    * fragment won't work, it is a valid url string.
