@@ -1,0 +1,44 @@
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
+import Clipboard from 'v-clipboard'
+import Lineage from '@/components/sections/elements/Lineage.vue'
+
+describe('Lineage', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
+  it('emits value when updated', async () => {
+    const expected = 'Lineage'
+
+    const wrapper = mount(Lineage, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    const inputElement = wrapper.find('textarea')
+    await inputElement.setValue(expected)
+    expect(inputElement.element.value).toBe(expected)
+
+    await wrapper.vm.$nextTick()
+
+    const emittedIsoLineage: unknown[][] | undefined = wrapper.emitted('update:isoLineage')
+    expect(emittedIsoLineage).toBeTruthy()
+    if (emittedIsoLineage) {
+      expect(emittedIsoLineage[0][0]).toEqual(expected)
+    }
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
+  })
+})
