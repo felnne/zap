@@ -9,10 +9,15 @@ export default defineConfig({
   base: './',
   plugins: [
     vue(),
-    sentryVitePlugin({
+    // conditionally enable the Sentry plugin based on the CI environment variable
+    ...(process.env.CI ? [
+      sentryVitePlugin({
       org: "antarctica",
-      project: "zap"
-    })
+      project: "zap",
+      telemetry: process.env.CI !== undefined,
+    })]:
+      []
+  ),
 ],
   resolve: {
     alias: {
