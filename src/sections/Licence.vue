@@ -23,6 +23,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   'update:licence': [id: Licence]
+  'update:isoLicence': [id: Constraint]
 }>()
 
 const refreshInitialLicence = () => {
@@ -49,9 +50,10 @@ let licenceConstraint: ComputedRef<Constraint> = computed(() => {
 })
 
 onMounted(() => {
-  // the initial licence is always the first in the data file, which may not relevant
+  // the initial licence is always the first in the data file, which may not be relevant
   refreshInitialLicence()
   emit('update:licence', selectedLicence.value)
+  emit('update:isoLicence', licenceConstraint.value)
 })
 
 watch(
@@ -65,13 +67,14 @@ watch(
   () => selectedLicence.value,
   () => {
     emit('update:licence', selectedLicence.value)
+    emit('update:isoLicence', licenceConstraint.value)
   }
 )
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="4.0" :stability="Stability.Stable" anchor="licence" title="Licence" />
+    <SectionTitle version="4.1" :stability="Stability.Stable" anchor="licence" title="Licence" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">

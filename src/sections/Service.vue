@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref } from 'vue'
+import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { getOrganisation, getService } from '@/utils/data'
 import { createServiceDistributionOption } from '@/utils/distribution'
@@ -17,6 +17,11 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  'update:selected': [id: boolean]
+  'update:isoDistributionOption': [id: DistributionOption]
+}>()
+
 const service = getService(props.slug)
 const orgMagic = getOrganisation('bas_magic')
 
@@ -26,6 +31,20 @@ let endpoint = ref<string>('')
 let distributionOption: ComputedRef<DistributionOption> = computed(() => {
   return createServiceDistributionOption(service, endpoint.value, orgMagic)
 })
+
+watch(
+  () => selected.value,
+  () => {
+    emit('update:selected', selected.value)
+  }
+)
+
+watch(
+  () => distributionOption.value,
+  () => {
+    emit('update:isoDistributionOption', distributionOption.value)
+  }
+)
 </script>
 
 <template>

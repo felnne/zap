@@ -33,6 +33,10 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  'update:isoDistributionOption': [id: DistributionOption]
+}>()
+
 const onFileChange = (e: Event) => {
   let files = (e.target as HTMLInputElement).files
   if (files) file.value = files[0]
@@ -95,6 +99,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
   if (value === false) {
     clearFile()
   }
+  emit('update:isoDistributionOption', value as DistributionOption)
 })
 </script>
 

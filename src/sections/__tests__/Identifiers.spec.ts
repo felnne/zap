@@ -46,6 +46,12 @@ describe('Identifiers', () => {
     if (emittedIdentifier) {
       expect(emittedIdentifier[0][0]).toEqual([expectedIdentifier])
     }
+
+    const emittedIsoIdentifier: unknown[][] | undefined = wrapper.emitted('update:isoIdentifiers')
+    expect(emittedIsoIdentifier).toBeTruthy()
+    if (emittedIsoIdentifier) {
+      expect(emittedIsoIdentifier[0][0]).toEqual([expectedIdentifier])
+    }
   })
 
   it('removes an identifier', async () => {

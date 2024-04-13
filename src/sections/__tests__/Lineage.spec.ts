@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import Abstract from '@/sections/Abstract.vue'
+import Lineage from '@/sections/Lineage.vue'
 
-describe('Abstract', () => {
+describe('Lineage', () => {
   let tocItemsDiv: HTMLDivElement
 
   beforeEach(() => {
@@ -15,9 +15,9 @@ describe('Abstract', () => {
   })
 
   it('emits value when updated', async () => {
-    const expected = 'Abstract'
+    const expected = 'Lineage'
 
-    const wrapper = mount(Abstract, {
+    const wrapper = mount(Lineage, {
       global: {
         directives: {
           clipboard: Clipboard,
@@ -31,10 +31,10 @@ describe('Abstract', () => {
 
     await wrapper.vm.$nextTick()
 
-    const emittedIsoAbstract: unknown[][] | undefined = wrapper.emitted('update:isoAbstract')
-    expect(emittedIsoAbstract).toBeTruthy()
-    if (emittedIsoAbstract) {
-      expect(emittedIsoAbstract[0][0]).toEqual(expected)
+    const emittedIsoLineage: unknown[][] | undefined = wrapper.emitted('update:isoLineage')
+    expect(emittedIsoLineage).toBeTruthy()
+    if (emittedIsoLineage) {
+      expect(emittedIsoLineage[0][0]).toEqual(expected)
     }
   })
 

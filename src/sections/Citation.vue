@@ -23,6 +23,10 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  'update:isoOtherCitationDetails': [id: string]
+}>()
+
 const getCitation = async () => {
   citation.value = await fetchFakeCitation(
     authors.value,
@@ -46,6 +50,7 @@ const citationProseClasses = ['prose-sm']
 
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
+let otherCitationDetails = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   /*
@@ -56,12 +61,12 @@ let identifier: ComputedRef<Identifier> = computed(() => {
    *
    * If neither of these identifiers are available, a null identifier if returned.
    */
-  const doiIdentifier = props.record.identifiers.find((i) => i.title === 'doi')
+  const doiIdentifier = props.record.identifiers.find((i) => i.namespace === 'doi')
   if (doiIdentifier) {
     return doiIdentifier
   }
 
-  const selfIdentifier = props.record.identifiers.find((i) => i.title === 'data.bas.ac.uk')
+  const selfIdentifier = props.record.identifiers.find((i) => i.namespace === 'data.bas.ac.uk')
   if (selfIdentifier) {
     return selfIdentifier
   }
@@ -118,11 +123,18 @@ watch(
     getCitation()
   }
 )
+
+watch(
+  () => otherCitationDetails.value,
+  () => {
+    emit('update:isoOtherCitationDetails', otherCitationDetails.value)
+  }
+)
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="3.0" anchor="citation" title="Citation" />
+    <SectionTitle version="4.0" anchor="citation" title="Citation" />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose
@@ -142,6 +154,11 @@ watch(
         >
       </div>
     </div>
-    <Markdown v-if="citation" :input="markdownInput" />
+    <Markdown
+      v-if="citation"
+      input-id="citation-input"
+      @update:input="(event: string) => (otherCitationDetails = event)"
+      :input="markdownInput"
+    />
   </SectionBorder>
 </template>

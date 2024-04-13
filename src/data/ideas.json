@@ -41,8 +41,8 @@
       "label": "Different colour for mandatory sections (based on ISO requirements)",
       "state": "todo"
     },
-    { "label": "Current record validation (simulated)", "state": "todo" },
-    { "label": "Current record validation (real)", "state": "todo" },
+    { "label": "Current record validation (minimal)", "state": "complete" },
+    { "label": "Current record validation (all supported)", "state": "complete" },
     { "label": "Link to invalid sections", "state": "todo" },
     { "label": "Show validation status for each section", "state": "todo" },
     { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },

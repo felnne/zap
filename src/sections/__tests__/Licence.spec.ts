@@ -3,8 +3,8 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import type { AccessRestriction } from '@/types/app'
-import type { Constraint } from '@/types/iso'
 import { getLicence } from '@/utils/data'
+import { createUsageConstraint } from '@/utils/constraints'
 import Licence from '@/sections/Licence.vue'
 
 const openAccessRestriction: AccessRestriction = {
@@ -33,12 +33,7 @@ describe('Licence', () => {
 
   it('renders and emits licence from open choice', async () => {
     const expectedLicence = getLicence('OGL_UK_3_0')
-    const expectedConstraint: Constraint = {
-      type: 'usage',
-      restriction_code: 'license',
-      statement: expectedLicence.statement,
-      href: expectedLicence.url,
-    }
+    const expectedConstraint = createUsageConstraint(expectedLicence)
 
     const wrapper = mount(Licence, {
       props: {
@@ -62,16 +57,17 @@ describe('Licence', () => {
     if (emittedLicence) {
       expect(emittedLicence[0][0]).toEqual(expectedLicence)
     }
+
+    const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
+    expect(emittedIsoLicence).toBeTruthy()
+    if (emittedIsoLicence) {
+      expect(emittedIsoLicence[0][0]).toEqual(expectedConstraint)
+    }
   })
 
   it('renders and emits licence from closed choice', async () => {
     const expectedLicence = getLicence('X_FAKE_CLOSED')
-    const expectedConstraint: Constraint = {
-      type: 'usage',
-      restriction_code: 'license',
-      statement: expectedLicence.statement,
-      href: expectedLicence.url,
-    }
+    const expectedConstraint = createUsageConstraint(expectedLicence)
 
     const wrapper = mount(Licence, {
       props: {
@@ -93,6 +89,12 @@ describe('Licence', () => {
     expect(emittedLicence).toBeTruthy()
     if (emittedLicence) {
       expect(emittedLicence[0][0]).toEqual(expectedLicence)
+    }
+
+    const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
+    expect(emittedIsoLicence).toBeTruthy()
+    if (emittedIsoLicence) {
+      expect(emittedIsoLicence[0][0]).toEqual(expectedConstraint)
     }
   })
 
@@ -126,6 +128,8 @@ describe('Licence', () => {
   it('updates licence from restriction', async () => {
     const expectedInitialLicence = getLicence('OGL_UK_3_0')
     const expectedUpdatedLicence = getLicence('X_FAKE_CLOSED')
+    const expectedInitialConstraint = createUsageConstraint(expectedInitialLicence)
+    const expectedUpdatedConstraint = createUsageConstraint(expectedUpdatedLicence)
 
     const wrapper = mount(Licence, {
       props: {
@@ -145,6 +149,11 @@ describe('Licence', () => {
     if (emittedLicence) {
       expect(emittedLicence[0][0]).toEqual(expectedInitialLicence)
     }
+    const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
+    expect(emittedIsoLicence).toBeTruthy()
+    if (emittedIsoLicence) {
+      expect(emittedIsoLicence[0][0]).toEqual(expectedInitialConstraint)
+    }
 
     // update prop to closed access restriction
     await wrapper.setProps({ accessRestriction: closedAccessRestriction })
@@ -152,6 +161,9 @@ describe('Licence', () => {
     expect(wrapper.find('pre').text()).toContain(expectedUpdatedLicence.url)
     if (emittedLicence) {
       expect(emittedLicence[1][0]).toEqual(expectedUpdatedLicence)
+    }
+    if (emittedIsoLicence) {
+      expect(emittedIsoLicence[1][0]).toEqual(expectedUpdatedConstraint)
     }
   })
 

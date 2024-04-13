@@ -45,6 +45,35 @@ describe('Citation', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
+  it('emits value when updated', async () => {
+    const expected = 'Citation'
+
+    const wrapper = mount(Citation, {
+      props: { record: record },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
+    await flushPromises()
+
+    // fill in input
+    wrapper.find('textarea#citation-input').setValue(expected)
+
+    await flushPromises()
+
+    const emittedIsoOtherCitationDetails: unknown[][] | undefined = wrapper.emitted(
+      'update:isoOtherCitationDetails'
+    )
+    expect(emittedIsoOtherCitationDetails).toBeTruthy()
+    if (emittedIsoOtherCitationDetails) {
+      expect(emittedIsoOtherCitationDetails[0][0]).toEqual(expected)
+    }
+  })
+
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
       props: { record: record },

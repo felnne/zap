@@ -15,6 +15,7 @@ import TwoColumn from '@/components/TwoColumn.vue'
 
 const emit = defineEmits<{
   'update:isoTopics': [id: string[]]
+  'update:isoKeywords': [id: KeywordSet[]]
 }>()
 
 const keywordSetSlug = 'bas_research_topics'
@@ -35,6 +36,12 @@ let isoTopics: ComputedRef<string[]> = computed(() => {
 })
 
 watch(
+  () => keywords.value,
+  () => {
+    emit('update:isoKeywords', keywords.value)
+  }
+)
+watch(
   () => isoTopics.value,
   () => {
     emit('update:isoTopics', isoTopics.value)
@@ -45,7 +52,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.0"
+      version="1.1"
       :stability="Stability.Stable"
       anchor="research-topics"
       title="BAS Research Topics"

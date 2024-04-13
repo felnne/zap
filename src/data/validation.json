@@ -158,7 +158,7 @@
               "title": "URL",
               "description": "URL identifying, or relating to, the constraint.",
               "type": "string",
-              "format": "uri"
+              "format": "uri-reference"
             },
             "permissions": false
           }

@@ -10,16 +10,18 @@ const uuid = uuidv4()
 
 const emit = defineEmits<{
   'update:fileIdentifier': [id: string]
+  'update:isoFileIdentifier': [id: string]
 }>()
 
 onMounted(() => {
   emit('update:fileIdentifier', uuid)
+  emit('update:isoFileIdentifier', uuid)
 })
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="file-identifier" title="File identifier" />
+    <SectionTitle version="1.2" anchor="file-identifier" title="File identifier" />
     <Output id="file-identifier-output" :data="uuid"></Output>
   </SectionBorder>
 </template>

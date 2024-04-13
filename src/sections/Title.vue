@@ -24,13 +24,13 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.1"
+      version="1.2"
       anchor="title"
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
     />
     <Markdown
-      input-id="title"
+      input-id="title-input"
       input-class="min-h-10"
       @update:input="(event: string) => (title = event)"
     />

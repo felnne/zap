@@ -56,14 +56,13 @@ watch(
   () => {
     emit('update:dates', dates.value)
     emit('update:isoDates', datesIso.value)
-    console.log(datesIso.value)
   }
 )
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="dates" title="Dates" sub-title="Publication date" />
+    <SectionTitle version="1.2" anchor="dates" title="Dates" sub-title="Publication date" />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">

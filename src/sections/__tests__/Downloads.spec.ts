@@ -3,7 +3,8 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import { getFormatExtensions, getLicence } from '@/utils/data'
+import type { DistributionOption } from '@/types/iso'
+import { deepMergeObjects, getFormatExtensions, getLicence } from '@/utils/data'
 import Downloads from '@/sections/Downloads.vue'
 
 const fileIdentifier = 'x'
@@ -108,6 +109,140 @@ describe('Downloads', () => {
 
     // expect button to be disabled
     expect(wrapper.find('button#add-download').attributes('disabled')).toBe('')
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
+  })
+})
+
+describe('Downloads [Integration]', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items'
+    document.body.appendChild(tocItemsDiv)
+  })
+
+  it('adds and emits a distributionOption', async () => {
+    // streamline building this when files are option from download distribution options
+    const expectedDistributionOption: DistributionOption = {
+      format: {
+        format: 'image/png',
+        href: 'https://www.iana.org/assignments/media-types/image/png',
+      },
+      transfer_option: {
+        online_resource: {
+          title: 'image',
+          description: 'Download image',
+          function: 'download',
+          href: 'https://example.com/image.png',
+        },
+      },
+      distributor: {
+        organisation: {
+          name: 'Example Corp',
+          href: 'https://ror.org/000000000',
+          title: 'ror',
+        },
+        role: ['distributor'],
+      },
+    }
+
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add download
+    await wrapper.find('button#add-download').trigger('click')
+
+    // simulate event from child component
+    const childComponent = wrapper.findComponent({ name: 'Download' })
+    await childComponent.vm.$emit('update:isoDistributionOption', expectedDistributionOption)
+
+    const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
+      'update:isoDistOptionsDownloads'
+    )
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption])
+    }
+  })
+
+  it('updates and emits an updated distributionOption', async () => {
+    // streamline building this when files are option from download distribution options
+    const expectedInitialDistributionOption: DistributionOption = {
+      format: {
+        format: 'image/png',
+        href: 'https://www.iana.org/assignments/media-types/image/png',
+      },
+      transfer_option: {
+        online_resource: {
+          title: 'image',
+          description: 'Download image',
+          function: 'download',
+          href: '',
+        },
+      },
+      distributor: {
+        organisation: {
+          name: 'Example Corp',
+          href: 'https://ror.org/000000000',
+          title: 'ror',
+        },
+        role: ['distributor'],
+      },
+    }
+    const expectedUpdatedDistributionOption: DistributionOption = deepMergeObjects(
+      { transfer_option: { online_resource: { href: 'https://example.com/image.png' } } },
+      expectedInitialDistributionOption
+    )
+
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add download
+    await wrapper.find('button#add-download').trigger('click')
+
+    // simulate event from child component
+    const childComponent = wrapper.findComponent({ name: 'Download' })
+    await childComponent.vm.$emit('update:isoDistributionOption', expectedInitialDistributionOption)
+
+    const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
+      'update:isoDistOptionsDownloads'
+    )
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedInitialDistributionOption])
+    }
+
+    // simulate event from child component again (after update)
+    await childComponent.vm.$emit('update:isoDistributionOption', expectedUpdatedDistributionOption)
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([expectedUpdatedDistributionOption])
+    }
   })
 
   afterEach(() => {

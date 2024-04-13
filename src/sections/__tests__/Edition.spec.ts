@@ -14,7 +14,7 @@ describe('Edition', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('emits value when mounted', async () => {
+  it('emits values when mounted', async () => {
     const expected = '1.0'
 
     const wrapper = mount(Edition, {
@@ -30,9 +30,15 @@ describe('Edition', () => {
     if (emittedEdition) {
       expect(emittedEdition[0][0]).toEqual(expected)
     }
+
+    const emittedIsoEdition: unknown[][] | undefined = wrapper.emitted('update:isoEdition')
+    expect(emittedIsoEdition).toBeTruthy()
+    if (emittedIsoEdition) {
+      expect(emittedIsoEdition[0][0]).toEqual(expected)
+    }
   })
 
-  it('emits value when updated', async () => {
+  it('emits values when updated', async () => {
     const expectedInitial = '1.0'
     const expectedUpdated = '2.0'
 
@@ -50,10 +56,15 @@ describe('Edition', () => {
     if (emittedEdition) {
       expect(emittedEdition[0][0]).toEqual(expectedInitial)
     }
+    const emittedIsoEdition: unknown[][] | undefined = wrapper.emitted('update:isoEdition')
+    expect(emittedIsoEdition).toBeTruthy()
+    if (emittedIsoEdition) {
+      expect(emittedIsoEdition[0][0]).toEqual(expectedInitial)
+    }
 
+    // update value
     const inputElement = wrapper.find('input')
     expect(inputElement.element.value).toBe(expectedInitial)
-
     await inputElement.setValue(expectedUpdated)
     expect(inputElement.element.value).toBe(expectedUpdated)
 
@@ -62,6 +73,9 @@ describe('Edition', () => {
     // updated value
     if (emittedEdition) {
       expect(emittedEdition[1][0]).toEqual(expectedUpdated)
+    }
+    if (emittedIsoEdition) {
+      expect(emittedIsoEdition[1][0]).toEqual(expectedUpdated)
     }
   })
 

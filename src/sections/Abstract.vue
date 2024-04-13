@@ -21,7 +21,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.0" anchor="abstract" title="Abstract" />
-    <Markdown input-id="abstract" @update:input="(event: string) => (abstract = event)" />
+    <SectionTitle version="1.1" anchor="abstract" title="Abstract" />
+    <Markdown input-id="abstract-input" @update:input="(event: string) => (abstract = event)" />
   </SectionBorder>
 </template>

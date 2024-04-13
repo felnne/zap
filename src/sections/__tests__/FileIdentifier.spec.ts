@@ -14,7 +14,7 @@ describe('FileIdentifier', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('emits value when mounted', async () => {
+  it('emits values when mounted', async () => {
     const uuidv4Regex =
       /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-4[0-9a-fA-F]{3}\b-[89abAB][0-9a-fA-F]{3}\b-[0-9a-fA-F]{12}\b$/
 
@@ -32,6 +32,17 @@ describe('FileIdentifier', () => {
       expect(typeof emittedFileIdentifier[0][0]).toBe('string')
       if (typeof emittedFileIdentifier[0][0] === 'string') {
         expect(uuidv4Regex.test(emittedFileIdentifier[0][0])).toBe(true)
+      }
+    }
+
+    const emittedIsoFileIdentifier: unknown[][] | undefined = wrapper.emitted(
+      'update:isoFileIdentifier'
+    )
+    expect(emittedIsoFileIdentifier).toBeTruthy()
+    if (emittedIsoFileIdentifier) {
+      expect(typeof emittedIsoFileIdentifier[0][0]).toBe('string')
+      if (typeof emittedIsoFileIdentifier[0][0] === 'string') {
+        expect(uuidv4Regex.test(emittedIsoFileIdentifier[0][0])).toBe(true)
       }
     }
   })
