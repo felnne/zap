@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { getAppEnvironment } from '@/lib/env'
 import type { EsriToken } from '@/types/app'
 import type { Record as IsoRecord } from '@/types/iso'
-import { emptyMinimalRecord } from '@/lib/record'
+import { emptyIsoRecord } from '@/lib/record'
 
 import AppTitle from '@/components/bases/AppTitle.vue'
 import BackToTop from '@/components/bases/BackToTop.vue'
@@ -18,7 +18,7 @@ import Resources from '@/components/sections/info/Resources.vue'
 import TableOfContents from '@/components/sections/info/TableOfContents.vue'
 
 const esriToken = ref<EsriToken | undefined>(undefined)
-const currentIsoRecord = ref<IsoRecord>(emptyMinimalRecord)
+const currentIsoRecord = ref<IsoRecord>(emptyIsoRecord)
 </script>
 
 <template>

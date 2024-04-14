@@ -1,13 +1,15 @@
 import { describe, it, expect } from 'vitest'
 
 import { validateRecordText } from '@/lib/validation'
-import { minimalRecordAsText } from '@/lib/__tests__/_validation_data'
+import { minimalRecordAsText, supportedRecordAsText } from '@/lib/__tests__/_validation_data'
 
 describe('validateRecordText', () => {
   it('returns empty error list with minimal valid data', () => {
-    const input = minimalRecordAsText()
+    expect(validateRecordText(minimalRecordAsText)).toHaveLength(0)
+  })
 
-    expect(validateRecordText(input)).toHaveLength(0)
+  it('returns empty error list with supported valid data', () => {
+    expect(validateRecordText(supportedRecordAsText)).toHaveLength(0)
   })
 
   it('raises error with empty string', () => {
@@ -16,8 +18,14 @@ describe('validateRecordText', () => {
     expect(() => validateRecordText(input)).toThrow('Cannot parse input as JSON.')
   })
 
+  it('raises error with erroneous string', () => {
+    const input = '//invalid//'
+
+    expect(() => validateRecordText(input)).toThrow('Cannot parse input as JSON.')
+  })
+
   it('returns error list with minimal invalid data (invalid hierarchy_level value)', () => {
-    const input = minimalRecordAsText().replace('dataset', 'invalid')
+    const input = minimalRecordAsText.replace('dataset', 'invalid')
 
     const expectedError = {
       instancePath: '/hierarchy_level',

@@ -1,5 +1,30 @@
-import type { Record as IsoRecord } from '@/types/iso'
-import { deepMergeObjects } from '@/lib/data'
+import type { Record as IsoRecord } from '../../types/iso'
+
+// Relative imports and duplicated code used to work around buggy Playwright `@/lib` path resolving.
+
+// duplicated from @/lib/data.ts
+function _isObject(item: any) {
+  /* Check if an item is an object */
+  return item && typeof item === 'object' && !Array.isArray(item)
+}
+
+// duplicated from @/lib/data.ts
+export const deepMergeObjects = (source: any, target: any) => {
+  /* Merge the first object into a clone of the second recursively, returning the new object. */
+  const output = JSON.parse(JSON.stringify(source))
+
+  if (_isObject(target) && _isObject(source)) {
+    Object.keys(target).forEach((key) => {
+      if (_isObject(target[key])) {
+        if (!(key in source)) Object.assign(output, { [key]: target[key] })
+        else output[key] = deepMergeObjects(source[key], target[key])
+      } else {
+        Object.assign(output, { [key]: target[key] })
+      }
+    })
+  }
+  return output
+}
 
 const minimalRecord: IsoRecord = {
   $schema:
@@ -44,7 +69,6 @@ const minimalRecord: IsoRecord = {
   },
 }
 
-// Note: this object is not yet suitable for validation, it needs a proper implementation in a follow-on topic.
 const supportedRecord: IsoRecord = deepMergeObjects(
   {
     file_identifier: '25585848-7b80-42f7-8d4a-069d7479c287',
@@ -197,7 +221,7 @@ const supportedRecord: IsoRecord = deepMergeObjects(
           },
         },
       ],
-      lineage: 'xxx',
+      lineage: { statement: 'xxx' },
     },
     distribution: [
       {
@@ -286,5 +310,5 @@ const supportedRecord: IsoRecord = deepMergeObjects(
   minimalRecord
 )
 
-export const minimalRecordAsText = (): string => JSON.stringify(minimalRecord)
-export const supportedRecordAsText = (): string => JSON.stringify(supportedRecord)
+export const minimalRecordAsText = JSON.stringify(minimalRecord, null, 2)
+export const supportedRecordAsText = JSON.stringify(supportedRecord, null, 2)

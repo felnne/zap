@@ -59,7 +59,7 @@ export type Identification = {
   character_set: string
   topics: string[]
   extents: Extent[]
-  lineage?: string
+  lineage?: Lineage
 }
 
 export type Identifier = {
@@ -93,6 +93,10 @@ export type KeywordThesaurus = {
   dates?: Record<string, string>
   edition: string
   contact?: PointOfContact
+}
+
+export type Lineage = {
+  statement: string
 }
 
 export type Metadata = {

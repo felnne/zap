@@ -30,10 +30,12 @@ describe('Lineage', () => {
 
     await wrapper.vm.$nextTick()
 
-    const emittedIsoLineage: unknown[][] | undefined = wrapper.emitted('update:isoLineage')
-    expect(emittedIsoLineage).toBeTruthy()
-    if (emittedIsoLineage) {
-      expect(emittedIsoLineage[0][0]).toEqual(expected)
+    const emittedIsoLineageStatement: unknown[][] | undefined = wrapper.emitted(
+      'update:isoLineageStatement'
+    )
+    expect(emittedIsoLineageStatement).toBeTruthy()
+    if (emittedIsoLineageStatement) {
+      expect(emittedIsoLineageStatement[0][0]).toEqual(expected)
     }
   })
 

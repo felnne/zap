@@ -20,7 +20,6 @@ const distributionOptions = ref<Record<string, DistributionOption>>({})
 watch(
   () => distributionOptions,
   () => {
-    console.log('head')
     emit('update:isoDistOptionsServices', Object.values(distributionOptions.value))
   },
   { deep: true }

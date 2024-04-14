@@ -7,6 +7,7 @@ import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
   DistributionOption as IsoDistributionOption,
+  Lineage as IsoLineage,
 } from '@/types/iso'
 import { getLicence, getOrganisation, getService } from '@/lib/data'
 import { createAccessConstraint, createUsageConstraint } from '@/lib/constraints'
@@ -29,7 +30,7 @@ describe('Record [Integration]', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('emits record when directly set section changes', async () => {
+  it('emits ISO record correctly when set section directly changes', async () => {
     const expectedAbstract = 'x'
 
     const wrapper = mount(Record, {
@@ -41,18 +42,20 @@ describe('Record [Integration]', () => {
     })
 
     // simulate event from a child component that sets its field directly in ISO record
-    const updatedComponent = wrapper.findComponent({ name: 'Abstract' })
-    await updatedComponent.vm.$emit('update:isoAbstract', expectedAbstract)
+    await wrapper
+      .findComponent({ name: 'Abstract' })
+      .vm.$emit('update:isoAbstract', expectedAbstract)
 
     const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
-      const emittedIsoRecordTyped = emittedIsoRecord[0][0] as IsoRecord
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
     }
   })
 
-  it('emits record when a section that forms aggregated constraints changes', async () => {
+  it('emits ISO record correctly when a section that forms aggregated constraints changes', async () => {
     const expectedAccessRestriction: AccessRestriction = {
       slug: 'anonymous',
       restriction: 'unrestricted',
@@ -74,18 +77,20 @@ describe('Record [Integration]', () => {
     })
 
     // simulate event from child component that sets its field as part of constraints computed property [Access]
-    const accessComponent = wrapper.findComponent({ name: 'Access' })
-    await accessComponent.vm.$emit('update:isoAccess', expectedAccessConstraint)
+    await wrapper
+      .findComponent({ name: 'Access' })
+      .vm.$emit('update:isoAccess', expectedAccessConstraint)
 
     // simulate event from child component that sets its field as part of constraints computed property [Licence]
-    const licenceComponent = wrapper.findComponent({ name: 'Licence' })
-    await licenceComponent.vm.$emit('update:isoLicence', expectedUsageConstraint)
+    await wrapper
+      .findComponent({ name: 'Licence' })
+      .vm.$emit('update:isoLicence', expectedUsageConstraint)
 
     const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
-      // skip to 3st index to wait for both properties to be included and initial emits from licence to be ignored
-      const emittedIsoRecordTyped = emittedIsoRecord[3][0] as IsoRecord
+      // skip to the last index to wait for both properties to be included and initial emits from licence to be ignored
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.constraints).toEqual([
         expectedAccessConstraint,
         expectedUsageConstraint,
@@ -93,7 +98,7 @@ describe('Record [Integration]', () => {
     }
   })
 
-  it('emits record when a section that forms aggregated distribution options changes', async () => {
+  it('emits ISO record correctly when a section that forms aggregated distribution options changes', async () => {
     // streamline building this when files are option from download distribution options
     const expectedDownloadsDistOptions: IsoDistributionOption[] = [
       {
@@ -137,25 +142,96 @@ describe('Record [Integration]', () => {
     })
 
     // simulate event from field that's part of distribution options computed property [Downloads]
-    const downloadsComponent = wrapper.findComponent({ name: 'Downloads' })
-    await downloadsComponent.vm.$emit(
-      'update:isoDistOptionsDownloads',
-      expectedDownloadsDistOptions
-    )
+    await wrapper
+      .findComponent({ name: 'Downloads' })
+      .vm.$emit('update:isoDistOptionsDownloads', expectedDownloadsDistOptions)
 
     // simulate event from field that's part of distribution options computed property [Services]
-    const servicesComponent = wrapper.findComponent({ name: 'Services' })
-    await servicesComponent.vm.$emit('update:isoDistOptionsServices', expectedServicesDistOptions)
+    await wrapper
+      .findComponent({ name: 'Services' })
+      .vm.$emit('update:isoDistOptionsServices', expectedServicesDistOptions)
 
     const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
-      // skip to 4th index to wait for both properties to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[4][0] as IsoRecord
+      // skip to the last index to wait for both properties to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       expect(emittedIsoRecordTyped.distribution).toEqual([
         ...expectedDownloadsDistOptions,
         ...expectedServicesDistOptions,
       ])
+    }
+  })
+
+  it('emits ISO record correctly when no sections that form aggregated distribution options set', async () => {
+    const wrapper = mount(Record, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from unrelated child component to trigger ISO record emit
+    await wrapper.findComponent({ name: 'Abstract' }).vm.$emit('update:isoAbstract', 'x')
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect not to have distribution key set
+      expect(emittedIsoRecordTyped.distribution).toBeUndefined()
+    }
+  })
+
+  it('emits ISO record correctly when a section that forms aggregated lineage changes', async () => {
+    // streamline building this when files are option from download distribution options
+    const expectedLineage: IsoLineage = {
+      statement: 'x',
+    }
+
+    const wrapper = mount(Record, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from field that's part of lineage computed property [Statement]
+    await wrapper
+      .findComponent({ name: 'Lineage' })
+      .vm.$emit('update:isoLineageStatement', expectedLineage.statement)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index is to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.lineage).toEqual(expectedLineage)
+    }
+  })
+
+  it('emits ISO record correctly when no sections that form aggregated lineage set', async () => {
+    const wrapper = mount(Record, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from unrelated child component to trigger ISO record emit
+    await wrapper.findComponent({ name: 'Abstract' }).vm.$emit('update:isoAbstract', 'x')
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect not to have lineage key set
+      expect(emittedIsoRecordTyped.identification.lineage).toBeUndefined()
     }
   })
 
