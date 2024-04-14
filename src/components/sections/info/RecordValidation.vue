@@ -87,11 +87,13 @@ watch(
       result = validateRecordText(input.value)
     } catch {
       state.value = State.Error
+      errors.value = []
       return
     }
 
     if (result.length === 0) {
       state.value = State.Valid
+      errors.value = []
     } else {
       state.value = State.Invalid
       errors.value = result
