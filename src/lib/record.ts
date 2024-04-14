@@ -1,6 +1,7 @@
 import { ResourceType } from '@/types/enum'
 import type { Record } from '@/types/app'
 import type { Record as IsoRecord } from '@/types/iso'
+import { createOrgSlugPointOfContact } from '@/lib/contacts'
 
 export const emptyRecord: Record = {
   fileIdentifier: '',
@@ -42,15 +43,7 @@ export const emptyIsoRecord: IsoRecord = {
     character_set: 'utf8', // required, hard-coded
     language: 'eng', // required, hard-coded
     contacts: [
-      // required, hard-coded
-      {
-        organisation: {
-          name: 'Mapping and Geographic Information Centre, British Antarctic Survey',
-          href: 'https://ror.org/01rhff309',
-          title: 'ror',
-        },
-        role: ['pointOfContact'],
-      },
+      createOrgSlugPointOfContact('bas_magic', 'pointOfContact'), // required, hard-coded
     ],
     date_stamp: new Date().toISOString().split('T')[0], // required, default/auto-generated value set
   },

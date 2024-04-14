@@ -2,28 +2,18 @@ import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Organisation, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
 import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/lib/data'
+import { createOrgPointOfContact } from '@/lib/contacts'
 
 export const createDistributor = (org: Organisation): Contact => {
   /*
    * Create an ISO 19115 Point of Contact from an application organisation object
    *
-   * The application organisation is a superset of an ISO point of contact and has more specific properties which are
-   * mapped to available ISO equivalents (e.g. the schema of the linked identifier is mapped to a generic 'title').
+   * Application organisation objects are supersets of an ISO Point of Contact with more specific properties which
+   * are mapped to generic ISO equivalents (e.g. the schema of the linked identifier is mapped to a generic 'title').
    *
-   * The role of the point of contact is (logically) always 'distributor' in this context.
+   * The role of the Point of Contact is (logically) always 'distributor' in this context.
    */
-  return {
-    organisation: {
-      name: org.name,
-      href: org.ror,
-      title: 'ror',
-    },
-    phone: org.phone,
-    address: org.address,
-    email: org.email!,
-    online_resource: org.online_resource,
-    role: ['distributor'],
-  }
+  return createOrgPointOfContact(org, 'distributor')
 }
 
 export const getDistributorOrgSlug = (
