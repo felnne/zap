@@ -2,6 +2,34 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2024-04-14
+
+### Added
+
+* ISO Record object (alongside existing App Record) to give a complete record for validation
+* record validation component expanded to validate all sections in current record
+* e2e tests for record validation
+* ID attribute support in markdown component/base
+
+### Fixed
+
+* invalid lineage structure (missing statement element)
+* invalid extent structure (missing 'bounding' identifier)
+* accessing ArcGIS view before ready in 2d extent map
+* various small eslint warnings
+
+### Changed
+
+* large scale refactoring, all sections emit ISO outputs for assembling into combined ISO Record object
+* large scale refactoring, renaming `utils` to `lib` better reflecting their purpose
+* large scale refactoring, sections moved under components, divided into _info_ and _element_
+* large scale refactoring, record sections split out of app component into new _Record_ composition component and lib
+* aligning methods used to create ISO points of contact (between record metadata, distributors and authors)
+* significant refactoring and aligning of data used for testing validation section
+* improved styles for validation status
+* NPM tasks updated to streamline running all linting tools locally
+* disabling Sentry plugin in local development
+
 ## [0.8.1] - 2024-04-01
 
 ### Changed
