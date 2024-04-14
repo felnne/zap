@@ -140,7 +140,12 @@ watch(
         <p>Alternatively, paste a record from elsewhere below to validate it.</p>
         <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>
       </div>
-      <div id="validation-message" v-if="state != State.Empty" class="border-l-4 border-solid pl-2 text-lg font-semibold" :class="validityClass">
+      <div
+        id="validation-message"
+        v-if="state != State.Empty"
+        class="border-l-4 border-solid pl-2 text-lg font-semibold"
+        :class="validityClass"
+      >
         {{ validityMessage }}
       </div>
       <Pre id="validation-errors" v-if="errors.length > 0">{{ errors }}</Pre>
