@@ -4,11 +4,13 @@ And amended for:
 
 - v0.6.0
 - v0.7.0
+- v0.9.0
 
 Focus:
 
 - [spacing](#spacing)
 - [font sizes](#font-size)
+- [font weights](#font-weights)
 - [colours]()
 
 ## Spacing
@@ -137,7 +139,13 @@ Remaining:
 - `border-2` used for subsections
 - `border-4` used for sections
 
-## Font size
+Additional [0.9.0]
+
+- `border-4` used for validation status (left only)
+
+## Font
+
+### Font size
 
 Remaining:
 
@@ -149,6 +157,22 @@ Remaining:
 Additional [0.6.0]:
 
 - `text-[8px]` used for section version/stability
+
+Additional [0.9.0]:
+
+- `text-lg` used for validation status
+
+### Font weight
+
+Previous:
+
+- `font-medium` used for buttons, idea labels
+- `font-semibold` used for app title, section title
+- `font-bold` used in prologue warning
+
+Additional [0.9.0]:
+
+- `font-semibold` used for validation status
 
 ## Colours
 

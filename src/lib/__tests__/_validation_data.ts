@@ -1,6 +1,7 @@
 import type { Record as IsoRecord } from '../../types/iso'
 
 // Relative imports and duplicated code used to work around buggy Playwright `@/lib` path resolving.
+// Therefore additional methods such as createAuthor are not used, leading to statically defined data.
 
 // duplicated from @/lib/data.ts
 function _isObject(item: any) {
@@ -26,7 +27,7 @@ export const deepMergeObjects = (source: any, target: any) => {
   return output
 }
 
-const minimalRecord: IsoRecord = {
+export const minimalRecord: IsoRecord = {
   $schema:
     'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
   hierarchy_level: 'dataset',
@@ -69,7 +70,7 @@ const minimalRecord: IsoRecord = {
   },
 }
 
-const supportedRecord: IsoRecord = deepMergeObjects(
+export const supportedRecord: IsoRecord = deepMergeObjects(
   {
     file_identifier: '25585848-7b80-42f7-8d4a-069d7479c287',
     identification: {
