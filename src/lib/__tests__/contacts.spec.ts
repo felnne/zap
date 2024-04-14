@@ -1,8 +1,39 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Licence } from '@/types/app'
 import { ResourceType } from '@/types/enum'
-import { createAuthor, getPublisherOrgSlug } from '@/lib/contacts'
+import type { Licence } from '@/types/app'
+import type { PointOfContact as IsoContact } from '@/types/iso'
+import { getOrganisation } from '@/lib/data'
+import {
+  createAuthor,
+  createOrgPointOfContact,
+  createOrgSlugPointOfContact,
+  getPublisherOrgSlug,
+} from '@/lib/contacts'
+
+const checkRole = 'pointOfContact'
+const checkContact: IsoContact = {
+  organisation: {
+    name: 'British Antarctic Survey',
+    href: 'https://ror.org/01rhff309',
+    title: 'ror',
+  },
+  address: {
+    delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+    city: 'Cambridge',
+    administrative_area: 'Cambridgeshire',
+    postal_code: 'CB3 0ET',
+    country: 'United Kingdom',
+  },
+  phone: '+44 (0)1223 221400',
+  online_resource: {
+    href: 'https://www.bas.ac.uk',
+    title: 'British Antarctic Survey - BAS public website',
+    description: 'Homepage for the British Antarctic Survey (BAS) public website.',
+    function: 'information',
+  },
+  role: [checkRole],
+}
 
 describe('createAuthor', () => {
   it('builds a contact', () => {
@@ -12,25 +43,8 @@ describe('createAuthor', () => {
       orcid: 'https://orcid.org/0000-0000-0000-0000',
       email: 'conwat@bas.ac.uk',
     }
-    const organisation = {
-      slug: 'bas',
-      name: 'British Antarctic Survey',
-      ror: 'https://ror.org/01rhff309',
-      phone: '+44 (0)1223 221400',
-      address: {
-        delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
-        city: 'Cambridge',
-        administrative_area: 'Cambridgeshire',
-        postal_code: 'CB3 0ET',
-        country: 'United Kingdom',
-      },
-      online_resource: {
-        href: 'https://www.bas.ac.uk',
-        title: 'British Antarctic Survey - BAS public website',
-        description: 'Homepage for the British Antarctic Survey (BAS) public website.',
-        function: 'information',
-      },
-    }
+    const organisation = getOrganisation('bas')
+
     const expectedContact = {
       individual: {
         name: individual.name,
@@ -56,6 +70,24 @@ describe('createAuthor', () => {
     }
 
     expect(createAuthor(individual, organisation)).toStrictEqual(expectedContact)
+  })
+})
+
+describe('createOrgSlugPointOfContact', () => {
+  it('builds a contact', () => {
+    const inputSlug = 'bas'
+    const inputRole = checkRole
+
+    expect(createOrgSlugPointOfContact(inputSlug, inputRole)).toStrictEqual(checkContact)
+  })
+})
+
+describe('createOrgPointOfContact', () => {
+  it('builds a contact', () => {
+    const inputOrg = getOrganisation('bas')
+    const inputRole = checkRole
+
+    expect(createOrgPointOfContact(inputOrg, inputRole)).toStrictEqual(checkContact)
   })
 })
 
