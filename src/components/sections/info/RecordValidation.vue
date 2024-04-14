@@ -27,10 +27,21 @@ enum State {
   Valid,
 }
 
+/*
+ * This component has 2 sources:
+ * 1. Current Record (record from prop)
+ * 2. Input (user input)
+ */
+enum Source {
+  CurrentRecord,
+  UserInput,
+}
+
 const useCurrentRecord = () => {
   if (props.currentRecord == null) {
     return
   }
+  source.value = Source.CurrentRecord
   input.value = JSON.stringify(props.currentRecord, null, 2)
 }
 
@@ -42,6 +53,7 @@ const props = defineProps({
 })
 
 let state = ref<State>(State.Empty)
+let source = ref<Source>(Source.UserInput)
 let errors = ref<DefinedError[]>([])
 let input = ref<string>('')
 
@@ -59,14 +71,14 @@ let validityMessage: ComputedRef<String> = computed(() => {
 })
 
 let validityClass: ComputedRef<String[]> = computed(() => {
-  const negativeClass = ['text-red-500']
+  const negativeClass = ['border-red-500', 'text-red-500']
 
   if (state.value == State.Error) {
     return negativeClass
   } else if (state.value == State.Invalid) {
     return negativeClass
   } else if (state.value == State.Valid) {
-    return ['text-green-500']
+    return ['border-green-500', 'text-green-500']
   } else {
     // State.Empty and catch-all
     return []
@@ -87,11 +99,13 @@ watch(
       result = validateRecordText(input.value)
     } catch {
       state.value = State.Error
+      errors.value = []
       return
     }
 
     if (result.length === 0) {
       state.value = State.Valid
+      errors.value = []
     } else {
       state.value = State.Invalid
       errors.value = result
@@ -109,22 +123,29 @@ watch(
       title="Record Validation"
       :add-toc="false"
     />
-    <div class="space-y-2">
-      <p>
-        Paste a record below to validate it. Alternatively, click the button below to validate the
-        current record.
-      </p>
-      <div class="flex items-center space-x-2">
-        <Button id="validation-use-current" @click="useCurrentRecord"
-          >Validate Current Record</Button
-        >
-        <GuidanceText>
-          Click to copy values from the sections above into the input below. If these values change
-          you will need to click the button again.
-        </GuidanceText>
+    <div class="space-y-4">
+      <div class="space-y-2">
+        <p>Click the button below to validate the current record</p>
+        <div class="flex items-center space-x-2">
+          <Button id="validation-use-current" @click="useCurrentRecord"
+            >Validate Current Record</Button
+          >
+          <GuidanceText
+            >Current values for each section will be validated. If values change click the button
+            again to revalidate.</GuidanceText
+          >
+        </div>
       </div>
-      <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>
-      <div id="validation-message" v-if="state != State.Empty" :class="validityClass">
+      <div class="space-y-2" v-if="source == Source.UserInput">
+        <p>Alternatively, paste a record from elsewhere below to validate it.</p>
+        <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>
+      </div>
+      <div
+        id="validation-message"
+        v-if="state != State.Empty"
+        class="border-l-4 border-solid pl-2 text-lg font-semibold"
+        :class="validityClass"
+      >
         {{ validityMessage }}
       </div>
       <Pre id="validation-errors" v-if="errors.length > 0">{{ errors }}</Pre>
