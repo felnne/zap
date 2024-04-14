@@ -16,11 +16,12 @@ import type {
   Extent as IsoExtent,
   Identifier,
   KeywordSet as IsoKeywordSet,
+  Lineage as IsoLineage,
   PointOfContact as IsoContact,
   Record as IsoRecord,
 } from '@/types/iso'
+import { emptyRecord, emptyIsoRecord } from '@/lib/record'
 import { showSection } from '@/lib/control'
-import { emptyMinimalRecord } from '@/lib/record'
 
 import Abstract from '@/components/sections/elements/Abstract.vue'
 import Access from '@/components/sections/elements/Access.vue'
@@ -49,28 +50,9 @@ const emit = defineEmits<{
   'update:isoRecord': [id: IsoRecord]
 }>()
 
-const record = ref<Record>({
-  fileIdentifier: '',
-  resourceType: ResourceTypeEM.Dataset,
-  identifiers: [],
-  edition: '',
-  title: '',
-  dates: [],
-  contacts: [],
-  accessRestriction: {
-    slug: 'unknown',
-    restriction: 'restricted',
-    label: 'Unknown',
-    permissions: [],
-  },
-  licence: {
-    slug: 'unknown',
-    name: 'Unknown',
-    url: '',
-    statement: '',
-    open: false,
-  },
-})
+const record = ref<Record>(emptyRecord)
+
+const isoRecord = ref<IsoRecord>(emptyIsoRecord)
 
 const accessConstraint = ref<IsoConstraint | null>(null)
 const licenceConstraint = ref<IsoConstraint | null>(null)
@@ -88,24 +70,57 @@ let constraints: ComputedRef<IsoConstraint[]> = computed(() => {
   return _
 })
 
+const lineageStatement = ref<string>('')
+let lineage: ComputedRef<IsoLineage | undefined> = computed(() => {
+  if (lineageStatement.value == '') {
+    return undefined
+  }
+
+  return {
+    statement: lineageStatement.value,
+  }
+})
+
 const distributionOptionsDownloads = ref<IsoDistributionOption[]>([])
 const distributionOptionsServices = ref<IsoDistributionOption[]>([])
 let distributionOptions: ComputedRef<IsoDistributionOption[]> = computed(() => {
   return [...distributionOptionsDownloads.value, ...distributionOptionsServices.value]
 })
 
-const isoRecord = ref<IsoRecord>(emptyMinimalRecord)
 let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
-  // merge isoRecord and constraints at 'isoRecord.identification.constraints'
-  // merge isoRecord and distribution at 'isoRecord.distribution'
-  return {
-    ...isoRecord.value,
-    identification: {
-      ...isoRecord.value.identification,
-      constraints: constraints.value,
-    },
-    distribution: distributionOptions.value,
+  let mergedRecord = isoRecord.value
+
+  // merge isoRecord and constraints at 'isoRecord.identification.constraints' if not empty
+  if (constraints.value.length > 0) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        constraints: constraints.value,
+      },
+    }
   }
+
+  // merge isoRecord and distribution at 'isoRecord.distribution' if not empty
+  if (distributionOptions.value.length > 0) {
+    mergedRecord = {
+      ...mergedRecord,
+      distribution: distributionOptions.value,
+    }
+  }
+
+  // merge isoRecord and lineage at 'isoRecord.identification.lineage' if not undefined
+  if (lineage.value) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        lineage: lineage.value,
+      },
+    }
+  }
+
+  return mergedRecord
 })
 
 const show = (section: string): boolean => showSection(section, record.value.resourceType)
@@ -120,7 +135,7 @@ watch(
 </script>
 
 <template>
-  <section>
+  <section class="space-y-4">
     <FileIdentifier
       @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)"
       @update:isoFileIdentifier="(event: string) => (isoRecord.file_identifier = event)"
@@ -202,7 +217,7 @@ watch(
     />
     <Lineage
       v-if="show('lineage')"
-      @update:iso-lineage="(event: string) => (isoRecord.identification.lineage = event)"
+      @update:iso-lineage-statement="(event: string) => (lineageStatement = event)"
     />
   </section>
 </template>

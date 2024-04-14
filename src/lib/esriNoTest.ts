@@ -41,7 +41,6 @@ export const initExtentMap = (container: string, extent: WellKnownExtent) => {
     },
   })
   view.when(() => {
-    console.log('view ready')
     view.graphics.add(extentGraphic)
   })
 }

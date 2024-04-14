@@ -6,22 +6,22 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
 
 const emit = defineEmits<{
-  'update:isoLineage': [id: string]
+  'update:isoLineageStatement': [id: string]
 }>()
 
-const lineage = ref<string>('')
+const statement = ref<string>('')
 
 watch(
-  () => lineage.value,
+  () => statement.value,
   () => {
-    emit('update:isoLineage', lineage.value)
+    emit('update:isoLineageStatement', statement.value)
   }
 )
 </script>
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.1" anchor="lineage" title="Lineage" />
-    <Markdown input-id="lineage-input" @update:input="(event: string) => (lineage = event)" />
+    <SectionTitle version="1.2" anchor="lineage" title="Lineage" />
+    <Markdown input-id="lineage-input" @update:input="(event: string) => (statement = event)" />
   </SectionBorder>
 </template>

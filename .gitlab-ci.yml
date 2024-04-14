@@ -45,7 +45,7 @@ lint:
   stage: 📋 lint
   needs: []
   script:
-    - npm run test:lint
+    - npm run test:eslint
     - npm run test:types
     - npm run test:format
   rules:
