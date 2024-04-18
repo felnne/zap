@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { ResourceType } from '@/types/enum'
+import { ResourceType, UploadStatus } from '@/types/enum'
 import type { Licence, Organisation } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getOrganisation } from '@/lib/data'
@@ -12,23 +12,7 @@ import Output from '@/components/bases/Output.vue'
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
-import Button from '@/components/bases/Button.vue'
-
-/*
- * This component has 4 states:
- * 1. Empty (input is blank, initial state)
- * 2. Pending (input is present, but not yet uploading)
- * 3. Uploading (input is present and transferring to server)
- * 4. Uploaded (input is present and has been uploaded)
- * 5. Error (input is present, but an error occurred)
- */
-enum State {
-  Empty,
-  Pending,
-  Uploading,
-  Uploaded,
-  Error,
-}
+import ButtonUpload from '@/components/bases/ButtonUpload.vue'
 
 const props = defineProps({
   index: {
@@ -56,7 +40,7 @@ const emit = defineEmits<{
 const onFileChange = (e: Event) => {
   let files = (e.target as HTMLInputElement).files
   if (files) file.value = files[0]
-  state.value = State.Pending
+  state.value = UploadStatus.Pending
 }
 
 const clearFile = () => {
@@ -64,19 +48,19 @@ const clearFile = () => {
   if (fileInput.value) {
     fileInput.value.value = ''
   }
-  state.value = State.Empty
+  state.value = UploadStatus.Empty
 }
 
 const uploadFile = async () => {
   if (!file.value) return
 
   try {
-    state.value = State.Uploading
+    state.value = UploadStatus.Uploading
     let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
     url.value = stagedFileUrl
-    state.value = State.Uploaded
+    state.value = UploadStatus.Uploaded
   } catch (e: any) {
-    state.value = State.Error
+    state.value = UploadStatus.Error
     if (e instanceof Error) {
       if (e.message.includes('error-file-exists')) {
         alert('File already exists. Rename and add again.')
@@ -87,7 +71,7 @@ const uploadFile = async () => {
   }
 }
 
-let state = ref<State>(State.Empty)
+let state = ref<UploadStatus>(UploadStatus.Empty)
 let file = ref<File | null>(null)
 let fileInput = ref<HTMLInputElement | null>(null)
 let url = ref<string>('')
@@ -117,28 +101,6 @@ let distributionOption: ComputedRef<DistributionOption | boolean | null> = compu
   return null
 })
 
-let uploadBtnLabel: ComputedRef<string> = computed(() => {
-  if (state.value == State.Empty || state.value == State.Pending) {
-    return 'Upload'
-  }
-  if (state.value == State.Uploading) {
-    return 'Uploading...'
-  }
-  if (state.value == State.Uploaded) {
-    return 'Uploaded'
-  }
-
-  return 'ERROR!'
-})
-
-let uploadBtnEnabled: ComputedRef<boolean> = computed(() => {
-  if (state.value == State.Pending) {
-    return true
-  }
-
-  return false
-})
-
 watch(distributionOption, (value: DistributionOption | boolean | null) => {
   if (value === false) {
     clearFile()
@@ -159,7 +121,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
           :id="'download-' + index + '-file'"
           @change="onFileChange"
         />
-        <Button :id="'download-' + index + '-upload'" @click="uploadFile" :disabled="!uploadBtnEnabled">{{ uploadBtnLabel }}</Button>
+        <ButtonUpload :id="'download-' + index + '-upload'" @click="uploadFile" :state="state"></ButtonUpload>
       </div>
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">URL</FormLabel>
@@ -178,4 +140,3 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
     ></Output>
   </SubSectionBorder>
 </template>
-@/lib/data@/lib/upload@/lib/distribution

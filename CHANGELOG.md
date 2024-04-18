@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+* ButtonUpload base component
+
+### Changed
+
+* Adding state to upload button in downloads (pending, uploading, uploading, etc.)
+
 ## [0.9.0] - 2024-04-14
 
 ### Added
