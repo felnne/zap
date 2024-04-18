@@ -9,6 +9,7 @@
 ### Changed
 
 * Adding state to upload button in downloads (pending, uploading, uploading, etc.)
+* Making URL input readonly for file based downloads
 
 ## [0.9.0] - 2024-04-14
 

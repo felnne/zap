@@ -129,6 +129,7 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
           type="text"
           name="'download-' + index + '-url'"
           :id="'download-' + index + '-url'"
+          readonly
           v-model="url"
         />
       </div>
