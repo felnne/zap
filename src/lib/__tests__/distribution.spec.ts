@@ -2,32 +2,51 @@ import { describe, it, expect } from 'vitest'
 
 import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Organisation } from '@/types/app'
-import type { PointOfContact as IsoContact } from '@/types/iso'
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { getFormatByType, getOrganisation } from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
 
 import {
   createDistributor,
-  getDistributorOrgSlug,
   getFileFormat,
   createDistributionOption,
   createDownloadDistributionOption,
   createServiceDistributionOption,
 } from '@/lib/distribution'
 
-const expectedOrganisation: Organisation = getOrganisation('bas')
+const expectedOrganisation: Organisation = getOrganisation('bas_magic')
 
 const expectedFormat: Format = getFormatByType('image/png') as Format
 
+const expectedSizeBytes = 123
+
 const expectedDistributor: IsoContact = createOrgPointOfContact(expectedOrganisation, 'distributor')
 
-describe('createDistributor', () => {
-  it('builds a distributor from an organisation', () => {
-    expect(createDistributor(expectedOrganisation)).toStrictEqual(expectedDistributor)
-  })
-})
+const expectedUrl = 'https://example.com'
 
-describe('getDistributorOrgSlug', () => {
+const expectedOnlineResource = {
+  href: expectedUrl,
+  title: 'PNG',
+  description: 'Download information as a PNG image',
+  function: 'download',
+}
+
+const expectedDistributionOption: DistributionOption = {
+  format: {
+    format: expectedFormat.name,
+    href: expectedFormat.url,
+  },
+  transfer_option: {
+    online_resource: expectedOnlineResource,
+    size: {
+      magnitude: expectedSizeBytes,
+      unit: 'bytes',
+    },
+  },
+  distributor: expectedDistributor,
+}
+
+describe('createDistributor', () => {
   const openLicence: Licence = {
     slug: 'x',
     name: 'x',
@@ -43,25 +62,25 @@ describe('getDistributorOrgSlug', () => {
     url: 'x',
     statement: 'x',
   }
-
   it('returns PDC for open datasets', () => {
-    expect(getDistributorOrgSlug(ResourceType.Dataset, openLicence)).toBe('nerc_eds_pdc')
-  })
-
-  it('returns null for closed datasets', () => {
-    expect(getDistributorOrgSlug(ResourceType.Dataset, closedLicence)).toBe(null)
+    const distributor = createOrgPointOfContact(getOrganisation('nerc_eds_pdc'), 'distributor')
+    expect(createDistributor(ResourceType.Dataset, openLicence)).toStrictEqual(distributor)
   })
 
   it('returns MAGIC for open products', () => {
-    expect(getDistributorOrgSlug(ResourceType.Product, openLicence)).toBe('bas_magic')
+    expect(createDistributor(ResourceType.Product, openLicence)).toStrictEqual(expectedDistributor)
   })
 
   it('returns MAGIC for closed products', () => {
-    expect(getDistributorOrgSlug(ResourceType.Product, closedLicence)).toBe('bas_magic')
+    expect(createDistributor(ResourceType.Product, closedLicence)).toStrictEqual(
+      expectedDistributor
+    )
   })
 
   it('returns null for other resource types', () => {
-    expect(getDistributorOrgSlug(ResourceType.Collection, openLicence)).toBe(null)
+    expect(createDistributor(ResourceType.Collection, openLicence)).toStrictEqual(
+      expectedDistributor
+    )
   })
 })
 
@@ -116,113 +135,36 @@ describe('getFileFormat', () => {
 })
 
 describe('createDistributionOption', () => {
-  it('builds a distribution option from a format (without format), online resource and organisation', () => {
-    const format = expectedFormat
-    const onlineResource = {
-      href: 'https://example.com',
-      title: 'Example',
-      description: 'Example description',
-      function: 'download',
-    }
-    const expectedDistributionOption = {
-      format: {
-        format: format.name,
-        href: format.url,
-      },
-      transfer_option: {
-        online_resource: onlineResource,
-      },
-      distributor: expectedDistributor,
-    }
-
-    expect(createDistributionOption(format, onlineResource, expectedOrganisation)).toStrictEqual(
-      expectedDistributionOption
-    )
+  it('builds a distribution option from a format, size, online resource and organisation', () => {
+    expect(
+      createDistributionOption(
+        expectedFormat,
+        expectedOnlineResource,
+        expectedDistributor,
+        expectedSizeBytes
+      )
+    ).toStrictEqual(expectedDistributionOption)
   })
 
-  it('builds a distribution option from a format (with format), online resource and organisation', () => {
-    const format = {
-      slug: 'gpkg',
-      name: 'GeoPackage',
-      version: '1.2',
-      extensions: ['.gpkg'],
-      mediaTypes: ['application/geopackage+sqlite3'],
-      url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3',
-    }
-    const onlineResource = {
-      href: 'https://example.com',
-      title: 'Example',
-      description: 'Example description',
-      function: 'download',
-    }
-    const expectedDistributionOption = {
-      format: {
-        format: format.name,
-        href: format.url,
-        version: format.version,
-      },
-      transfer_option: {
-        online_resource: onlineResource,
-      },
-      distributor: expectedDistributor,
-    }
-
-    expect(createDistributionOption(format, onlineResource, expectedOrganisation)).toStrictEqual(
-      expectedDistributionOption
-    )
-  })
-
-  it('builds a distribution option from a format, online resource, organisation and size', () => {
-    const format = expectedFormat
-    const onlineResource = {
-      href: 'https://example.com',
-      title: 'Example',
-      description: 'Example description',
-      function: 'download',
-    }
-    const sizeBytes = 123
-    const expectedDistributionOption = {
-      format: {
-        format: format.name,
-        href: format.url,
-      },
-      transfer_option: {
-        online_resource: onlineResource,
-        size: {
-          magnitude: sizeBytes,
-          unit: 'bytes',
-        },
-      },
-      distributor: expectedDistributor,
-    }
+  it('builds a distribution option from a format, no size online resource, organisation and size', () => {
+    const distOptNoSize: DistributionOption = JSON.parse(JSON.stringify(expectedDistributionOption))
+    delete distOptNoSize.transfer_option.size
 
     expect(
-      createDistributionOption(format, onlineResource, expectedOrganisation, sizeBytes)
-    ).toStrictEqual(expectedDistributionOption)
+      createDistributionOption(expectedFormat, expectedOnlineResource, expectedDistributor)
+    ).toStrictEqual(distOptNoSize)
   })
 })
 
 describe('createDownloadDistributionOption', () => {
   it('builds a distribution option from a format, url and organisation', () => {
-    const url = 'https://example.com'
-    const expectedDistributionOption = {
-      format: {
-        format: 'PNG',
-        href: 'https://www.iana.org/assignments/media-types/image/png',
-      },
-      transfer_option: {
-        online_resource: {
-          href: url,
-          title: 'PNG',
-          description: 'Download information as a PNG image',
-          function: 'download',
-        },
-      },
-      distributor: expectedDistributor,
-    }
-
     expect(
-      createDownloadDistributionOption(expectedFormat, url, expectedOrganisation)
+      createDownloadDistributionOption(
+        expectedFormat,
+        expectedUrl,
+        expectedDistributor,
+        expectedSizeBytes
+      )
     ).toStrictEqual(expectedDistributionOption)
   })
 })
@@ -252,7 +194,7 @@ describe('createServiceDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createServiceDistributionOption(service, url, expectedOrganisation)).toStrictEqual(
+    expect(createServiceDistributionOption(service, url, expectedDistributor)).toStrictEqual(
       expectedDistributionOption
     )
   })

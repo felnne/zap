@@ -2,13 +2,19 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
+import type { PointOfContact as IsoContact } from '@/types/iso'
+import { createOrgPointOfContact } from '@/lib/contacts'
 import { getOrganisation, getService } from '@/lib/data'
 import { createServiceDistributionOption } from '@/lib/distribution'
+
 import Service from '@/components/sections/elements/Service.vue'
 
 const expectedServiceSlug = 'wms'
 const expectedService = getService(expectedServiceSlug)
-const expectedDistributor = getOrganisation('bas_magic')
+const expectedDistributor: IsoContact = createOrgPointOfContact(
+  getOrganisation('bas_magic'),
+  'distributor'
+)
 
 describe('Service', () => {
   it('renders output when selected', async () => {

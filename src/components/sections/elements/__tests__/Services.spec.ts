@@ -2,10 +2,12 @@ import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
+import { createOrgPointOfContact } from '@/lib/contacts'
 import { getOrganisation, getService, getServiceSlugs } from '@/lib/data'
 import { createServiceDistributionOption } from '@/lib/distribution'
+
 import Services from '@/components/sections/elements/Services.vue'
-import type { DistributionOption } from '@/types/iso'
 
 describe('Services', () => {
   let tocItemsDiv: HTMLDivElement
@@ -52,8 +54,12 @@ describe('Services [Integration]', () => {
   it('emits distributionOptions when service enabled', async () => {
     const expectedServiceSlug = 'wms'
     const expectedService = getService(expectedServiceSlug)
-    const expectedDistributor = getOrganisation('bas_magic')
     const expectedEndpoint = 'https://www.example.com'
+    const expectedDistributor: IsoContact = createOrgPointOfContact(
+      getOrganisation('bas_magic'),
+      'distributor'
+    )
+
     const expectedDistributionOptions = [
       createServiceDistributionOption(expectedService, expectedEndpoint, expectedDistributor),
     ]

@@ -3,34 +3,36 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence, Organisation } from '@/types/app'
-import type { DistributionOption } from '@/types/iso'
-import { getFormatByType, getLicence, getOrganisation } from '@/lib/data'
-import { createDownloadDistributionOption } from '@/lib/distribution'
+import type { Format, Licence } from '@/types/app'
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
+import { getFormatByType, getLicence } from '@/lib/data'
+import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Download from '@/components/sections/elements/Download.vue'
 
 const index = 1
 const fileIdentifier = 'x'
+const resourceType = ResourceType.Dataset
 const licence: Licence = getLicence('OGL_UK_3_0')
-const organisation: Organisation = getOrganisation('nerc_eds_pdc')
+const distributor: IsoContact = createDistributor(resourceType, licence)
 
 const expectedFormat: Format = getFormatByType('image/png') as Format
+const expectedSizeBytes = 3843
 const expectedUrl = 'https://example.com/image.png'
+const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
+  expectedFormat,
+  expectedUrl,
+  distributor,
+  expectedSizeBytes
+)
 
 describe('Download', () => {
   it('emits and renders distribution option when distributor and format are valid and URL set', async () => {
-    const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
-      expectedFormat,
-      expectedUrl,
-      organisation
-    )
-
     const wrapper = mount(Download, {
       props: {
         index: index,
         fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
+        resourceType: resourceType,
         licence: licence,
       },
       global: {
@@ -43,6 +45,7 @@ describe('Download', () => {
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'DownloadFile' })
     await childComponent.vm.$emit('update:format', expectedFormat)
+    await childComponent.vm.$emit('update:sizeBytes', expectedSizeBytes)
     await childComponent.vm.$emit('update:url', expectedUrl)
 
     expect(wrapper.find('pre').text()).toBe(JSON.stringify(expectedDistributionOption, null, 2))
@@ -57,11 +60,12 @@ describe('Download', () => {
   })
 
   it('does not emit when format is not set', async () => {
+    // because format is a proxy for whether the file is an allowed type
     const wrapper = mount(Download, {
       props: {
         index: index,
         fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
+        resourceType: resourceType,
         licence: licence,
       },
       global: {
@@ -79,49 +83,5 @@ describe('Download', () => {
       'update:isoDistributionOption'
     )
     expect(emittedIsoDistOptionsDownload).not.toBeTruthy()
-  })
-
-  it('errors when distributor can not be determined', async () => {
-    const closedLicence = getLicence('X_FAKE_CLOSED')
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let error = null
-    const errorHandler = (err: any) => {
-      error = err
-    }
-
-    const wrapper = mount(Download, {
-      props: {
-        index: index,
-        fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
-        licence: closedLicence,
-      },
-      global: {
-        directives: {
-          clipboard: Clipboard,
-        },
-        config: {
-          errorHandler,
-        },
-      },
-    })
-
-    // simulate event from child component and expect error
-    const childComponent = wrapper.findComponent({ name: 'DownloadFile' })
-
-    // Wrap the event emission in a Promise to catch the error
-    try {
-      await new Promise<void>((resolve) => {
-        childComponent.vm.$emit('update:format', expectedFormat)
-        childComponent.vm.$emit('update:url', expectedUrl)
-        resolve()
-      })
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error)
-      if (error instanceof Error) {
-        expect(error.message).toBe('No distributor.')
-      }
-    }
   })
 })

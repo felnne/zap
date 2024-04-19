@@ -3,24 +3,20 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence, Organisation } from '@/types/app'
-import type { DistributionOption } from '@/types/iso'
-import {
-  deepMergeObjects,
-  getFormatByType,
-  getFormatExtensions,
-  getLicence,
-  getOrganisation,
-} from '@/lib/data'
-import { createDownloadDistributionOption } from '@/lib/distribution'
+import type { Format, Licence } from '@/types/app'
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
+import { deepMergeObjects, getFormatByType, getFormatExtensions, getLicence } from '@/lib/data'
+import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Downloads from '@/components/sections/elements/Downloads.vue'
 
 const fileIdentifier = 'x'
 const licence: Licence = getLicence('OGL_UK_3_0')
-const organisation: Organisation = getOrganisation('nerc_eds_pdc')
+const resourceType = ResourceType.Dataset
 const expectedFormat: Format = getFormatByType('image/png') as Format
+const expectedSizeBytes = 3843
 const expectedUrl = 'https://example.com/image.png'
+const expectedDistributor: IsoContact = createDistributor(resourceType, licence)
 
 describe('Downloads', () => {
   let tocItemsDiv: HTMLDivElement
@@ -36,7 +32,7 @@ describe('Downloads', () => {
     const wrapper = mount(Downloads, {
       props: {
         fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
+        resourceType: resourceType,
         licence: licence,
       },
       global: {
@@ -100,25 +96,6 @@ describe('Downloads', () => {
     })
   })
 
-  it('prevents adding downloads if no distributor', async () => {
-    const closedLicence = getLicence('X_FAKE_CLOSED')
-    const wrapper = mount(Downloads, {
-      props: {
-        fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
-        licence: closedLicence,
-      },
-      global: {
-        directives: {
-          clipboard: Clipboard,
-        },
-      },
-    })
-
-    // expect button to be disabled
-    expect(wrapper.find('button#add-download').attributes().disabled).not.toBeUndefined()
-  })
-
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
@@ -139,7 +116,8 @@ describe('Downloads [Integration]', () => {
     const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
       expectedFormat,
       expectedUrl,
-      organisation
+      expectedDistributor,
+      expectedSizeBytes
     )
 
     const wrapper = mount(Downloads, {
@@ -179,7 +157,8 @@ describe('Downloads [Integration]', () => {
     const expectedInitialDistributionOption: DistributionOption = createDownloadDistributionOption(
       expectedFormat,
       initialUrl,
-      organisation
+      expectedDistributor,
+      expectedSizeBytes
     )
     const expectedUpdatedDistributionOption: DistributionOption = deepMergeObjects(
       { transfer_option: { online_resource: { href: updatedUrl } } },

@@ -2,10 +2,9 @@
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence, Organisation } from '@/types/app'
-import type { DistributionOption } from '@/types/iso'
-import { getOrganisation } from '@/lib/data'
-import { createDownloadDistributionOption, getDistributorOrgSlug } from '@/lib/distribution'
+import type { Format, Licence } from '@/types/app'
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
+import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Output from '@/components/bases/Output.vue'
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
@@ -37,17 +36,12 @@ const emit = defineEmits<{
 let format = ref<Format | null>(null)
 let url = ref<string>('')
 
-let distributor: ComputedRef<Organisation> = computed(() => {
-  const distributorSlug = getDistributorOrgSlug(props.resourceType, props.licence)
-  if (!distributorSlug) {
-    throw new Error('No distributor.')
-  }
-  return getOrganisation(distributorSlug)
-})
-
 let distributionOption: ComputedRef<DistributionOption | null> = computed(() => {
   if (!format.value) return null
   if (!distributor.value) return null
+let distributor: ComputedRef<IsoContact> = computed(() =>
+  createDistributor(props.resourceType, props.licence)
+)
 
   return createDownloadDistributionOption(format.value, url.value, distributor.value)
 })

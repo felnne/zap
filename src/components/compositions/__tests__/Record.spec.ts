@@ -2,16 +2,22 @@ import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import type { AccessRestriction } from '@/types/app'
+import { ResourceType } from '@/types/enum'
+import type { AccessRestriction, Licence, Format } from '@/types/app'
 import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
   DistributionOption as IsoDistributionOption,
   Lineage as IsoLineage,
+  PointOfContact as IsoContact,
 } from '@/types/iso'
-import { getLicence, getOrganisation, getService } from '@/lib/data'
+import { getFormatByType, getLicence, getService } from '@/lib/data'
 import { createAccessConstraint, createUsageConstraint } from '@/lib/constraints'
-import { createServiceDistributionOption } from '@/lib/distribution'
+import {
+  createDistributor,
+  createDownloadDistributionOption,
+  createServiceDistributionOption,
+} from '@/lib/distribution'
 import Record from '@/components/compositions/Record.vue'
 
 vi.mock('@/lib/esriNoTest', () => ({
@@ -99,37 +105,20 @@ describe('Record [Integration]', () => {
   })
 
   it('emits ISO record correctly when a section that forms aggregated distribution options changes', async () => {
-    // streamline building this when files are option from download distribution options
+    const licence: Licence = getLicence('OGL_UK_3_0')
+    const resourceType = ResourceType.Dataset
+    const expectedDistributor: IsoContact = createDistributor(resourceType, licence)
+
+    const expectedFormat: Format = getFormatByType('image/png') as Format
+    const expectedUrl = 'https://example.com/image.png'
     const expectedDownloadsDistOptions: IsoDistributionOption[] = [
-      {
-        format: {
-          format: 'image/png',
-          href: 'https://www.iana.org/assignments/media-types/image/png',
-        },
-        transfer_option: {
-          online_resource: {
-            title: 'image',
-            description: 'Download image',
-            function: 'download',
-            href: 'https://example.com/image.png',
-          },
-        },
-        distributor: {
-          organisation: {
-            name: 'Example Corp',
-            href: 'https://ror.org/000000000',
-            title: 'ror',
-          },
-          role: ['distributor'],
-        },
-      },
+      createDownloadDistributionOption(expectedFormat, expectedUrl, expectedDistributor),
     ]
 
     const expectedServiceSlug = 'wms'
     const expectedService = getService(expectedServiceSlug)
-    const expectedDistributor = getOrganisation('bas_magic')
     const expectedEndpoint = 'https://www.example.com'
-    const expectedServicesDistOptions = [
+    const expectedServicesDistOptions: IsoDistributionOption[] = [
       createServiceDistributionOption(expectedService, expectedEndpoint, expectedDistributor),
     ]
 

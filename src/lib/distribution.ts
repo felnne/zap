@@ -1,47 +1,30 @@
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence, Organisation, Service } from '@/types/app'
+import type { Format, Licence, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
-import { getFormat, getFormatByExtension, getFormatByType } from '@/lib/data'
+import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
 
-export const createDistributor = (org: Organisation): Contact => {
+export const createDistributor = (resourceType: ResourceType, licence: Licence): Contact => {
   /*
-   * Create an ISO 19115 Point of Contact from an application organisation object
+   * Create an ISO 19115 Point of Contact for the organisation determined to act as the distributor for a resource
    *
-   * Application organisation objects are supersets of an ISO Point of Contact with more specific properties which
-   * are mapped to generic ISO equivalents (e.g. the schema of the linked identifier is mapped to a generic 'title').
+   * Implements logic from https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41 which depends on:
+   * - the resource type (whether the resource is a dataset)
+   * - the licence and in turn access constraint (whether the resource is open access or not)
    *
-   * The role of the Point of Contact is (logically) always 'distributor' in this context.
-   */
-  return createOrgPointOfContact(org, 'distributor')
-}
-
-export const getDistributorOrgSlug = (
-  resourceType: ResourceType,
-  licence: Licence
-): string | null => {
-  /*
-   * Determine which team will act as the distributor for a resource
-   *
-   * Implements logic from https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41 which depends on whether the
-   * resource is a dataset and whether it's under a closed licence.
-   *
-   * If an open dataset:
+   * If an open access dataset:
    * - the distributor is the PDC
-   * If an open or closed product:
-   * - the distributor is MAGIC
    * Otherwise:
-   * - the distributor is unknown/null
+   * - the distributor is MAGIC
    *
-   * Returns the slug of the distributor organisation or `null` if unknown.
+   * Returns an ISO Point of Contact a role of 'distributor'.
    */
+  let orgSlug = 'bas_magic'
   if (resourceType == ResourceType.Dataset && licence.open) {
-    return 'nerc_eds_pdc'
-  } else if (resourceType == ResourceType.Product) {
-    return 'bas_magic'
+    orgSlug = 'nerc_eds_pdc'
   }
 
-  return null
+  return createOrgPointOfContact(getOrganisation(orgSlug), 'distributor')
 }
 
 export const getFileFormat = (file: File): Format => {
@@ -68,7 +51,7 @@ export const getFileFormat = (file: File): Format => {
 export const createDistributionOption = (
   format: Format,
   onlineResource: OnlineResource,
-  org: Organisation,
+  distributor: Contact,
   sizeBytes: number = 0
 ): DistributionOption => {
   /*
@@ -77,7 +60,7 @@ export const createDistributionOption = (
    * Combines:
    * - a file format (with optional version)
    * - an online resource (URL)
-   * - a distributor (organisation)
+   * - a distributor (ISO Point of Contact)
    * - an optional file size (in bytes)
    *
    * Underpins functions for file or service distribution options, which should be used instead of this function.
@@ -90,7 +73,7 @@ export const createDistributionOption = (
     transfer_option: {
       online_resource: onlineResource,
     },
-    distributor: createDistributor(org),
+    distributor: distributor,
   }
 
   if (format.version) {
@@ -110,7 +93,7 @@ export const createDistributionOption = (
 export const createDownloadDistributionOption = (
   format: Format,
   url: string,
-  org: Organisation,
+  distributor: Contact,
   sizeBytes: number = 0
 ): DistributionOption => {
   /*
@@ -125,13 +108,13 @@ export const createDownloadDistributionOption = (
     function: 'download',
   }
 
-  return createDistributionOption(format, onlineResource, org, sizeBytes)
+  return createDistributionOption(format, onlineResource, distributor, sizeBytes)
 }
 
 export const createServiceDistributionOption = (
   service: Service,
   url: string,
-  org: Organisation
+  distributor: Contact
 ): DistributionOption => {
   /*
    * Create an ISO 19115 Distribution Option for a service linkage
@@ -147,5 +130,5 @@ export const createServiceDistributionOption = (
     function: 'download',
   }
 
-  return createDistributionOption(serviceFormat, onlineResource, org)
+  return createDistributionOption(serviceFormat, onlineResource, distributor)
 }
