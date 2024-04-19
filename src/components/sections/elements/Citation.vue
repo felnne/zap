@@ -118,6 +118,7 @@ watch(
     () => props.record.title,
     () => publicationYear.value,
     () => authors.value,
+    () => props.record.licence,
   ],
   () => {
     getCitation()
