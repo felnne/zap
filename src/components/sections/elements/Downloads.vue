@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref, type PropType, watch } from 'vue'
+import { ref, type PropType, watch } from 'vue'
 
 import { ResourceType, Stability } from '@/types/enum'
 import type { Licence } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getFormatExtensions } from '@/lib/data'
-import { getDistributorOrgSlug } from '@/lib/distribution'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -13,7 +12,7 @@ import Button from '@/components/bases/Button.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
 import Download from '@/components/sections/elements/Download.vue'
 
-const props = defineProps({
+defineProps({
   fileIdentifier: {
     type: String,
     required: true,
@@ -37,12 +36,6 @@ const supportedExtensions = getFormatExtensions()
 const distributionOptions = ref<Record<string, DistributionOption>>({})
 
 let count = ref(0)
-
-let disabled: ComputedRef<boolean> = computed(() => {
-  // only enable if there is a distributor
-  const distributorSlug = getDistributorOrgSlug(props.resourceType, props.licence)
-  return distributorSlug === null ? true : false
-})
 
 watch(
   () => distributionOptions,
@@ -72,7 +65,7 @@ watch(
       "
     ></Download>
     <div class="flex items-center space-x-2">
-      <Button id="add-download" @click="count++" :disabled="disabled"> Add Download </Button>
+      <Button id="add-download" @click="count++"> Add Download </Button>
       <GuidanceText
         >Supported formats:
         <template v-for="(ext, index) in supportedExtensions" v-bind:key="ext">
