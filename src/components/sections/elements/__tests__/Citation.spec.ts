@@ -111,7 +111,9 @@ describe('Citation', () => {
   })
 
   it('switches publisher when open access changes', async () => {
-    const initialPublisher = getOrganisation(getPublisherOrgSlug(record.resourceType, record.licence))
+    const initialPublisher = getOrganisation(
+      getPublisherOrgSlug(record.resourceType, record.licence)
+    )
 
     const wrapper = mount(Citation, {
       props: { record: record },
@@ -128,9 +130,11 @@ describe('Citation', () => {
     expect(wrapper.find('div#citation-preview').html()).toContain(initialPublisher.name)
 
     // change licence prop
-    const updatedRecord = { ...record, licence: getLicence('X_FAKE_CLOSED') };
+    const updatedRecord = { ...record, licence: getLicence('X_FAKE_CLOSED') }
     await wrapper.setProps({ record: updatedRecord })
-    const updatedPublisher = getOrganisation(getPublisherOrgSlug(updatedRecord.resourceType, updatedRecord.licence))
+    const updatedPublisher = getOrganisation(
+      getPublisherOrgSlug(updatedRecord.resourceType, updatedRecord.licence)
+    )
 
     // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
     await flushPromises()
