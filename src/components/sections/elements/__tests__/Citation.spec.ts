@@ -5,7 +5,8 @@ import Clipboard from 'v-clipboard'
 import { ResourceType } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
-import { getLicence } from '@/lib/data'
+import { getPublisherOrgSlug } from '@/lib/contacts'
+import { getLicence, getOrganisation } from '@/lib/data'
 import Citation from '@/components/sections/elements/Citation.vue'
 
 const identifier = '12345'
@@ -107,6 +108,38 @@ describe('Citation', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find('textarea').element.value).toContain(`_${record.title}_`)
+  })
+
+  it('switches publisher when open access changes', async () => {
+    const initialPublisher = getOrganisation(
+      getPublisherOrgSlug(record.resourceType, record.licence)
+    )
+
+    const wrapper = mount(Citation, {
+      props: { record: record },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
+    await flushPromises()
+
+    expect(wrapper.find('div#citation-preview').html()).toContain(initialPublisher.name)
+
+    // change licence prop
+    const updatedRecord = { ...record, licence: getLicence('X_FAKE_CLOSED') }
+    await wrapper.setProps({ record: updatedRecord })
+    const updatedPublisher = getOrganisation(
+      getPublisherOrgSlug(updatedRecord.resourceType, updatedRecord.licence)
+    )
+
+    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
+    await flushPromises()
+
+    expect(wrapper.find('div#citation-preview').html()).toContain(updatedPublisher.name)
   })
 
   afterEach(() => {

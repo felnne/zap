@@ -2,17 +2,13 @@
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import { ResourceType } from '@/types/enum'
-import type { Licence, Organisation } from '@/types/app'
-import type { DistributionOption } from '@/types/iso'
-import { getOrganisation } from '@/lib/data'
-import { stageFile } from '@/lib/upload'
-import { createDownloadDistributionOption, getDistributorOrgSlug } from '@/lib/distribution'
+import type { Format, Licence } from '@/types/app'
+import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
+import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Output from '@/components/bases/Output.vue'
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
-import FormLabel from '@/components/bases/FormLabel.vue'
-import FormInput from '@/components/bases/FormInput.vue'
-import Button from '@/components/bases/Button.vue'
+import DownloadFile from '@/components/sections/elements/DownloadFile.vue'
 
 const props = defineProps({
   index: {
@@ -37,98 +33,44 @@ const emit = defineEmits<{
   'update:isoDistributionOption': [id: DistributionOption]
 }>()
 
-const onFileChange = (e: Event) => {
-  let files = (e.target as HTMLInputElement).files
-  if (files) file.value = files[0]
-}
+let format = ref<Format | undefined>(undefined)
+let sizeBytes = ref<number | undefined>(undefined)
+let url = ref<string | undefined>(undefined)
 
-const clearFile = () => {
-  file.value = null
-  if (fileInput.value) {
-    fileInput.value.value = ''
-  }
-}
+let distributor: ComputedRef<IsoContact> = computed(() =>
+  createDistributor(props.resourceType, props.licence)
+)
 
-const uploadFile = async () => {
-  if (!file.value) return
+let distributionOption: ComputedRef<DistributionOption | undefined> = computed(() => {
+  if (!format.value) return undefined
+  return createDownloadDistributionOption(
+    format.value,
+    url.value ? url.value : '',
+    distributor.value,
+    sizeBytes.value
+  )
+})
 
-  try {
-    let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
-    url.value = stagedFileUrl
-  } catch (e: any) {
-    if (e instanceof Error) {
-      if (e.message.includes('error-file-exists')) {
-        alert('File already exists. Rename and add again.')
-      } else {
-        alert(e.message)
-      }
+watch(
+  () => url.value,
+  () => {
+    // a download is only useful when there's a URL, which is sensitive to / embeds the format so doesn't need watching
+    if (distributionOption.value) {
+      emit('update:isoDistributionOption', distributionOption.value)
     }
   }
-}
-
-let file = ref<File | null>(null)
-let fileInput = ref<HTMLInputElement | null>(null)
-let url = ref<string>('')
-
-let distributor: ComputedRef<Organisation> = computed(() => {
-  const distributorSlug = getDistributorOrgSlug(props.resourceType, props.licence)
-  if (!distributorSlug) {
-    throw new Error('No distributor.')
-  }
-  return getOrganisation(distributorSlug)
-})
-
-let distributionOption: ComputedRef<DistributionOption | boolean | null> = computed(() => {
-  if (!file.value) return null
-
-  try {
-    return createDownloadDistributionOption(file.value, url.value, distributor.value)
-  } catch (e) {
-    if (e instanceof Error && e.message == 'Cannot determine format.') {
-      alert(`File format for '${file.value.name}' is not supported, rejecting.`)
-      // have to return something other than 'null' to cause a change in value,
-      // otherwise the watch() won't fire to clear the file input.
-      return false
-    }
-  }
-
-  return null
-})
-
-watch(distributionOption, (value: DistributionOption | boolean | null) => {
-  if (value === false) {
-    clearFile()
-  }
-  emit('update:isoDistributionOption', value as DistributionOption)
-})
+)
 </script>
 
 <template>
-  <SubSectionBorder class="space-y-2">
-    <div class="flex space-x-4">
-      <div class="flex space-x-2">
-        <FormLabel class="text-neutral-500">File</FormLabel>
-        <input
-          ref="fileInput"
-          class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow file:hover:bg-neutral-100"
-          type="file"
-          :id="'download-' + index + '-file'"
-          @change="onFileChange"
-        />
-        <Button v-if="file" :id="'download-' + index + '-upload'" @click="uploadFile"
-          >Upload</Button
-        >
-      </div>
-      <div class="flex flex-grow space-x-2">
-        <FormLabel class="text-neutral-500">URL</FormLabel>
-        <FormInput
-          type="text"
-          name="'download-' + index + '-url'"
-          :id="'download-' + index + '-url'"
-          v-model="url"
-        />
-      </div>
-    </div>
+  <SubSectionBorder :id="'download-' + index" class="space-y-2">
+    <DownloadFile
+      :index="index"
+      :file-identifier="fileIdentifier"
+      @update:format="(event: Format) => (format = event)"
+      @update:size-bytes="(event: number) => (sizeBytes = event)"
+      @update:url="(event: string) => (url = event)"
+    ></DownloadFile>
     <Output
       v-if="distributionOption"
       :id="'download-' + index + '-output'"
@@ -136,4 +78,3 @@ watch(distributionOption, (value: DistributionOption | boolean | null) => {
     ></Output>
   </SubSectionBorder>
 </template>
-@/lib/data@/lib/upload@/lib/distribution

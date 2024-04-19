@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
+import type { DistributionOption } from '@/types/iso'
+import { createOrgPointOfContact } from '@/lib/contacts'
 import { getOrganisation, getService } from '@/lib/data'
 import { createServiceDistributionOption } from '@/lib/distribution'
-import type { DistributionOption } from '@/types/iso'
 
 import Output from '@/components/bases/Output.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
@@ -23,13 +24,13 @@ const emit = defineEmits<{
 }>()
 
 const service = getService(props.slug)
-const orgMagic = getOrganisation('bas_magic')
+const distributor = createOrgPointOfContact(getOrganisation('bas_magic'), 'distributor') // will always be MAGIC
 
 let selected = ref<boolean>(false)
 let endpoint = ref<string>('')
 
 let distributionOption: ComputedRef<DistributionOption> = computed(() => {
-  return createServiceDistributionOption(service, endpoint.value, orgMagic)
+  return createServiceDistributionOption(service, endpoint.value, distributor)
 })
 
 watch(

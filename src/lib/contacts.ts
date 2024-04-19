@@ -2,7 +2,6 @@ import { ResourceType } from '@/types/enum'
 import type { Individual, Licence, Organisation } from '@/types/app'
 import type { PointOfContact as Contact } from '@/types/iso'
 import { getOrganisation } from '@/lib/data'
-import { getDistributorOrgSlug } from '@/lib/distribution'
 
 export const createAuthor = (individual: Individual, organisation: Organisation): Contact => {
   /*
@@ -77,26 +76,15 @@ export const getPublisherOrgSlug = (resourceType: ResourceType, licence: Licence
   /*
    * Determine which team will act as the publisher for a resource
    *
-   * Follows distributor with the exception that:
-   * - closed datasets are published by MAGIC
-   * - collections are published by MAGIC
+   * As per https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41
    *
    * Returns the slug of the publishing organisation, which can be retrieved using `getOrganisation()`.
    */
-  const orgMagic = getOrganisation('bas_magic')
-  let distributorSlug = getDistributorOrgSlug(resourceType, licence)
+  let orgSlug = 'bas_magic'
 
-  if (resourceType == ResourceType.Dataset && !licence.open) {
-    distributorSlug = orgMagic.slug
-  } else if (resourceType == ResourceType.Collection) {
-    distributorSlug = orgMagic.slug
+  if (resourceType == ResourceType.Dataset && licence.open) {
+    orgSlug = 'nerc_eds_pdc'
   }
 
-  if (distributorSlug == null) {
-    throw new Error(
-      `Cannot determine publisher for resource type ${resourceType} and licence ${licence.slug}.`
-    )
-  }
-
-  return distributorSlug
+  return orgSlug
 }

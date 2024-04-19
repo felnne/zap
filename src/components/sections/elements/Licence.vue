@@ -88,7 +88,7 @@ watch(
             />
             {{ licence.name }}
           </FormLabel>
-          <GuidanceText>Choices filtered by whether access is open or closed.</GuidanceText>
+          <GuidanceText>Choices are filtered by whether access is open or closed.</GuidanceText>
         </div>
       </template>
       <template v-slot:right>
