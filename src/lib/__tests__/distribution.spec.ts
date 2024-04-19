@@ -15,15 +15,15 @@ import {
   createServiceDistributionOption,
 } from '@/lib/distribution'
 
-const organisation: Organisation = getOrganisation('bas')
+const expectedOrganisation: Organisation = getOrganisation('bas')
 
 const expectedFormat: Format = getFormatByType('image/png') as Format
 
-const expectedDistributor: IsoContact = createOrgPointOfContact(organisation, 'distributor')
+const expectedDistributor: IsoContact = createOrgPointOfContact(expectedOrganisation, 'distributor')
 
 describe('createDistributor', () => {
   it('builds a distributor from an organisation', () => {
-    expect(createDistributor(organisation)).toStrictEqual(expectedDistributor)
+    expect(createDistributor(expectedOrganisation)).toStrictEqual(expectedDistributor)
   })
 })
 
@@ -135,7 +135,7 @@ describe('createDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+    expect(createDistributionOption(format, onlineResource, expectedOrganisation)).toStrictEqual(
       expectedDistributionOption
     )
   })
@@ -167,7 +167,7 @@ describe('createDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createDistributionOption(format, onlineResource, organisation)).toStrictEqual(
+    expect(createDistributionOption(format, onlineResource, expectedOrganisation)).toStrictEqual(
       expectedDistributionOption
     )
   })
@@ -196,25 +196,14 @@ describe('createDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createDistributionOption(format, onlineResource, organisation, sizeBytes)).toStrictEqual(
-      expectedDistributionOption
-    )
+    expect(
+      createDistributionOption(format, onlineResource, expectedOrganisation, sizeBytes)
+    ).toStrictEqual(expectedDistributionOption)
   })
 })
 
 describe('createDownloadDistributionOption', () => {
-  it('builds a distribution option from a file, url and organisation', () => {
-    const file: File = {
-      name: 'foo.png',
-      type: 'image/png',
-      lastModified: 0,
-      webkitRelativePath: '',
-      size: 0,
-      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-      slice: () => new Blob(),
-      stream: () => new ReadableStream(),
-      text: () => Promise.resolve(''),
-    }
+  it('builds a distribution option from a format, url and organisation', () => {
     const url = 'https://example.com'
     const expectedDistributionOption = {
       format: {
@@ -232,9 +221,9 @@ describe('createDownloadDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createDownloadDistributionOption(file, url, organisation)).toStrictEqual(
-      expectedDistributionOption
-    )
+    expect(
+      createDownloadDistributionOption(expectedFormat, url, expectedOrganisation)
+    ).toStrictEqual(expectedDistributionOption)
   })
 })
 
@@ -263,7 +252,7 @@ describe('createServiceDistributionOption', () => {
       distributor: expectedDistributor,
     }
 
-    expect(createServiceDistributionOption(service, url, organisation)).toStrictEqual(
+    expect(createServiceDistributionOption(service, url, expectedOrganisation)).toStrictEqual(
       expectedDistributionOption
     )
   })

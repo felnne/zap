@@ -1,7 +1,7 @@
 import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Organisation, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
-import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/lib/data'
+import { getFormat, getFormatByExtension, getFormatByType } from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
 
 export const createDistributor = (org: Organisation): Contact => {
@@ -33,12 +33,12 @@ export const getDistributorOrgSlug = (
    * Otherwise:
    * - the distributor is unknown/null
    *
-   * Returns the slug of the distributor organisation, which can be retrieved using `getOrganisation()`, or `null`.
+   * Returns the slug of the distributor organisation or `null` if unknown.
    */
   if (resourceType == ResourceType.Dataset && licence.open) {
-    return getOrganisation('nerc_eds_pdc').slug
+    return 'nerc_eds_pdc'
   } else if (resourceType == ResourceType.Product) {
-    return getOrganisation('bas_magic').slug
+    return 'bas_magic'
   }
 
   return null
@@ -108,25 +108,24 @@ export const createDistributionOption = (
 }
 
 export const createDownloadDistributionOption = (
-  file: File,
+  format: Format,
   url: string,
-  org: Organisation
+  org: Organisation,
+  sizeBytes: number = 0
 ): DistributionOption => {
   /*
-   * Create an ISO 19115 Distribution Option for a file download
+   * Create an ISO 19115 Distribution Option for a download
    *
    * Wrapper for `createDistributionOption()`.
    */
-  const fileFormat = getFileFormat(file)
-
   const onlineResource: OnlineResource = {
     href: url,
-    title: fileFormat.name,
-    description: `Download information as ${fileFormat.description}`,
+    title: format.name,
+    description: `Download information as ${format.description}`,
     function: 'download',
   }
 
-  return createDistributionOption(fileFormat, onlineResource, org, file.size)
+  return createDistributionOption(format, onlineResource, org, sizeBytes)
 }
 
 export const createServiceDistributionOption = (

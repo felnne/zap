@@ -3,12 +3,24 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
+import type { Format, Licence, Organisation } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
-import { deepMergeObjects, getFormatExtensions, getLicence } from '@/lib/data'
+import {
+  deepMergeObjects,
+  getFormatByType,
+  getFormatExtensions,
+  getLicence,
+  getOrganisation,
+} from '@/lib/data'
+import { createDownloadDistributionOption } from '@/lib/distribution'
+
 import Downloads from '@/components/sections/elements/Downloads.vue'
 
 const fileIdentifier = 'x'
-const licence = getLicence('OGL_UK_3_0')
+const licence: Licence = getLicence('OGL_UK_3_0')
+const organisation: Organisation = getOrganisation('nerc_eds_pdc')
+const expectedFormat: Format = getFormatByType('image/png') as Format
+const expectedUrl = 'https://example.com/image.png'
 
 describe('Downloads', () => {
   let tocItemsDiv: HTMLDivElement
@@ -37,8 +49,8 @@ describe('Downloads', () => {
     // click button
     await wrapper.find('button#add-download').trigger('click')
 
-    // check there's 1 input element rendered
-    expect(wrapper.find('input#download-1-file').exists()).toBeTruthy()
+    // check a Download element is rendered
+    expect(wrapper.find('#download-1').exists()).toBeTruthy()
   })
 
   it('clicking button multiple times adds multiple downloads', async () => {
@@ -59,9 +71,9 @@ describe('Downloads', () => {
     await wrapper.find('button#add-download').trigger('click')
     await wrapper.find('button#add-download').trigger('click')
 
-    // // check there's 2 input elements rendered
-    expect(wrapper.find('input#download-1-file').exists()).toBeTruthy()
-    expect(wrapper.find('input#download-2-file').exists()).toBeTruthy()
+    // check a Download elements are rendered
+    expect(wrapper.find('#download-1').exists()).toBeTruthy()
+    expect(wrapper.find('#download-2').exists()).toBeTruthy()
   })
 
   it('displays supported extensions', async () => {
@@ -88,10 +100,6 @@ describe('Downloads', () => {
     })
   })
 
-  // Can't test file inputs as vitest doesn't support file inputs
-
-  // Can't test URL as distribution option not rendered without file selection
-
   it('prevents adding downloads if no distributor', async () => {
     const closedLicence = getLicence('X_FAKE_CLOSED')
     const wrapper = mount(Downloads, {
@@ -108,7 +116,7 @@ describe('Downloads', () => {
     })
 
     // expect button to be disabled
-    expect(wrapper.find('button#add-download').attributes('disabled')).toBe('')
+    expect(wrapper.find('button#add-download').attributes().disabled).not.toBeUndefined()
   })
 
   afterEach(() => {
@@ -128,29 +136,11 @@ describe('Downloads [Integration]', () => {
   })
 
   it('adds and emits a distributionOption', async () => {
-    // streamline building this when files are option from download distribution options
-    const expectedDistributionOption: DistributionOption = {
-      format: {
-        format: 'image/png',
-        href: 'https://www.iana.org/assignments/media-types/image/png',
-      },
-      transfer_option: {
-        online_resource: {
-          title: 'image',
-          description: 'Download image',
-          function: 'download',
-          href: 'https://example.com/image.png',
-        },
-      },
-      distributor: {
-        organisation: {
-          name: 'Example Corp',
-          href: 'https://ror.org/000000000',
-          title: 'ror',
-        },
-        role: ['distributor'],
-      },
-    }
+    const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
+      expectedFormat,
+      expectedUrl,
+      organisation
+    )
 
     const wrapper = mount(Downloads, {
       props: {
@@ -182,31 +172,17 @@ describe('Downloads [Integration]', () => {
   })
 
   it('updates and emits an updated distributionOption', async () => {
-    // streamline building this when files are option from download distribution options
-    const expectedInitialDistributionOption: DistributionOption = {
-      format: {
-        format: 'image/png',
-        href: 'https://www.iana.org/assignments/media-types/image/png',
-      },
-      transfer_option: {
-        online_resource: {
-          title: 'image',
-          description: 'Download image',
-          function: 'download',
-          href: '',
-        },
-      },
-      distributor: {
-        organisation: {
-          name: 'Example Corp',
-          href: 'https://ror.org/000000000',
-          title: 'ror',
-        },
-        role: ['distributor'],
-      },
-    }
+    // this is no longer a realistic example of when a distributionOption would be updated (as the URL would now never
+    // be blank) but I can't think of a better example right now.
+    const initialUrl = ''
+    const updatedUrl = expectedUrl
+    const expectedInitialDistributionOption: DistributionOption = createDownloadDistributionOption(
+      expectedFormat,
+      initialUrl,
+      organisation
+    )
     const expectedUpdatedDistributionOption: DistributionOption = deepMergeObjects(
-      { transfer_option: { online_resource: { href: 'https://example.com/image.png' } } },
+      { transfer_option: { online_resource: { href: updatedUrl } } },
       expectedInitialDistributionOption
     )
 
