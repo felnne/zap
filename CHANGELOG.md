@@ -11,6 +11,8 @@
 * adding state to upload button in downloads (pending, uploading, uploading, etc.)
 * making URL input readonly for file based downloads
 * splitting Download component into Download and DownloadFile components
+* streamlining how distributors are made
+
 ## [0.9.0] - 2024-04-14
 
 ### Added

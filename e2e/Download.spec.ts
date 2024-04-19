@@ -1,14 +1,11 @@
 import { test, expect } from '@playwright/test'
 
-test('can select file, set URL, and output is rendered correctly', async ({ page }) => {
-  const url = 'https://example.com/file'
-
+test('can select file, and output is rendered correctly', async ({ page }) => {
   await page.goto('/')
 
   await page.click('text=Add Download')
 
   await page.setInputFiles('input#download-1-file', './sample-data/png/sample.png')
-  await page.fill('input#download-1-url', url)
 
   const browserName = page.context().browser()?.browserType().name()
   await page.screenshot({
@@ -17,7 +14,7 @@ test('can select file, set URL, and output is rendered correctly', async ({ page
 
   // assert details about file are in rendered distribution option
   const downloadOutput = await page.textContent('#download-1-output pre')
-  expect(downloadOutput).toContain(`"href": "${url}"`)
+  expect(downloadOutput).toContain(`"href": ""`)
   expect(downloadOutput).toContain(
     '"href": "https://www.iana.org/assignments/media-types/image/png"'
   )
