@@ -35,6 +35,7 @@ const emit = defineEmits<{
 
 let format = ref<Format | null>(null)
 let url = ref<string>('')
+let sizeBytes = ref<number | undefined>(undefined)
 
 let distributionOption: ComputedRef<DistributionOption | null> = computed(() => {
   if (!format.value) return null
@@ -44,6 +45,7 @@ let distributor: ComputedRef<IsoContact> = computed(() =>
 )
 
   return createDownloadDistributionOption(format.value, url.value, distributor.value)
+    sizeBytes.value
 })
 
 watch(
@@ -63,6 +65,7 @@ watch(
       :index="index"
       :file-identifier="fileIdentifier"
       @update:format="(event: Format) => (format = event)"
+      @update:size-bytes="(event: number) => (sizeBytes = event)"
       @update:url="(event: string) => (url = event)"
     ></DownloadFile>
     <Output

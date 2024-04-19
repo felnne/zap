@@ -23,6 +23,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   'update:format': [id: Format]
+  'update:sizeBytes': [id: number]
   'update:url': [id: string]
 }>()
 
@@ -83,6 +84,12 @@ let format: ComputedRef<Format | boolean | null> = computed(() => {
 })
 
 watch(format, (value: Format | boolean | null) => {
+let sizeBytes: ComputedRef<number | undefined> = computed(() => {
+  if (!file.value) return undefined
+
+  return file.value.size
+})
+
   if (value === false) {
     // if format is unsupported or otherwise invalid, reject file
     clearFile()
@@ -91,6 +98,15 @@ watch(format, (value: Format | boolean | null) => {
   // cast value to Format as only null on init which won't trigger watch
   emit('update:format', value as Format)
 })
+
+watch(
+  () => sizeBytes.value,
+  () => {
+    if (sizeBytes.value) {
+      emit('update:sizeBytes', sizeBytes.value)
+    }
+  }
+)
 
 watch(
   () => url.value,

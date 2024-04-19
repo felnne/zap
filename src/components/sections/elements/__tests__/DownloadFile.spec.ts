@@ -20,5 +20,5 @@ describe('DownloadFile', () => {
 
   // Can't test file input works as vitest doesn't support file inputs
 
-  // Can't test format determination, file upload and emits as they rely on file input changing
+  // Can't test format determination, size, upload and emits - as they rely on file input changing
 })
