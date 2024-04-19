@@ -33,19 +33,22 @@ const emit = defineEmits<{
   'update:isoDistributionOption': [id: DistributionOption]
 }>()
 
-let format = ref<Format | null>(null)
-let url = ref<string>('')
+let format = ref<Format | undefined>(undefined)
 let sizeBytes = ref<number | undefined>(undefined)
+let url = ref<string | undefined>(undefined)
 
-let distributionOption: ComputedRef<DistributionOption | null> = computed(() => {
-  if (!format.value) return null
-  if (!distributor.value) return null
 let distributor: ComputedRef<IsoContact> = computed(() =>
   createDistributor(props.resourceType, props.licence)
 )
 
-  return createDownloadDistributionOption(format.value, url.value, distributor.value)
+let distributionOption: ComputedRef<DistributionOption | undefined> = computed(() => {
+  if (!format.value) return undefined
+  return createDownloadDistributionOption(
+    format.value,
+    url.value ? url.value : '',
+    distributor.value,
     sizeBytes.value
+  )
 })
 
 watch(

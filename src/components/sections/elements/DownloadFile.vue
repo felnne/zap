@@ -34,7 +34,7 @@ const onFileChange = (e: Event) => {
 }
 
 const clearFile = () => {
-  file.value = null
+  file.value = undefined
   if (fileInput.value) {
     fileInput.value.value = ''
   }
@@ -62,12 +62,12 @@ const uploadFile = async () => {
 }
 
 let state = ref<UploadStatus>(UploadStatus.Empty)
-let file = ref<File | null>(null)
+let file = ref<File | undefined>(undefined)
 let fileInput = ref<HTMLInputElement | null>(null)
-let url = ref<string>('')
+let url = ref<string | undefined>(undefined)
 
-let format: ComputedRef<Format | boolean | null> = computed(() => {
-  if (!file.value) return null
+let format: ComputedRef<Format | boolean | undefined> = computed(() => {
+  if (!file.value) return undefined
 
   try {
     return getFileFormat(file.value)
@@ -80,23 +80,24 @@ let format: ComputedRef<Format | boolean | null> = computed(() => {
     }
   }
 
-  return null
+  return undefined
 })
 
-watch(format, (value: Format | boolean | null) => {
 let sizeBytes: ComputedRef<number | undefined> = computed(() => {
   if (!file.value) return undefined
 
   return file.value.size
 })
 
+watch(format, (value: Format | boolean | undefined) => {
   if (value === false) {
     // if format is unsupported or otherwise invalid, reject file
     clearFile()
   }
 
-  // cast value to Format as only null on init which won't trigger watch
-  emit('update:format', value as Format)
+  if (value) {
+    emit('update:format', value as Format)
+  }
 })
 
 watch(
@@ -111,7 +112,9 @@ watch(
 watch(
   () => url.value,
   () => {
-    emit('update:url', url.value)
+    if (url.value) {
+      emit('update:url', url.value)
+    }
   }
 )
 </script>
