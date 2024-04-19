@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UploadStatus } from '@/types/enum'
-import { computed, type ComputedRef, type PropType} from 'vue'
+import { computed, type ComputedRef, type PropType } from 'vue'
 
 import Button from '@/components/bases/Button.vue'
 
@@ -8,7 +8,7 @@ const props = defineProps({
   state: {
     type: String as PropType<UploadStatus>,
     required: true,
-  }
+  },
 })
 
 let label: ComputedRef<string> = computed(() => {

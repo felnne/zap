@@ -8,9 +8,9 @@
 
 ### Changed
 
-* Adding state to upload button in downloads (pending, uploading, uploading, etc.)
-* Making URL input readonly for file based downloads
-
+* adding state to upload button in downloads (pending, uploading, uploading, etc.)
+* making URL input readonly for file based downloads
+* splitting Download component into Download and DownloadFile components
 ## [0.9.0] - 2024-04-14
 
 ### Added
