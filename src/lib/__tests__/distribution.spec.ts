@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence } from '@/types/app'
+import type { Format, Licence, Organisation } from '@/types/app'
+import type { PointOfContact as IsoContact } from '@/types/iso'
+import { getFormatByType, getOrganisation } from '@/lib/data'
+import { createOrgPointOfContact } from '@/lib/contacts'
 
 import {
   createDistributor,
@@ -12,48 +15,11 @@ import {
   createServiceDistributionOption,
 } from '@/lib/distribution'
 
-const organisation = {
-  slug: 'bas',
-  name: 'British Antarctic Survey',
-  ror: 'https://ror.org/01rhff309',
-  phone: '+44 (0)1223 221400',
-  email: 'info@bas.ac.uk',
-  address: {
-    delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
-    city: 'Cambridge',
-    administrative_area: 'Cambridgeshire',
-    postal_code: 'CB3 0ET',
-    country: 'United Kingdom',
-  },
-  online_resource: {
-    href: 'https://www.bas.ac.uk',
-    title: 'British Antarctic Survey - BAS public website',
-    description: 'Homepage for the British Antarctic Survey (BAS) public website.',
-    function: 'information',
-  },
-}
+const organisation: Organisation = getOrganisation('bas')
 
-const expectedFormat: Format = {
-  slug: 'png',
-  name: 'PNG',
-  description: 'a PNG image',
-  extensions: ['.png'],
-  mediaTypes: ['image/png'],
-  url: 'https://www.iana.org/assignments/media-types/image/png',
-}
+const expectedFormat: Format = getFormatByType('image/png') as Format
 
-const expectedDistributor = {
-  organisation: {
-    name: organisation.name,
-    href: organisation.ror,
-    title: 'ror',
-  },
-  phone: organisation.phone,
-  address: organisation.address,
-  email: organisation.email!,
-  online_resource: organisation.online_resource,
-  role: ['distributor'],
-}
+const expectedDistributor: IsoContact = createOrgPointOfContact(organisation, 'distributor')
 
 describe('createDistributor', () => {
   it('builds a distributor from an organisation', () => {
