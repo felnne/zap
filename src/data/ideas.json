@@ -36,7 +36,10 @@
     { "label": "Support depositing downloads.", "state": "todo" },
     { "label": "Preserving input values (like GitLab editor).", "state": "todo" },
     { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },
-    { "label": "Option for more fun validation feedback (using internationalisation).", "state": "todo" },
+    {
+      "label": "More fun validation feedback (using internationalisation)?",
+      "state": "todo"
+    },
     { "label": "User feedback.", "state": "complete" },
     {
       "label": "Different colour for mandatory sections (based on ISO requirements).",
