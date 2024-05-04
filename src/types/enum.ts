@@ -16,6 +16,8 @@ export enum ResourceType {
 
 export enum ValidationStatus {
   Empty = 'empty', // input is blank, initial state
+  Pending = 'pending', // input is present, but not yet validated
+  Validating = 'validating', // input is present and being validated
   Error = 'error', // input is present, but is not allowed
   Invalid = 'invalid', // input is present, but cannot be understood be parsed
   Valid = 'valid', // input is present, can be understood and is allowed

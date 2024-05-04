@@ -3,11 +3,13 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { ValidationStatus } from '@/types/enum'
 import type { Format } from '@/types/app'
-import { encodeSanPath } from '@/lib/upload'
+import { statSanPath, encodeSanPath } from '@/lib/upload'
 import { getFormatString } from '@/lib/distribution'
 
+import ButtonStat from '@/components/bases/ButtonStat.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
+import GuidanceText from '@/components/bases/GuidanceText.vue'
 
 defineProps({
   index: {
@@ -23,18 +25,35 @@ const emit = defineEmits<{
 }>()
 
 const clearPath = () => {
-  path.value = undefined
+  path.value = ''
   state.value = ValidationStatus.Empty
+}
+
+const statPath = async () => {
+  if (!path.value) return
+
+  try {
+    state.value = ValidationStatus.Validating
+    sizeBytes.value = await statSanPath(path.value)
+    url.value = encodeSanPath(path.value)
+    state.value = ValidationStatus.Valid
+  } catch (e: any) {
+    state.value = ValidationStatus.Error
+    if (e instanceof Error) {
+      if (e.message.includes('error-path-not-found')) {
+        state.value = ValidationStatus.Invalid
+        alert('SAN file could not be accessed. Check path and/or permissions.')
+      } else {
+        alert(e.message)
+      }
+    }
+  }
 }
 
 let state = ref<ValidationStatus>(ValidationStatus.Empty)
 let path = ref<string | undefined>(undefined)
-
-let url: ComputedRef<string | undefined> = computed(() => {
-  if (!path.value) return undefined
-
-  return encodeSanPath(path.value)
-})
+let sizeBytes = ref<number | undefined>(undefined)
+let url = ref<string | undefined>(undefined)
 
 let format: ComputedRef<Format | boolean | undefined> = computed(() => {
   if (!path.value) return undefined
@@ -53,11 +72,16 @@ let format: ComputedRef<Format | boolean | undefined> = computed(() => {
   return undefined
 })
 
-let sizeBytes: ComputedRef<number | undefined> = computed(() => {
-  if (!path.value) return undefined
+watch(
+  () => path.value,
+  () => {
+    if (!path.value) {
+      state.value = ValidationStatus.Empty
+    }
 
-  return 0
-})
+    state.value = ValidationStatus.Pending
+  }
+)
 
 watch(format, (value: Format | boolean | undefined) => {
   if (value === false) {
@@ -91,25 +115,36 @@ watch(
 </script>
 
 <template>
-  <div class="flex space-x-4">
-    <div class="flex flex-grow space-x-2">
-      <FormLabel class="text-neutral-500">SAN Path</FormLabel>
-      <FormInput
-        type="text"
-        name="'download-' + index + '-path'"
-        :id="'download-' + index + '-path'"
-        v-model="path"
-      />
+  <div class="space-y-4">
+    <div class="flex space-x-4">
+      <div class="flex flex-grow space-x-2">
+        <FormLabel class="text-neutral-500">SAN Path</FormLabel>
+        <FormInput
+          type="text"
+          :name="'download-' + index + '-path'"
+          :id="'download-' + index + '-path'"
+          v-model="path"
+        />
+        <ButtonStat
+          :id="'download-' + index + '-stat'"
+          @button-click="statPath"
+          :state="state"
+        ></ButtonStat>
+      </div>
+      <div class="flex flex-grow space-x-2">
+        <FormLabel class="text-neutral-500">URL</FormLabel>
+        <FormInput
+          type="text"
+          name="'download-' + index + '-url'"
+          :id="'download-' + index + '-url'"
+          readonly
+          v-model="url"
+        />
+      </div>
     </div>
-    <div class="flex flex-grow space-x-2">
-      <FormLabel class="text-neutral-500">URL</FormLabel>
-      <FormInput
-        type="text"
-        name="'download-' + index + '-url'"
-        :id="'download-' + index + '-url'"
-        readonly
-        v-model="url"
-      />
-    </div>
+    <GuidanceText
+      >Paths from the U drive on Windows (e.g. <code>U:/magic/.../map.png</code>) will not work
+      here. They should start with <code>/data/...</code> or similar.
+    </GuidanceText>
   </div>
 </template>

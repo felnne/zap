@@ -81,7 +81,10 @@ watch(
       return
     }
 
+    state.value = ValidationStatus.Pending
+
     try {
+      state.value = ValidationStatus.Validating
       result = validateRecordText(input.value)
     } catch {
       state.value = ValidationStatus.Error
