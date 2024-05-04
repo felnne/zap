@@ -9,6 +9,13 @@ export enum ResourceType {
   Product = 'product',
 }
 
+export enum ValidationStatus {
+  Empty = 'empty', // input is blank, initial state
+  Error = 'error', // input is present, but is not allowed
+  Invalid = 'invalid', // input is present, but cannot be understood be parsed
+  Valid = 'valid', // input is present, can be understood and is allowed
+}
+
 export enum UploadStatus {
   Empty = 'empty', // input is blank, initial state
   Pending = 'pending', // input is present, but not yet uploading

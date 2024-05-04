@@ -12,6 +12,7 @@
 * making URL input readonly for file based downloads
 * splitting Download component into Download and DownloadFile components
 * streamlining how distributors are made
+* refactoring Status enum from RecordValidation component to an app wide ValidationStatus enum
 * adjusting for basweb HTTPS support
 * splitting e2e tests into smaller files
 
