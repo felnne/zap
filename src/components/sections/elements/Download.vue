@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { ResourceType } from '@/types/enum'
+import { ResourceType, DownloadType } from '@/types/enum'
 import type { Format, Licence } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
@@ -9,6 +9,8 @@ import { createDistributor, createDownloadDistributionOption } from '@/lib/distr
 import Output from '@/components/bases/Output.vue'
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
 import DownloadFile from '@/components/sections/elements/DownloadFile.vue'
+import DownloadSan from '@/components/sections/elements/DownloadSan.vue'
+import DownloadSwitcher from '@/components/sections/elements/DownloadSwitcher.vue'
 
 const props = defineProps({
   index: {
@@ -33,6 +35,7 @@ const emit = defineEmits<{
   'update:isoDistributionOption': [id: DistributionOption]
 }>()
 
+let type = ref<DownloadType | undefined>(undefined)
 let format = ref<Format | undefined>(undefined)
 let sizeBytes = ref<number | undefined>(undefined)
 let url = ref<string | undefined>(undefined)
@@ -64,13 +67,28 @@ watch(
 
 <template>
   <SubSectionBorder :id="'download-' + index" class="space-y-2">
-    <DownloadFile
-      :index="index"
-      :file-identifier="fileIdentifier"
-      @update:format="(event: Format) => (format = event)"
-      @update:size-bytes="(event: number) => (sizeBytes = event)"
-      @update:url="(event: string) => (url = event)"
-    ></DownloadFile>
+    <template v-if="type === DownloadType.File">
+      <DownloadFile
+        :index="index"
+        :file-identifier="fileIdentifier"
+        @update:format="(event: Format) => (format = event)"
+        @update:size-bytes="(event: number) => (sizeBytes = event)"
+        @update:url="(event: string) => (url = event)"
+      ></DownloadFile>
+    </template>
+    <template v-else-if="type === DownloadType.San">
+      <DownloadSan
+        :index="index"
+        @update:format="(event: Format) => (format = event)"
+        @update:size-bytes="(event: number) => (sizeBytes = event)"
+        @update:url="(event: string) => (url = event)"
+      ></DownloadSan>
+    </template>
+    <template v-else>
+      <p>
+        <DownloadSwitcher @update:type="(event: DownloadType) => (type = event)"></DownloadSwitcher>
+      </p>
+    </template>
     <Output
       v-if="distributionOption"
       :id="'download-' + index + '-output'"

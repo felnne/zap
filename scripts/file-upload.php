@@ -22,19 +22,19 @@ if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-  makeError("invalid-method");
+  makeError("error-invalid-method");
   header("HTTP/1.1 405 Method Not Allowed");
   exit;
 }
 
 if (! isset($_SERVER['HTTP_APP_FILE_IDENTIFIER'])) {
-  makeError("missing-file-identifier-header");
+  makeError("error-missing-file-identifier-header");
   header("HTTP/1.1 400 Bad Request");
   exit;
 }
 
 if (! isset($_FILES["file"])) {
-  makeError("missing-file-multipart");
+  makeError("error-missing-file-multipart");
   header("HTTP/1.1 400 Bad Request");
   exit;
 }
@@ -89,4 +89,3 @@ header("location: " . $accessUrl);
 header("HTTP/1.1 201 Created");
 addCorsHeaders();
 exit;
-?>

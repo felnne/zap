@@ -8,7 +8,8 @@ import { createOrgPointOfContact } from '@/lib/contacts'
 
 import {
   createDistributor,
-  getFileFormat,
+  getFormatString,
+  getFormatFile,
   createDistributionOption,
   createDownloadDistributionOption,
   createServiceDistributionOption,
@@ -84,6 +85,18 @@ describe('createDistributor', () => {
   })
 })
 
+describe('getFormatString', () => {
+  it('returns format string for format', () => {
+    expect(getFormatString('image.png')).toStrictEqual(expectedFormat)
+    expect(getFormatString('/data/somewhere/image.png')).toStrictEqual(expectedFormat)
+    expect(getFormatString('https://example.com/image.png')).toStrictEqual(expectedFormat)
+  })
+
+  it('raises error when format cannot be determined', () => {
+    expect(() => getFormatString('foo.bar')).toThrow('Cannot determine format.')
+  })
+})
+
 describe('getFileFormat', () => {
   it('returns format for file, identified by media type', () => {
     const file: File = {
@@ -98,7 +111,7 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(getFileFormat(file)).toStrictEqual(expectedFormat)
+    expect(getFormatFile(file)).toStrictEqual(expectedFormat)
   })
 
   it('returns format for file, identified by file extension', () => {
@@ -114,7 +127,7 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(getFileFormat(file)).toStrictEqual(expectedFormat)
+    expect(getFormatFile(file)).toStrictEqual(expectedFormat)
   })
 
   it('raises error when format cannot be determined', () => {
@@ -130,7 +143,7 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(() => getFileFormat(file)).toThrow('Cannot determine format.')
+    expect(() => getFormatFile(file)).toThrow('Cannot determine format.')
   })
 })
 

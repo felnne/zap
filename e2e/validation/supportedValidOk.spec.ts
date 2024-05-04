@@ -56,8 +56,7 @@ test('a record drawn together from filled in sections validates', async ({ page 
     expect(validationStatusText).toBe('😀 Record is valid.')
   } catch (error) {
     const validationErrorsText = await page.textContent('#validation-errors')
-    console.log(validationErrorsText)
-    // Re-throw the error to ensure the test fails
-    throw error
+    console.log(validationErrorsText) // keep this
+    throw error // Re-throw the error to ensure the test fails
   }
 })
