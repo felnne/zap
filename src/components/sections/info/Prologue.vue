@@ -42,23 +42,52 @@ let title: ComputedRef<string> = computed(() => {
 
 <template>
   <SectionBorder border-colour-class="border-orange-500">
-    <SectionTitle version="2.0" :stability="Stability.Experimental" anchor="prologue" :title="title" :add-toc="false" />
+    <SectionTitle
+      version="2.0"
+      :stability="Stability.Experimental"
+      anchor="prologue"
+      :title="title"
+      :add-toc="false"
+    />
     <div class="space-y-4">
       <template v-if="appEnv.label == AppEnvironmentLabel.LocalDevelopment">
         <GuidanceText>Meow!</GuidanceText>
       </template>
       <template v-else-if="appEnv.label == AppEnvironmentLabel.ReviewApp">
-        <p class="font-bold">This is a preview of a new feature or change, and may not work properly.</p>
+        <p class="font-bold">
+          This is a preview of a new feature or change, and may not work properly.
+        </p>
         <p>Review apps are used to try out new features or other changes to this tool.</p>
-        <p>As they are under active development, they will not be well tested and may break or behave strangely.</p>
-        <p>See the relevant issue and/or merge request in the <Link :href="gitlabUrl">GitLab Project</Link> for information about what this review app has changed and how to give feedback. There may (but usually isn't) multiple reviews active at once.</p>
-        <GuidanceText>Unless you have been asked to review this change, you should use the <Link :href="prodUrl">Production Version</Link> of this tool instead.</GuidanceText>
+        <p>
+          As they are under active development, they will not be well tested and may break or behave
+          strangely.
+        </p>
+        <p>
+          See the relevant issue and/or merge request in the
+          <Link :href="gitlabUrl">GitLab Project</Link> for information about what this review app
+          has changed and how to give feedback. There may (but usually isn't) multiple reviews
+          active at once.
+        </p>
+        <GuidanceText
+          >Unless you have been asked to review this change, you should use the
+          <Link :href="prodUrl">Production Version</Link> of this tool instead.</GuidanceText
+        >
       </template>
       <template v-else-if="appEnv.label == AppEnvironmentLabel.Integration">
         <p class="font-bold">This is a preview of the next version of this tool.</p>
-        <p>This preview version, termed <em>integration</em>, contains all changes since the last production release, a list of which can be found in the project <Link :href="unreleasedChangesUrl">change log</Link>.</p>
-        <p>Everything in this preview version should work correctly, but may be missing context whilst other changes are made prior to the next release.</p>
-        <GuidanceText>Unless you have been asked to test this preview version, you should use the <Link :href="prodUrl">Production Version</Link> of this tool instead.</GuidanceText>
+        <p>
+          This preview version, termed <em>integration</em>, contains all changes since the last
+          production release, a list of which can be found in the project
+          <Link :href="unreleasedChangesUrl">change log</Link>.
+        </p>
+        <p>
+          Everything in this preview version should work correctly, but may be missing context
+          whilst other changes are made prior to the next release.
+        </p>
+        <GuidanceText
+          >Unless you have been asked to test this preview version, you should use the
+          <Link :href="prodUrl">Production Version</Link> of this tool instead.</GuidanceText
+        >
       </template>
       <template v-else-if="appEnv.label == AppEnvironmentLabel.Production">
         <p class="font-bold">This tool is experimental and must not be relied upon.</p>
