@@ -30,3 +30,10 @@ export enum UploadStatus {
   Uploaded = 'uploaded', // input is present and has been uploaded
   Error = 'error', // input is present, but an error occurred
 }
+
+export enum AppEnvironmentLabel {
+  LocalDevelopment = 'Local Development',
+  ReviewApp = 'Review App',
+  Integration = 'Integration',
+  Production = 'Production',
+}

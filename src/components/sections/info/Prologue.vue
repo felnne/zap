@@ -6,7 +6,7 @@ import Link from '@/components/bases/Link.vue'
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-amber-500">
+  <SectionBorder border-colour-class="border-orange-500">
     <SectionTitle version="1.3" anchor="prologue" title="⚠️ Experimental" :add-toc="false" />
     <div class="space-y-4">
       <p class="font-bold">This tool is experimental and must not be relied upon.</p>

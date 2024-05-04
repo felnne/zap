@@ -1,22 +1,23 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
+import { AppEnvironmentLabel } from '@/types/enum'
 import type { AppEnvironment } from '@/types/app'
 import Epilogue from '@/components/sections/info/Epilogue.vue'
 
 describe('Epilogue', () => {
   it('renders properly with minimal information', async () => {
     const minimalEnvironment: AppEnvironment = {
-      mode: 'development',
+      label: AppEnvironmentLabel.LocalDevelopment,
     }
     const wrapper = mount(Epilogue, { props: { appEnv: minimalEnvironment } })
 
-    expect(wrapper.find('#app-build-info').text()).toContain(minimalEnvironment.mode)
+    expect(wrapper.find('#app-build-info').text()).toContain(minimalEnvironment.label)
   })
 
   it('renders properly with full information', async () => {
     const maximumEnvironment: AppEnvironment = {
-      mode: 'production',
+      label: AppEnvironmentLabel.Production,
       commit: '1c0c6597176700465b8df44e1a78f9b9733a6818',
       time: '2024-01-05T12:59:51+00:00',
     }
@@ -26,7 +27,7 @@ describe('Epilogue', () => {
     const separatorCount = wrapper.find('#app-build-info').text().split(' / ').length - 1
     expect(separatorCount).toBe(2)
 
-    expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.mode)
+    expect(wrapper.find('#app-build-info').text()).toContain(maximumEnvironment.label)
     expect(wrapper.find('#app-build-info').text()).toContain(
       maximumEnvironment.commit?.substring(0, 8)
     )

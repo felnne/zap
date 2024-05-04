@@ -1,4 +1,4 @@
-import { ResourceType } from '@/types/enum'
+import { AppEnvironmentLabel, ResourceType } from '@/types/enum'
 import type {
   Address,
   Identifier,
@@ -23,7 +23,7 @@ type AccessRestriction = {
 }
 
 export type AppEnvironment = {
-  mode: string
+  label: AppEnvironmentLabel
   commit?: string
   time?: string
 }
