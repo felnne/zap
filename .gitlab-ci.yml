@@ -12,7 +12,7 @@ variables:
   DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
   DEPLOY_PATH: /users/felnne/public_html/apps/zap
   DEPLOY_REVIEW_APP_PREFIX: review
-  DEPLOY_URL_BASE: http://basweb.nerc-bas.ac.uk/~felnne/apps/zap
+  DEPLOY_URL_BASE: https://basweb.nerc-bas.ac.uk/~felnne/apps/zap
 
 image:
   name: node:lts-alpine

@@ -35,7 +35,9 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     /* Only on CI systems run the tests headless */
-    headless: !!process.env.CI
+    headless: !!process.env.CI,
+    /* Ignore self-signed TLS certificates (used by basweb.nerc-bas.ac.uk) */
+    ignoreHTTPSErrors: true,
   },
 
   /* Configure projects for major browsers */

@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 import { type DefinedError } from 'ajv'
 
-import { Stability } from '@/types/enum'
+import { Stability, ValidationStatus } from '@/types/enum'
 import type { Record as IsoRecord } from '@/types/iso'
 import { validateRecordText } from '@/lib/validation'
 
@@ -12,20 +12,6 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
 import Button from '@/components/bases/Button.vue'
 import Pre from '@/components/bases/Pre.vue'
-
-/*
- * This component has 4 states:
- * 1. Empty (input is blank, initial state)
- * 2. Valid (input is present, can be parsed as JSON and complies with schema)
- * 3. Invalid (input is present, can be parsed as JSON but does not comply with schema)
- * 4. Error (input is present, but cannot be parsed as JSON)
- */
-enum State {
-  Empty,
-  Error,
-  Invalid,
-  Valid,
-}
 
 /*
  * This component has 2 sources:
@@ -52,20 +38,20 @@ const props = defineProps({
   },
 })
 
-let state = ref<State>(State.Empty)
+let state = ref<ValidationStatus>(ValidationStatus.Empty)
 let source = ref<Source>(Source.UserInput)
 let errors = ref<DefinedError[]>([])
 let input = ref<string>('')
 
 let validityMessage: ComputedRef<String> = computed(() => {
-  if (state.value == State.Error) {
+  if (state.value == ValidationStatus.Error) {
     return '😕 Record cannot be understood (invalid format).'
-  } else if (state.value == State.Invalid) {
+  } else if (state.value == ValidationStatus.Invalid) {
     return '😩 Record is invalid.'
-  } else if (state.value == State.Valid) {
+  } else if (state.value == ValidationStatus.Valid) {
     return '😀 Record is valid.'
   } else {
-    // State.Empty and catch-all
+    // ValidationStatus.Empty and catch-all
     return ''
   }
 })
@@ -73,14 +59,14 @@ let validityMessage: ComputedRef<String> = computed(() => {
 let validityClass: ComputedRef<String[]> = computed(() => {
   const negativeClass = ['border-red-500', 'text-red-500']
 
-  if (state.value == State.Error) {
+  if (state.value == ValidationStatus.Error) {
     return negativeClass
-  } else if (state.value == State.Invalid) {
+  } else if (state.value == ValidationStatus.Invalid) {
     return negativeClass
-  } else if (state.value == State.Valid) {
+  } else if (state.value == ValidationStatus.Valid) {
     return ['border-green-500', 'text-green-500']
   } else {
-    // State.Empty and catch-all
+    // ValidationStatus.Empty and catch-all
     return []
   }
 })
@@ -91,23 +77,23 @@ watch(
     let result: DefinedError[] = []
 
     if (input.value.length === 0) {
-      state.value = State.Empty
+      state.value = ValidationStatus.Empty
       return
     }
 
     try {
       result = validateRecordText(input.value)
     } catch {
-      state.value = State.Error
+      state.value = ValidationStatus.Error
       errors.value = []
       return
     }
 
     if (result.length === 0) {
-      state.value = State.Valid
+      state.value = ValidationStatus.Valid
       errors.value = []
     } else {
-      state.value = State.Invalid
+      state.value = ValidationStatus.Invalid
       errors.value = result
     }
   }
@@ -142,7 +128,7 @@ watch(
       </div>
       <div
         id="validation-message"
-        v-if="state != State.Empty"
+        v-if="state != ValidationStatus.Empty"
         class="border-l-4 border-solid pl-2 text-lg font-semibold"
         :class="validityClass"
       >
