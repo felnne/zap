@@ -4,7 +4,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 import { UploadStatus } from '@/types/enum'
 import type { Format } from '@/types/app'
 import { stageFile } from '@/lib/upload'
-import { getFileFormat } from '@/lib/distribution'
+import { getFormatFile } from '@/lib/distribution'
 
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
@@ -70,7 +70,7 @@ let format: ComputedRef<Format | boolean | undefined> = computed(() => {
   if (!file.value) return undefined
 
   try {
-    return getFileFormat(file.value)
+    return getFormatFile(file.value)
   } catch (e) {
     if (e instanceof Error && e.message == 'Cannot determine format.') {
       alert(`File format for '${file.value.name}' is not supported, rejecting.`)

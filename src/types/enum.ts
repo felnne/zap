@@ -3,6 +3,11 @@ export enum Stability {
   Experimental = 'experimental',
 }
 
+export enum DownloadType {
+  File = 'file',
+  San = 'san',
+}
+
 export enum ResourceType {
   Collection = 'collection',
   Dataset = 'dataset',

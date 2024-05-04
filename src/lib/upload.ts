@@ -31,3 +31,19 @@ export async function stageFile(file: File, fileIdentifier: string): Promise<str
     throw new Error('Error staging file')
   }
 }
+
+export function encodeSanPath(path: string): string {
+  /*
+   * Encode a path for a SAN file
+   *
+   * Encodes a path as a URL representing a file accessible via SFTP through a given endpoint.
+   *
+   * Example:
+   * > '/data/foo/bar.txt'
+   *
+   * Out (where 'example.com' is endpoint):
+   * < 'sftp://example.com/data/foo/bar.txt'
+   */
+  const endpoint = getSetting('app_san_endpoint')
+  return `sftp://${endpoint}${path}`
+}

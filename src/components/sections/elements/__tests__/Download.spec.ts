@@ -42,6 +42,9 @@ describe('Download', () => {
       },
     })
 
+    // pick file download type
+    await wrapper.find('button#download-file').trigger('click')
+
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'DownloadFile' })
     await childComponent.vm.$emit('update:format', expectedFormat)
@@ -74,6 +77,9 @@ describe('Download', () => {
         },
       },
     })
+
+    // pick file download type
+    await wrapper.find('button#download-file').trigger('click')
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'DownloadFile' })

@@ -1,13 +1,14 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
 import axios from 'axios'
 
-import { stageFile } from '@/lib/upload'
+import { getSetting } from '@/lib/data'
+import { stageFile, encodeSanPath } from '@/lib/upload'
 
 vi.mock('axios')
 
 describe('stageFile', () => {
   afterEach(() => {
-    // cleaning up the mess left behind the previous test
+    // cleaning up after the previous test
     ;(axios.post as any).mockReset()
   })
 
@@ -58,5 +59,17 @@ describe('stageFile', () => {
     } catch (error: any) {
       expect(error.message).toBe(`Error staging file: ${mockError.response.data.error}`)
     }
+  })
+})
+
+describe('encodeSanPath', () => {
+  it('encodes a path for a SAN file', () => {
+    const path = '/data/foo/bar.txt'
+    const endpoint = getSetting('app_san_endpoint')
+    const expectedUrl = `sftp://${endpoint}${path}`
+
+    const encodedPath = encodeSanPath(path)
+
+    expect(encodedPath).toStrictEqual(expectedUrl)
   })
 })

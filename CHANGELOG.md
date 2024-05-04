@@ -5,6 +5,8 @@
 ### Added
 
 * ButtonUpload base component
+* DownloadSAN component
+* DownloadSwitcher component
 
 ### Changed
 

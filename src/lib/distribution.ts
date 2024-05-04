@@ -27,25 +27,42 @@ export const createDistributor = (resourceType: ResourceType, licence: Licence):
   return createOrgPointOfContact(getOrganisation(orgSlug), 'distributor')
 }
 
-export const getFileFormat = (file: File): Format => {
+export const getFormatString = (file: string): Format => {
   /*
-   * Determine the format of a file from its media type and extension
+   * Determine the format of a file, expressed as a string/path, from its extension
+   *
+   * Where a format can't be determined, an error is thrown as this app intentionally does not support all file types.
+   *
+   * Example:
+   * - '/data/foo/latin_music_continues.foo.bar.baz'
+   * - 'https://example.com/image.png' => 'image.png'
+   *
+   * Output:
+   * > '.foo.bar.baz'
+   * > '.png'
+   */
+  const path = file.split('/').pop() || file
+  const fileExt = `.${path.split('.').slice(1).join('.')}`
+
+  const format = getFormatByExtension(fileExt)
+  if (format) return format
+
+  throw new Error(`Cannot determine format.`)
+}
+
+export const getFormatFile = (file: File): Format => {
+  /*
+   * Determine the format of a file, expressed as a browser File object, from its media type and extension
    *
    * The media type is preferred but often limited for the types of files we handle (e.g. GeoPackages). Where unknown,
    * the file extension is used instead.
    *
    * Where a format can't be determined, an error is thrown as this app intentionally does not support all file types.
    */
-
-  // 'latin_music_continues.foo.bar.baz' => '.foo.bar.baz'
-  const fileExt = `.${file.name.split('.').slice(1).join('.')}`
-
-  let format = getFormatByType(file.type)
-  if (format) return format
-  format = getFormatByExtension(fileExt)
+  const format = getFormatByType(file.type)
   if (format) return format
 
-  throw new Error(`Cannot determine format.`)
+  return getFormatString(file.name)
 }
 
 export const createDistributionOption = (

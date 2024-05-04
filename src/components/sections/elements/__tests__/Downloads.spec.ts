@@ -112,6 +112,54 @@ describe('Downloads [Integration]', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
+  it('renders a file download if file download type picked', async () => {
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click add download button
+    await wrapper.find('button#add-download').trigger('click')
+
+    // click file download type
+    await wrapper.find('button#download-file').trigger('click')
+
+    // check a File Download element is rendered
+    expect(wrapper.find('#download-1-file').exists()).toBeTruthy()
+  })
+
+  it('renders a san download if san download type picked', async () => {
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click add download button
+    await wrapper.find('button#add-download').trigger('click')
+
+    // click file download type
+    await wrapper.find('button#download-san').trigger('click')
+
+    // check a File Download element is rendered
+    expect(wrapper.find('#download-1-path').exists()).toBeTruthy()
+  })
+
   it('adds and emits a distributionOption', async () => {
     const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
       expectedFormat,
@@ -135,6 +183,9 @@ describe('Downloads [Integration]', () => {
 
     // add download
     await wrapper.find('button#add-download').trigger('click')
+
+    // pick file download type
+    await wrapper.find('button#download-file').trigger('click')
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
@@ -180,6 +231,9 @@ describe('Downloads [Integration]', () => {
 
     // add download
     await wrapper.find('button#add-download').trigger('click')
+
+    // pick file download type
+    await wrapper.find('button#download-file').trigger('click')
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
