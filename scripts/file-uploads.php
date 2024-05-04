@@ -53,7 +53,7 @@ if (! isset($_FILES["file"])) {
 
 $commonPath = 'apps/zap-uploads';
 $uploadDir = "/users/felnne/public_html" . '/' . $commonPath;
-$accessBase = 'http://basweb.nerc-bas.ac.uk/~felnne' . '/' . $commonPath;
+$accessBase = 'https://basweb.nerc-bas.ac.uk/~felnne' . '/' . $commonPath;
 $fileIdentifier = $_SERVER["HTTP_APP_FILE_IDENTIFIER"];
 $tmpName = $_FILES["file"]["tmp_name"];
 $fileName = $_FILES["file"]["name"];

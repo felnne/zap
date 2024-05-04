@@ -232,7 +232,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
         },
         transfer_option: {
           online_resource: {
-            href: 'http://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/25585848-7b80-42f7-8d4a-069d7479c287/07de50d1282a72c512ed75737ee053b1.jpg',
+            href: 'https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/25585848-7b80-42f7-8d4a-069d7479c287/07de50d1282a72c512ed75737ee053b1.jpg',
             title: 'JPEG',
             description: 'Download information as a JPEG image',
             function: 'download',
