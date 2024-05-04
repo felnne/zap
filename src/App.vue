@@ -31,7 +31,7 @@ const envBorderColour = getAppBorderClasses(appEnvironment)
     <BackToTop />
     <AppTitle />
     <div class="space-y-4">
-      <Prologue />
+      <Prologue :app-env="appEnvironment" />
       <ExternalServices @update:esriToken="(event: EsriToken) => (esriToken = event)" />
       <TableOfContents />
       <Record

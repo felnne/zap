@@ -8,6 +8,7 @@
 * DownloadSAN component
 * DownloadSwitcher component
 * Border to easily identify runtime environment (local development, production, etc.)
+* Contextual prologue based on app environment
 
 ### Changed
 

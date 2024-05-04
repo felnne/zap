@@ -9,6 +9,7 @@
   "app_file_upload_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/upload.php",
   "app_san_stat_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/stat.php",
   "app_san_endpoint": "bslcenb.nerc-bas.ac.uk",
+  "app_production_url": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap/prod/",
   "bas_esri_agol_slug": "bas",
   "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
   "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",
