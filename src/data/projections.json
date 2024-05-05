@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/projections.json",
   "projections": {
     "epsg_3031": {
       "slug": "epsg_3031",

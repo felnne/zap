@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/keywords.json",
   "keywords": {
     "bas_research_topics": {
       "slug": "bas_research_topics",

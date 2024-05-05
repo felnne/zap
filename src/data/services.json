@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/services.json",
   "services": {
     "wms": {
       "slug": "wms",

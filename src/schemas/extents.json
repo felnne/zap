@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "geographic": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/GeographicItem" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "geographic"],
+  "definitions": {
+    "GeographicItem": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "extent": { "$ref": "#/definitions/Extent" },
+        "projectionSlug": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "extent", "projectionSlug"]
+    },
+    "Extent": {
+      "type": "object",
+      "properties": {
+        "geographic": { "$ref": "#/definitions/BoundingBox" }
+      },
+      "additionalProperties": false,
+      "required": ["geographic"]
+    },
+    "BoundingBox": {
+      "type": "object",
+      "properties": {
+        "bounding_box": {
+          "type": "object",
+          "properties": {
+            "west_longitude": { "type": "number" },
+            "east_longitude": { "type": "number" },
+            "south_latitude": { "type": "number" },
+            "north_latitude": { "type": "number" }
+          },
+          "additionalProperties": false,
+          "required": ["west_longitude", "east_longitude", "south_latitude", "north_latitude"]
+        }
+      },
+      "additionalProperties": false,
+      "required": ["bounding_box"]
+    }
+  }
+}

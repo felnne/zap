@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "organisations": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Organisation" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "organisations"],
+  "definitions": {
+    "Organisation": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "ror": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "$ref": "#/definitions/Address" },
+        "email": { "type": "string" },
+        "online_resource": { "$ref": "#/definitions/OnlineResource" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "ror", "phone", "address", "online_resource"]
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "delivery_point": { "type": "string" },
+        "city": { "type": "string" },
+        "administrative_area": { "type": "string" },
+        "postal_code": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["delivery_point", "city", "administrative_area", "postal_code", "country"]
+    },
+    "OnlineResource": {
+      "type": "object",
+      "properties": {
+        "href": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "function": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["href", "title", "description", "function"]
+    }
+  }
+}

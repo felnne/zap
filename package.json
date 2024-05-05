@@ -10,7 +10,7 @@
     "build:only": "vite build",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "test:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
+    "test:eslint": "eslint src/ e2e/ --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "test:types": "vue-tsc --build --force",
     "test:format": "prettier --check src/ e2e/",
     "test:linters": "npm run test:eslint && npm run test:types && npm run test:format",

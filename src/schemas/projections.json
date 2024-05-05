@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "projections": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Projection" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "projections"],
+  "definitions": {
+    "Projection": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "authority": { "$ref": "#/definitions/Authority" },
+        "code": { "$ref": "#/definitions/Code" },
+        "version": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "authority"]
+    },
+    "Authority": {
+      "type": "object",
+      "properties": {
+        "title": { "$ref": "#/definitions/Title" },
+        "dates": { "$ref": "#/definitions/Dates" },
+        "contact": { "$ref": "#/definitions/Contact" }
+      },
+      "additionalProperties": false,
+      "required": ["title", "dates", "contact"]
+    },
+    "Title": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["value"]
+    },
+    "Dates": {
+      "type": "object",
+      "properties": {
+        "publication": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["publication"]
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "organisation": { "$ref": "#/definitions/Organisation" },
+        "email": { "type": "string" },
+        "online_resource": { "$ref": "#/definitions/OnlineResource" },
+        "role": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false,
+      "required": ["organisation", "email", "online_resource", "role"]
+    },
+    "Organisation": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["name"]
+    },
+    "OnlineResource": {
+      "type": "object",
+      "properties": {
+        "href": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "function": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["href", "title", "description", "function"]
+    },
+    "Code": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "href": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["value", "href"]
+    }
+  }
+}

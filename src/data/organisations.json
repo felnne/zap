@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/organisations.json",
   "organisations": {
     "bas": {
       "slug": "bas",
