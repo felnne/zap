@@ -57,7 +57,7 @@ describe('SectionTitle', () => {
     })
 
     expect(wrapper.find('div.section-stability').text()).toBe(Stability.Experimental)
-    expect(wrapper.find('div.section-stability').attributes().class).toContain('text-purple-500')
+    expect(wrapper.find('div.section-stability').attributes().class).toContain('text-indigo-500')
   })
 
   it('renders teleported content', async () => {

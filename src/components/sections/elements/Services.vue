@@ -27,12 +27,7 @@ watch(
 </script>
 <template>
   <SectionBorder>
-    <SectionTitle
-      version="4.0"
-      :stability="Stability.Experimental"
-      anchor="services"
-      title="Services"
-    />
+    <SectionTitle version="4.0" :stability="Stability.Stable" anchor="services" title="Services" />
     <div class="space-y-4">
       <Service
         v-for="slug in serviceSlugs"
