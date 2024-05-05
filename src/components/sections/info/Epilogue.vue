@@ -43,7 +43,7 @@ let timeDisplay: ComputedRef<string> = computed(() => {
         <Link :href="getSetting('app_gitlab_url')">GitLab Project</Link>
       </div>
       <div id="app-build-info" class="flex-1 text-right">
-        <span title="Build mode">{{ appEnv.mode }}</span>
+        <span>{{ appEnv.label }}</span>
         <span v-if="appEnv.commit" class="text-neutral-300"> / </span>
         <abbr :title="appEnv.commit"></abbr> {{ commitDisplay }}
         <span v-if="appEnv.time" class="text-neutral-300"> / </span>

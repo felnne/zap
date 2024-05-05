@@ -128,7 +128,7 @@ Remaining:
 
 - `space-y-2`, `space-y-4` used extensively
 
-### Border
+## Border
 
 Removed:
 
@@ -142,6 +142,10 @@ Remaining:
 Additional [0.9.0]
 
 - `border-4` used for validation status (left only)
+
+Additional [0.10.0]
+
+- `border-8` used for app border
 
 ## Font
 
@@ -209,7 +213,7 @@ Additional [0.7.0]:
 
 ### Extras
 
-- experimental warning: `amber-500` (border only, same for dark mode)
+- experimental warning: `orange-500` (border only, same for dark mode)
 - hyperlinks: `blue-700` (text only, `blue-500` for dark mode)
 - help/guidance text: `orange-700` (text only, `orange-500` for dark mode)
 - preview hints/labels: `sky-500` (text only, same for dark mode)
@@ -218,6 +222,11 @@ Additional [0.7.0]:
 - supported file extensions background: `orange-900` (dark `orange-100`)
 - disabled buttons: `neutral-500` (text only, same for dark mode)
 - bounding extent (map): `orange-500` (border and fill, where fill is 50% transparent)
+- runtime environment (app border):
+  - local development: `black` (dark `white`)
+  - review app: `indigo-500`
+  - integration: `orange-500`
+  - production: `white` (dark `black`, inverse of local dev)
 
 Additional [0.6.0]:
 
@@ -229,6 +238,11 @@ Additional [0.7.0]:
 - supported file extensions background changed to `orange-900` (dark `orange-100`)
 - disabled button text added: `neutral-500` (text only, same for dark mode)
 - bounding extent (map) added: `orange-500` (border and fill, where fill is 50% transparent)
+
+Additional [0.10.0]
+
+- experimental warning changed, it was `amber-500` (border only, same for dark mode), to align with app border
+- runtime environment colours (local dev: black/white, review: `indigo-500` int: `orange-500`, prod: white/black)
 
 ### Exceptions
 

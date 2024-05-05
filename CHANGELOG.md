@@ -7,6 +7,8 @@
 * ButtonUpload base component
 * DownloadSAN component
 * DownloadSwitcher component
+* Border to easily identify runtime environment (local development, production, etc.)
+* Contextual prologue based on app environment
 
 ### Changed
 
@@ -17,6 +19,10 @@
 * refactoring Status enum from RecordValidation component to an app wide ValidationStatus enum
 * adjusting for basweb HTTPS support
 * splitting e2e tests into smaller files
+
+### Removed
+
+* Vite build environment from app environment info (as this was misleading)
 
 ## [0.9.0] - 2024-04-14
 

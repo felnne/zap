@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { getAppEnvironment } from '@/lib/env'
+import { getAppEnvironment, getAppBorderClasses } from '@/lib/env'
 import type { EsriToken } from '@/types/app'
 import type { Record as IsoRecord } from '@/types/iso'
 import { emptyIsoRecord } from '@/lib/record'
@@ -19,14 +19,19 @@ import TableOfContents from '@/components/sections/info/TableOfContents.vue'
 
 const esriToken = ref<EsriToken | undefined>(undefined)
 const currentIsoRecord = ref<IsoRecord>(emptyIsoRecord)
+const appEnvironment = getAppEnvironment(window.location.pathname)
+const envBorderColour = getAppBorderClasses(appEnvironment)
 </script>
 
 <template>
-  <main class="bg-white p-10 font-sans text-black dark:bg-black dark:text-white">
+  <main
+    class="border-8 bg-white p-4 font-sans text-black dark:bg-black dark:text-white"
+    :class="envBorderColour"
+  >
     <BackToTop />
     <AppTitle />
     <div class="space-y-4">
-      <Prologue />
+      <Prologue :app-env="appEnvironment" />
       <ExternalServices @update:esriToken="(event: EsriToken) => (esriToken = event)" />
       <TableOfContents />
       <Record
@@ -36,7 +41,7 @@ const currentIsoRecord = ref<IsoRecord>(emptyIsoRecord)
       <Resources />
       <RecordValidation :current-record="currentIsoRecord" />
       <Ideas />
-      <Epilogue :app-env="getAppEnvironment()" />
+      <Epilogue :app-env="appEnvironment" />
     </div>
   </main>
 </template>
