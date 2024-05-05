@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "licences": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Licence" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "licences"],
+  "definitions": {
+    "Licence": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "statement": { "type": "string" },
+        "open": { "type": "boolean" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "url", "statement", "open"]
+    }
+  }
+}

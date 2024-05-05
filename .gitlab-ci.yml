@@ -41,6 +41,11 @@ before_script:
     - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
 
+.before_script_validate_template: &before_script_validate
+  before_script:
+    - npx tsc scripts/validate-data.ts
+    - mv scripts/validate-data.js scripts/validate-data.cjs
+
 lint:
   stage: 📋 lint
   needs: []
@@ -48,6 +53,16 @@ lint:
     - npm run test:eslint
     - npm run test:types
     - npm run test:format
+  rules:
+    # Only run on merge requests
+    - if: '$CI_MERGE_REQUEST_ID != null'
+
+validate:
+  stage: 📋 lint
+  needs: []
+  <<: *before_script_validate
+  script:
+    - node scripts/validate-data.cjs
   rules:
     # Only run on merge requests
     - if: '$CI_MERGE_REQUEST_ID != null'
@@ -78,13 +93,12 @@ test_e2e:
   script:
     - npx playwright test --project chromium
   artifacts:
-    when: always
     reports:
       junit: test-results.xml
     paths:
       - playwright_screenshots/
     when: always
-    expire_in: 1 month
+    expire_in: 1 week
   rules:
     -
       if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'

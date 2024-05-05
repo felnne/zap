@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/licences.json",
   "licences": {
     "OGL_UK_3_0": {
       "slug": "OGL_UK_3_0",

@@ -1,7 +1,7 @@
 import Ajv, { type DefinedError } from 'ajv'
 import addFormats from 'ajv-formats'
 
-import validationSchema from '@/data/validation.json'
+import validationSchema from '@/schemas/record.json'
 
 const _getValidator = (schema: any) => {
   /*

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "services": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Service" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "services"],
+  "definitions": {
+    "Service": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "description"]
+    }
+  }
+}

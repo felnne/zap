@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "settings": { "$ref": "#/definitions/Settings" }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "settings"],
+  "definitions": {
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "agol_app_account_slug": { "type": "string" },
+        "agol_app_client_id": { "type": "string" },
+        "app_extents_layer_endpoint": { "type": "string" },
+        "app_extents_2d_basemap_light": { "type": "string" },
+        "app_extents_2d_basemap_dark": { "type": "string" },
+        "app_extents_3d_basemap_light": { "type": "string" },
+        "app_extents_3d_basemap_dark": { "type": "string" },
+        "app_file_upload_endpoint": { "type": "string" },
+        "app_san_stat_endpoint": { "type": "string" },
+        "app_san_endpoint": { "type": "string" },
+        "app_production_url": { "type": "string" },
+        "bas_esri_agol_slug": { "type": "string" },
+        "bas_gitlab_domain": { "type": "string" },
+        "app_gitlab_url": { "type": "string" },
+        "pdc_doi_prefix": { "type": "string" },
+        "nerc_ad_tenant_id": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": [
+        "agol_app_account_slug",
+        "agol_app_client_id",
+        "app_extents_layer_endpoint",
+        "app_extents_2d_basemap_light",
+        "app_extents_2d_basemap_dark",
+        "app_extents_3d_basemap_light",
+        "app_extents_3d_basemap_dark",
+        "app_file_upload_endpoint",
+        "app_san_stat_endpoint",
+        "app_san_endpoint",
+        "app_production_url",
+        "bas_esri_agol_slug",
+        "bas_gitlab_domain",
+        "app_gitlab_url",
+        "pdc_doi_prefix",
+        "nerc_ad_tenant_id"
+      ]
+    }
+  }
+}

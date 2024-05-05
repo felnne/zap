@@ -156,5 +156,5 @@ export const getServiceSlugs = (): string[] => {
 
 export const getSetting = (key: string): string => {
   /* Get specific application setting */
-  return (settingsData as Record<string, string>)[key]
+  return (settingsData.settings as Record<string, string>)[key]
 }

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "ideas": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Idea" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "ideas"],
+  "definitions": {
+    "Idea": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "state": {
+          "type": "string",
+          "enum": ["complete", "todo", "cancelled"]
+        }
+      },
+      "additionalProperties": false,
+      "required": ["label", "state"]
+    }
+  }
+}

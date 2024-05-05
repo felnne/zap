@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/extents.json",
   "geographic": {
     "antarctica": {
       "slug": "antarctica",

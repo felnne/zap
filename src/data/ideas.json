@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/ideas.json",
   "ideas": [
     { "label": "BAS Research Topics topic keywords.", "state": "complete" },
     { "label": "ISO topic mapped from research topic.", "state": "complete" },

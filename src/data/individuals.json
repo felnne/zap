@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/individuals.json",
   "contacts": {
     "https_orcid_org_0000_0001_5835_7975": {
       "slug": "https_orcid_org_0000_0001_5835_7975",
@@ -25,7 +26,7 @@
       "email": "ancz@bas.ac.uk"
     },
     "https_orcid_org_0000_0002_1988_5844": {
-      "slug": "https_orcid_org_0000-0002_1988_5844",
+      "slug": "https_orcid_org_0000_0002_1988_5844",
       "name": "Fretwell, Peter",
       "orcid": "https://orcid.org/0000-0002-1988-5844",
       "email": "ptf@bas.ac.uk"

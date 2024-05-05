@@ -1,18 +1,21 @@
 {
-  "agol_app_account_slug": "bas",
-  "agol_app_client_id": "fGTBrg82DAryAbY8",
-  "app_extents_layer_endpoint": "https://services7.arcgis.com/tPxy1hrFDhJfZ0Mf/arcgis/rest/services/zap_wke_workaround/FeatureServer/0",
-  "app_extents_2d_basemap_light": "gray-vector",
-  "app_extents_2d_basemap_dark": "dark-gray-vector",
-  "app_extents_3d_basemap_light": "navigation-3d",
-  "app_extents_3d_basemap_dark": "navigation-dark-3d",
-  "app_file_upload_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/upload.php",
-  "app_san_stat_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/stat.php",
-  "app_san_endpoint": "bslcenb.nerc-bas.ac.uk",
-  "app_production_url": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap/prod/",
-  "bas_esri_agol_slug": "bas",
-  "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
-  "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",
-  "pdc_doi_prefix": "10.5285",
-  "nerc_ad_tenant_id": "b311db95-32ad-438f-a101-7ba061712a4e"
+  "$schema": "../schemas/settings.json",
+  "settings": {
+    "agol_app_account_slug": "bas",
+    "agol_app_client_id": "fGTBrg82DAryAbY8",
+    "app_extents_layer_endpoint": "https://services7.arcgis.com/tPxy1hrFDhJfZ0Mf/arcgis/rest/services/zap_wke_workaround/FeatureServer/0",
+    "app_extents_2d_basemap_light": "gray-vector",
+    "app_extents_2d_basemap_dark": "dark-gray-vector",
+    "app_extents_3d_basemap_light": "navigation-3d",
+    "app_extents_3d_basemap_dark": "navigation-dark-3d",
+    "app_file_upload_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/upload.php",
+    "app_san_stat_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/stat.php",
+    "app_san_endpoint": "bslcenb.nerc-bas.ac.uk",
+    "app_production_url": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap/prod/",
+    "bas_esri_agol_slug": "bas",
+    "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
+    "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",
+    "pdc_doi_prefix": "10.5285",
+    "nerc_ad_tenant_id": "b311db95-32ad-438f-a101-7ba061712a4e"
+  }
 }
