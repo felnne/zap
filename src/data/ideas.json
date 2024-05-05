@@ -52,7 +52,7 @@
     { "label": "Show validation status for each section.", "state": "todo" },
     { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
-    { "label": "Support for files on the SAN.", "state": "todo" },
+    { "label": "Support for files on the SAN.", "state": "complete" },
     {
       "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
       "state": "todo"
