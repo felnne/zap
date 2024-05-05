@@ -43,7 +43,7 @@ let stabilityClasses: ComputedRef<string[]> = computed(() => {
   const classes = []
 
   if (props.stability === Stability.Experimental) {
-    classes.push('text-purple-500')
+    classes.push('text-indigo-500')
   } else if (props.stability === Stability.Stable) {
     classes.push('text-green-500')
   }

@@ -227,6 +227,9 @@ Additional [0.7.0]:
   - review app: `indigo-500`
   - integration: `orange-500`
   - production: `white` (dark `black`, inverse of local dev)
+- section stability:
+  - stable: `green-500`
+  - experimental: `indigo-500`
 
 Additional [0.6.0]:
 
@@ -243,6 +246,7 @@ Additional [0.10.0]
 
 - experimental warning changed, it was `amber-500` (border only, same for dark mode), to align with app border
 - runtime environment colours (local dev: black/white, review: `indigo-500` int: `orange-500`, prod: white/black)
+- experimental section stability, it was `purple-500`, to align with runtime environment (purple/indigo too close)
 
 ### Exceptions
 
