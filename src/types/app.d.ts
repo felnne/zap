@@ -39,6 +39,11 @@ export type DateImpreciseLabelled = {
   label: string
 }
 
+type DropdownItem = {
+  href: string
+  title: string
+}
+
 export type EsriToken = {
   accessToken: string
   expiresIn: number

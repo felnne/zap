@@ -12,6 +12,7 @@
 * JSON Schemas for data files
 * Node validation script for data files
 * Links to data files from sections
+* Drop-down menu base component
 
 ### Changed
 

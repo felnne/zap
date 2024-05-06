@@ -5,15 +5,16 @@ And amended for:
 - v0.6.0
 - v0.7.0
 - v0.9.0
+- v0.10.0
 
 Focus:
 
-- [spacing](#spacing)
+- [layout](#layout)
 - [font sizes](#font-size)
 - [font weights](#font-weights)
-- [colours]()
+- [colours](#colours)
 
-## Spacing
+## Layout
 
 ### Margin
 
@@ -34,6 +35,10 @@ Remaining:
 
 - `mb-2` only used once for section label (hint text), all other instances `space-y-2`
 - `mb-10` only used in app title and citation
+
+Additional [0.10.0]:
+
+- `mt-1` used for drop-down triggers (`mt-2` felt too big)
 
 ### Padding
 
@@ -90,6 +95,10 @@ Remaining:
 
 - `w-14`, `w-16` used for dates (month/day, year / 2 vs 4 digits)
 
+Additional [0.10.0]:
+
+- `w-56` used for drop-down menus (consistent with tailwind example)
+
 ### Gap
 
 Removed:
@@ -128,6 +137,12 @@ Remaining:
 
 - `space-y-2`, `space-y-4` used extensively
 
+### Z-index
+
+Additional [0.10.0]:
+
+- `z-10` used for drop-down menus (consistent with tailwind example)
+
 ## Border
 
 Removed:
@@ -153,7 +168,7 @@ Additional [0.10.0]
 
 Remaining:
 
-- `text-xs` used for idea badges and buttons
+- `text-xs` used for idea badges, buttons and drop-down menus
 - `text-xl` used for section subtitles
 - `text-2xl` used for section titles
 - `text-3xl` used for app title
@@ -166,17 +181,25 @@ Additional [0.9.0]:
 
 - `text-lg` used for validation status
 
+Additional [0.10.0]:
+
+- `text-sm` used for drop-down menu items
+
 ### Font weight
 
 Previous:
 
-- `font-medium` used for buttons, idea labels
+- `font-medium` used for buttons, idea labels, drop-down menus
 - `font-semibold` used for app title, section title
 - `font-bold` used in prologue warning
 
 Additional [0.9.0]:
 
 - `font-semibold` used for validation status
+
+Additional [0.10.0]:
+
+- `font-medium` used for active drop-down menu item
 
 ## Colours
 
