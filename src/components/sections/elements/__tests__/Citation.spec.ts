@@ -27,6 +27,7 @@ const record: Record = {
   ] as DateImpreciseLabelled[],
   contacts: [{ individual: { name: 'Watson, C.' } }] as Contact[],
   title: 'test',
+  abstract: 'test',
   accessRestriction: {
     slug: 'other',
     restriction: 'access',

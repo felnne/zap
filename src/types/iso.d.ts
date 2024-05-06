@@ -48,6 +48,7 @@ export type GeographicExtent = {
 export type Identification = {
   title: Title
   abstract: string
+  purpose?: string
   dates: Dates
   edition?: string
   other_citation_details?: string
