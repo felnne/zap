@@ -1,8 +1,11 @@
 import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import SectionTitle from '@/components/bases/SectionTitle.vue'
 import { Stability } from '@/types/enum'
+import type { DropdownItem } from '@/types/app'
+import { getSetting } from '@/lib/data'
+
+import SectionTitle from '@/components/bases/SectionTitle.vue'
 
 const version = '1.0'
 const anchor = 'foo-bar'
@@ -20,7 +23,11 @@ describe('SectionTitle', () => {
 
   it('renders properly', async () => {
     const subTitle = 'Baz'
-    const guidanceHref = 'https://example.com'
+    const dataFileHref = ['data-file.json']
+    const dependantSections: DropdownItem[] = [{ title: 'Something', href: '#something' }]
+    const expectedGuidanceHref = 'https://example.com/guidance.html'
+    const expectedDataFileHref = `${getSetting('app_section_data_file_url_base')}/${dataFileHref[0]}`
+    const expectedDependantSectionHref = dependantSections[0].href
 
     const wrapper = mount(SectionTitle, {
       props: {
@@ -28,7 +35,9 @@ describe('SectionTitle', () => {
         anchor: anchor,
         title: title,
         subTitle: subTitle,
-        guidanceHref: guidanceHref,
+        guidanceHref: expectedGuidanceHref,
+        dataFileHref: dataFileHref,
+        dependsOn: dependantSections,
       },
     })
 
@@ -39,16 +48,35 @@ describe('SectionTitle', () => {
     expect(wrapper.find('div.section-stability').text()).toBe(Stability.Stable)
     expect(wrapper.find('div.section-stability').attributes().class).toContain('text-green-500')
     expect(wrapper.find('a.section-top').attributes().href).toBe('#top')
-    expect(wrapper.find('a.section-guidance').attributes().href).toBe(guidanceHref)
+    expect(wrapper.find('a.section-guidance').attributes().href).toBe(expectedGuidanceHref)
+
+    // click trigger to open dropdowns
+    wrapper
+      .findAll('button')
+      .filter((e) => e.text().match('Data Files'))[0]
+      .trigger('click')
+    wrapper
+      .findAll('button')
+      .filter((e) => e.text().match('Depends On'))[0]
+      .trigger('click')
+    // wait for next tick to allow transitions to complete
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('a.section-data-file').attributes().href).toBe(expectedDataFileHref)
+    expect(wrapper.find('a.section-depends-on').attributes().href).toBe(
+      expectedDependantSectionHref
+    )
   })
 
-  it('renders properly without subtitle and guidance', async () => {
+  it('renders properly without subtitle, guidance, data files or dependant sections', async () => {
     const wrapper = mount(SectionTitle, {
       props: { version: version, anchor: anchor, title: title },
     })
 
     expect(wrapper.find('h3').exists()).toBe(false)
     expect(wrapper.find('a.section-guidance').exists()).toBe(false)
+    expect(wrapper.find('a.section-data-file').exists()).toBe(false)
+    expect(wrapper.find('a.section-depends-on').exists()).toBe(false)
   })
 
   it('renders properly with experimental stability', async () => {

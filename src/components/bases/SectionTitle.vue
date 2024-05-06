@@ -2,7 +2,10 @@
 import { computed, type ComputedRef, type PropType, onMounted, ref } from 'vue'
 
 import { Stability } from '@/types/enum'
+import type { DropdownItem } from '@/types/app'
+import { getSetting } from '@/lib/data'
 
+import DropDown from '@/components/bases/DropDown.vue'
 import Link from '@/components/bases/Link.vue'
 
 const props = defineProps({
@@ -26,6 +29,11 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  dataFileHref: {
+    type: Array as PropType<string[]>,
+    required: false,
+    default: () => [],
+  },
   guidanceHref: {
     type: String,
     required: false,
@@ -35,9 +43,21 @@ const props = defineProps({
     required: false,
     default: true,
   },
+  dependsOn: {
+    type: Array as PropType<DropdownItem[]>,
+    required: false,
+    default: () => [],
+  },
 })
 
 let teleport = ref<boolean>(false)
+
+let dataFilesHrefQualified: ComputedRef<DropdownItem[]> = computed(() => {
+  return props.dataFileHref.map((href) => ({
+    href: `${getSetting('app_section_data_file_url_base')}/${href}`,
+    title: href,
+  }))
+})
 
 let stabilityClasses: ComputedRef<string[]> = computed(() => {
   const classes = []
@@ -67,7 +87,21 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex gap-4">
+        <DropDown
+          v-if="dataFilesHrefQualified.length > 0"
+          title="Data Files"
+          :items="dataFilesHrefQualified"
+          :itemsClasses="['section-data-file']"
+        >
+        </DropDown>
         <Link class="section-guidance" v-if="guidanceHref" :href="guidanceHref">View Guidance</Link>
+        <DropDown
+          v-if="dependsOn.length > 0"
+          title="Depends On"
+          :items="dependsOn"
+          :itemsClasses="['section-depends-on']"
+        >
+        </DropDown>
         <Link
           class="section-top ml-auto bg-transparent no-underline dark:bg-neutral-300"
           href="#top"

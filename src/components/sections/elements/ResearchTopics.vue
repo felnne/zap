@@ -2,10 +2,10 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { Stability } from '@/types/enum'
-import { getKeywordSet } from '@/lib/data'
-import { getUniqueKeywords, getUniqueTopics } from '@/lib/keywords'
 import type { KeywordTerm } from '@/types/app'
 import type { KeywordSet } from '@/types/iso'
+import { getKeywordSet } from '@/lib/data'
+import { getUniqueKeywords, getUniqueTopics } from '@/lib/keywords'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -52,10 +52,11 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="1.1"
+      version="1.2"
       :stability="Stability.Stable"
       anchor="research-topics"
       title="BAS Research Topics"
+      :data-file-href="['keywords.json']"
     />
     <TwoColumn>
       <template v-slot:left>

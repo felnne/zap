@@ -15,6 +15,7 @@
     "bas_esri_agol_slug": "bas",
     "bas_gitlab_domain": "https://gitlab.data.bas.ac.uk",
     "app_gitlab_url": "https://gitlab.data.bas.ac.uk/felnne/zap",
+    "app_section_data_file_url_base": "https://gitlab.data.bas.ac.uk/felnne/zap/-/tree/main/src/data",
     "pdc_doi_prefix": "10.5285",
     "nerc_ad_tenant_id": "b311db95-32ad-438f-a101-7ba061712a4e"
   }

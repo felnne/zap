@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import { ResourceType, Stability } from '@/types/enum'
-import type { Licence } from '@/types/app'
+import type { DropdownItem, Licence } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { getPublisherOrgSlug } from '@/lib/contacts'
 
@@ -44,6 +44,12 @@ const removeIdentifier = (identifier: Identifier) => {
   identifiers.value = identifiers.value.filter((i) => i.namespace !== identifier.namespace)
 }
 
+const dependantSections: DropdownItem[] = [
+  { href: '#file-identifier', title: 'File Identifier' },
+  { href: '#licence', title: 'Licence' },
+  { href: '#resource-type', title: 'Resource Type' },
+]
+
 const identifiers = ref<Identifier[]>([])
 
 let showDoi: ComputedRef<boolean> = computed(() => {
@@ -64,10 +70,11 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="5.1"
+      version="5.2"
       :stability="Stability.Stable"
       anchor="identifiers"
       title="Identifiers"
+      :depends-on="dependantSections"
     />
     <TwoColumn>
       <template v-slot:left>

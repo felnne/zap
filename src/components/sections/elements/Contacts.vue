@@ -39,7 +39,13 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="2.3" anchor="contacts" title="Contacts" sub-title="Authors" />
+    <SectionTitle
+      version="2.4"
+      anchor="contacts"
+      title="Contacts"
+      sub-title="Authors"
+      :data-file-href="['individuals.json', 'organisations.json']"
+    />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">

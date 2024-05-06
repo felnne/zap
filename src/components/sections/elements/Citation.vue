@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
+import type { DropdownItem, Record } from '@/types/app'
+import type { Identifier } from '@/types/iso'
 import { getPublisherOrgSlug } from '@/lib/contacts'
 import { fetchFakeCitation, formatCitation } from '@/lib/citation'
 import { getOrganisation } from '@/lib/data'
-import type { Record } from '@/types/app'
-import type { Identifier } from '@/types/iso'
 
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
@@ -45,6 +45,16 @@ const getCitation = async () => {
 const setMarkdownInput = () => {
   markdownInput.value = citationFormatted.value
 }
+
+const dependantSections: DropdownItem[] = [
+  { href: '#contacts', title: 'Contacts' },
+  { href: '#dates', title: 'Dates' },
+  { href: '#title', title: 'Edition' },
+  { href: '#identifiers', title: 'Identifiers' },
+  { href: '#licence', title: 'Licence' },
+  { href: '#resource-type', title: 'Resource Type' },
+  { href: '#title', title: 'Title' },
+]
 
 const citationProseClasses = ['prose-sm']
 
@@ -135,7 +145,13 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="4.0" anchor="citation" title="Citation" />
+    <SectionTitle
+      version="4.1"
+      anchor="citation"
+      title="Citation"
+      :data-file-href="['organisations.json']"
+      :depends-on="dependantSections"
+    />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
       <Prose
@@ -145,7 +161,7 @@ watch(
         id="citation-preview"
       ></Prose>
       <div class="flex items-center space-x-2">
-        <Button @click="setMarkdownInput">Copy to input</Button>
+        <Button id="citation-use-generated" @click="setMarkdownInput">Copy to input</Button>
         <GuidanceText
           >Click to copy this citation (with
           <Link

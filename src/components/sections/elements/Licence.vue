@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch, onMounted } from 'vue'
 
+import { Stability } from '@/types/enum'
+import type { AccessRestriction, DropdownItem, Licence } from '@/types/app'
+import type { Constraint } from '@/types/iso'
 import { getLicence, getLicences, getLicencesFiltered } from '@/lib/data'
 import { createUsageConstraint } from '@/lib/constraints'
-import { Stability } from '@/types/enum'
-import type { AccessRestriction, Licence } from '@/types/app'
-import type { Constraint } from '@/types/iso'
 
 import Output from '@/components/bases/Output.vue'
 import SectionBorder from '@/components/bases/SectionBorder.vue'
@@ -31,6 +31,8 @@ const refreshInitialLicence = () => {
     selectedLicenceSlug.value = filteredLicences.value[0].slug
   }
 }
+
+const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Restrictions' }]
 
 const licences = getLicences()
 
@@ -74,7 +76,14 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="4.1" :stability="Stability.Stable" anchor="licence" title="Licence" />
+    <SectionTitle
+      version="4.2"
+      :stability="Stability.Stable"
+      anchor="licence"
+      title="Licence"
+      :data-file-href="['licences.json']"
+      :depends-on="dependantSections"
+    />
     <TwoColumn>
       <template v-slot:left>
         <div class="space-y-2">
