@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 
 import { Stability } from '@/types/enum'
 import type { DropdownItem } from '@/types/app'
-import {summariseAbstract} from '@/lib/ai'
+import { summariseAbstract } from '@/lib/ai'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -27,8 +27,9 @@ const copyFromAbstract = () => {
   markdownInput.value = props.abstract
 }
 
-const summariseFromAbstract = () => {
-  markdownInput.value = summariseAbstract(props.abstract)
+const summariseFromAbstract = async () => {
+  markdownInput.value = '[Generating summary...]'
+  markdownInput.value = await summariseAbstract(props.abstract)
 }
 
 const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Restrictions' }]
@@ -66,10 +67,17 @@ watch(
         >
       </div>
       <div class="flex items-center space-x-2">
-        <Button id="summary-use-abstract" @click="summariseFromAbstract" :disabled="props.abstract == ''">
+        <Button
+          id="summary-use-abstract-ai"
+          @click="summariseFromAbstract"
+          :disabled="props.abstract == ''"
+        >
           Summarise From Abstract
         </Button>
-        <GuidanceText>Click to summary the abstract (if set) <strong>✨ using the power of AI ✨</strong> into the input below (replacing any existing value).</GuidanceText>
+        <GuidanceText
+          >Click to summary the abstract (if set) <strong>✨ using the power of AI ✨</strong> into
+          the input below (replacing any existing value).</GuidanceText
+        >
       </div>
       <Markdown
         input-id="summary-input"

@@ -8,6 +8,12 @@ variables:
   VITE_BUILD_HASH: "$CI_COMMIT_SHA"
   VITE_BUILD_TIME: "$CI_COMMIT_TIMESTAMP"
 
+  # > Secret variables (set in GL settings)
+  # SSH_PRIVATE_KEY
+  # TEST_AGOL_PASSWORD
+  # TEST_AGOL_USERNAME
+  # VITE_OPEN_API_KEY (set in secrets)
+
   DEPLOY_USER: felnne
   DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
   DEPLOY_PATH: /users/felnne/public_html/apps/zap
