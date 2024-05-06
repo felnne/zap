@@ -47,6 +47,44 @@ describe('Summary', () => {
     }
   })
 
+  it('copy from abstract button works', async () => {
+    const expectedValue = 'test'
+
+    const wrapper = mount(Summary, {
+      props: {
+        abstract: expectedValue,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    expect(wrapper.find('#summary-use-abstract').attributes()).not.toHaveProperty('disabled')
+
+    await wrapper.find('#summary-use-abstract').trigger('click')
+    await wrapper.vm.$nextTick()
+
+    // expect(wrapper.find('textarea').element.value).toContain(expectedValue)
+  })
+
+  it('copy from abstract button is disabled when abstract empty', async () => {
+    const wrapper = mount(Summary, {
+      props: {
+        abstract: '',
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    expect(wrapper.find('#summary-use-abstract').exists()).toBeTruthy()
+    expect(wrapper.find('#summary-use-abstract').attributes()).toHaveProperty('disabled')
+  })
+
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)

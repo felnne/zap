@@ -42,7 +42,7 @@ const getCitation = async () => {
   // citation.value = await fetchCitation(doi.value)
 }
 
-const setMarkdownInput = () => {
+const copyFromPreview = () => {
   markdownInput.value = citationFormatted.value
 }
 
@@ -161,14 +161,16 @@ watch(
         id="citation-preview"
       ></Prose>
       <div class="flex items-center space-x-2">
-        <Button id="citation-use-generated" @click="setMarkdownInput">Copy to input</Button>
-        <GuidanceText
-          >Click to copy this citation (with
+        <Button id="citation-use-generated" @click="copyFromPreview">Copy From Preview</Button>
+        <GuidanceText>
+          Click to copy this citation (with
           <Link
             href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/src/utils/crosscite.ts#L66"
-            >some modifications</Link
-          >) into the input below.</GuidanceText
-        >
+          >
+            some modifications
+          </Link>
+          ) into the input below (replacing any existing value).
+        </GuidanceText>
       </div>
     </div>
     <Markdown
@@ -179,4 +181,3 @@ watch(
     />
   </SectionBorder>
 </template>
-@/lib/contacts@/lib/citation@/lib/data

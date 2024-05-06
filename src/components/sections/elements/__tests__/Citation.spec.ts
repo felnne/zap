@@ -108,9 +108,6 @@ describe('Citation', () => {
     wrapper.find('button#citation-use-generated').trigger('click')
     await wrapper.vm.$nextTick()
 
-    // dump contents
-    console.log(wrapper.find('textarea').element.value)
-
     expect(wrapper.find('textarea').element.value).toContain(`_${record.title}_`)
   })
 

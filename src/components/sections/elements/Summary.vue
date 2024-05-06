@@ -6,10 +6,11 @@ import type { DropdownItem } from '@/types/app'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
-import SectionExperimental from '@/components/bases/SectionExperimental.vue'
+import GuidanceText from '@/components/bases/GuidanceText.vue'
 import Markdown from '@/components/bases/Markdown.vue'
+import Button from '@/components/bases/Button.vue'
 
-defineProps({
+const props = defineProps({
   abstract: {
     type: String,
     required: true,
@@ -21,9 +22,14 @@ const emit = defineEmits<{
   'update:isoPurpose': [id: string]
 }>()
 
+const copyFromAbstract = () => {
+  markdownInput.value = props.abstract
+}
+
 const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Restrictions' }]
 
-const summary = ref<string>('')
+let summary = ref<string>('')
+let markdownInput = ref<string>('')
 
 watch(
   () => summary.value,
@@ -45,8 +51,20 @@ watch(
       :depends-on="dependantSections"
     />
     <div class="space-y-4">
-      <Markdown input-id="summary-input" @update:input="(event: string) => (summary = event)" />
-      <SectionExperimental><p>Coming Soon!</p></SectionExperimental>
+      <div class="flex items-center space-x-2">
+        <Button id="summary-use-abstract" @click="copyFromAbstract" :disabled="props.abstract == ''"
+          >Copy From Abstract</Button
+        >
+        <GuidanceText
+          >Click to copy the abstract (if set) into the input below (replacing any existing
+          value).</GuidanceText
+        >
+      </div>
+      <Markdown
+        input-id="summary-input"
+        @update:input="(event: string) => (summary = event)"
+        :input="markdownInput"
+      />
     </div>
   </SectionBorder>
 </template>
