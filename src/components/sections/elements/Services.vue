@@ -27,7 +27,13 @@ watch(
 </script>
 <template>
   <SectionBorder>
-    <SectionTitle version="4.0" :stability="Stability.Stable" anchor="services" title="Services" />
+    <SectionTitle
+      version="4.1"
+      :stability="Stability.Stable"
+      anchor="services"
+      title="Services"
+      :data-file-href="['formats.json', 'organisations.json', 'services.json']"
+    />
     <div class="space-y-4">
       <Service
         v-for="slug in serviceSlugs"

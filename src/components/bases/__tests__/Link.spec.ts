@@ -39,4 +39,15 @@ describe('Link', () => {
     expect(wrapper.attributes().target).toBe('_self')
     expect(wrapper.attributes().rel).toBe(undefined)
   })
+
+  it('renders with a custom classes', () => {
+    const url = '#top'
+    const expectedClasses = ['block']
+
+    const wrapper = mount(Link, {
+      props: { href: url, classes: expectedClasses },
+    })
+
+    expect(wrapper.classes()).toContain(expectedClasses[0])
+  })
 })

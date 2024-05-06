@@ -2,7 +2,7 @@
 import { ref, type PropType, watch } from 'vue'
 
 import { ResourceType, Stability } from '@/types/enum'
-import type { Licence } from '@/types/app'
+import type { DropdownItem, Licence } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getFormatExtensions } from '@/lib/data'
 
@@ -31,6 +31,12 @@ const emit = defineEmits<{
   'update:isoDistOptionsDownloads': [id: DistributionOption[]]
 }>()
 
+const dependantSections: DropdownItem[] = [
+  { href: '#file-identifier', title: 'File Identifier' },
+  { href: '#licence', title: 'Licence' },
+  { href: '#resource-type', title: 'Resource Type' },
+]
+
 const supportedExtensions = getFormatExtensions()
 
 const distributionOptions = ref<Record<string, DistributionOption>>({})
@@ -48,10 +54,12 @@ watch(
 <template>
   <SectionBorder class="space-y-4">
     <SectionTitle
-      version="7.0"
+      version="7.1"
       :stability="Stability.Experimental"
       anchor="downloads"
       title="Downloads"
+      :data-file-href="['formats.json', 'organisations.json']"
+      :depends-on="dependantSections"
     />
     <Download
       v-for="index in count"
@@ -76,4 +84,3 @@ watch(
     </div>
   </SectionBorder>
 </template>
-@/lib/data@/lib/distribution

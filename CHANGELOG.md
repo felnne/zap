@@ -11,7 +11,11 @@
 * Contextual prologue based on app environment
 * JSON Schemas for data files
 * Node validation script for data files
-* Links to data files from sections
+* Links to data files in section title base component
+* Dependant sections in section title base component
+* Data file link in section title base component
+* Drop-down menu base component
+* Link base component now accepts setting additional classes
 
 ### Changed
 

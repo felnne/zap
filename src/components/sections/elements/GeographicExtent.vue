@@ -63,11 +63,12 @@ watch(extent, () => {
 <template>
   <SectionBorder>
     <SectionTitle
-      version="4.0"
+      version="4.1"
       :stability="Stability.Stable"
       anchor="spatial-extent"
       title="Spatial extent"
       sub-title="Well-known extents"
+      :data-file-href="['extents.json', 'projections.json']"
     />
     <div class="space-y-4">
       <TwoColumn>
