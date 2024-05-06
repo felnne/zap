@@ -8,7 +8,7 @@ const show = ref(false)
   <template v-if="show">
     <slot />
   </template>
-  <template v-else="!show">
+  <template v-else>
     <div
       @click="show = true"
       class="app-diagonalstripes-orange-100 flex cursor-pointer items-center justify-center bg-orange-300 p-20"
