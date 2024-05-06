@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef } from 'vue'
+import { computed, type ComputedRef, type PropType } from 'vue'
 
 const props = defineProps({
   href: {
@@ -10,6 +10,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
     required: false,
+  },
+  classes: {
+    type: Array as PropType<string[]>,
+    required: false,
+    default: () => [],
   },
 })
 
@@ -30,7 +35,12 @@ let rel: ComputedRef<string | undefined> = computed(() => {
 </script>
 
 <template>
-  <a class="text-blue-700 underline dark:text-blue-500" :href="href" :target="target" :rel="rel"
+  <a
+    class="text-blue-700 underline dark:text-blue-500"
+    :class="classes"
+    :href="href"
+    :target="target"
+    :rel="rel"
     ><slot></slot
   ></a>
 </template>

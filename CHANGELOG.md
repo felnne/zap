@@ -13,6 +13,7 @@
 * Node validation script for data files
 * Links to data files from sections
 * Drop-down menu base component
+* Link base component now accepts setting additional classes
 
 ### Changed
 
