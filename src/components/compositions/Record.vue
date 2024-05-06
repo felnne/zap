@@ -166,10 +166,7 @@ watch(
       @update:abstract="(event: string) => (record.abstract = event)"
       @update:isoAbstract="(event: string) => (isoRecord.identification.abstract = event)"
     />
-    <Summary
-      :abstract="record.abstract"
-      @update:isoPurpose="(event: string) => (isoRecord.identification.purpose = event)"
-    />
+    <Summary @update:isoPurpose="(event: string) => (isoRecord.identification.purpose = event)" />
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
       @update:isoDates="(event: IsoDates) => (isoRecord.identification.dates = event)"
