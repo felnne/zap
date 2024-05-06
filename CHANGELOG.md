@@ -11,6 +11,7 @@
 * Contextual prologue based on app environment
 * JSON Schemas for data files
 * Node validation script for data files
+* Links to data files from sections
 
 ### Changed
 
@@ -21,6 +22,7 @@
 * refactoring Status enum from RecordValidation component to an app wide ValidationStatus enum
 * adjusting for basweb HTTPS support
 * splitting e2e tests into smaller files
+* using Vitest fake timers support for dates section testing
 
 ### Removed
 

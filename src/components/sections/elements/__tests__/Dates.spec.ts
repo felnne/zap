@@ -1,14 +1,15 @@
-import { afterEach, beforeEach, describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import type { DateImpreciseLabelled } from '@/types/app'
 import Dates from '@/components/sections/elements/Dates.vue'
 
+const referenceDate = new Date(2004, 4, 18, 0, 0, 0, 0)
+
 const label = 'publication'
 const impreciseValue = '0'
-const expectedInitialDateValue = new Date()
-expectedInitialDateValue.setHours(0, 0, 0, 0)
+const expectedInitialDateValue = referenceDate
 
 const expectedInitialDateIsoValue = expectedInitialDateValue.toISOString().split('T')[0]
 const expectedInitialEmittedDateIsoValue = { [label]: expectedInitialDateIsoValue }
@@ -27,6 +28,10 @@ describe('Dates', () => {
     tocItemsDiv = document.createElement('div')
     tocItemsDiv.id = 'toc-items'
     document.body.appendChild(tocItemsDiv)
+
+    // Freeze time
+    vi.useFakeTimers()
+    vi.setSystemTime(referenceDate)
   })
 
   it('sets correct default values', async () => {
@@ -217,5 +222,8 @@ describe('Dates', () => {
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
+
+    // Restores time
+    vi.useRealTimers()
   })
 })
