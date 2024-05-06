@@ -21,6 +21,7 @@
     { "label": "(Publication) date section.", "state": "complete" },
     { "label": "Additional dates.", "state": "todo" },
     { "label": "Edition section.", "state": "complete" },
+    { "label": "Physical size for products.", "state": "todo" },
     { "label": "Include WMTS, WFS and Esri in services section.", "state": "todo" },
     { "label": "Download proxy items.", "state": "todo" },
     { "label": "Colour code distribution options like JWTs.", "state": "cancelled" },
@@ -32,6 +33,7 @@
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
     { "label": "Thumbnails.", "state": "todo" },
+    { "label": "Open licences logos.", "state": "todo" },
     { "label": "Coordinate reference system section.", "state": "complete" },
     { "label": "Validation.", "state": "complete" },
     { "label": "Support depositing downloads.", "state": "todo" },
@@ -50,9 +52,14 @@
     { "label": "Current record validation (all supported).", "state": "complete" },
     { "label": "Link to invalid sections.", "state": "todo" },
     { "label": "Show validation status for each section.", "state": "todo" },
+    { "label": "[AI!] Generate summary/purpose from abstract).", "state": "todo" },
+    { "label": "[AI!] Pick keywords based on abstract.", "state": "todo" },
+    { "label": "[AI!] Are abstract and lineage useful for discovery.", "state": "todo" },
     { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
     { "label": "Support for files on the SAN.", "state": "complete" },
+    { "label": "[Workflow] Deposit", "state": "todo" },
+    { "label": "[Workflow] Web map review", "state": "todo" },
     {
       "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
       "state": "todo"
@@ -65,6 +72,9 @@
       "label": "Checksums.",
       "state": "todo"
     },
-    { "label": "Wizard UI.", "state": "todo" }
+    { "label": "Templates and samples.", "state": "todo" },
+    { "label": "Wizard UI.", "state": "todo" },
+    { "label": "QGIS plugin.", "state": "todo" },
+    { "label": "ArcGIS plugin.", "state": "todo" }
   ]
 }
