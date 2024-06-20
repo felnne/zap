@@ -28,8 +28,8 @@
         "app_section_data_file_url_base": { "type": "string" },
         "pdc_doi_prefix": { "type": "string" },
         "nerc_ad_tenant_id": { "type": "string" },
-        "open_ai_org": { "type": "string" },
-        "open_ai_project": { "type": "string" }
+        "app_open_ai_proxy_endpoint": { "type": "string" },
+        "app_open_ai_model": { "type": "string" }
       },
       "additionalProperties": false,
       "required": [
@@ -50,8 +50,8 @@
         "app_section_data_file_url_base",
         "pdc_doi_prefix",
         "nerc_ad_tenant_id",
-        "open_ai_org",
-        "open_ai_project"
+        "app_open_ai_proxy_endpoint",
+        "app_open_ai_model"
       ]
     }
   }

@@ -1,28 +1,35 @@
-import OpenAI from 'openai'
+import axios from 'axios'
 
 import { getSetting } from '@/lib/data'
 
 export async function summariseAbstract(abstract: string): Promise<string> {
   /*
    * Summarises a long abstract to a shorter length summary
+   *
+   * Uses the OpenAI proxy to avoid exposing the API key to the client.
    */
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPEN_API_KEY || import.meta.env.VITE_OPENAI_API_KEY_ZAP,
-    dangerouslyAllowBrowser: true,
-    organization: getSetting('open_ai_org'),
-    project: getSetting('open_ai_project'),
-  })
+  const url = getSetting('app_open_ai_proxy_endpoint')
+  const model = getSetting('app_open_ai_model')
+  const prompt = "You help create discovery metadata, that is information that allows prospective users of data products to evaluate whether they’ll meet their needs (what it’s about, recent enough, in the right area, etc.). Specifically you will be provided with abstracts for products and you will return (with no other information) a summary version that is 2 (3 at most) short sentences for use in search results. NEVER say who manages/sponsors a product or start with variations of 'This dataset provides'."
 
-  const systemPrompt =
-    'You help create discovery metadata, that is information that allows prospective users of data products to evaluate whether they’ll meet their needs (what it’s about, recent enough, in the right area, etc.). Specifically you will be provided with abstracts for products and you will return (with no other information) a summary version that is 3 sentences at most for use in search results.'
+  const data = {
+    "model": model,
+    "messages": [
+      {
+        "role": "system",
+        "content": prompt
+      },
+      {
+        "role": "user",
+        "content": abstract
+      }
+    ]
+  }
 
-  const completion = await openai.chat.completions.create({
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: abstract },
-    ],
-    model: 'gpt-3.5-turbo',
-  })
-
-  return completion.choices[0].message.content || '[AI Error]'
+  try {
+    const response = await axios.post(url, data, {headers: {'Content-Type': 'application/json',}})
+    return response.data.choices[0].message.content
+  } catch (error: any) {
+    throw new Error('OpenAI Proxy error')
+  }
 }

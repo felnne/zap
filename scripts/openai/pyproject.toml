@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "zap-openai"
+version = "0.1.0"
+description = "AI features for Zap ⚡️ editor"
+authors = ["Felix Fennell <felnne@bas.ac.uk>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "zap_openai", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+openai = "^1.29.0"
+flask = "^3.0.3"
+environs = "^11.0.0"
+flask-cors = "^4.0.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
