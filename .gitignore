@@ -2,6 +2,7 @@
 .idea/
 /playwright-report
 /playwright-screenshots
+/test-results
 
 # App
 __pycache__/
