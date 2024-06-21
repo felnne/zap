@@ -16,6 +16,7 @@
 * Data file link in section title base component
 * Drop-down menu base component
 * Link base component now accepts setting additional classes
+* Enable screenshot capture in Sentry feedback widget
 
 ### Changed
 
