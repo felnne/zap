@@ -20,7 +20,7 @@ export function initSentry(app: App) {
         showEmail: false,
         enableScreenshot: true,
         isNameRequired: true,
-        buttonLabel: 'Feedback',
+        triggerLabel: 'Feedback',
         submitButtonLabel: 'Send Feedback',
         formTitle: 'Send Feedback',
         namePlaceholder: 'Connie',
