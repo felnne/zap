@@ -18,6 +18,7 @@ export function initSentry(app: App) {
       Sentry.feedbackIntegration({
         showBranding: false,
         showEmail: false,
+        enableScreenshot: true,
         isNameRequired: true,
         buttonLabel: 'Feedback',
         submitButtonLabel: 'Send Feedback',
