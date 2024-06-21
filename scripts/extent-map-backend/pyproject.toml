@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "zap-extent-map"
 version = "0.1.0"
-description = "Data processing for Zap ⚡️extent map"
+description = "Data processing for Zap ⚡️ extent map"
 authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"
+readme = "README.md"
 packages = [{include = "zap_extent_map", from = "src"}]
 
 [tool.poetry.dependencies]
