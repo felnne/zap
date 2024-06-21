@@ -17,6 +17,7 @@
 * Drop-down menu base component
 * Link base component now accepts setting additional classes
 * Summary/Purpose section
+* Enable screenshot capture in Sentry feedback widget
 
 ### Changed
 
@@ -28,6 +29,7 @@
 * adjusting for basweb HTTPS support
 * splitting e2e tests into smaller files
 * using Vitest fake timers support for dates section testing
+* upgrading dependencies
 
 ### Removed
 
