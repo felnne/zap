@@ -28,6 +28,7 @@
 * adjusting for basweb HTTPS support
 * splitting e2e tests into smaller files
 * using Vitest fake timers support for dates section testing
+* upgrading dependencies
 
 ### Removed
 

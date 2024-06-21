@@ -15,7 +15,7 @@ export function initSentry(app: App) {
     environment: import.meta.env.MODE,
     release: import.meta.env.VITE_BUILD_HASH || 'dev',
     integrations: [
-      new Sentry.Feedback({
+      Sentry.feedbackIntegration({
         showBranding: false,
         showEmail: false,
         isNameRequired: true,
