@@ -93,7 +93,7 @@ describe('Summary', () => {
     await flushPromises()
 
     expect(wrapper.find('textarea').element.value).toBe(summariseFromAbstractMockValue)
-    expect(wrapper.find('textarea').element.value).not.toContain('[AI Error]')
+    expect(wrapper.find('textarea').element.value).not.toContain('[Error generating summary]')
   })
 
   it('copy from abstract buttons are disabled when abstract empty', async () => {

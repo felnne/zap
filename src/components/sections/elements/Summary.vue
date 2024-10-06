@@ -29,10 +29,15 @@ const copyFromAbstract = () => {
 
 const summariseFromAbstract = async () => {
   markdownInput.value = '[Generating summary...]'
-  markdownInput.value = await summariseAbstract(props.abstract)
+  try {
+    markdownInput.value = await summariseAbstract(props.abstract)
+  } catch (error) {
+    markdownInput.value = '[Error generating summary]'
+    return
+  }
 }
 
-const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Restrictions' }]
+const dependantSections: DropdownItem[] = [{ href: '#abstract', title: 'Abstract' }]
 
 let summary = ref<string>('')
 let markdownInput = ref<string>('')
@@ -72,11 +77,11 @@ watch(
           @click="summariseFromAbstract"
           :disabled="props.abstract == ''"
         >
-          Summarise From Abstract
+          Summarise From Abstract ✨
         </Button>
         <GuidanceText
-          >Click to summary the abstract (if set) <strong>✨ using the power of AI ✨</strong> into
-          the input below (replacing any existing value).</GuidanceText
+          >Click to summarise the abstract (if set) using AI into the input below (replacing any
+          existing value).</GuidanceText
         >
       </div>
       <Markdown

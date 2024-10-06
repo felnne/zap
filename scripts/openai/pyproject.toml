@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zap-openai"
-version = "0.1.0"
+version = "0.2.1"
 description = "AI features for Zap ⚡️ editor"
 authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"
