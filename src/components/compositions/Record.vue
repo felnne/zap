@@ -38,6 +38,7 @@ import Lineage from '@/components/sections/elements/Lineage.vue'
 import ResearchTopics from '@/components/sections/elements/ResearchTopics.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
+import Summary from '@/components/sections/elements/Summary.vue'
 import Title from '@/components/sections/elements/Title.vue'
 
 defineProps({
@@ -162,8 +163,10 @@ watch(
       @update:isoTitleValue="(event: string) => (isoRecord.identification.title.value = event)"
     />
     <Abstract
+      @update:abstract="(event: string) => (record.abstract = event)"
       @update:isoAbstract="(event: string) => (isoRecord.identification.abstract = event)"
     />
+    <Summary @update:isoPurpose="(event: string) => (isoRecord.identification.purpose = event)" />
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
       @update:isoDates="(event: IsoDates) => (isoRecord.identification.dates = event)"

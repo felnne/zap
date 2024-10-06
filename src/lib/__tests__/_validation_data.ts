@@ -74,6 +74,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
   {
     file_identifier: '25585848-7b80-42f7-8d4a-069d7479c287',
     identification: {
+      purpose: 'Test Record',
       edition: '1.0',
       identifiers: [
         {

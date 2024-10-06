@@ -6,6 +6,7 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
 
 const emit = defineEmits<{
+  'update:abstract': [id: string]
   'update:isoAbstract': [id: string]
 }>()
 
@@ -14,6 +15,7 @@ const abstract = ref<string>('')
 watch(
   () => abstract.value,
   () => {
+    emit('update:abstract', abstract.value)
     emit('update:isoAbstract', abstract.value)
   }
 )

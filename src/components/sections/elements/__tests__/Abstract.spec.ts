@@ -31,6 +31,12 @@ describe('Abstract', () => {
 
     await wrapper.vm.$nextTick()
 
+    const emittedAbstract: unknown[][] | undefined = wrapper.emitted('update:abstract')
+    expect(emittedAbstract).toBeTruthy()
+    if (emittedAbstract) {
+      expect(emittedAbstract[0][0]).toEqual(expected)
+    }
+
     const emittedIsoAbstract: unknown[][] | undefined = wrapper.emitted('update:isoAbstract')
     expect(emittedIsoAbstract).toBeTruthy()
     if (emittedIsoAbstract) {

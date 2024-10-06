@@ -9,6 +9,7 @@ export const emptyRecord: Record = {
   identifiers: [],
   edition: '',
   title: '',
+  abstract: '',
   dates: [],
   contacts: [],
   accessRestriction: {
@@ -52,6 +53,7 @@ export const emptyIsoRecord: IsoRecord = {
       value: '', // required
     },
     abstract: '', // required
+    // purpose: '', // may not be set
     dates: {}, // required, default/auto-generated value set
     edition: '', // default/auto-generated value set
     other_citation_details: '', // typically set

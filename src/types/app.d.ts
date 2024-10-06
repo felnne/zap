@@ -113,6 +113,7 @@ export type Record = {
   identifiers: Identifier[]
   edition: string
   title: string
+  abstract: string
   dates: DateImpreciseLabelled[]
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
