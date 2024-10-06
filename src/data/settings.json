@@ -18,7 +18,7 @@
     "app_section_data_file_url_base": "https://gitlab.data.bas.ac.uk/felnne/zap/-/tree/main/src/data",
     "pdc_doi_prefix": "10.5285",
     "nerc_ad_tenant_id": "b311db95-32ad-438f-a101-7ba061712a4e",
-    "open_ai_org": "org-yzXF0GlPnWNisHN2DVNQ7wIg",
-    "open_ai_project": "proj_HMUoiVutzS0V4ev4SnAvLCqY"
+    "app_open_ai_proxy_endpoint": "https://zap-openai.flask-dev.nerc-bas.ac.uk/v1/chat/completions",
+    "app_open_ai_model": "gpt-4o"
   }
 }

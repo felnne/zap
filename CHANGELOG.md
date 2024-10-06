@@ -17,6 +17,7 @@
 * Drop-down menu base component
 * Link base component now accepts setting additional classes
 * Enable screenshot capture in Sentry feedback widget
+* Experimental OpenAI chat GPT integration for generating summaries from abstracts
 
 ### Changed
 
