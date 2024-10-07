@@ -7,18 +7,18 @@ variables:
   VITE_BUILD_RELEASE: "$CI_COMMIT_TAG"
   VITE_BUILD_HASH: "$CI_COMMIT_SHA"
   VITE_BUILD_TIME: "$CI_COMMIT_TIMESTAMP"
-
-  # > Secret variables (set in GL settings)
-  # SSH_PRIVATE_KEY
-  # TEST_AGOL_PASSWORD
-  # TEST_AGOL_USERNAME
-  # VITE_OPEN_API_KEY (set in secrets)
-
+  TEST_AGOL_USERNAME: "app_automated_testing_bas"
   DEPLOY_USER: felnne
   DEPLOY_HOST: bslcenb.nerc-bas.ac.uk
+  DEPLOY_SSH_PRIVATE_KEY: "/root/.ssh/id_ed25519.pem"
   DEPLOY_PATH: /users/felnne/public_html/apps/zap
   DEPLOY_REVIEW_APP_PREFIX: review
   DEPLOY_URL_BASE: https://basweb.nerc-bas.ac.uk/~felnne/apps/zap
+  # Secrets (set in GitLab CI/CD settings)
+  # - OP_SERVICE_ACCOUNT_TOKEN
+  #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=k34cpwfkqaxp2r56u4aklza6ni&i=xycz7i532uhb37kum3ypnqnhg4&h=magic.1password.eu
+  # - TEST_AGOL_PASSWORD
+  #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=ffy5l25mjdv577qj6izuk6lo4m&i=bq44kugbwpn5ldfoslpkskhm5a&h=magic.1password.eu
 
 image:
   name: node:lts-alpine
@@ -31,26 +31,43 @@ stages:
   - 🧪 test
   - 📋 lint
   - 🏗 build
+  - 📦 package
   - 🚀 deploy
 
 before_script:
   - npm ci
 
-.before_script_deploy_template: &before_script_deploy
-  before_script:
-    - apk add --no-cache rsync openssh-client
-    - eval $(ssh-agent -s)
-    - chmod 400 "$SSH_PRIVATE_KEY"
-    - ssh-add "$SSH_PRIVATE_KEY"
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-
 .before_script_validate_template: &before_script_validate
   before_script:
     - npx tsc scripts/validate-data.ts
     - mv scripts/validate-data.js scripts/validate-data.cjs
+
+.before_script_package_template: &before_script_deploy
+  before_script:
+    - apk add --no-cache zip curl
+    # remove `v` from tag as GitLab doesn't allow prefixes
+    # see https://gitlab.com/gitlab-org/gitlab/-/issues/273034 for details
+    - export VERSION_NO_PREFIX=$(echo $CI_COMMIT_TAG | sed 's/^v//')"
+    - export PACKAGE_VERSION=$VERSION_NO_PREFIX
+    - export PACKAGE_FILE_NAME=zap-app-$PACKAGE_VERSION.zip
+
+.before_script_deploy_template: &before_script_deploy
+  before_script:
+    - apk add --no-cache wget zip
+    - echo https://downloads.1password.com/linux/alpinelinux/stable/ >> /etc/apk/repositories
+    - wget https://downloads.1password.com/linux/keys/alpinelinux/support@1password.com-61ddfc31.rsa.pub -P /etc/apk/keys
+    - apk add --no-cache 1password-cli rsync openssh-client
+    - op --version
+
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - op read --out-file $DEPLOY_SSH_PRIVATE_KEY "op://Infrastructure/Zap - GitLab CI private key/private key?ssh-format=openssh"
+    - eval $(ssh-agent -s)
+    - chmod 400 "$DEPLOY_SSH_PRIVATE_KEY"
+    - ssh-add "$DEPLOY_SSH_PRIVATE_KEY"
+
+    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
 
 lint:
   stage: 📋 lint
@@ -122,6 +139,18 @@ build:
     -
       if: '$CI_COMMIT_TAG == null'
 
+package_prod:
+  stage: 📦 package
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - zip -r $PACKAGE_FILE_NAME dist
+    - 'curl --fail --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file $PACKAGE_FILE_NAME ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/app/$PACKAGE_VERSION/$PACKAGE_FILE_NAME'
+  rules:
+    -
+      if: '$CI_COMMIT_TAG != null'
+
 deploy:
   stage: 🚀 deploy
   needs: ["build"]
@@ -148,7 +177,7 @@ deploy_int:
 
 deploy_prod:
   stage: 🚀 deploy
-  needs: []
+  needs: ["deploy"]
   <<: *before_script_deploy
   script:
     - ssh $DEPLOY_USER@$DEPLOY_HOST "ln -snf $DEPLOY_PATH/$CI_COMMIT_SHORT_SHA $DEPLOY_PATH/$CI_COMMIT_TAG"
