@@ -18,6 +18,11 @@
 * Link base component now accepts setting additional classes
 * Enable screenshot capture in Sentry feedback widget
 
+### Fixed
+
+* incorrect greyscale scheme for MarkDown previews ('slate' rather than 'neutral')
+* missing dark mode support for MarkDown previews
+
 ### Changed
 
 * adding state to upload button in downloads (pending, uploading, uploading, etc.)
