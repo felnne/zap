@@ -10,7 +10,9 @@ test('unsupported file types are rejected correctly', async ({ page }) => {
   await page.fill('input#download-1-path', '/data/somewhere/sample.x')
 
   page.on('dialog', async (dialog) => {
-    expect(dialog.message()).toEqual("File format for 'sample.x' is not supported, rejecting.")
+    // replace /data/somewhere/sample.x with sample.x (inconsistency between browsers)
+    const dialogMessage = dialog.message().replace(/\/data\/somewhere\//, '')
+    expect(dialogMessage).toEqual("File format for 'sample.x' is not supported, rejecting.")
     await dialog.accept()
   })
 
