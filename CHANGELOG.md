@@ -35,6 +35,7 @@
 * using Vitest fake timers support for dates section testing
 * upgrading dependencies (x2)
 * upgrading to eslint v9 (flat config)
+* upgrading to vitest 2.x
 
 ### Removed
 
