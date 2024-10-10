@@ -49,7 +49,7 @@ const uploadFile = async () => {
     let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
     url.value = stagedFileUrl
     state.value = UploadStatus.Uploaded
-  } catch (e: any) {
+  } catch (e: unknown) {
     state.value = UploadStatus.Error
     if (e instanceof Error) {
       if (e.message.includes('error-file-exists')) {
@@ -124,26 +124,26 @@ watch(
     <div class="flex space-x-2">
       <FormLabel class="text-neutral-500">File</FormLabel>
       <input
+        :id="'download-' + index + '-file'"
         ref="fileInput"
         class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow file:hover:bg-neutral-100"
         type="file"
-        :id="'download-' + index + '-file'"
         @change="onFileChange"
       />
       <ButtonUpload
         :id="'download-' + index + '-upload'"
-        @click="uploadFile"
         :state="state"
+        @click="uploadFile"
       ></ButtonUpload>
     </div>
     <div class="flex flex-grow space-x-2">
       <FormLabel class="text-neutral-500">URL</FormLabel>
       <FormInput
+        :id="'download-' + index + '-url'"
+        v-model="url"
         type="text"
         name="'download-' + index + '-url'"
-        :id="'download-' + index + '-url'"
         readonly
-        v-model="url"
       />
     </div>
   </div>

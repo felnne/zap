@@ -5,6 +5,7 @@ import { type DefinedError } from 'ajv'
 import { Stability, ValidationStatus } from '@/types/enum'
 import type { Record as IsoRecord } from '@/types/iso'
 import { validateRecordText } from '@/lib/validation'
+import { emptyIsoRecord } from '@/lib/record'
 
 import FormTextarea from '@/components/bases/FormTextarea.vue'
 import SectionBorder from '@/components/bases/SectionBorder.vue'
@@ -35,6 +36,7 @@ const props = defineProps({
   currentRecord: {
     type: Object as () => IsoRecord,
     required: false,
+    default: emptyIsoRecord,
   },
 })
 
@@ -43,7 +45,7 @@ let source = ref<Source>(Source.UserInput)
 let errors = ref<DefinedError[]>([])
 let input = ref<string>('')
 
-let validityMessage: ComputedRef<String> = computed(() => {
+let validityMessage: ComputedRef<string> = computed(() => {
   if (state.value == ValidationStatus.Error) {
     return '😕 Record cannot be understood (invalid format).'
   } else if (state.value == ValidationStatus.Invalid) {
@@ -56,7 +58,7 @@ let validityMessage: ComputedRef<String> = computed(() => {
   }
 })
 
-let validityClass: ComputedRef<String[]> = computed(() => {
+let validityClass: ComputedRef<string[]> = computed(() => {
   const negativeClass = ['border-red-500', 'text-red-500']
 
   if (state.value == ValidationStatus.Error) {
@@ -125,19 +127,19 @@ watch(
           >
         </div>
       </div>
-      <div class="space-y-2" v-if="source == Source.UserInput">
+      <div v-if="source == Source.UserInput" class="space-y-2">
         <p>Alternatively, paste a record from elsewhere below to validate it.</p>
-        <FormTextarea id="validation-input" class="w-full flex-grow" v-model="input"></FormTextarea>
+        <FormTextarea id="validation-input" v-model="input" class="w-full flex-grow"></FormTextarea>
       </div>
       <div
-        id="validation-message"
         v-if="state != ValidationStatus.Empty"
+        id="validation-message"
         class="border-l-4 border-solid pl-2 text-lg font-semibold"
         :class="validityClass"
       >
         {{ validityMessage }}
       </div>
-      <Pre id="validation-errors" v-if="errors.length > 0">{{ errors }}</Pre>
+      <Pre v-if="errors.length > 0" id="validation-errors">{{ errors }}</Pre>
     </div>
   </SectionBorder>
 </template>

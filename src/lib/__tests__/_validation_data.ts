@@ -4,21 +4,27 @@ import type { Record as IsoRecord } from '../../types/iso'
 // Therefore additional methods such as createAuthor are not used, leading to statically defined data.
 
 // duplicated from @/lib/data.ts
-function _isObject(item: any) {
+type StrKeyObj = { [key: string]: unknown }
+
+// duplicated from @/lib/data.ts
+const _isObject = (item: unknown): item is StrKeyObj => {
   /* Check if an item is an object */
-  return item && typeof item === 'object' && !Array.isArray(item)
+  return item !== null && typeof item === 'object' && !Array.isArray(item)
 }
 
 // duplicated from @/lib/data.ts
-export const deepMergeObjects = (source: any, target: any) => {
+export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyObj => {
   /* Merge the first object into a clone of the second recursively, returning the new object. */
   const output = JSON.parse(JSON.stringify(source))
 
   if (_isObject(target) && _isObject(source)) {
     Object.keys(target).forEach((key) => {
-      if (_isObject(target[key])) {
-        if (!(key in source)) Object.assign(output, { [key]: target[key] })
-        else output[key] = deepMergeObjects(source[key], target[key])
+      if (_isObject(target[key]) || _isObject(source[key])) {
+        if (!(key in source) || !_isObject(source[key])) {
+          Object.assign(output, { [key]: target[key] })
+        } else {
+          output[key] = deepMergeObjects(source[key] as StrKeyObj, target[key] as StrKeyObj)
+        }
       } else {
         Object.assign(output, { [key]: target[key] })
       }
@@ -310,7 +316,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
     ],
   },
   minimalRecord
-)
+) as IsoRecord
 
 export const minimalRecordAsText = JSON.stringify(minimalRecord, null, 2)
 export const supportedRecordAsText = JSON.stringify(supportedRecord, null, 2)

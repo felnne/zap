@@ -24,9 +24,12 @@ let additionalClasses: ComputedRef<string[]> = computed(() => {
 </script>
 
 <template>
+  <!-- eslint disabled over use of v-html -->
+  <!-- eslint-disable -->
   <div
     class="prose prose-neutral w-full max-w-none border dark:prose-invert"
     :class="additionalClasses"
     v-html="content"
   ></div>
+  <!-- eslint-enable -->
 </template>

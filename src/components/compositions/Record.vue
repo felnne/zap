@@ -43,7 +43,8 @@ import Title from '@/components/sections/elements/Title.vue'
 
 defineProps({
   esriToken: {
-    type: Object as () => EsriToken,
+    type: Object as () => EsriToken | undefined,
+    default: undefined,
   },
 })
 
@@ -138,45 +139,45 @@ watch(
 <template>
   <section class="space-y-4">
     <FileIdentifier
-      @update:fileIdentifier="(event: string) => (record.fileIdentifier = event)"
-      @update:isoFileIdentifier="(event: string) => (isoRecord.file_identifier = event)"
+      @update:file-identifier="(event: string) => (record.fileIdentifier = event)"
+      @update:iso-file-identifier="(event: string) => (isoRecord.file_identifier = event)"
     />
     <ResourceType
-      @update:resourceType="(event: ResourceTypeEM) => (record.resourceType = event)"
-      @update:isoHierarchyLevel="(event: string) => (isoRecord.hierarchy_level = event)"
+      @update:resource-type="(event: ResourceTypeEM) => (record.resourceType = event)"
+      @update:iso-hierarchy-level="(event: string) => (isoRecord.hierarchy_level = event)"
     />
     <Identifiers
       :file-identifier="record.fileIdentifier"
       :resource-type="record.resourceType"
       :licence="record.licence"
       @update:identifiers="(event: Identifier[]) => (record.identifiers = event)"
-      @update:isoIdentifiers="
+      @update:iso-identifiers="
         (event: Identifier[]) => (isoRecord.identification.identifiers = event)
       "
     />
     <Edition
       @update:edition="(event: string) => (record.edition = event)"
-      @update:isoEdition="(event: string) => (isoRecord.identification.edition = event)"
+      @update:iso-edition="(event: string) => (isoRecord.identification.edition = event)"
     />
     <Title
       @update:title="(event: string) => (record.title = event)"
-      @update:isoTitleValue="(event: string) => (isoRecord.identification.title.value = event)"
+      @update:iso-title-value="(event: string) => (isoRecord.identification.title.value = event)"
     />
     <Abstract
       @update:abstract="(event: string) => (record.abstract = event)"
-      @update:isoAbstract="(event: string) => (isoRecord.identification.abstract = event)"
+      @update:iso-abstract="(event: string) => (isoRecord.identification.abstract = event)"
     />
     <Summary
       :abstract="record.abstract"
-      @update:isoPurpose="(event: string) => (isoRecord.identification.purpose = event)"
+      @update:iso-purpose="(event: string) => (isoRecord.identification.purpose = event)"
     />
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
-      @update:isoDates="(event: IsoDates) => (isoRecord.identification.dates = event)"
+      @update:iso-dates="(event: IsoDates) => (isoRecord.identification.dates = event)"
     />
     <GeographicExtent
       :esri-token="esriToken || undefined"
-      @update:isoExtent="(event: IsoExtent) => (isoRecord.identification.extents = [event])"
+      @update:iso-extent="(event: IsoExtent) => (isoRecord.identification.extents = [event])"
     />
     <Contacts
       v-if="show('contacts')"
@@ -186,23 +187,23 @@ watch(
     <Access
       v-if="show('access')"
       @update:access="(event: AccessRestriction) => (record.accessRestriction = event)"
-      @update:isoAccess="(event: IsoConstraint) => (accessConstraint = event)"
+      @update:iso-access="(event: IsoConstraint) => (accessConstraint = event)"
     />
     <Licence
       v-if="show('licence')"
       :access-restriction="record.accessRestriction"
       @update:licence="(event: LicenceT) => (record.licence = event)"
-      @update:isoLicence="(event: IsoConstraint) => (licenceConstraint = event)"
+      @update:iso-licence="(event: IsoConstraint) => (licenceConstraint = event)"
     />
     <ResearchTopics
       v-if="show('researchTopics')"
-      @update:isoKeywords="(event: IsoKeywordSet[]) => (isoRecord.identification.keywords = event)"
-      @update:isoTopics="(event: string[]) => (isoRecord.identification.topics = event)"
+      @update:iso-keywords="(event: IsoKeywordSet[]) => (isoRecord.identification.keywords = event)"
+      @update:iso-topics="(event: string[]) => (isoRecord.identification.topics = event)"
     />
     <Citation
       v-if="show('citation')"
       :record="record"
-      @update:isoOtherCitationDetails="
+      @update:iso-other-citation-details="
         (event: string) => (isoRecord.identification.other_citation_details = event)
       "
     />
@@ -211,13 +212,13 @@ watch(
       :file-identifier="record.fileIdentifier"
       :resource-type="record.resourceType"
       :licence="record.licence"
-      @update:isoDistOptionsDownloads="
+      @update:iso-dist-options-downloads="
         (event: IsoDistributionOption[]) => (distributionOptionsDownloads = event)
       "
     />
     <Services
       v-if="show('services')"
-      @update:isoDistOptionsServices="
+      @update:iso-dist-options-services="
         (event: IsoDistributionOption[]) => (distributionOptionsServices = event)
       "
     />

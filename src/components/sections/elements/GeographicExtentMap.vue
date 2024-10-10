@@ -20,6 +20,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-96 w-full border border-sky-500" :id="container"></div>
+  <div :id="container" class="h-96 w-full border border-sky-500"></div>
 </template>
 @/lib/esriNoTest

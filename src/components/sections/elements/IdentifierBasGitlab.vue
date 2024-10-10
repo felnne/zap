@@ -55,20 +55,20 @@ watch(issueUrl, () => {
   <form class="flex space-x-4">
     <FormLabel>
       <input
-        type="checkbox"
-        name="identifiers"
         :id="'identifier-bas-gitlab-selection'"
         v-model="selected"
+        type="checkbox"
+        name="identifiers"
       />
       GitLab (BAS instance)
     </FormLabel>
     <FormLabel class="text-neutral-500">Issue URL</FormLabel>
     <FormInput
+      id="identifier-bas-gitlab-id"
+      v-model="issueUrl"
       type="text"
       name="identifier-bas-gitlab-id"
-      id="identifier-bas-gitlab-id"
       :disabled="!selected"
-      v-model="issueUrl"
     />
   </form>
 </template>

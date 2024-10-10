@@ -31,7 +31,7 @@ const summariseFromAbstract = async () => {
   markdownInput.value = '[Generating summary...]'
   try {
     markdownInput.value = await summariseAbstract(props.abstract)
-  } catch (error) {
+  } catch {
     markdownInput.value = '[Error generating summary]'
     return
   }
@@ -63,7 +63,7 @@ watch(
     />
     <div class="space-y-4">
       <div class="flex items-center space-x-2">
-        <Button id="summary-use-abstract" @click="copyFromAbstract" :disabled="props.abstract == ''"
+        <Button id="summary-use-abstract" :disabled="props.abstract == ''" @click="copyFromAbstract"
           >Copy From Abstract</Button
         >
         <GuidanceText
@@ -74,8 +74,8 @@ watch(
       <div class="flex items-center space-x-2">
         <Button
           id="summary-use-abstract-ai"
-          @click="summariseFromAbstract"
           :disabled="props.abstract == ''"
+          @click="summariseFromAbstract"
         >
           Summarise From Abstract ✨
         </Button>
@@ -86,8 +86,8 @@ watch(
       </div>
       <Markdown
         input-id="summary-input"
-        @update:input="(event: string) => (summary = event)"
         :input="markdownInput"
+        @update:input="(event: string) => (summary = event)"
       />
     </div>
   </SectionBorder>

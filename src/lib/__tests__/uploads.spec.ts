@@ -1,5 +1,7 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
 import axios from 'axios'
+import type { MockedFunction } from 'vitest'
+import type { AxiosInstance } from 'axios'
 
 import { getSetting } from '@/lib/data'
 import { stageFile, statSanPath, encodeSanPath } from '@/lib/upload'
@@ -9,7 +11,7 @@ vi.mock('axios')
 describe('stageFile', () => {
   afterEach(() => {
     // cleaning up after the previous test
-    ;(axios.post as any).mockReset()
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
   it('uploads a file', async () => {
@@ -27,7 +29,7 @@ describe('stageFile', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     const stagedFileUrl = await stageFile(file, fileIdentifier)
 
@@ -51,12 +53,14 @@ describe('stageFile', () => {
         request: {},
       },
     }
-    ;(axios.post as any).mockRejectedValue(mockError)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
       await stageFile(file, fileIdentifier)
-    } catch (error: any) {
-      expect(error.message).toBe(`Error staging file: ${mockError.response.data.error}`)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        expect(error.message).toBe(`Error staging file: ${mockError.response.data.error}`)
+      }
     }
   })
 })
@@ -64,7 +68,7 @@ describe('stageFile', () => {
 describe('statSanPath', () => {
   afterEach(() => {
     // cleaning up after the previous test
-    ;(axios.post as any).mockReset()
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
   it('returns the size of a file at a path', async () => {
@@ -79,7 +83,7 @@ describe('statSanPath', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     const pathSize = await statSanPath(path)
 
@@ -100,12 +104,14 @@ describe('statSanPath', () => {
         request: {},
       },
     }
-    ;(axios.post as any).mockRejectedValue(mockError)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
       await statSanPath(path)
-    } catch (error: any) {
-      expect(error.message).toBe(`Error stating file: ${mockError.response.data.error}`)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        expect(error.message).toBe(`Error stating file: ${mockError.response.data.error}`)
+      }
     }
   })
 
@@ -123,12 +129,14 @@ describe('statSanPath', () => {
         request: {},
       },
     }
-    ;(axios.post as any).mockRejectedValue(mockError)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
       await statSanPath(path)
-    } catch (error: any) {
-      expect(error.message).toBe(`Error stating file: ${mockError.response.data.error}`)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        expect(error.message).toBe(`Error stating file: ${mockError.response.data.error}`)
+      }
     }
   })
 })

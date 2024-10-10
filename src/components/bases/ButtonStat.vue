@@ -11,6 +11,10 @@ const props = defineProps({
   },
 })
 
+defineEmits<{
+  (event: 'button-click', payload?: Record<string, any[]>): void // eslint-disable-line @typescript-eslint/no-explicit-any
+}>()
+
 let label: ComputedRef<string> = computed(() => {
   if (props.state == ValidationStatus.Empty || props.state == ValidationStatus.Pending) {
     return 'Set'

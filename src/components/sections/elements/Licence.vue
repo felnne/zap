@@ -85,22 +85,22 @@ watch(
       :depends-on="dependantSections"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <FormLabel v-for="licence in filteredLicences" :key="licence.slug">
             <input
+              :id="'licence-' + licence.slug"
+              v-model="selectedLicenceSlug"
               type="radio"
               name="licences"
-              :id="'licence-' + licence.slug"
               :value="licence.slug"
-              v-model="selectedLicenceSlug"
             />
             {{ licence.name }}
           </FormLabel>
           <GuidanceText>Choices are filtered by whether access is open or closed.</GuidanceText>
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <Output :data="licenceConstraint"></Output>
       </template>
     </TwoColumn>

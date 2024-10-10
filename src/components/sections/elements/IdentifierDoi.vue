@@ -57,7 +57,7 @@ watch(selected, (value) => {
 
 <template>
   <FormLabel>
-    <input type="checkbox" name="identifiers" :id="'identifier-doi-selection'" v-model="selected" />
+    <input :id="'identifier-doi-selection'" v-model="selected" type="checkbox" name="identifiers" />
     DOI (NERC prefix)
   </FormLabel>
 </template>

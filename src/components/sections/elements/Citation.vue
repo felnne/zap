@@ -176,8 +176,8 @@ watch(
     <Markdown
       v-if="citation"
       input-id="citation-input"
-      @update:input="(event: string) => (otherCitationDetails = event)"
       :input="markdownInput"
+      @update:input="(event: string) => (otherCitationDetails = event)"
     />
   </SectionBorder>
 </template>

@@ -4,7 +4,7 @@ import Pre from './Pre.vue'
 
 defineProps({
   data: {
-    type: null as any,
+    type: null,
     required: true,
   },
   enableCopy: {

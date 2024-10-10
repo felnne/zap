@@ -76,7 +76,7 @@ watch(
       <Button id="add-download" @click="count++"> Add Download </Button>
       <GuidanceText
         >Supported formats:
-        <template v-for="(ext, index) in supportedExtensions" v-bind:key="ext">
+        <template v-for="(ext, index) in supportedExtensions" :key="ext">
           <code class="bg-orange-50 dark:bg-orange-950">{{ ext }}</code>
           <template v-if="index < supportedExtensions.length - 1">, </template>
         </template>

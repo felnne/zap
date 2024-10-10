@@ -2,7 +2,11 @@
 import Button from '@/components/bases/Button.vue'
 
 defineProps({
-  data: null as any,
+  data: {
+    type: null,
+    required: false,
+    default: '',
+  },
 })
 </script>
 

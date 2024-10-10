@@ -214,7 +214,7 @@ describe('Downloads [Integration]', () => {
     const expectedUpdatedDistributionOption: DistributionOption = deepMergeObjects(
       { transfer_option: { online_resource: { href: updatedUrl } } },
       expectedInitialDistributionOption
-    )
+    ) as DistributionOption
 
     const wrapper = mount(Downloads, {
       props: {

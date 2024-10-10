@@ -12,8 +12,9 @@ const props = defineProps({
     required: true,
   },
   esriToken: {
-    type: Object as () => EsriToken,
+    type: Object as () => EsriToken | undefined,
     required: false,
+    default: undefined,
   },
 })
 
@@ -39,15 +40,15 @@ onMounted(() => {
 <template>
   <div
     v-if="!esriToken"
+    :id="container"
     class="flex items-center justify-center text-lg"
     :class="classes"
-    :id="container"
   >
     <p>
       Sign in to ArcGIS Online in <Link href="#external-services">External Services</Link> to show
       3D preview.
     </p>
   </div>
-  <div v-else :class="classes" :id="container"></div>
+  <div v-else :id="container" :class="classes"></div>
 </template>
 @/lib/esriNoTest

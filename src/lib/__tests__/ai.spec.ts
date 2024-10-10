@@ -1,5 +1,7 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
 import axios from 'axios'
+import type { MockedFunction } from 'vitest'
+import type { AxiosInstance } from 'axios'
 
 import { summariseAbstract } from '@/lib/ai'
 
@@ -8,7 +10,7 @@ vi.mock('axios')
 describe('summariseAbstract', () => {
   afterEach(() => {
     // cleaning up after the previous test
-    ;(axios.post as any).mockReset()
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
   it('summarises an abstract', async () => {
@@ -54,7 +56,7 @@ describe('summariseAbstract', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     const summary = await summariseAbstract(abstract)
 
@@ -91,12 +93,14 @@ describe('summariseAbstract', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     try {
       await summariseAbstract(abstract)
-    } catch (error: any) {
-      expect(error.message).toBe('OpenAI Proxy error')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        expect(error.message).toBe('OpenAI Proxy error')
+      }
     }
   })
 
@@ -114,12 +118,14 @@ describe('summariseAbstract', () => {
         request: {},
       },
     }
-    ;(axios.post as any).mockRejectedValue(mockError)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
       await summariseAbstract(abstract)
-    } catch (error: any) {
-      expect(error.message).toBe('OpenAI Proxy error')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        expect(error.message).toBe('OpenAI Proxy error')
+      }
     }
   })
 })

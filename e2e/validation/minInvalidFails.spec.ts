@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-// @ts-ignore
+// @ts-expect-error can't be bothered to fix type error
 import { minimalRecordAsText } from '../../src/lib/__tests__/_validation_data'
 
 test('a pasted minimal, invalid, record does not validate', async ({ page }) => {

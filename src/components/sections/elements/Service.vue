@@ -53,10 +53,10 @@ watch(
     <form class="flex space-x-4">
       <FormLabel>
         <input
-          type="checkbox"
-          name="services"
           :id="'service-' + service.slug + '-selection'"
           v-model="selected"
+          type="checkbox"
+          name="services"
         />
         {{ service.name }}
       </FormLabel>
@@ -65,11 +65,11 @@ watch(
           >Endpoint</FormLabel
         >
         <FormInput
+          :id="'service-' + service.slug + '-endpoint'"
+          v-model="endpoint"
           type="url"
           :name="'service-' + service.slug + '-endpoint'"
-          :id="'service-' + service.slug + '-endpoint'"
           :disabled="!selected"
-          v-model="endpoint"
         />
       </div>
     </form>

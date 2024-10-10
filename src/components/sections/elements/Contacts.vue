@@ -47,21 +47,21 @@ watch(
       :data-file-href="['individuals.json', 'organisations.json']"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <FormLabel v-for="individual in individuals" :key="individual.slug">
             <input
+              :id="'individual-' + individual.slug"
+              v-model="selectedSlugs"
               type="checkbox"
               name="individuals"
-              :id="'individual-' + individual.slug"
               :value="individual.slug"
-              v-model="selectedSlugs"
             />
             {{ individual.name }}
           </FormLabel>
         </div>
       </template>
-      <template v-slot:right><Output :data="contacts"></Output></template>
+      <template #right><Output :data="contacts"></Output></template>
     </TwoColumn>
   </SectionBorder>
 </template>

@@ -32,12 +32,12 @@ watch(
   <SectionBorder>
     <SectionTitle version="1.2" anchor="edition" title="Edition" />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div>
-          <FormInput type="text" name="edition" id="edition" v-model="edition" class="w-full" />
+          <FormInput id="edition" v-model="edition" type="text" name="edition" class="w-full" />
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <Output :data="edition"></Output>
       </template>
     </TwoColumn>

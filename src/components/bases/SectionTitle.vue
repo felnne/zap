@@ -28,6 +28,7 @@ const props = defineProps({
   subTitle: {
     type: String,
     required: false,
+    default: '',
   },
   dataFileHref: {
     type: Array as PropType<string[]>,
@@ -37,6 +38,7 @@ const props = defineProps({
   guidanceHref: {
     type: String,
     required: false,
+    default: '',
   },
   addToc: {
     type: Boolean,
@@ -91,15 +93,17 @@ onMounted(() => {
           v-if="dataFilesHrefQualified.length > 0"
           title="Data Files"
           :items="dataFilesHrefQualified"
-          :itemsClasses="['section-data-file']"
+          :items-classes="['section-data-file']"
         >
         </DropDown>
-        <Link class="section-guidance" v-if="guidanceHref" :href="guidanceHref">View Guidance</Link>
+        <Link v-if="guidanceHref != ''" class="section-guidance" :href="guidanceHref"
+          >View Guidance</Link
+        >
         <DropDown
           v-if="dependsOn.length > 0"
           title="Depends On"
           :items="dependsOn"
-          :itemsClasses="['section-depends-on']"
+          :items-classes="['section-depends-on']"
         >
         </DropDown>
         <Link
@@ -109,11 +113,11 @@ onMounted(() => {
         >
       </div>
     </div>
-    <h3 v-if="subTitle" class="text-xl font-semibold text-neutral-500">
+    <h3 v-if="subTitle != ''" class="text-xl font-semibold text-neutral-500">
       {{ subTitle }}
     </h3>
   </header>
-  <Teleport to="#toc-items" v-if="teleport && addToc">
+  <Teleport v-if="teleport && addToc" to="#toc-items">
     <Link class="toc-item" :href="`#${anchor}`">{{ title }}</Link>
   </Teleport>
 </template>
