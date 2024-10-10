@@ -66,7 +66,7 @@ watch(
       title="Access Restrictions"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <AccessAnonymous
             :selected-slug="selectedSlug"
@@ -78,7 +78,7 @@ watch(
           />
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <div class="space-y-4">
           <div class="space-y-2">
             <p>Constraint:</p>

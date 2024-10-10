@@ -1,4 +1,4 @@
 declare module 'v-clipboard' {
-  const content: any
+  const content: Plugin<[]> | Directive
   export default content
 }

@@ -39,21 +39,21 @@ watch(
       title="Resource Type"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <FormLabel v-for="type in ResourceType" :key="type">
             <input
+              :id="'resource-type-' + type"
+              v-model="resourceType"
               type="radio"
               name="resource-type"
-              :id="'resource-type-' + type"
               :value="type"
-              v-model="resourceType"
             />
             {{ type }}
           </FormLabel>
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <Output :data="resourceType"></Output>
       </template>
     </TwoColumn>

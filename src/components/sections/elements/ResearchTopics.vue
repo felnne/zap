@@ -59,19 +59,19 @@ watch(
       :data-file-href="['keywords.json']"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <FormLabel v-for="term in keywordSet.terms" :key="term.slug">
           <input
+            :id="'topic-' + term.slug"
+            v-model="selectedSlugs"
             type="checkbox"
             name="topics"
-            :id="'topic-' + term.slug"
             :value="term.slug"
-            v-model="selectedSlugs"
           />
           {{ term.name }}
         </FormLabel>
       </template>
-      <template v-slot:right>
+      <template #right>
         <div class="space-y-4">
           <div class="space-y-2">
             <p>Keywords:</p>

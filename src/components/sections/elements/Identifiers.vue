@@ -77,15 +77,15 @@ watch(
       :depends-on="dependantSections"
     />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <IdentifierSelf
-            :fileIdentifier="fileIdentifier"
+            :file-identifier="fileIdentifier"
             @add:identifier="(event: Identifier) => addIdentifier(event)"
           />
           <IdentifierDoi
             v-if="showDoi"
-            :fileIdentifier="fileIdentifier"
+            :file-identifier="fileIdentifier"
             @add:identifier="(event: Identifier) => addIdentifier(event)"
             @remove:identifier="(event: Identifier) => removeIdentifier(event)"
           />
@@ -99,7 +99,7 @@ watch(
           />
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <Output :data="identifiers"></Output>
       </template>
     </TwoColumn>

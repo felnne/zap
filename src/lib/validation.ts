@@ -3,7 +3,7 @@ import addFormats from 'ajv-formats'
 
 import validationSchema from '@/schemas/record.json'
 
-const _getValidator = (schema: any) => {
+const _getValidator = (schema: object) => {
   /*
    * Create a JSON schema validator
    *

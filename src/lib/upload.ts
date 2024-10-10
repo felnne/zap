@@ -22,9 +22,13 @@ export async function stageFile(file: File, fileIdentifier: string): Promise<str
   try {
     const response = await axios.post<string>(url, formData, { headers })
     return response.headers.location
-  } catch (error: any) {
-    if (error && error.response && error.response.data && error.response.data.error) {
-      throw new Error(`Error staging file: ${error.response.data.error}`)
+  } catch (error: unknown) {
+    if (typeof error === 'object' && error !== null) {
+      const errorObj = error as { response?: { data?: { error?: string } } }
+      const errorMessage = errorObj.response?.data?.error
+      if (errorMessage) {
+        throw new Error(`Error staging file: ${errorMessage}`)
+      }
     }
 
     throw new Error('Error staging file')
@@ -49,9 +53,13 @@ export async function statSanPath(path: string): Promise<number> {
   try {
     const response = await axios.post<string>(url, formData)
     return Number(response.headers['x-content-length'])
-  } catch (error: any) {
-    if (error && error.response && error.response.data && error.response.data.error) {
-      throw new Error(`Error stating file: ${error.response.data.error}`)
+  } catch (error: unknown) {
+    if (typeof error === 'object' && error !== null) {
+      const errorObj = error as { response?: { data?: { error?: string } } }
+      const errorMessage = errorObj.response?.data?.error
+      if (errorMessage) {
+        throw new Error(`Error stating file: ${errorMessage}`)
+      }
     }
 
     throw new Error('Error stating file')

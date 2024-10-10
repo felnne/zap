@@ -55,20 +55,20 @@ watch(id, () => {
   <form class="flex space-x-4">
     <FormLabel>
       <input
-        type="checkbox"
-        name="identifiers"
         :id="'identifier-esri-selection'"
         v-model="selected"
+        type="checkbox"
+        name="identifiers"
       />
       Esri (BAS AGOL account)
     </FormLabel>
     <FormLabel class="text-neutral-500">Item ID</FormLabel>
     <FormInput
+      id="identifier-esri-id"
+      v-model="id"
       type="text"
       name="identifier-esri-id"
-      id="identifier-esri-id"
       :disabled="!selected"
-      v-model="id"
     />
   </form>
 </template>

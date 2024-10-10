@@ -141,8 +141,8 @@ export type Record = {
 }
 
 export type ReferenceSystemInfo = {
-  authority: {}
-  code: {}
+  authority: object
+  code: object
   version: string
 }
 

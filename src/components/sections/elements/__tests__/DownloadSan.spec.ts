@@ -1,5 +1,7 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
+import type { MockedFunction } from 'vitest'
+import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 
 import { encodeSanPath } from '@/lib/upload'
@@ -12,7 +14,7 @@ vi.mock('axios')
 describe('DownloadSan', () => {
   afterEach(() => {
     // cleaning up after the previous test
-    ;(axios.post as any).mockReset()
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
   it('renders correctly', async () => {
@@ -41,7 +43,7 @@ describe('DownloadSan', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     const wrapper = mount(DownloadSan, {
       props: {
@@ -111,7 +113,7 @@ describe('DownloadSan', () => {
       config: {},
       request: {},
     }
-    ;(axios.post as any).mockResolvedValue(mockResponse)
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
     const wrapper = mount(DownloadSan, {
       props: {

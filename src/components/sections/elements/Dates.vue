@@ -64,42 +64,42 @@ watch(
   <SectionBorder>
     <SectionTitle version="1.2" anchor="dates" title="Dates" sub-title="Publication date" />
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <div class="space-y-2">
           <fieldset class="flex space-x-4">
             <div class="space-y-2">
               <FormLabel for="date-year" class="block">Year</FormLabel>
-              <FormInput class="w-16" type="number" name="date" id="date-year" v-model="year" />
+              <FormInput id="date-year" v-model="year" class="w-16" type="number" name="date" />
             </div>
             <div class="space-y-2">
               <FormLabel for="date-month" class="block">Month</FormLabel>
               <FormInput
+                id="date-month"
+                v-model="month"
                 class="w-14"
                 type="number"
                 min="0"
                 max="12"
                 name="date"
-                id="date-month"
-                v-model="month"
               />
             </div>
             <div class="space-y-2">
               <FormLabel for="date-day" class="block">Day</FormLabel>
               <FormInput
+                id="date-day"
+                v-model="day"
                 class="w-14"
                 type="number"
                 min="0"
                 max="31"
                 name="date"
-                id="date-day"
-                v-model="day"
               />
             </div>
           </fieldset>
           <GuidanceText>If month or day are unknown, use 0. Year is required.</GuidanceText>
         </div>
       </template>
-      <template v-slot:right>
+      <template #right>
         <Output :data="datesIso"></Output>
       </template>
     </TwoColumn>

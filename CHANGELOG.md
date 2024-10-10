@@ -33,7 +33,9 @@
 * adjusting for `basweb` HTTPS support
 * splitting e2e tests into smaller files
 * using Vitest fake timers support for dates section testing
-* upgrading dependencies
+* upgrading dependencies (x2)
+* upgrading to eslint v9 (flat config)
+* upgrading to vitest 2.x
 
 ### Removed
 

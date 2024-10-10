@@ -37,7 +37,7 @@ watch(
     <div class="space-y-4">
       <Service
         v-for="slug in serviceSlugs"
-        v-bind:key="slug"
+        :key="slug"
         :slug="slug"
         @update:iso-distribution-option="
           (event: DistributionOption) => (distributionOptions[slug] = event)

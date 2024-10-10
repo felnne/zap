@@ -37,7 +37,7 @@ const statPath = async () => {
     sizeBytes.value = await statSanPath(path.value)
     url.value = encodeSanPath(path.value)
     state.value = ValidationStatus.Valid
-  } catch (e: any) {
+  } catch (e: unknown) {
     state.value = ValidationStatus.Error
     if (e instanceof Error) {
       if (e.message.includes('error-path-not-found')) {
@@ -120,25 +120,25 @@ watch(
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">SAN Path</FormLabel>
         <FormInput
-          type="text"
-          :name="'download-' + index + '-path'"
           :id="'download-' + index + '-path'"
           v-model="path"
+          type="text"
+          :name="'download-' + index + '-path'"
         />
         <ButtonStat
           :id="'download-' + index + '-stat'"
-          @button-click="statPath"
           :state="state"
+          @button-click="statPath"
         ></ButtonStat>
       </div>
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">URL</FormLabel>
         <FormInput
+          :id="'download-' + index + '-url'"
+          v-model="url"
           type="text"
           name="'download-' + index + '-url'"
-          :id="'download-' + index + '-url'"
           readonly
-          v-model="url"
         />
       </div>
     </div>

@@ -21,20 +21,25 @@ import ProjectionsData from '@/data/projections.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
 
-function _isObject(item: any) {
+type StrKeyObj = { [key: string]: unknown }
+
+const _isObject = (item: unknown): item is StrKeyObj => {
   /* Check if an item is an object */
-  return item && typeof item === 'object' && !Array.isArray(item)
+  return item !== null && typeof item === 'object' && !Array.isArray(item)
 }
 
-export const deepMergeObjects = (source: any, target: any) => {
+export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyObj => {
   /* Merge the first object into a clone of the second recursively, returning the new object. */
   const output = JSON.parse(JSON.stringify(source))
 
   if (_isObject(target) && _isObject(source)) {
     Object.keys(target).forEach((key) => {
-      if (_isObject(target[key])) {
-        if (!(key in source)) Object.assign(output, { [key]: target[key] })
-        else output[key] = deepMergeObjects(source[key], target[key])
+      if (_isObject(target[key]) || _isObject(source[key])) {
+        if (!(key in source) || !_isObject(source[key])) {
+          Object.assign(output, { [key]: target[key] })
+        } else {
+          output[key] = deepMergeObjects(source[key] as StrKeyObj, target[key] as StrKeyObj)
+        }
       } else {
         Object.assign(output, { [key]: target[key] })
       }

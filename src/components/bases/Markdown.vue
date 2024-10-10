@@ -15,10 +15,12 @@ const props = defineProps({
   input: {
     type: String,
     required: false,
+    default: '',
   },
   inputId: {
     type: String,
     required: false,
+    default: '',
   },
   inputClass: {
     type: String,
@@ -30,7 +32,7 @@ const props = defineProps({
 const emit = defineEmits(['update:input'])
 
 const setInput = () => {
-  if (props.input) {
+  if (props.input != '') {
     text.value = props.input
   }
 }
@@ -67,18 +69,18 @@ watch(
 <template>
   <div class="space-y-4">
     <TwoColumn>
-      <template v-slot:left>
+      <template #left>
         <SectionLabel
           >Input (<Link href="https://commonmark.org/help/">Markdown syntax</Link>)</SectionLabel
         >
         <FormTextarea
-          :id="inputId"
+          :id="inputId !== '' ? inputId : null"
+          v-model="text"
           class="w-full flex-grow"
           :class="inputClass"
-          v-model="text"
         ></FormTextarea>
       </template>
-      <template v-slot:right>
+      <template #right>
         <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>
         <Prose class="flex-grow" :content="textMarkdown"></Prose>
       </template>

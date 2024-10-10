@@ -51,11 +51,11 @@ watch(selected, () => {
 <template>
   <FormLabel>
     <input
+      :id="'access-' + accessRestriction.slug"
+      v-model="selected"
       type="radio"
       name="access-restriction"
-      :id="'access-' + accessRestriction.slug"
       :value="accessRestriction.slug"
-      v-model="selected"
     />
     {{ accessRestriction.label }}
   </FormLabel>

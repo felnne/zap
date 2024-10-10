@@ -32,7 +32,7 @@ export async function summariseAbstract(abstract: string): Promise<string> {
       headers: { 'Content-Type': 'application/json' },
     })
     return response.data.choices[0].message.content
-  } catch (error: any) {
+  } catch {
     throw new Error('OpenAI Proxy error')
   }
 }

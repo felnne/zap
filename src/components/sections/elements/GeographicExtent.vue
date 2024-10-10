@@ -17,8 +17,9 @@ import GeographicExtentGlobe from '@/components/sections/elements/GeographicExte
 
 defineProps({
   esriToken: {
-    type: Object as () => EsriToken,
+    type: Object as () => EsriToken | undefined,
     required: false,
+    default: undefined,
   },
 })
 
@@ -72,21 +73,21 @@ watch(extent, () => {
     />
     <div class="space-y-4">
       <TwoColumn>
-        <template v-slot:left>
+        <template #left>
           <div class="space-y-2">
             <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
               <input
+                :id="'extent-' + wke.slug"
+                v-model="selectedWkeSlug"
                 type="radio"
                 name="extents"
-                :id="'extent-' + wke.slug"
                 :value="wke.slug"
-                v-model="selectedWkeSlug"
               />
               {{ wke.name }}
             </FormLabel>
           </div>
         </template>
-        <template v-slot:right>
+        <template #right>
           <div class="space-y-4">
             <div id="geographic-extent" class="space-y-2">
               <p>Extent:</p>
@@ -94,19 +95,19 @@ watch(extent, () => {
             </div>
             <div id="spatial-crs" class="space-y-2">
               <p>Projection:</p>
-              <Output maxHeightClass="max-h-16" :data="projection"></Output>
+              <Output max-height-class="max-h-16" :data="projection"></Output>
             </div>
           </div>
         </template>
       </TwoColumn>
       <TwoColumn>
-        <template v-slot:left>
+        <template #left>
           <div class="space-y-2">
             <div class="text-sky-500">Preview (2D, EPSG:3857)</div>
             <GeographicExtentMap v-if="renderMaps" :wke="wellKnownExtent" />
           </div>
         </template>
-        <template v-slot:right>
+        <template #right>
           <div class="space-y-2">
             <div class="text-sky-500">Preview (3D)</div>
             <GeographicExtentGlobe

@@ -41,12 +41,12 @@ watch(
 <template>
   <FormLabel>
     <input
+      :id="'identifier-self-selection'"
+      v-model="selected"
       class="cursor-not-allowed"
       type="checkbox"
       name="identifiers"
-      :id="'identifier-self-selection'"
       disabled
-      v-model="selected"
     />
     BAS Data Catalogue (<em>required</em>)
   </FormLabel>
