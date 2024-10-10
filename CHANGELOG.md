@@ -34,6 +34,7 @@
 * splitting e2e tests into smaller files
 * using Vitest fake timers support for dates section testing
 * upgrading dependencies (x2)
+* upgrading to eslint v9 (flat config)
 
 ### Removed
 
