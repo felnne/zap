@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2024-10-17
+
 ### Added
 
 * ButtonUpload base component
