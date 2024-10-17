@@ -62,7 +62,7 @@ watch(
 
 <template>
   <SectionBorder>
-    <SectionTitle version="1.2" anchor="dates" title="Dates" sub-title="Publication date" />
+    <SectionTitle version="1.3" anchor="dates" title="Dates" sub-title="Publication date" />
     <TwoColumn>
       <template #left>
         <div class="space-y-2">

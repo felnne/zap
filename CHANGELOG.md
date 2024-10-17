@@ -22,6 +22,7 @@
 
 * incorrect greyscale scheme for MarkDown previews ('slate' rather than 'neutral')
 * missing dark mode support for MarkDown previews
+* ISO date conversion timezone issues
 
 ### Changed
 
