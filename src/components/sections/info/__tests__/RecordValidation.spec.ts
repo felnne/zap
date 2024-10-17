@@ -30,35 +30,17 @@ describe('RecordValidation', () => {
   it('renders correctly with valid user input ', async () => {
     const record = {
       $schema:
-        'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
-      hierarchy_level: 'dataset',
+        'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
       metadata: {
-        language: 'eng',
-        character_set: 'utf-8',
         contacts: [{ organisation: { name: 'UK Polar Data Centre' }, role: ['pointOfContact'] }],
-        date_stamp: '2018-10-18',
+        date_stamp: '2024-10-14',
       },
       identification: {
         title: { value: 'Test Record' },
         dates: { creation: '2018' },
         abstract:
           'Test Record for ISO 19115 metadata standard (no profile) with required properties only.',
-        character_set: 'utf-8',
         language: 'eng',
-        topics: ['environment', 'climatologyMeteorologyAtmosphere'],
-        extents: [
-          {
-            identifier: 'bounding',
-            geographic: {
-              bounding_box: {
-                west_longitude: -45.61521,
-                east_longitude: -27.04976,
-                south_latitude: -68.1511,
-                north_latitude: -54.30761,
-              },
-            },
-          },
-        ],
       },
     }
     const input = JSON.stringify(record)

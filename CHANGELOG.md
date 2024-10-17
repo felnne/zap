@@ -36,6 +36,7 @@
 * upgrading dependencies (x2)
 * upgrading to eslint v9 (flat config)
 * upgrading to vitest 2.x
+* upgrading to Metadata Library ISO 19115 v4 config (removing local modifications but using local mirror)
 
 ### Removed
 
