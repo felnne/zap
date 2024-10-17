@@ -56,8 +56,6 @@ const dependantSections: DropdownItem[] = [
   { href: '#title', title: 'Title' },
 ]
 
-const citationProseClasses = ['prose-sm']
-
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
 let otherCitationDetails = ref<string>('')
@@ -146,7 +144,7 @@ watch(
 <template>
   <SectionBorder>
     <SectionTitle
-      version="4.1"
+      version="4.2"
       anchor="citation"
       title="Citation"
       :data-file-href="['organisations.json']"
@@ -154,12 +152,7 @@ watch(
     />
     <div class="mb-10 space-y-2">
       <SectionLabel>Constructed citation (APA style)</SectionLabel>
-      <Prose
-        border-colour-class="border-black bg-neutral-100"
-        :prose-classes="citationProseClasses"
-        :content="citation"
-        id="citation-preview"
-      ></Prose>
+      <Prose id="citation-preview" :prose-classes="['prose-sm']" :content="citation"></Prose>
       <div class="flex items-center space-x-2">
         <Button id="citation-use-generated" @click="copyFromPreview">Copy From Preview</Button>
         <GuidanceText>
