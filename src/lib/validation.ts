@@ -4,23 +4,8 @@ import addFormats from 'ajv-formats'
 import validationSchema from '@/schemas/record.json'
 
 const _getValidator = (schema: object) => {
-  /*
-   * Create a JSON schema validator
-   *
-   * A custom string format for a date that can be a year (2024), year-month (2024-01) or year-month-day (2024-01-18) is
-   * defined as the JSON Schema 'datetime' format is overly strict in terms of required precision for our purposes
-   * (i.e. the time is often not known).
-   */
-  const ajv = new Ajv()
+  const ajv = new Ajv({ strictTypes: false })
   addFormats(ajv)
-  ajv.addFormat('imprecise-date', {
-    validate: (dateStr: string) => {
-      // Regular expression to match year, year-month, year-month-day
-      const regex = /^(?:\d{4}|(?:\d{4}-\d{2})|(?:\d{4}-\d{2}-\d{2}))$/
-      return regex.test(dateStr)
-    },
-    type: 'string',
-  })
 
   return ajv.compile(schema)
 }

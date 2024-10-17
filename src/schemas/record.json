@@ -1,8 +1,8 @@
 {
-  "$id": "iso-19115-1-v3-local",
+  "$id": "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "BAS Metadata Record Generator - ISO 19115:2003 v3 configuration schema",
-  "description": "Metadata record configuration schema for the ISO 19115:2003 metadata standard (version 3)",
+  "title": "BAS Metadata Record Generator - ISO 19115:2003 v4 configuration schema",
+  "description": "Metadata record configuration schema for the ISO 19115:2003 metadata standard (version 4)",
   "definitions": {
     "abstract": {
       "title": "Abstract",
@@ -78,7 +78,8 @@
             "partOfSeamlessDatabase",
             "revisionOf",
             "series",
-            "stereoMate"
+            "stereoMate",
+            "physicalReverseOf"
           ],
           "examples": ["crossReference"]
         },
@@ -115,15 +116,15 @@
     },
     "character_set": {
       "title": "Character set",
-      "description": "Character encoding scheme used (typically 'UTF-8)'.",
+      "description": "Character encoding scheme used (typically 'utf8').",
       "type": "string",
-      "examples": ["UTF-8"]
+      "enum": ["utf8"]
     },
     "constraint": {
       "title": "Constraint",
       "description": "Access/usage constraint describing a limitation on accessing or using the resource",
       "type": "object",
-      "oneOf": [
+      "anyOf": [
         {
           "required": ["type", "restriction_code"],
           "additionalProperties": false,
@@ -178,7 +179,7 @@
               "title": "URL",
               "description": "URL identifying, or relating to, the constraint.",
               "type": "string",
-              "format": "uri"
+              "format": "uri-reference"
             },
             "permissions": false
           }
@@ -321,7 +322,7 @@
           "title": "URL",
           "description": "URL identifying, or relating to, the individual or organisation. Identifiers are restricted to ORCID iDs (for individuals) and Research Organisation Registry (ROR) or International Standard Name Identifier (ISNI) identifiers (for organisations).",
           "type": "string",
-          "format": "uri",
+          "format": "uri-reference",
           "examples": ["https://ror.org/01rhff309", "https://sandbox.orcid.org/0000-0001-8373-6934"]
         },
         "title": {
@@ -350,9 +351,24 @@
     "date": {
       "title": "Date",
       "description": "A literal (partial) date or date time, including time zone which should be UTC.",
-      "type": "string",
-      "format": "imprecise-date",
-      "examples": ["2010", "2010-04", "2010-04-20", "2010-04-20T14:39:45+00:00"]
+      "minLength": 4,
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^\\d{4}(-((0[1-9]|1[0-2])(-([0-2][0-9]|3[01]))?)?)?$"
+        },
+        {
+          "type": "string",
+          "format": "date-time"
+        }
+      ],
+      "examples": [
+        "2010",
+        "2010-04",
+        "2010-04-20",
+        "2010-04-20T14:39:45",
+        "2010-04-20T14:39:45+00:00"
+      ]
     },
     "dates": {
       "title": "Dates",
@@ -390,6 +406,15 @@
       "type": "string",
       "format": "date",
       "examples": ["2020-04-16"]
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of an element related to the resource.",
+      "type": "string",
+      "examples": [
+        "Data clipped to data limit.",
+        "A compilation of flight route travel time statistics."
+      ]
     },
     "distribution": {
       "title": "Distribution",
@@ -435,6 +460,39 @@
         "transfer_option": {
           "$ref": "#/definitions/transfer_option"
         }
+      }
+    },
+    "domain_consistency_measure": {
+      "title": "Domain consistency measure",
+      "description": "A measure used to gauge data quality of the resource against rules defined by an external entity.",
+      "type": "object",
+      "required": [],
+      "additionalProperties": false,
+      "properties": {
+        "specification": {
+          "$ref": "#/definitions/specification"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "description": "Context surrounding applying the consistency measure against the resource.",
+          "type": "string",
+          "examples": [
+            "Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile."
+          ]
+        },
+        "result": {
+          "title": "Result",
+          "description": "Result of applying the consistency measure against the resource.",
+          "type": "boolean"
+        }
+      }
+    },
+    "domain_consistency": {
+      "title": "Domain consistency measures",
+      "description": "A series of domain consistency measures used to gauge data quality of the resource against rules defined by an external entity.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/domain_consistency_measure"
       }
     },
     "edition": {
@@ -499,7 +557,7 @@
           "title": "URL",
           "description": "URL identifying the data format.",
           "type": "string",
-          "format": "uri",
+          "format": "uri-reference",
           "examples": [
             "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3"
           ]
@@ -549,7 +607,7 @@
             "title": "URL",
             "description": "URL to the graphic overview file.",
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "examples": ["https://example.com/thumbnail.png"]
           },
           "description": {
@@ -676,7 +734,7 @@
       "title": "Identification",
       "description": "Information about how to reference, categorise, or describe the resource.",
       "type": "object",
-      "required": ["title", "dates", "abstract", "language", "character_set", "topics", "extents"],
+      "required": ["title", "dates", "abstract", "language"],
       "additionalProperties": false,
       "properties": {
         "title": {
@@ -699,6 +757,9 @@
         },
         "edition": {
           "$ref": "#/definitions/edition"
+        },
+        "series": {
+          "$ref": "#/definitions/series"
         },
         "other_citation_details": {
           "$ref": "#/definitions/other_citation_details"
@@ -750,6 +811,9 @@
         },
         "lineage": {
           "$ref": "#/definitions/lineage"
+        },
+        "domain_consistency": {
+          "$ref": "#/definitions/domain_consistency"
         }
       }
     },
@@ -770,14 +834,14 @@
           "title": "URL",
           "description": "URL identifying, or relating to, the identifier. Identifiers are restricted to DOIs and grant references iDs (for resources related to grant funded projects) (for organisations).",
           "type": "string",
-          "format": "uri",
+          "format": "uri-reference",
           "examples": ["https://doi.org/10.5285/86BD7A1A-845D-48A9-8D71-59FDF7290556"]
         },
         "namespace": {
           "title": "Namespace",
           "description": "The code or identifier for the domain or scheme this identifier is registered within.",
           "type": "string",
-          "examples": ["doi", "orcid"]
+          "examples": ["doi", "orcid", "isbn"]
         }
       }
     },
@@ -819,7 +883,7 @@
                   "title": "URL",
                   "description": "URL identifying, or relating to, the term.",
                   "type": "string",
-                  "format": "uri",
+                  "format": "uri-reference",
                   "examples": [
                     "https://gcmd.earthdata.nasa.gov/kms/concept/c58320e6-3f1d-4c36-9bee-6bad73404c21"
                   ]
@@ -876,6 +940,22 @@
           "examples": [
             "This dataset is fictitious and does not exist, it therefore has no lineage."
           ]
+        },
+        "process_steps": {
+          "title": "Process steps",
+          "description": "A series of steps taken to create or modify the resource.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/process_step"
+          }
+        },
+        "sources": {
+          "title": "Sources",
+          "description": "A series of resources used to create or modify the resource.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/source"
+          }
         }
       }
     },
@@ -915,7 +995,7 @@
       "title": "Metadata",
       "description": "Information about the metadata record describing the resource.",
       "type": "object",
-      "required": ["character_set", "contacts", "date_stamp", "language"],
+      "required": ["contacts", "date_stamp"],
       "additionalProperties": false,
       "properties": {
         "language": {
@@ -972,7 +1052,7 @@
           "title": "URL",
           "description": "URL to the external website or page.",
           "type": "string",
-          "format": "uri",
+          "format": "uri-reference",
           "examples": ["https://www.epsg-registry.org/"]
         },
         "title": {
@@ -1033,6 +1113,41 @@
         }
       ]
     },
+    "process_step": {
+      "title": "Process step",
+      "description": "Steps taken to create or modify the resource.",
+      "type": "object",
+      "required": ["description"],
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/description"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "description": "Reason for the process step.",
+          "type": "string",
+          "examples": ["To ensure consistent extent."]
+        },
+        "date": {
+          "$ref": "#/definitions/date"
+        },
+        "processors": {
+          "description": "Individuals or organisations responsible for the processing.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contact"
+          }
+        },
+        "sources": {
+          "description": "Sources used in the process step.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/source"
+          }
+        }
+      }
+    },
     "purpose": {
       "title": "Purpose",
       "description": "Resource summary.",
@@ -1086,7 +1201,7 @@
               "title": "URL",
               "description": "URL identifying the code.",
               "type": "string",
-              "format": "uri",
+              "format": "uri-reference",
               "examples": ["http://www.opengis.net/def/crs/EPSG/0/3031"]
             }
           }
@@ -1175,10 +1290,63 @@
       "title": "JSON Schema",
       "description": "JSON Schema keyword indicating the schema a document complies with.",
       "type": "string",
-      "format": "uri",
+      "format": "uri-reference",
       "examples": [
         "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-1-v3.json"
       ]
+    },
+    "series": {
+      "title": "Series",
+      "description": "Information about a series this resource belongs to, such as a published map series.",
+      "type": "object",
+      "required": [],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the series.",
+          "type": "string",
+          "examples": ["BAS Topographic Map Series", "Geomap"]
+        },
+        "edition": {
+          "$ref": "#/definitions/edition"
+        }
+      }
+    },
+    "source": {
+      "title": "Source",
+      "description": "A reference to another resource used in the creation or update of the resource.",
+      "type": "object",
+      "required": ["title", "dates"],
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/description"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "dates": {
+          "$ref": "#/definitions/dates"
+        },
+        "edition": {
+          "$ref": "#/definitions/edition"
+        },
+        "identifiers": {
+          "$ref": "#/definitions/identifiers"
+        },
+        "contact": {
+          "$ref": "#/definitions/contact"
+        },
+        "source_steps": {
+          "title": "Source steps",
+          "description": "A series of steps taken to create or modify the source.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/process_step"
+          }
+        }
+      }
     },
     "spatial_representation_type": {
       "title": "Spatial representation type",
@@ -1192,6 +1360,44 @@
       "description": "Describes the resolution of the resource's spatial information. May be set to null to indicate resolution is inapplicable.",
       "type": ["number", "null"],
       "examples": ["1000000", "1.24", null]
+    },
+    "specification": {
+      "title": "Specification",
+      "description": "Name, version and provider of a data quality conformance test.",
+      "type": "object",
+      "required": ["title", "dates"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/title"
+            },
+            {
+              "properties": {
+                "href": {
+                  "title": "URL",
+                  "description": "URL identifying the thesaurus.",
+                  "type": "string",
+                  "format": "uri-reference",
+                  "examples": [
+                    "https://earthdata.nasa.gov/about/gcmd/global-change-master-directory-gcmd-keywords"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "dates": {
+          "$ref": "#/definitions/dates"
+        },
+        "edition": {
+          "$ref": "#/definitions/edition"
+        },
+        "contact": {
+          "$ref": "#/definitions/contact"
+        }
+      }
     },
     "status": {
       "allOf": [
@@ -1238,7 +1444,7 @@
       "title": "Thesaurus",
       "description": "Name, version and provider of a keyword set.",
       "type": "object",
-      "required": [],
+      "required": ["title", "dates"],
       "additionalProperties": false,
       "properties": {
         "title": {
@@ -1253,7 +1459,7 @@
                   "title": "URL",
                   "description": "URL identifying the thesaurus.",
                   "type": "string",
-                  "format": "uri",
+                  "format": "uri-reference",
                   "examples": [
                     "https://earthdata.nasa.gov/about/gcmd/global-change-master-directory-gcmd-keywords"
                   ]
@@ -1283,7 +1489,12 @@
         "value": {
           "title": "Value",
           "description": "Title.",
-          "type": "string"
+          "type": "string",
+          "examples": [
+            "Map of Antarctica",
+            "NASA Global Change Master Directory (GCMD) Science Keywords",
+            "British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) profile for ISO 19915-2:2009 (discovery metadata)"
+          ]
         }
       }
     },
@@ -1413,7 +1624,7 @@
               "title": "URL",
               "description": "URL or URN for a resource that defines the domain of validity.",
               "type": "string",
-              "format": "uri",
+              "format": "uri-reference",
               "examples": ["urn:ogc:def:area:EPSG::1262"]
             }
           }
@@ -1429,7 +1640,7 @@
               "title": "URL",
               "description": "URL or URN for a resource that defines the coordinate system.",
               "type": "string",
-              "format": "uri",
+              "format": "uri-reference",
               "examples": ["urn:ogc:def:cs:EPSG::6498"]
             }
           }
@@ -1445,7 +1656,7 @@
               "title": "URL",
               "description": "URL or URN for a resource that defines the datum.",
               "type": "string",
-              "format": "uri",
+              "format": "uri-reference",
               "examples": ["urn:ogc:def:datum:EPSG::5100"]
             }
           }
@@ -1454,7 +1665,7 @@
     }
   },
   "type": "object",
-  "required": ["$schema", "hierarchy_level", "metadata", "identification"],
+  "required": ["$schema", "metadata", "identification"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
