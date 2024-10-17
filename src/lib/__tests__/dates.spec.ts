@@ -7,7 +7,7 @@ describe('getImpreciseDate', () => {
     const year = 2014
 
     const expectedDate = new Date(year, 0, 1)
-    expectedDate.setHours(0, 0, 0, 0)
+    expectedDate.setHours(3, 0, 0, 0)
 
     expect(getImpreciseDate(year)).toStrictEqual({
       js: expectedDate,
@@ -21,7 +21,7 @@ describe('getImpreciseDate', () => {
     const monthIndex = 2 // March
 
     const expectedDate = new Date(year, monthIndex, 1)
-    expectedDate.setHours(0, 0, 0, 0)
+    expectedDate.setHours(3, 0, 0, 0)
 
     expect(getImpreciseDate(year, monthIndex)).toStrictEqual({
       js: expectedDate,
@@ -36,7 +36,7 @@ describe('getImpreciseDate', () => {
     const day = 20 // 20th
 
     const expectedDate = new Date(year, monthIndex, day)
-    expectedDate.setHours(0, 0, 0, 0)
+    expectedDate.setHours(3, 0, 0, 0)
 
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,
@@ -51,7 +51,7 @@ describe('getImpreciseDate', () => {
     const day = -1 // Unknown
 
     const expectedDate = new Date(year, monthIndex, 1)
-    expectedDate.setHours(0, 0, 0, 0)
+    expectedDate.setHours(3, 0, 0, 0)
 
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,
@@ -66,7 +66,7 @@ describe('getImpreciseDate', () => {
     const day = 1 // 1st
 
     const expectedDate = new Date(year, monthIndex, day)
-    expectedDate.setHours(0, 0, 0, 0)
+    expectedDate.setHours(3, 0, 0, 0)
 
     expect(getImpreciseDate(year, monthIndex, day)).toStrictEqual({
       js: expectedDate,

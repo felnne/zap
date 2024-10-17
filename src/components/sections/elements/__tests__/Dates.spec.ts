@@ -5,7 +5,7 @@ import Clipboard from 'v-clipboard'
 import type { DateImpreciseLabelled } from '@/types/app'
 import Dates from '@/components/sections/elements/Dates.vue'
 
-const referenceDate = new Date(2004, 4, 18, 0, 0, 0, 0)
+const referenceDate = new Date(2004, 4, 18, 3, 0, 0, 0)
 
 const label = 'publication'
 const impreciseValue = '0'
@@ -83,7 +83,7 @@ describe('Dates', () => {
 
   it('emits value when year is updated', async () => {
     const expectedUpdatedDateValue = new Date()
-    expectedUpdatedDateValue.setHours(0, 0, 0, 0)
+    expectedUpdatedDateValue.setHours(3, 0, 0, 0)
     expectedUpdatedDateValue.setFullYear(expectedUpdatedDateValue.getFullYear() - 1)
 
     const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]
@@ -143,7 +143,7 @@ describe('Dates', () => {
 
   it('computes correct date at year precision', async () => {
     const expectedUpdatedDateValue = new Date()
-    expectedUpdatedDateValue.setHours(0, 0, 0, 0)
+    expectedUpdatedDateValue.setHours(3, 0, 0, 0)
     expectedUpdatedDateValue.setMonth(0)
     expectedUpdatedDateValue.setDate(1)
     const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('-')[0]
@@ -179,7 +179,7 @@ describe('Dates', () => {
 
   it('computes correct date at month precision', async () => {
     const expectedUpdatedDateValue = new Date()
-    expectedUpdatedDateValue.setHours(0, 0, 0, 0)
+    expectedUpdatedDateValue.setHours(3, 0, 0, 0)
     expectedUpdatedDateValue.setDate(1)
     const expectedUpdatedDateIsoValue = expectedUpdatedDateValue
       .toISOString()
