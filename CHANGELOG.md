@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.10.3] - 2024-10-18
+
+## Fixed
+
+* missing yaml anchor for packaging before task in CD
+
 ## [0.10.2] - 2024-10-18
 
 ## Fixed
