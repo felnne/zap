@@ -42,7 +42,7 @@ before_script:
     - npx tsc scripts/validate-data.ts
     - mv scripts/validate-data.js scripts/validate-data.cjs
 
-.before_script_package_template: &before_package_deploy
+.before_script_package_template: &before_script_package
   before_script:
     - apk add --no-cache zip curl
     # remove `v` from tag as GitLab doesn't allow prefixes
@@ -141,6 +141,7 @@ package_prod:
   needs:
     - job: build
       artifacts: true
+  <<: *before_script_package
   script:
     - zip -r $PACKAGE_FILE_NAME dist
     - 'curl --fail --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file $PACKAGE_FILE_NAME ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/app/$PACKAGE_VERSION/$PACKAGE_FILE_NAME'
