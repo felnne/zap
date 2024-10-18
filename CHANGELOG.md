@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.10.1] - 2024-10-18
+
+### Fixed
+
+* CD for tagged releases
+
 ## [0.10.0] - 2024-10-17
 
 ### Added

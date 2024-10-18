@@ -135,9 +135,6 @@ build:
     paths:
       - dist/
     expire_in: 1 month
-  rules:
-    -
-      if: '$CI_COMMIT_TAG == null'
 
 package_prod:
   stage: 📦 package
@@ -153,14 +150,13 @@ package_prod:
 
 deploy:
   stage: 🚀 deploy
-  needs: ["build"]
+  needs:
+    - job: build
+      artifacts: true
   <<: *before_script_deploy
   script:
     - ssh $DEPLOY_USER@$DEPLOY_HOST "mkdir -p $DEPLOY_PATH/$CI_COMMIT_SHORT_SHA"
     - rsync -avz dist/* $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/$CI_COMMIT_SHORT_SHA
-  rules:
-    -
-      if: '$CI_COMMIT_TAG == null'
 
 deploy_int:
   stage: 🚀 deploy
