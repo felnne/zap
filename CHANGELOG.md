@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.10.2] - 2024-10-18
+
+## Fixed
+
+* branch rules for review app stop task
+* typo in yaml anchor for packaging before task in CD
+
 ## [0.10.1] - 2024-10-18
 
 ### Fixed
