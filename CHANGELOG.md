@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.10.4] - 2024-10-18
+
+## Fixed
+
+* unmatched quote in packaging before task in CD
+
 ## [0.10.3] - 2024-10-18
 
 ## Fixed
