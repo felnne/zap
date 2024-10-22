@@ -4,7 +4,7 @@ import {
   _getUniqueItems,
   getKeywordSetRef,
   getUniqueKeywords,
-  getUniqueTopics,
+  getUniqueTerms,
 } from '@/lib/keywords'
 import type { KeywordSet } from '@/types/iso'
 
@@ -123,11 +123,11 @@ describe('getUniqueKeywords', () => {
   })
 })
 
-describe('getUniqueTopics', () => {
-  it('returns unique topics', () => {
+describe('getUniqueTerms', () => {
+  it('returns unique terms', () => {
     const input = ['a', 'a']
     const expected = ['a']
 
-    expect(getUniqueTopics(input)).toStrictEqual(expected)
+    expect(getUniqueTerms(input)).toStrictEqual(expected)
   })
 })

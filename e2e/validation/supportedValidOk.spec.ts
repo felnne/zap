@@ -31,9 +31,6 @@ test('a record drawn together from filled in sections validates', async ({ page 
 
   // licence has a default/auto-generated value
 
-  // check element with id 'topic-living_and_working_in_antarctica'
-  await page.check('input#topic-living_and_working_in_antarctica')
-
   // set element with id 'citation-input' to 'xxx'
   await page.fill('textarea#citation-input', 'xxx')
 
