@@ -82,7 +82,7 @@
     { "label": "Wizard UI.", "state": "todo" },
     { "label": "QGIS plugin.", "state": "todo" },
     { "label": "ArcGIS plugin.", "state": "todo" },
-    { "label": "Maintenance information (progress, update frequency", "state": "todo"},
-    { "label": "Data sources", "state": "todo"}
+    { "label": "Maintenance information (progress, update frequency", "state": "todo" },
+    { "label": "Data sources", "state": "todo" }
   ]
 }
