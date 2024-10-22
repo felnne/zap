@@ -144,7 +144,7 @@ package_prod:
   <<: *before_script_package
   script:
     - zip -r $PACKAGE_FILE_NAME dist
-    - 'curl --fail --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file $PACKAGE_FILE_NAME ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/app/$PACKAGE_VERSION/$PACKAGE_FILE_NAME'
+    - 'curl --fail --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file $PACKAGE_FILE_NAME ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/zap-app/$PACKAGE_VERSION/$PACKAGE_FILE_NAME'
   rules:
     -
       if: '$CI_COMMIT_TAG != null'
