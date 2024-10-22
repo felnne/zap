@@ -15,7 +15,6 @@ import type {
   DistributionOption as IsoDistributionOption,
   Extent as IsoExtent,
   Identifier,
-  KeywordSet as IsoKeywordSet,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
   Record as IsoRecord,
