@@ -94,7 +94,7 @@ const _getDataFileNames = (excludeNames: string[]): string[] => {
 const validateDataFiles = (): void => {
   const appFileNames = ['ideas', 'settings']
   console.log(`App files: [${appFileNames.join(', ')}]`)
-  const excludeNames = [...appFileNames, 'record']
+  const excludeNames = [...appFileNames, 'record-src', 'record']
   const dataFileNames = _getDataFileNames(excludeNames)
   console.log(`Discovered schemas: [${dataFileNames.join(', ')}]`)
   console.log('')

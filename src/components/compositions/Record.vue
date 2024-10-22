@@ -22,6 +22,7 @@ import type {
 } from '@/types/iso'
 import { emptyRecord, emptyIsoRecord } from '@/lib/record'
 import { showSection } from '@/lib/control'
+import { createOrgSlugPointOfContact } from '@/lib/contacts'
 
 import Abstract from '@/components/sections/elements/Abstract.vue'
 import Access from '@/components/sections/elements/Access.vue'
@@ -55,6 +56,12 @@ const emit = defineEmits<{
 const record = ref<Record>(emptyRecord)
 
 const isoRecord = ref<IsoRecord>(emptyIsoRecord)
+
+const authors = ref<IsoContact[]>([])
+const magicPoC = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
+let contacts: ComputedRef<IsoContact[]> = computed(() => {
+  return [...authors.value, magicPoC]
+})
 
 const accessConstraint = ref<IsoConstraint | null>(null)
 const licenceConstraint = ref<IsoConstraint | null>(null)
@@ -91,6 +98,17 @@ let distributionOptions: ComputedRef<IsoDistributionOption[]> = computed(() => {
 
 let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
   let mergedRecord = isoRecord.value
+
+  // merge isoRecord and contacts at 'isoRecord.identification.contacts' if not empty
+  if (contacts.value.length > 0) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        contacts: contacts.value,
+      },
+    }
+  }
 
   // merge isoRecord and constraints at 'isoRecord.identification.constraints' if not empty
   if (constraints.value.length > 0) {
@@ -182,7 +200,7 @@ watch(
     <Contacts
       v-if="show('contacts')"
       @update:contacts="(event: IsoContact[]) => (record.contacts = event)"
-      @update:iso-contacts="(event: IsoContact[]) => (isoRecord.identification.contacts = event)"
+      @update:iso-contacts="(event: IsoContact[]) => (authors = event)"
     />
     <Access
       v-if="show('access')"

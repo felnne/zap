@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test'
 import { minimalRecordAsText } from '../../src/lib/__tests__/_validation_data'
 
 test('a pasted minimal, invalid, record does not validate', async ({ page }) => {
-  const invalidRecordString = minimalRecordAsText.replace('dataset', 'invalid')
+  const invalidRecordString = minimalRecordAsText.replace('product', 'invalid')
 
   await page.goto('/')
 

@@ -11,7 +11,8 @@ import type {
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
 } from '@/types/iso'
-import { getFormatByType, getLicence, getService } from '@/lib/data'
+import { createAuthor, createOrgSlugPointOfContact } from '@/lib/contacts'
+import { getFormatByType, getIndividual, getLicence, getOrganisation, getService } from '@/lib/data'
 import { createAccessConstraint, createUsageConstraint } from '@/lib/constraints'
 import {
   createDistributor,
@@ -36,7 +37,7 @@ describe('Record [Integration]', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('emits ISO record correctly when set section directly changes', async () => {
+  it('emits ISO record correctly when a section set directly changes', async () => {
     const expectedAbstract = 'x'
 
     const wrapper = mount(Record, {
@@ -58,6 +59,36 @@ describe('Record [Integration]', () => {
       // skip to the last index to wait for properties set by default to be included
       const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
+    }
+  })
+
+  it('emits ISO record correctly when a section that forms aggregated contacts changes', async () => {
+    const expectedAuthor: IsoContact = createAuthor(
+      getIndividual('https_orcid_org_0000_0003_3703_3888'),
+      getOrganisation('bas')
+    )
+    const expectedPoC: IsoContact = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
+    const expectedContacts: IsoContact[] = [expectedAuthor, expectedPoC]
+
+    const wrapper = mount(Record, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from contacts (authors) component that sets part of contacts computed property (merged with PoC)
+    await wrapper
+      .findComponent({ name: 'Contacts' })
+      .vm.$emit('update:isoContacts', [expectedAuthor])
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.contacts).toEqual(expectedContacts)
     }
   })
 

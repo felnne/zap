@@ -33,13 +33,12 @@ export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyOb
   return output
 }
 
+// taken from Metadata Library minimal_product_v1 record config
 export const minimalRecord: IsoRecord = {
   $schema:
-    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json',
-  hierarchy_level: 'dataset',
+    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
+  file_identifier: 'f866c298-3b9a-4624-ac31-cd6b97c146fa',
   metadata: {
-    language: 'eng',
-    character_set: 'utf8',
     contacts: [
       {
         organisation: {
@@ -47,30 +46,147 @@ export const minimalRecord: IsoRecord = {
           href: 'https://ror.org/01rhff309',
           title: 'ror',
         },
+        phone: '+44 (0)1223 221400',
+        address: {
+          delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+          city: 'Cambridge',
+          administrative_area: 'Cambridgeshire',
+          postal_code: 'CB3 0ET',
+          country: 'United Kingdom',
+        },
+        email: 'magic@bas.ac.uk',
+        online_resource: {
+          href: 'https://www.bas.ac.uk/teams/magic',
+          title: 'Mapping and Geographic Information Centre (MAGIC) - BAS public website',
+          description:
+            'General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.',
+          function: 'information',
+        },
         role: ['pointOfContact'],
       },
     ],
-    date_stamp: '2018-10-18',
+    date_stamp: '2024-10-03',
   },
+  hierarchy_level: 'product',
   identification: {
-    title: { value: 'Test Record' },
-    dates: { publication: '2018' },
+    title: {
+      value: 'Test product with minimal MAGIC Discovery Profile properties',
+    },
+    dates: {
+      creation: '2024-09-14',
+      released: '2024-09-14T11:16:22+00:00',
+      publication: '2024-09-14T11:16:22+00:00',
+    },
+    edition: '1',
+    identifiers: [
+      {
+        identifier: 'f866c298-3b9a-4624-ac31-cd6b97c146fa',
+        href: 'https://data.bas.ac.uk/items/f866c298-3b9a-4624-ac31-cd6b97c146fa',
+        namespace: 'data.bas.ac.uk',
+      },
+    ],
     abstract:
-      'Test Record for ISO 19115 metadata standard (no profile) with required properties only.',
-    character_set: 'utf8',
+      'An example product to verify a record with the minimal set of properties required by the MAGIC Discovery Profile is handled correctly.',
+    contacts: [
+      {
+        organisation: {
+          name: 'Mapping and Geographic Information Centre, British Antarctic Survey',
+          href: 'https://ror.org/01rhff309',
+          title: 'ror',
+        },
+        phone: '+44 (0)1223 221400',
+        address: {
+          delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+          city: 'Cambridge',
+          administrative_area: 'Cambridgeshire',
+          postal_code: 'CB3 0ET',
+          country: 'United Kingdom',
+        },
+        email: 'magic@bas.ac.uk',
+        online_resource: {
+          href: 'https://www.bas.ac.uk/teams/magic',
+          title: 'Mapping and Geographic Information Centre (MAGIC) - BAS public website',
+          description:
+            'General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.',
+          function: 'information',
+        },
+        role: ['pointOfContact'],
+      },
+    ],
+    maintenance: {
+      maintenance_frequency: 'asNeeded',
+      progress: 'completed',
+    },
+    constraints: [
+      {
+        type: 'access',
+        restriction_code: 'unrestricted',
+      },
+      {
+        type: 'usage',
+        restriction_code: 'license',
+        statement:
+          'This information is licensed under the Open Government Licence (OGL 3.0). To view this licence, visit https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/.',
+        href: 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+      },
+    ],
     language: 'eng',
-    topics: ['environment'],
     extents: [
       {
         identifier: 'bounding',
         geographic: {
           bounding_box: {
-            west_longitude: -45.61521,
-            east_longitude: -27.04976,
-            south_latitude: -68.1511,
-            north_latitude: -54.30761,
+            west_longitude: -180.0,
+            east_longitude: 180.0,
+            south_latitude: -90.0,
+            north_latitude: -60.0,
           },
         },
+      },
+    ],
+    lineage: {
+      statement: 'This is a fictitious record and has no real origin.',
+    },
+    domain_consistency: [
+      {
+        specification: {
+          title: {
+            value:
+              'British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile',
+            href: 'https://metadata-standards.data.bas.ac.uk/profile/magic-discovery-v1/',
+          },
+          dates: {
+            publication: '2024-10-01',
+          },
+          edition: '1',
+          contact: {
+            organisation: {
+              name: 'Mapping and Geographic Information Centre, British Antarctic Survey',
+              href: 'https://ror.org/01rhff309',
+              title: 'ror',
+            },
+            phone: '+44 (0)1223 221400',
+            address: {
+              delivery_point: 'British Antarctic Survey, High Cross, Madingley Road',
+              city: 'Cambridge',
+              administrative_area: 'Cambridgeshire',
+              postal_code: 'CB3 0ET',
+              country: 'United Kingdom',
+            },
+            email: 'magic@bas.ac.uk',
+            online_resource: {
+              href: 'https://www.bas.ac.uk/teams/magic',
+              title: 'Mapping and Geographic Information Centre (MAGIC) - BAS public website',
+              description:
+                'General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.',
+              function: 'information',
+            },
+            role: ['publisher'],
+          },
+        },
+        explanation:
+          'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile.',
+        result: true,
       },
     ],
   },
@@ -78,21 +194,9 @@ export const minimalRecord: IsoRecord = {
 
 export const supportedRecord: IsoRecord = deepMergeObjects(
   {
-    file_identifier: '25585848-7b80-42f7-8d4a-069d7479c287',
     identification: {
       purpose: 'Test Record',
-      edition: '1.0',
       identifiers: [
-        {
-          identifier: '25585848-7b80-42f7-8d4a-069d7479c287',
-          href: 'https://data.bas.ac.uk/items/25585848-7b80-42f7-8d4a-069d7479c287',
-          namespace: 'data.bas.ac.uk',
-        },
-        {
-          identifier: '1234567890',
-          href: 'https://bas.maps.arcgis.com/home/item.html?id=1234567890',
-          namespace: 'bas.maps.arcgis.com',
-        },
         {
           identifier: 'https://gitlab.data.bas.ac.uk/foo/-/issues/1',
           href: 'https://gitlab.data.bas.ac.uk/foo/-/issues/1',
@@ -133,21 +237,6 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
             function: 'information',
           },
           role: ['author'],
-        },
-      ],
-      constraints: [
-        {
-          type: 'access',
-          restriction_code: 'unrestricted',
-          statement: 'Open Access (Anonymous)',
-          href: '#%5B%5D',
-        },
-        {
-          type: 'usage',
-          restriction_code: 'license',
-          statement:
-            'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
-          href: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
         },
       ],
       other_citation_details:
@@ -229,7 +318,6 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           },
         },
       ],
-      lineage: { statement: 'xxx' },
     },
     distribution: [
       {

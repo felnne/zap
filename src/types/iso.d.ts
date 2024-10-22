@@ -25,6 +25,12 @@ export type DistributionOption = {
   distributor: PointOfContact
 }
 
+export type DomainConsistency = {
+  specification: object
+  explanation: string
+  result: boolean
+}
+
 export type Extent = {
   identifier: string
   geographic: GeographicExtent
@@ -50,17 +56,19 @@ export type Identification = {
   abstract: string
   purpose?: string
   dates: Dates
-  edition?: string
+  edition: string
   other_citation_details?: string
-  identifiers?: Identifier[]
-  contacts?: PointOfContact[]
+  identifiers: Identifier[]
+  contacts: PointOfContact[]
+  maintenance: Maintenance
   keywords?: KeywordSet[]
-  constraints?: Constraint[]
+  constraints: Constraint[]
   language: string
-  character_set: string
-  topics: string[]
+  character_set?: string
+  topics?: string[]
   extents: Extent[]
   lineage?: Lineage
+  domain_consistency: DomainConsistency[]
 }
 
 export type Identifier = {
@@ -100,9 +108,14 @@ export type Lineage = {
   statement: string
 }
 
+export type Maintenance = {
+  maintenance_frequency: string
+  progress: string
+}
+
 export type Metadata = {
-  language: string
-  character_set: string
+  language?: string
+  character_set?: string
   contacts: PointOfContact[]
   date_stamp: string
 }
@@ -132,7 +145,7 @@ export type PointOfContact = {
 
 export type Record = {
   $schema: string
-  file_identifier?: string
+  file_identifier: string
   hierarchy_level: string
   metadata: Metadata
   reference_system_info?: ReferenceSystemInfo
