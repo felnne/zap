@@ -27,4 +27,11 @@ describe('Idea', () => {
 
     expect(wrapper.text()).toContain('Cancelled')
   })
+
+  it('renders properly when removed', async () => {
+    const idea: IdeaT = { label: label, state: 'removed' }
+    const wrapper = mount(Idea, { props: { idea: idea } })
+
+    expect(wrapper.text()).toContain('Removed')
+  })
 })

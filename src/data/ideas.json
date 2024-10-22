@@ -1,13 +1,13 @@
 {
   "$schema": "../schemas/ideas.json",
   "ideas": [
-    { "label": "BAS Research Topics topic keywords.", "state": "complete" },
-    { "label": "ISO topic mapped from research topic.", "state": "complete" },
+    { "label": "BAS Research Topics topic keywords.", "state": "removed" },
+    { "label": "ISO topic mapped from research topic.", "state": "removed" },
     { "label": "Place keywords based on Well-Known Extents.", "state": "todo" },
     { "label": "Table of contents.", "state": "complete" },
     { "label": "Dark mode.", "state": "complete" },
     { "label": "DOI identifier based on file identifier.", "state": "complete" },
-    { "label": "Esri identifier.", "state": "complete" },
+    { "label": "Esri identifier.", "state": "removed" },
     { "label": "Citation.", "state": "complete" },
     {
       "label": "Citation based on real DOI (using CrossCite formatting service).",
@@ -19,10 +19,14 @@
     },
     { "label": "Resource type section.", "state": "complete" },
     { "label": "(Publication) date section.", "state": "complete" },
+    { "label": "Additional dates (released).", "state": "todo" },
+    { "label": "Additional dates (publication).", "state": "todo" },
     { "label": "Additional dates.", "state": "todo" },
     { "label": "Edition section.", "state": "complete" },
     { "label": "Physical size for products.", "state": "todo" },
-    { "label": "Include WMTS, WFS and Esri in services section.", "state": "todo" },
+    { "label": "Include WMTS in services section.", "state": "todo" },
+    { "label": "Include WFS and Esri in services section.", "state": "cancelled" },
+    { "label": "Include Esri in services section.", "state": "todo" },
     { "label": "Download proxy items.", "state": "todo" },
     { "label": "Colour code distribution options like JWTs.", "state": "cancelled" },
     { "label": "Hide sections based on resource type.", "state": "complete" },
@@ -45,21 +49,23 @@
     },
     { "label": "User feedback.", "state": "complete" },
     {
-      "label": "Different colour for mandatory sections (based on ISO requirements).",
+      "label": "Different colour for mandatory sections (based on ISO / MAGIC Discovery requirements).",
       "state": "todo"
     },
     { "label": "Current record validation (minimal).", "state": "complete" },
+    { "label": "Current record validation (MAGIC Discovery minimal).", "state": "complete" },
     { "label": "Current record validation (all supported).", "state": "complete" },
     { "label": "Link to invalid sections.", "state": "todo" },
     { "label": "Show validation status for each section.", "state": "todo" },
-    { "label": "[AI!] Generate summary/purpose from abstract).", "state": "todo" },
-    { "label": "[AI!] Pick keywords based on abstract.", "state": "todo" },
+    { "label": "[AI!] Generate summary/purpose from abstract).", "state": "complete" },
+    { "label": "[AI!] Pick keywords based on abstract.", "state": "cancelled" },
     { "label": "[AI!] Are abstract and lineage useful for discovery.", "state": "todo" },
-    { "label": "When Esri item set, add enabled services automatically.", "state": "todo" },
+    { "label": "When Esri item set, add enabled services automatically.", "state": "cancelled" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
     { "label": "Support for files on the SAN.", "state": "complete" },
     { "label": "[Workflow] Deposit", "state": "todo" },
     { "label": "[Workflow] Web map review", "state": "todo" },
+    { "label": "Determine whether PDF files are geo-referenced", "state": "todo" },
     {
       "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
       "state": "todo"
@@ -75,6 +81,8 @@
     { "label": "Templates and samples.", "state": "todo" },
     { "label": "Wizard UI.", "state": "todo" },
     { "label": "QGIS plugin.", "state": "todo" },
-    { "label": "ArcGIS plugin.", "state": "todo" }
+    { "label": "ArcGIS plugin.", "state": "todo" },
+    { "label": "Maintenance information (progress, update frequency", "state": "todo" },
+    { "label": "Data sources", "state": "todo" }
   ]
 }
