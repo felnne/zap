@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import { emptyIsoRecord } from '@/lib/record'
-import { supportedRecord } from '@/lib/__tests__/_validation_data'
+import { minimalRecord, supportedRecord } from '@/lib/__tests__/_validation_data'
 import RecordValidation from '@/components/sections/info/RecordValidation.vue'
 
 describe('RecordValidation', () => {
@@ -28,22 +28,7 @@ describe('RecordValidation', () => {
   })
 
   it('renders correctly with valid user input ', async () => {
-    const record = {
-      $schema:
-        'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
-      metadata: {
-        contacts: [{ organisation: { name: 'UK Polar Data Centre' }, role: ['pointOfContact'] }],
-        date_stamp: '2024-10-14',
-      },
-      identification: {
-        title: { value: 'Test Record' },
-        dates: { creation: '2018' },
-        abstract:
-          'Test Record for ISO 19115 metadata standard (no profile) with required properties only.',
-        language: 'eng',
-      },
-    }
-    const input = JSON.stringify(record)
+    const input = JSON.stringify(minimalRecord)
 
     const wrapper = mount(RecordValidation)
 
@@ -59,7 +44,7 @@ describe('RecordValidation', () => {
     const expectedErrors = [
       {
         instancePath: '',
-        schemaPath: '#/type',
+        schemaPath: '#/allOf/0/type',
         keyword: 'type',
         params: {
           type: 'object',

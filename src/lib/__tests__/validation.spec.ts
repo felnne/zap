@@ -25,7 +25,7 @@ describe('validateRecordText', () => {
   })
 
   it('returns error list with minimal invalid data (invalid hierarchy_level value)', () => {
-    const input = minimalRecordAsText.replace('dataset', 'invalid')
+    const input = minimalRecordAsText.replace('product', 'invalid')
 
     const expectedError = {
       instancePath: '/hierarchy_level',

@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Format, Licence, WellKnownExtent } from '@/types/app'
+import type { Format, Individual, Licence, WellKnownExtent } from '@/types/app'
 
 import {
   deepMergeObjects,
+  getDomainConsistency,
   getExtent,
   getExtents,
   getFormat,
@@ -12,6 +13,7 @@ import {
   getFormats,
   getFormatExtensions,
   getIdeas,
+  getIndividual,
   getIndividuals,
   getKeywordSet,
   getLicence,
@@ -50,6 +52,13 @@ const checkFormat: Format = {
   url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3',
 }
 
+const checkIndividual: Individual = {
+  slug: 'https_orcid_org_0000_0003_3703_3888',
+  name: 'Fennell, Felix',
+  orcid: 'https://orcid.org/0000-0003-3703-3888',
+  email: 'felnne@bas.ac.uk',
+}
+
 const checkLicence: Licence = {
   slug: 'OGL_UK_3_0',
   name: '(UK) Open Government Licence v3.0',
@@ -73,6 +82,15 @@ describe('deepMergeObjects', () => {
     const objC = { a: 1, b: { x: 0, c: { d: 9, e: 5 } }, f: 6 }
 
     expect(deepMergeObjects(objA, objB)).toEqual(objC)
+  })
+})
+
+describe('getDomainConsistency', () => {
+  it('loads expected domain consistency (profile)', () => {
+    const checkExplanation =
+      'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile.'
+
+    expect(getDomainConsistency('magic_discovery_v1').explanation).toEqual(checkExplanation)
   })
 })
 
@@ -160,19 +178,18 @@ describe('getIdeas', () => {
   })
 })
 
+describe('getIndividual', () => {
+  it('loads expected individual', () => {
+    expect(getIndividual(checkIndividual.slug)).toEqual(checkIndividual)
+  })
+})
+
 describe('getIndividuals', () => {
   it('loads some data', () => {
     expect(getIndividuals().length).toBeGreaterThan(0)
   })
 
   it('includes expected individual', () => {
-    const checkIndividual = {
-      slug: 'https_orcid_org_0000_0003_3703_3888',
-      name: 'Fennell, Felix',
-      orcid: 'https://orcid.org/0000-0003-3703-3888',
-      email: 'felnne@bas.ac.uk',
-    }
-
     expect(getIndividuals()).toContainEqual(checkIndividual)
   })
 

@@ -1,0 +1,14 @@
+{
+  "$id": "zap-local",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Zap ISO 19115 configuration schema",
+  "description": "Combination of ISO 19115 metadata standard (version 4) and MAGIC Discovery metadata profile (version 1)",
+  "allOf": [
+    {
+      "$ref": "https://metadata-standards-testing.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
+    },
+    {
+      "$ref": "https://metadata-standards-testing.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic_discovery_v1.json"
+    }
+  ]
+}

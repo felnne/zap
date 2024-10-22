@@ -9,6 +9,7 @@ import type {
   Service,
   WellKnownExtent,
 } from '@/types/app'
+import type { DomainConsistency } from '@/types/iso'
 
 import extentsData from '@/data/extents.json'
 import formatsData from '@/data/formats.json'
@@ -17,7 +18,8 @@ import individualsData from '@/data/individuals.json'
 import keywordSetData from '@/data/keywords.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
-import ProjectionsData from '@/data/projections.json'
+import profilesData from '@/data/profiles.json'
+import projectionsData from '@/data/projections.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
 
@@ -56,6 +58,11 @@ export const getExtent = (slug: string): WellKnownExtent => {
 export const getExtents = (): WellKnownExtent[] => {
   /* Get information for all well known extents */
   return Object.values(extentsData.geographic)
+}
+
+export const getDomainConsistency = (slug: string): DomainConsistency => {
+  /* Get information for a specific profile (represented as a domain consistency element) */
+  return (profilesData.profiles as Record<string, DomainConsistency>)[slug]
 }
 
 export const getFormat = (slug: string): Format => {
@@ -100,6 +107,11 @@ export const getIdeas = (): Idea[] => {
   return Object.values(ideasData.ideas)
 }
 
+export const getIndividual = (slug: string): Individual => {
+  /* Get information for a specific individual */
+  return (individualsData.contacts as Record<string, Individual>)[slug]
+}
+
 export const getIndividuals = (): Individual[] => {
   /*
    * Get information for all individuals
@@ -142,7 +154,7 @@ export const getOrganisation = (slug: string): Organisation => {
 
 export const getProjection = (slug: string): Projection => {
   /* Get information for a specific projection */
-  return (ProjectionsData.projections as Record<string, Projection>)[slug]
+  return (projectionsData.projections as Record<string, Projection>)[slug]
 }
 
 export const getService = (slug: string): Service => {

@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "schema-resolver"
+version = "0.1.0"
+description = "Basic JSON schema resolver"
+authors = ["Felix Fennell <felnne@bas.ac.uk>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "main.py" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,6 +1,7 @@
 import { ResourceType } from '@/types/enum'
 import type { Record } from '@/types/app'
 import type { Record as IsoRecord } from '@/types/iso'
+import { getDomainConsistency } from '@/lib/data'
 import { createOrgSlugPointOfContact } from '@/lib/contacts'
 
 export const emptyRecord: Record = {
@@ -59,6 +60,10 @@ export const emptyIsoRecord: IsoRecord = {
     other_citation_details: '', // typically set
     identifiers: [], // default/auto-generated value set
     contacts: [], // typically set
+    maintenance: {
+      maintenance_frequency: 'asNeeded', // required, temporarily hard-coded value
+      progress: 'completed', // required, temporarily hard-coded value
+    },
     keywords: [], // typically set, linked to required field
     constraints: [], // default/auto-generated value set
     character_set: 'utf8', // required, hard-coded
@@ -66,6 +71,7 @@ export const emptyIsoRecord: IsoRecord = {
     topics: [], // required
     extents: [], // required
     // lineage: '',  // may not be set
+    domain_consistency: [getDomainConsistency('magic_discovery_v1')], // required, hard-coded
   },
   // distribution: [],  // may not be set
 }
