@@ -6,6 +6,14 @@
 
 * 'removed' issue component state
 
+### Changed
+
+* Updating to ISO v4 and MAGIC Discovery v1 record schemas
+
+### Removed
+
+* Research topics component
+
 ## [0.10.4] - 2024-10-18
 
 ## Fixed
