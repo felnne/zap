@@ -6,6 +6,10 @@
 
 * 'removed' issue component state
 
+### Removed
+
+* Research topics component
+
 ## [0.10.4] - 2024-10-18
 
 ## Fixed

@@ -36,7 +36,6 @@ import GeographicExtent from '@/components/sections/elements/GeographicExtent.vu
 import Identifiers from '@/components/sections/elements/Identifiers.vue'
 import Licence from '@/components/sections/elements/Licence.vue'
 import Lineage from '@/components/sections/elements/Lineage.vue'
-import ResearchTopics from '@/components/sections/elements/ResearchTopics.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
@@ -212,11 +211,6 @@ watch(
       :access-restriction="record.accessRestriction"
       @update:licence="(event: LicenceT) => (record.licence = event)"
       @update:iso-licence="(event: IsoConstraint) => (licenceConstraint = event)"
-    />
-    <ResearchTopics
-      v-if="show('researchTopics')"
-      @update:iso-keywords="(event: IsoKeywordSet[]) => (isoRecord.identification.keywords = event)"
-      @update:iso-topics="(event: string[]) => (isoRecord.identification.topics = event)"
     />
     <Citation
       v-if="show('citation')"

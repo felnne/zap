@@ -64,7 +64,6 @@ export const emptyIsoRecord: IsoRecord = {
       maintenance_frequency: 'asNeeded', // required, temporarily hard-coded value
       progress: 'completed', // required, temporarily hard-coded value
     },
-    keywords: [], // typically set, linked to required field
     constraints: [], // default/auto-generated value set
     character_set: 'utf8', // required, hard-coded
     language: 'eng', // required, hard-coded
