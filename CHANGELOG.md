@@ -6,6 +6,10 @@
 
 * 'removed' issue component state
 
+### Changed
+
+* Updating to ISO v4 and MAGIC Discovery v1 record schemas
+
 ### Removed
 
 * Research topics component
@@ -14,20 +18,20 @@
 
 ## Fixed
 
-* unmatched quote in packaging before task in CD
+* Unmatched quote in packaging before task in CD
 
 ## [0.10.3] - 2024-10-18
 
 ## Fixed
 
-* missing yaml anchor for packaging before task in CD
+* Missing yaml anchor for packaging before task in CD
 
 ## [0.10.2] - 2024-10-18
 
 ## Fixed
 
-* branch rules for review app stop task
-* typo in yaml anchor for packaging before task in CD
+* Branch rules for review app stop task
+* Typo in yaml anchor for packaging before task in CD
 
 ## [0.10.1] - 2024-10-18
 

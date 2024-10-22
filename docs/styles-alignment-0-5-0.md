@@ -6,6 +6,7 @@ And amended for:
 - v0.7.0
 - v0.9.0
 - v0.10.0
+- v0.11.0
 
 Focus:
 
@@ -253,6 +254,11 @@ Additional [0.7.0]:
 - section stability:
   - stable: `green-500`
   - experimental: `indigo-500`
+- ideas:
+  - idea: `sky-50` (background) `sky-500` (text) `sky-700/10` (ring) `sky-950` (dark, bg) `sky-100/10` (dark, ring)
+  - complete: `green-50` (background) `green-500` (text) `green-700/10` (ring) `green-950` (dark, bg) `green-100/10` (dark, ring)
+  - cancelled: `yellow-50` (background) `yellow-500` (text) `yellow-700/10` (ring) `yellow-950` (dark, bg) `yellow-100/10` (dark, ring)
+  - removed: `red-50` (background) `red-500` (text) `red-700/10` (ring) `red-950` (dark, bg) `red-100/10` (dark, ring)
 
 Additional [0.6.0]:
 
@@ -265,11 +271,15 @@ Additional [0.7.0]:
 - disabled button text added: `neutral-500` (text only, same for dark mode)
 - bounding extent (map) added: `orange-500` (border and fill, where fill is 50% transparent)
 
-Additional [0.10.0]
+Additional [0.10.0]:
 
 - experimental warning changed, it was `amber-500` (border only, same for dark mode), to align with app border
 - runtime environment colours (local dev: black/white, review: `indigo-500` int: `orange-500`, prod: white/black)
 - experimental section stability, it was `purple-500`, to align with runtime environment (purple/indigo too close)
+
+Additional [0.11.0]:
+
+- ideas 'cancelled' state changed, it was `red-`
 
 ### Exceptions
 
