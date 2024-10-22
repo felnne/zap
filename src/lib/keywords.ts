@@ -61,13 +61,13 @@ export const getUniqueKeywords = (keywords: KeywordSet[]): KeywordSet[] => {
   return Object.values(sets)
 }
 
-export const getUniqueTopics = (topics: string[]): string[] => {
+export const getUniqueTerms = (terms: string[]): string[] => {
   /*
-   * Wrapper for _getUniqueItems to return a unique list topics
+   * Wrapper for _getUniqueItems to return a unique list terms
    *
    * Example:
-   * > getUniqueTopics(['a', 'b', 'a', 'c', 'b'])
+   * > getUniqueTerms(['a', 'b', 'a', 'c', 'b'])
    * ['a', 'b', 'c']
    */
-  return _getUniqueItems(topics)
+  return _getUniqueItems(terms)
 }
