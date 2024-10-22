@@ -22,8 +22,13 @@ defineProps({
     >
     <span
       v-if="idea.state === 'cancelled'"
-      class="inline-flex items-center bg-red-50 px-2 py-1 text-xs font-medium text-red-500 ring-1 ring-inset ring-red-700/10 dark:bg-red-950 dark:ring-red-100/10"
+      class="inline-flex items-center bg-red-50 px-2 py-1 text-xs font-medium text-yellow-500 ring-1 ring-inset ring-yellow-700/10 dark:bg-yellow-950 dark:ring-yellow-100/10"
       >Cancelled</span
+    >
+    <span
+      v-if="idea.state === 'removed'"
+      class="inline-flex items-center bg-red-50 px-2 py-1 text-xs font-medium text-red-500 ring-1 ring-inset ring-red-700/10 dark:bg-red-950 dark:ring-red-100/10"
+      >Removed</span
     >
     <div class="text-black dark:text-white">{{ idea.label }}</div>
   </article>
