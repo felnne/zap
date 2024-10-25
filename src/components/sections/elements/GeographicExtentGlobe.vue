@@ -51,4 +51,3 @@ onMounted(() => {
   </div>
   <div v-else :id="container" :class="classes"></div>
 </template>
-@/lib/esriNoTest
