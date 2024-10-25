@@ -5,6 +5,7 @@
 ### Added
 
 * 'removed' issue component state
+* loading component for lazy loading Record component
 
 ### Changed
 

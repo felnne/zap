@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import { getAppEnvironment, getAppBorderClasses } from '@/lib/env'
 import type { EsriToken } from '@/types/app'
 import type { Record as IsoRecord } from '@/types/iso'
 import { emptyIsoRecord } from '@/lib/record'
 
+import Loading from '@/components/bases/Loading.vue'
 import AppTitle from '@/components/bases/AppTitle.vue'
 import BackToTop from '@/components/bases/BackToTop.vue'
 import Epilogue from '@/components/sections/info/Epilogue.vue'
 import ExternalServices from '@/components/sections/info/ExternalServices.vue'
 import Ideas from '@/components/sections/info/Ideas.vue'
 import Prologue from '@/components/sections/info/Prologue.vue'
-import Record from '@/components/compositions/Record.vue'
 import RecordValidation from '@/components/sections/info/RecordValidation.vue'
 import Resources from '@/components/sections/info/Resources.vue'
 import TableOfContents from '@/components/sections/info/TableOfContents.vue'
@@ -21,6 +21,12 @@ const esriToken = ref<EsriToken | undefined>(undefined)
 const currentIsoRecord = ref<IsoRecord>(emptyIsoRecord)
 const appEnvironment = getAppEnvironment(window.location.pathname)
 const envBorderColour = getAppBorderClasses(appEnvironment)
+
+// Define asynchronously to prevent blocking main content
+const Record = defineAsyncComponent({
+  loader: () => import('@/components/compositions/Record.vue'),
+  loadingComponent: Loading,
+})
 </script>
 
 <template>
