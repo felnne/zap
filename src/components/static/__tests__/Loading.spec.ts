@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import AppTitle from '@/components/bases/AppTitle.vue'
+import Loading from '@/components/static/Loading.vue'
 
 describe('AppTitle', () => {
   it('renders properly', () => {
-    const wrapper = mount(AppTitle)
-    expect(wrapper.text()).toContain('Zap ⚡️')
+    const wrapper = mount(Loading)
+    expect(wrapper.text()).toContain('🤩')
   })
 })
