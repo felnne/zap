@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import BackToTop from '@/components/bases/BackToTop.vue'
+import BackToTop from '@/components/static/BackToTop.vue'
 
 describe('BackToTop', () => {
   it('renders properly', () => {
