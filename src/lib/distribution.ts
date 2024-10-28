@@ -1,8 +1,15 @@
+import axios from 'axios'
+
 import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
-import { getFormat, getFormatByExtension, getFormatByType, getOrganisation } from '@/lib/data'
+
+import { getFormat, getFormatByExtension, getFormatByType, getOrganisation, getSetting } from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
+
+interface GeoPDFResponse {
+  geo_referenced: boolean
+}
 
 export const createDistributor = (resourceType: ResourceType, licence: Licence): Contact => {
   /*
@@ -25,6 +32,31 @@ export const createDistributor = (resourceType: ResourceType, licence: Licence):
   }
 
   return createOrgPointOfContact(getOrganisation(orgSlug), 'distributor')
+}
+
+export const getPdfFormat = async (file: File): Promise<Format> => {
+  /*
+   * Determine the format of a PDF file, i.e. whether it is geo-referenced or not
+   *
+   * This requires checking the PDF object structure, which for simplicity is implemented externally via an API.
+   * This API expects a multi-part form POST request with a part named 'file' which should be the candidate PDF file.
+   */
+  let is_geo_ref: boolean = false
+
+  const url = getSetting('app_geo_pdf_endpoint')
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    const response = await axios.post<GeoPDFResponse>(url, formData)
+    if (response.data.geo_referenced) {
+      return getFormat('pdf_geo')
+    }
+    return getFormat('pdf')
+  } catch (error: unknown) {
+    // fallback to PDF
+    return getFormat('pdf')
+  }
 }
 
 export const getFormatString = (file: string): Format => {
@@ -50,19 +82,28 @@ export const getFormatString = (file: string): Format => {
   throw new Error(`Cannot determine format.`)
 }
 
-export const getFormatFile = (file: File): Format => {
+export const getFormatFile = async (file: File): Promise<Format> => {
   /*
    * Determine the format of a file, expressed as a browser File object, from its media type and extension
    *
    * The media type is preferred but often limited for the types of files we handle (e.g. GeoPackages). Where unknown,
    * the file extension is used instead.
    *
+   * PDF files are additionally checked for possible geo-referencing info.
+   *
    * Where a format can't be determined, an error is thrown as this app intentionally does not support all file types.
    */
-  const format = getFormatByType(file.type)
-  if (format) return format
+  let format = getFormatByType(file.type)
 
-  return getFormatString(file.name)
+  if (format === undefined) {
+    format = getFormatString(file.name)
+  }
+
+  if (format !== undefined && format.slug === 'pdf') {
+    format = await getPdfFormat(file)
+  }
+
+  return format
 }
 
 export const createDistributionOption = (

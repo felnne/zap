@@ -29,7 +29,8 @@
         "pdc_doi_prefix": { "type": "string" },
         "nerc_ad_tenant_id": { "type": "string" },
         "app_open_ai_proxy_endpoint": { "type": "string" },
-        "app_open_ai_model": { "type": "string" }
+        "app_open_ai_model": { "type": "string" },
+        "app_geo_pdf_endpoint": { "type": "string" }
       },
       "additionalProperties": false,
       "required": [
@@ -51,7 +52,8 @@
         "pdc_doi_prefix",
         "nerc_ad_tenant_id",
         "app_open_ai_proxy_endpoint",
-        "app_open_ai_model"
+        "app_open_ai_model",
+        "app_geo_pdf_endpoint"
       ]
     }
   }

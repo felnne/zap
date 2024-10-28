@@ -65,7 +65,7 @@
     { "label": "Support for files on the SAN.", "state": "complete" },
     { "label": "[Workflow] Deposit", "state": "todo" },
     { "label": "[Workflow] Web map review", "state": "todo" },
-    { "label": "Determine whether PDF files are geo-referenced", "state": "todo" },
+    { "label": "Determine whether PDF files are geo-referenced", "state": "complete" },
     {
       "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
       "state": "todo"

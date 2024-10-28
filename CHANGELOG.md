@@ -6,6 +6,7 @@
 
 * 'removed' issue component state
 * loading component for lazy loading Record component
+* support for determining whether PDF downloads are georeferenced
 
 ### Changed
 
