@@ -6,7 +6,7 @@ import type { AxiosInstance } from 'axios'
 import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Organisation } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
-import { getFormatByType, getOrganisation, getSetting } from '@/lib/data'
+import { getFormatByType, getOrganisation } from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
 
 import {
@@ -103,7 +103,7 @@ describe('getPdfFormat', () => {
     })
 
     const mockResponse = {
-      data: {geo_referenced: false},
+      data: { geo_referenced: false },
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -123,7 +123,7 @@ describe('getPdfFormat', () => {
     })
 
     const mockResponse = {
-      data: {geo_referenced: true},
+      data: { geo_referenced: true },
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -218,7 +218,7 @@ describe('getFileFormat', () => {
 
     // for use in getPdfFormat call
     const mockResponse = {
-      data: {geo_referenced: true},
+      data: { geo_referenced: true },
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -244,8 +244,8 @@ describe('getFileFormat', () => {
     }
 
     await expect(async () => {
-      await getFormatFile(file);
-    }).rejects.toThrow('Cannot determine format.');
+      await getFormatFile(file)
+    }).rejects.toThrow('Cannot determine format.')
   })
 
   // need test for geoPDF conditional

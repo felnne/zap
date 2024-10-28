@@ -4,7 +4,13 @@ import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Service } from '@/types/app'
 import type { DistributionOption, PointOfContact as Contact, OnlineResource } from '@/types/iso'
 
-import { getFormat, getFormatByExtension, getFormatByType, getOrganisation, getSetting } from '@/lib/data'
+import {
+  getFormat,
+  getFormatByExtension,
+  getFormatByType,
+  getOrganisation,
+  getSetting,
+} from '@/lib/data'
 import { createOrgPointOfContact } from '@/lib/contacts'
 
 interface GeoPDFResponse {
@@ -41,8 +47,6 @@ export const getPdfFormat = async (file: File): Promise<Format> => {
    * This requires checking the PDF object structure, which for simplicity is implemented externally via an API.
    * This API expects a multi-part form POST request with a part named 'file' which should be the candidate PDF file.
    */
-  let is_geo_ref: boolean = false
-
   const url = getSetting('app_geo_pdf_endpoint')
   const formData = new FormData()
   formData.append('file', file)
@@ -53,7 +57,7 @@ export const getPdfFormat = async (file: File): Promise<Format> => {
       return getFormat('pdf_geo')
     }
     return getFormat('pdf')
-  } catch (error: unknown) {
+  } catch {
     // fallback to PDF
     return getFormat('pdf')
   }

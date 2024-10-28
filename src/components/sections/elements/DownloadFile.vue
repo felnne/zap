@@ -64,25 +64,25 @@ const uploadFile = async () => {
 let state = ref<UploadStatus>(UploadStatus.Empty)
 let file = ref<File | undefined>(undefined)
 let fileInput = ref<HTMLInputElement | null>(null)
-let format = ref<Format | boolean | undefined>(undefined);
+let format = ref<Format | boolean | undefined>(undefined)
 let url = ref<string | undefined>(undefined)
 
 watchEffect(async () => {
   if (!file.value) {
-    format.value = undefined;
-    return;
+    format.value = undefined
+    return
   }
 
   try {
-    format.value = await getFormatFile(file.value);
+    format.value = await getFormatFile(file.value)
   } catch (e) {
     if (e instanceof Error && e.message === 'Cannot determine format.') {
-      alert(`File format for '${file.value.name}' is not supported, rejecting.`);
+      alert(`File format for '${file.value.name}' is not supported, rejecting.`)
       // have to return something other than 'null' to cause a change in value,
       // otherwise the watch() won't fire to clear the file input.
-      format.value = false;
+      format.value = false
     } else {
-      format.value = undefined;
+      format.value = undefined
     }
   }
 })
