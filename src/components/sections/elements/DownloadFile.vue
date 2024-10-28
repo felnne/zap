@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref, watch } from 'vue'
+import { computed, type ComputedRef, ref, watch, watchEffect } from 'vue'
 
 import { UploadStatus } from '@/types/enum'
 import type { Format } from '@/types/app'
@@ -64,23 +64,27 @@ const uploadFile = async () => {
 let state = ref<UploadStatus>(UploadStatus.Empty)
 let file = ref<File | undefined>(undefined)
 let fileInput = ref<HTMLInputElement | null>(null)
+let format = ref<Format | boolean | undefined>(undefined)
 let url = ref<string | undefined>(undefined)
 
-let format: ComputedRef<Format | boolean | undefined> = computed(() => {
-  if (!file.value) return undefined
+watchEffect(async () => {
+  if (!file.value) {
+    format.value = undefined
+    return
+  }
 
   try {
-    return getFormatFile(file.value)
+    format.value = await getFormatFile(file.value)
   } catch (e) {
-    if (e instanceof Error && e.message == 'Cannot determine format.') {
+    if (e instanceof Error && e.message === 'Cannot determine format.') {
       alert(`File format for '${file.value.name}' is not supported, rejecting.`)
       // have to return something other than 'null' to cause a change in value,
       // otherwise the watch() won't fire to clear the file input.
-      return false
+      format.value = false
+    } else {
+      format.value = undefined
     }
   }
-
-  return undefined
 })
 
 let sizeBytes: ComputedRef<number | undefined> = computed(() => {

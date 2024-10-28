@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "zap-pdf"
+version = "0.1.1"
+description = "PDF features for Zap ⚡️ editor"
+authors = ["Felix Fennell <felnne@bas.ac.uk>"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "zap_pdf", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "^3.0.3"
+flask-cors = "^5.0.0"
+pdfminer-six = "^20240706"
+beautifulsoup4 = "^4.12.3"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

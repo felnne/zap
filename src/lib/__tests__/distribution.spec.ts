@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, describe, it, expect, vi } from 'vitest'
+import axios from 'axios'
 
+import type { MockedFunction } from 'vitest'
+import type { AxiosInstance } from 'axios'
 import { ResourceType } from '@/types/enum'
 import type { Format, Licence, Organisation } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
@@ -8,6 +11,7 @@ import { createOrgPointOfContact } from '@/lib/contacts'
 
 import {
   createDistributor,
+  getPdfFormat,
   getFormatString,
   getFormatFile,
   createDistributionOption,
@@ -47,6 +51,8 @@ const expectedDistributionOption: DistributionOption = {
   distributor: expectedDistributor,
 }
 
+vi.mock('axios')
+
 describe('createDistributor', () => {
   const openLicence: Licence = {
     slug: 'x',
@@ -85,6 +91,73 @@ describe('createDistributor', () => {
   })
 })
 
+describe('getPdfFormat', () => {
+  afterEach(() => {
+    // cleaning up after the previous test
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
+  })
+
+  it('determines a regular PDF is not georeferenced', async () => {
+    const file = new File(['foo'], 'foo.pdf', {
+      type: 'application/pdf',
+    })
+
+    const mockResponse = {
+      data: { geo_referenced: false },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+      request: {},
+    }
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
+
+    const pdfFormat = await getPdfFormat(file)
+
+    expect(pdfFormat.slug).toStrictEqual('pdf')
+  })
+
+  it('determines a geo PDF is georeferenced', async () => {
+    const file = new File(['foo'], 'foo.pdf', {
+      type: 'application/pdf',
+    })
+
+    const mockResponse = {
+      data: { geo_referenced: true },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+      request: {},
+    }
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
+
+    const pdfFormat = await getPdfFormat(file)
+
+    expect(pdfFormat.slug).toStrictEqual('pdf_geo')
+  })
+
+  it('falls back a regular PDF if an error occurs', async () => {
+    const file = new File(['foo'], 'foo.pdf', {
+      type: 'application/pdf',
+    })
+
+    const mockResponse = {
+      data: {},
+      status: 500,
+      statusText: 'Internal Server Error',
+      headers: {},
+      config: {},
+      request: {},
+    }
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
+
+    const pdfFormat = await getPdfFormat(file)
+
+    expect(pdfFormat.slug).toStrictEqual('pdf')
+  })
+})
+
 describe('getFormatString', () => {
   it('returns format string for format', () => {
     expect(getFormatString('image.png')).toStrictEqual(expectedFormat)
@@ -98,7 +171,7 @@ describe('getFormatString', () => {
 })
 
 describe('getFileFormat', () => {
-  it('returns format for file, identified by media type', () => {
+  it('returns format for file, identified by media type', async () => {
     const file: File = {
       name: 'foo.png.x',
       type: 'image/png',
@@ -111,10 +184,10 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(getFormatFile(file)).toStrictEqual(expectedFormat)
+    expect(await getFormatFile(file)).toStrictEqual(expectedFormat)
   })
 
-  it('returns format for file, identified by file extension', () => {
+  it('returns format for file, identified by file extension', async () => {
     const file: File = {
       name: 'foo.png',
       type: '',
@@ -127,10 +200,37 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(getFormatFile(file)).toStrictEqual(expectedFormat)
+    expect(await getFormatFile(file)).toStrictEqual(expectedFormat)
   })
 
-  it('raises error when format cannot be determined', () => {
+  it('returns expected format for a georeferenced PDF file', async () => {
+    const file: File = {
+      name: 'foo.pdf',
+      type: 'application/pdf',
+      lastModified: 0,
+      webkitRelativePath: '',
+      size: 0,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      slice: () => new Blob(),
+      stream: () => new ReadableStream(),
+      text: () => Promise.resolve(''),
+    }
+
+    // for use in getPdfFormat call
+    const mockResponse = {
+      data: { geo_referenced: true },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+      request: {},
+    }
+    ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
+
+    expect((await getFormatFile(file)).slug).toStrictEqual('pdf_geo')
+  })
+
+  it('raises error when format cannot be determined', async () => {
     const file: File = {
       name: 'foo.bar',
       type: '',
@@ -143,8 +243,12 @@ describe('getFileFormat', () => {
       text: () => Promise.resolve(''),
     }
 
-    expect(() => getFormatFile(file)).toThrow('Cannot determine format.')
+    await expect(async () => {
+      await getFormatFile(file)
+    }).rejects.toThrow('Cannot determine format.')
   })
+
+  // need test for geoPDF conditional
 })
 
 describe('createDistributionOption', () => {

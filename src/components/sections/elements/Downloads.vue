@@ -54,7 +54,7 @@ watch(
 <template>
   <SectionBorder class="space-y-4">
     <SectionTitle
-      version="7.1"
+      version="8.0"
       :stability="Stability.Experimental"
       anchor="downloads"
       title="Downloads"

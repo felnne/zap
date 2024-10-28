@@ -146,5 +146,9 @@ watch(
       >Paths from the U drive on Windows (e.g. <code>U:/magic/.../map.png</code>) will not work
       here. They should start with <code>/data/...</code> or similar.
     </GuidanceText>
+    <GuidanceText
+      >PDF files from the SAN can't be checked in terms of whether they're georeferenced or not
+      😞.</GuidanceText
+    >
   </div>
 </template>
