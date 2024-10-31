@@ -152,11 +152,11 @@ export const minimalRecord: IsoRecord = {
         specification: {
           title: {
             value:
-              'British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile',
-            href: 'https://metadata-standards.data.bas.ac.uk/profile/magic-discovery-v1/',
+              'British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile',
+            href: 'https://metadata-standards.data.bas.ac.uk/profiles/magic-discovery-v1/',
           },
           dates: {
-            publication: '2024-10-01',
+            publication: '2024-11-01',
           },
           edition: '1',
           contact: {
@@ -185,7 +185,7 @@ export const minimalRecord: IsoRecord = {
           },
         },
         explanation:
-          'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile.',
+          'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile.',
         result: true,
       },
     ],
