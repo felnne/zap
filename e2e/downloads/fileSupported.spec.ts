@@ -19,8 +19,8 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-7-file', './sample-data/gpkg_zip/sample.gpkg.zip')
-  const download2 = await page.textContent('#download-7-output pre')
+  await page.setInputFiles('input#download-2-file', './sample-data/gpkg_zip/sample.gpkg.zip')
+  const download2 = await page.textContent('#download-2-output pre')
   expect(download2).toContain(
     '"href": "https://metadata-resources.data.bas.ac.uk/media-types/application/geopackage+sqlite3+zip"'
   )
@@ -30,14 +30,14 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-2-file', './sample-data/jpeg/sample.jpg')
-  const download3 = await page.textContent('#download-2-output pre')
+  await page.setInputFiles('input#download-3-file', './sample-data/jpeg/sample.jpg')
+  const download3 = await page.textContent('#download-3-output pre')
   expect(download3).toContain('"href": "https://jpeg.org/jpeg/"')
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-3-file', './sample-data/jpeg/sample.jpeg')
-  const download4 = await page.textContent('#download-3-output pre')
+  await page.setInputFiles('input#download-4-file', './sample-data/jpeg/sample.jpeg')
+  const download4 = await page.textContent('#download-4-output pre')
   expect(download4).toContain('"href": "https://jpeg.org/jpeg/"')
 
   // PNGs
@@ -45,8 +45,8 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-4-file', './sample-data/png/sample.png')
-  const download5 = await page.textContent('#download-4-output pre')
+  await page.setInputFiles('input#download-5-file', './sample-data/png/sample.png')
+  const download5 = await page.textContent('#download-5-output pre')
   expect(download5).toContain('"href": "https://www.iana.org/assignments/media-types/image/png"')
 
   // PDFs
@@ -54,8 +54,8 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-5-file', './sample-data/pdf/sample.pdf')
-  const download6 = await page.textContent('#download-5-output pre')
+  await page.setInputFiles('input#download-6-file', './sample-data/pdf/sample.pdf')
+  const download6 = await page.textContent('#download-6-output pre')
   expect(download6).toContain(
     '"href": "https://www.iana.org/assignments/media-types/application/pdf"'
   )
@@ -65,10 +65,10 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-5-file', './sample-data/pdf/sample.pdf')
-  const download7 = await page.textContent('#download-5-output pre')
+  await page.setInputFiles('input#download-7-file', './sample-data/pdf_geo/sample.pdf')
+  const download7 = await page.textContent('#download-7-output pre')
   expect(download7).toContain(
-    '"href": "https://www.iana.org/assignments/media-types/application/pdf+geo https://metadata-resources.data.bas.ac.uk/media-types/application/pdf+geo"| '
+    '"href": "https://metadata-resources.data.bas.ac.uk/media-types/application/pdf+geo"'
   )
 
   // Shapefiles (Zipped)
@@ -76,8 +76,8 @@ test('supported file types are handled correctly', async ({ page }) => {
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
-  await page.setInputFiles('input#download-6-file', './sample-data/shp_zip/sample.shp.zip')
-  const download8 = await page.textContent('#download-6-output pre')
+  await page.setInputFiles('input#download-8-file', './sample-data/shp_zip/sample.shp.zip')
+  const download8 = await page.textContent('#download-8-output pre')
   expect(download8).toContain(
     '"href": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"'
   )
