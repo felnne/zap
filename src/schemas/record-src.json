@@ -5,10 +5,10 @@
   "description": "Combination of ISO 19115 metadata standard (version 4) and MAGIC Discovery metadata profile (version 1)",
   "allOf": [
     {
-      "$ref": "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
+      "$ref": "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
     },
     {
-      "$ref": "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json"
+      "$ref": "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json"
     }
   ]
 }
