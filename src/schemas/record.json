@@ -5,7 +5,7 @@
   "description": "Combination of ISO 19115 metadata standard (version 4) and MAGIC Discovery metadata profile (version 1)",
   "allOf": [
     {
-      "$id": "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json",
+      "$id": "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json",
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "BAS Metadata Record Generator - ISO 19115:2003 v4 configuration schema",
       "description": "Metadata record configuration schema for the ISO 19115:2003 metadata standard (version 4)",
@@ -1308,7 +1308,7 @@
           "type": "string",
           "format": "uri-reference",
           "examples": [
-            "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-1-v3.json"
+            "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-1-v3.json"
           ]
         },
         "series": {
@@ -1708,10 +1708,10 @@
       }
     },
     {
-      "$id": "https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json",
+      "$id": "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json",
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "BAS MAGIC v1 discovery metadata profile configuration schema",
-      "description": "Metadata record configuration schema for the BAS MAGIC discovery metadata profile (version 1)",
+      "title": "BAS MAGIC v1 Discovery Metadata Profile configuration schema",
+      "description": "Metadata record configuration schema for the BAS MAGIC Discovery Metadata Profile (version 1)",
       "definitions": {
         "point_of_contact": {
           "allOf": [
@@ -1943,11 +1943,11 @@
                         "properties": {
                           "value": {
                             "type": "string",
-                            "const": "British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile"
+                            "const": "British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile"
                           },
                           "href": {
                             "type": "string",
-                            "const": "https://metadata-standards.data.bas.ac.uk/profile/magic-discovery-v1/"
+                            "const": "https://metadata-standards.data.bas.ac.uk/profiles/magic-discovery-v1/"
                           }
                         }
                       },
@@ -1957,7 +1957,7 @@
                         "properties": {
                           "publication": {
                             "type": "string",
-                            "const": "2024-10-01"
+                            "const": "2024-11-01"
                           }
                         }
                       },
@@ -1989,7 +1989,7 @@
                   },
                   "explanation": {
                     "type": "string",
-                    "const": "Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile."
+                    "const": "Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile."
                   },
                   "result": {
                     "type": "boolean",

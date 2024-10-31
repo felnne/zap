@@ -9,7 +9,7 @@ import Link from '@/components/bases/Link.vue'
     <SectionTitle version="2.0" anchor="resources" title="Resources" :add-toc="false" />
     <div class="space-y-4">
       <p>
-        Distributor and publisher selection is based on the logic from
+        Distributor and publisher selections are based on the logic from
         <Link href="https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41"
           >MAGIC/data-management#41</Link
         >.
@@ -17,12 +17,14 @@ import Link from '@/components/bases/Link.vue'
       <p>
         Records are validated against the BAS Metadata Library
         <Link
-          href="https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
+          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
+          target="_blank"
           >ISO 19139-2:2012 (v4)</Link
         >
         and
         <Link
-          href="https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic_discovery_v1.json"
+          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json"
+          target="_blank"
           >MAGIC Discovery Metadata Profile (v1)</Link
         >
         schemas.

@@ -88,7 +88,7 @@ describe('deepMergeObjects', () => {
 describe('getDomainConsistency', () => {
   it('loads expected domain consistency (profile)', () => {
     const checkExplanation =
-      'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) discovery metadata profile.'
+      'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile.'
 
     expect(getDomainConsistency('magic_discovery_v1').explanation).toEqual(checkExplanation)
   })
