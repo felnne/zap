@@ -17,12 +17,14 @@ import Link from '@/components/bases/Link.vue'
       <p>
         Records are validated against the BAS Metadata Library
         <Link
-          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json" target="_blank"
+          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-0-v4.json"
+          target="_blank"
           >ISO 19139-2:2012 (v4)</Link
         >
         and
         <Link
-          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json" target="_blank"
+          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json"
+          target="_blank"
           >MAGIC Discovery Metadata Profile (v1)</Link
         >
         schemas.
