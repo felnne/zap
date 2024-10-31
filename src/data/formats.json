@@ -15,7 +15,7 @@
       "name": "GeoPackage (Zipped)",
       "description": "an OGC GeoPackage (compressed as a Zip file)",
       "extensions": [".gpkg.zip"],
-      "url": "https://metadata-standards.data.bas.ac.uk/media-types/application/geopackage+sqlite3+zip"
+      "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/geopackage+sqlite3+zip"
     },
     "jpeg": {
       "slug": "jpeg",
@@ -54,7 +54,7 @@
       "name": "Shapefile (Zipped)",
       "description": "an Esri Shapefile (compressed as a Zip file)",
       "extensions": [".shp.zip"],
-      "url": "https://metadata-standards.data.bas.ac.uk/media-types/application/shapefile+zip"
+      "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"
     },
     "wms": {
       "slug": "wms",
