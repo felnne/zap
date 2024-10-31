@@ -22,7 +22,7 @@ import Link from '@/components/bases/Link.vue'
         >
         and
         <Link
-          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json" target="_blank""
+          href="https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/magic-discovery-v1.json" target="_blank"
           >MAGIC Discovery Metadata Profile (v1)</Link
         >
         schemas.
