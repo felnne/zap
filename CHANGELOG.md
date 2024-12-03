@@ -7,6 +7,7 @@
 * 'removed' issue component state
 * loading component for lazy loading Record component
 * support for determining whether PDF downloads are georeferenced
+* additional date types (creation, revision, released)
 * support for custom media types (GeoPDF, zipped ShapeFile etc.)
 
 ### Changed

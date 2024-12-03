@@ -20,7 +20,16 @@ test('a record drawn together from filled in sections validates', async ({ page 
   // set element with id 'abstract-input' to 'xx'
   await page.fill('textarea#abstract-input', 'xx')
 
-  // dates has a default/auto-generated value
+  // creation date has a default/auto-generated value
+
+  // check element with id 'date-revision-selection'
+  await page.check('input#date-revision-selection')
+
+  // check element with id 'date-publication-selection'
+  await page.check('input#date-publication-selection')
+
+  // check element with id 'date-released-selection'
+  await page.check('input#date-released-selection')
 
   // spatial extent has a default/auto-generated value
 
