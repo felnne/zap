@@ -80,7 +80,7 @@ describe('Dates', () => {
     expect(wrapper.find('pre').text()).toBe(initialOutput)
 
     // add identifier (needs to use a date that is not required and can emit remove:date)
-    const childComponent = wrapper.findAllComponents({ name: 'Date' })[1] // is 'publication'
+    const childComponent = wrapper.findAllComponents({ name: 'Date' })[2] // is 'publication'
 
     await childComponent.vm.$emit('add:date', expectedPublicationDate)
     expect(wrapper.find('pre').text()).toContain(

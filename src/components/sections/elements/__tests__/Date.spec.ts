@@ -61,7 +61,7 @@ describe('Date', () => {
   })
 
   it('sets correct default values with time', async () => {
-    const wrapper = mount(DateComp, { props: { label: label, show_time: true } })
+    const wrapper = mount(DateComp, { props: { label: label, showTime: true } })
 
     const hourElement = wrapper.find('input#date-hour')
     expect((hourElement.element as HTMLInputElement).value).toBe(
@@ -93,7 +93,7 @@ describe('Date', () => {
 
   it('emits value if required when mounted with time', async () => {
     vi.setSystemTime(referenceDateTime)
-    const wrapper = mount(DateComp, { props: { label: label, required: true, show_time: true } })
+    const wrapper = mount(DateComp, { props: { label: label, required: true, showTime: true } })
 
     await wrapper.vm.$nextTick() // wait for watcher to fire
 
@@ -241,7 +241,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -280,7 +280,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -319,7 +319,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -345,7 +345,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -366,7 +366,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -386,7 +386,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 
@@ -405,7 +405,7 @@ describe('Date', () => {
       props: {
         label: label, // required set to ensure selected
         required: true,
-        show_time: true,
+        showTime: true,
       },
     })
 

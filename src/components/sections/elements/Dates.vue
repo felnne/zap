@@ -67,13 +67,13 @@ watch(
           ></Date>
           <Date
             label="publication"
-            :show_time="true"
+            :showTime="true"
             @add:date="(event: DateImpreciseLabelled) => addDate(event)"
             @remove:date="(event: DateImpreciseLabelled) => removeDate(event)"
           ></Date>
           <Date
             label="released"
-            :show_time="true"
+            :showTime="true"
             @add:date="(event: DateImpreciseLabelled) => addDate(event)"
             @remove:date="(event: DateImpreciseLabelled) => removeDate(event)"
           ></Date>
