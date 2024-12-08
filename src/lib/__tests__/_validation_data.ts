@@ -36,7 +36,7 @@ export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyOb
 // taken from Metadata Library minimal_product_v1 record config
 export const minimalRecord: IsoRecord = {
   $schema:
-    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
+    'https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
   file_identifier: 'f866c298-3b9a-4624-ac31-cd6b97c146fa',
   metadata: {
     contacts: [
