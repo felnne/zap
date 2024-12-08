@@ -6,8 +6,8 @@ export const showSection = (section: string, resourceType: ResourceType): boolea
    *
    * Collections for example only hold other records and so don't have downloads.
    */
-  const notForProducts = ['services']
-  const notForCollections = [
+  const notForProducts: string[] = ['services']
+  const notForCollections: string[] = [
     'access',
     'citation',
     'contacts',

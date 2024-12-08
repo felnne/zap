@@ -17,7 +17,7 @@ dist/
 node_modules/
 
 # Local
-notes.md
+Zap.code-workspace
 README.Local.md
 
 # Sentry Config File

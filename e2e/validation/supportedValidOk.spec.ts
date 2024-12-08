@@ -5,7 +5,7 @@ test('a record drawn together from filled in sections validates', async ({ page 
 
   // file identifier has a default/auto-generated value
 
-  // resource type has a default/auto-generated value
+  // resource type has a default/auto-generated value (Dataset)
 
   // identifiers has a default/auto-generated value
 
@@ -17,12 +17,15 @@ test('a record drawn together from filled in sections validates', async ({ page 
   // check element with id 'identifier-bas-gitlab-selection'
   await page.check('input#identifier-bas-gitlab-selection')
   // set element with id 'identifier-bas-gitlab-id' to 'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx'
-  await page.fill('input#identifier-bas-gitlab-id', 'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx')
+  await page.fill(
+    'input#identifier-bas-gitlab-id',
+    'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx'
+  )
 
   // set element with id 'title-input' to 'x'
   await page.fill('textarea#title-input', 'x')
 
-  // set element with id `summary-input' to 'xxxx'
+  // set element with id 'summary-input' to 'xxxx'
   await page.fill('textarea#summary-input', 'xxxx')
 
   // set element with id 'abstract-input' to 'xx'
