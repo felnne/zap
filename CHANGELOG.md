@@ -17,6 +17,7 @@
 * Updating to ISO v4 and MAGIC Discovery v1 record schemas
 * Reorganise static components separately from base components
 * upgrading dependencies
+* Simplifying default edition
 
 ### Removed
 

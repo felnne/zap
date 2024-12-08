@@ -14,7 +14,7 @@ const emit = defineEmits<{
   'update:isoEdition': [id: string]
 }>()
 
-const edition = ref<string>('1.0')
+const edition = ref<string>('1')
 
 onMounted(() => {
   emit('update:edition', edition.value)

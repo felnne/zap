@@ -240,7 +240,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
         },
       ],
       other_citation_details:
-        'Required citation:\n> Gerrish, L. (2024). _x_ (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
+        'Required citation:\n> Gerrish, L. (2024). _x_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
     },
     distribution: [
       {

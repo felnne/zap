@@ -64,7 +64,7 @@ describe('formatTitle', () => {
 
 describe('formatVersion', () => {
   it('formats a version', () => {
-    expect(formatVersion('1.0')).toBe('(Version 1.0)')
+    expect(formatVersion('1')).toBe('(Version 1)')
   })
 })
 
@@ -105,42 +105,42 @@ describe('formatDoi', () => {
 describe('formatCitation', () => {
   it('formats a citation without a reference', () => {
     expect(
-      formatCitation('Watson, C. (2014). <i>Title</i> (Version 1.0) [Data set]. Publisher.')
-    ).toBe('Required citation:\n> Watson, C. (2014). _Title_ (Version 1.0) [Data set]. Publisher.')
+      formatCitation('Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher.')
+    ).toBe('Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher.')
   })
 
   it('formats a citation with a non-DOI reference', () => {
     expect(
       formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1.0) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
+        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
         'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
       )
     ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1.0) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
+      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
     )
   })
 
   it('formats a citation with a DOI reference', () => {
     expect(
       formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1.0) [Data set]. Publisher. https://doi.org/10.5066/f7vq30rm',
+        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://doi.org/10.5066/f7vq30rm',
         undefined,
         'https://doi.org/10.5066/f7vq30rm'
       )
     ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1.0) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
+      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
     )
   })
 
   it('formats a citation with a DOI reference in upper case', () => {
     expect(
       formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1.0) [Data set]. Publisher. https://doi.org/10.5066/F7VQ30RM',
+        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://doi.org/10.5066/F7VQ30RM',
         undefined,
         'https://doi.org/10.5066/F7VQ30RM'
       )
     ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1.0) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
+      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
     )
   })
 })
@@ -180,21 +180,13 @@ describe('formatReference', () => {
 describe('fetchFakeCitation', () => {
   it('fetches a fake citation', async () => {
     expect(
-      await fetchFakeCitation(
-        ['Watson, Constance'],
-        '2014',
-        'Title',
-        '1.0',
-        'dataset',
-        'Publisher',
-        {
-          namespace: 'data.bas.ac.uk',
-          identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-          href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-        }
-      )
+      await fetchFakeCitation(['Watson, Constance'], '2014', 'Title', '1', 'dataset', 'Publisher', {
+        namespace: 'data.bas.ac.uk',
+        identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
+        href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
+      })
     ).toBe(
-      'Watson, C. (2014). <i>Title</i> (Version 1.0) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
+      'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
     )
   })
 })
@@ -210,13 +202,13 @@ describe('integration_fetchAndFormatFakeCitation', () => {
       ['Watson, Constance'],
       '2014',
       'Title',
-      '1.0',
+      '1',
       'dataset',
       'Publisher',
       identifier
     )
     expect(await formatCitation(citation, identifier.href)).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1.0) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
+      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
     )
   })
 })

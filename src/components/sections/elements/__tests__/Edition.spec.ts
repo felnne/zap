@@ -15,7 +15,7 @@ describe('Edition', () => {
   })
 
   it('emits values when mounted', async () => {
-    const expected = '1.0'
+    const expected = '1'
 
     const wrapper = mount(Edition, {
       global: {
@@ -39,8 +39,8 @@ describe('Edition', () => {
   })
 
   it('emits values when updated', async () => {
-    const expectedInitial = '1.0'
-    const expectedUpdated = '2.0'
+    const expectedInitial = '1'
+    const expectedUpdated = '2'
 
     const wrapper = mount(Edition, {
       global: {
