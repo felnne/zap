@@ -11,8 +11,6 @@ test('an incomplete record drawn together from filled in sections does not valid
   // set element with id 'abstract-input' to 'xx'
   await page.fill('textarea#abstract-input', 'xx')
 
-  // DON'T CHECK element with id 'topic-living_and_working_in_antarctica'
-
   // Additional properties aren't set as it's not needed to test validation failure
 
   // click the button with id 'validation-use-current'

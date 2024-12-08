@@ -215,7 +215,6 @@ Following rationalisation.
 |--------------------|----------------------|--------------------------------|-------------------|----------------|
 | Background         | Default              | -                              | `white`           | `black`        |
 | Text               | Default              | -                              | `black`           | `white`        |
-| Border             | Aside                | Non-element sections, Previews | `sky-500`         | `sky-500`      |
 | Border             | Inputs               | Form fields, buttons           | `black`           | `white`        |
 | Background         | Inputs               | Form fields, buttons           | `white`           | `black`        |
 | Background (Hover) | Inputs               | buttons                        | `neutral-100`     | `neutral-700`  |
@@ -225,25 +224,30 @@ Following rationalisation.
 | Border             | Secondary boundary   | Subsections, Divisions         | `neutral-300`     | `neutral-700`  |
 | Text               | Secondary boundary   | Subtitles, Divisions           | `neutral-500`     | `neutral-500`  |
 | Background         | Non-interactivity    | Disabled form fields, buttons  | `neutral-100`     | `neutral-700`  |
+| Border             | Contextual (Info)    | Sections, Previews             | `sky-500`         | `sky-500`      |
 | Background         | Contextual (Info)    | Badges                         | `sky-50`          | `sky-950`      |
 | Text               | Contextual (Info)    | Badges                         | `sky-500`         | `sky-500`      |
 | Background         | Contextual (Success) | Badges, Validity               | `green-50`        | `green-950`    |
 | Text               | Contextual (Success) | Badges, Validity               | `green-500`       | `green-500`    |
 | Text               | Contextual (Error)   | Validity                       | `red-500`         | `red-500`      |
+| Border             | Contextual (Warning) | Experimental                   | `orange-500`      | `orange-500`   |
 
 Additional [0.7.0]:
 
 - 'Text Contextual (Error)' added as red-500
 
+Additional [0.11.0]
+
+- formalising info border (no colour change)
+- formalising warning border (no colour change)
+
 ### Extras
 
-- experimental warning: `orange-500` (border only, same for dark mode)
 - hyperlinks: `blue-700` (text only, `blue-500` for dark mode)
 - help/guidance text: `orange-700` (text only, `orange-500` for dark mode)
-- preview hints/labels: `sky-500` (text only, same for dark mode)
 - secondary input labels: `neutral-500` (text only, same for dark mode)
-- back to top links: `neutral-300` (dark mode background only)
-- supported file extensions background: `orange-900` (dark `orange-100`)
+- back to top link: `neutral-300` (dark mode background only)
+- supported file extensions label background: `orange-900` (dark `orange-100`)
 - disabled buttons: `neutral-500` (text only, same for dark mode)
 - bounding extent (map): `orange-500` (border and fill, where fill is 50% transparent)
 - runtime environment (app border):
