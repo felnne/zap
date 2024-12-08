@@ -17,7 +17,10 @@ test('a record drawn together from filled in sections validates', async ({ page 
   // check element with id 'identifier-bas-gitlab-selection'
   await page.check('input#identifier-bas-gitlab-selection')
   // set element with id 'identifier-bas-gitlab-id' to 'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx'
-  await page.fill('input#identifier-bas-gitlab-id', 'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx')
+  await page.fill(
+    'input#identifier-bas-gitlab-id',
+    'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx'
+  )
 
   // set element with id 'title-input' to 'x'
   await page.fill('textarea#title-input', 'x')
