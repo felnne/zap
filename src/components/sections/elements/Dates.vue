@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { DateImpreciseLabelled } from '@/types/app'
 import type { Dates as DatesIso } from '@/types/iso'
 
@@ -50,8 +50,14 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
-    <SectionTitle version="2.0" anchor="dates" title="Dates" :stability="Stability.Experimental" />
+  <SectionBorder :type="SectionType.Element">
+    <SectionTitle
+      :type="SectionType.Element"
+      version="2.1"
+      anchor="dates"
+      title="Dates"
+      :stability="Stability.Experimental"
+    />
     <TwoColumn>
       <template #left>
         <div class="space-y-4">

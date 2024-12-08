@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, type PropType, watch } from 'vue'
 
-import { ResourceType, Stability } from '@/types/enum'
+import { ResourceType, Stability, SectionType } from '@/types/enum'
+
 import type { DropdownItem, Licence } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getFormatExtensions } from '@/lib/data'
@@ -52,35 +53,38 @@ watch(
 )
 </script>
 <template>
-  <SectionBorder class="space-y-4">
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="8.0"
-      :stability="Stability.Experimental"
+      :type="SectionType.Element"
+      version="8.1"
+      :stability="Stability.Stable"
       anchor="downloads"
       title="Downloads"
       :data-file-href="['formats.json', 'organisations.json']"
       :depends-on="dependantSections"
     />
-    <Download
-      v-for="index in count"
-      :key="index"
-      :file-identifier="fileIdentifier"
-      :resource-type="resourceType"
-      :licence="licence"
-      :index="index"
-      @update:iso-distribution-option="
-        (event: DistributionOption) => (distributionOptions[index] = event)
-      "
-    ></Download>
-    <div class="flex items-center space-x-2">
-      <Button id="add-download" @click="count++"> Add Download </Button>
-      <GuidanceText
-        >Supported formats:
-        <template v-for="(ext, index) in supportedExtensions" :key="ext">
-          <code class="bg-orange-50 dark:bg-orange-950">{{ ext }}</code>
-          <template v-if="index < supportedExtensions.length - 1">, </template>
-        </template>
-      </GuidanceText>
+    <div class="space-y-4">
+      <Download
+        v-for="index in count"
+        :key="index"
+        :file-identifier="fileIdentifier"
+        :resource-type="resourceType"
+        :licence="licence"
+        :index="index"
+        @update:iso-distribution-option="
+          (event: DistributionOption) => (distributionOptions[index] = event)
+        "
+      ></Download>
+      <div class="flex items-center space-x-2">
+        <Button id="add-download" @click="count++"> Add Download </Button>
+        <GuidanceText
+          >Supported formats:
+          <template v-for="(ext, index) in supportedExtensions" :key="ext">
+            <code class="bg-orange-50 dark:bg-orange-950">{{ ext }}</code>
+            <template v-if="index < supportedExtensions.length - 1">, </template>
+          </template>
+        </GuidanceText>
+      </div>
     </div>
   </SectionBorder>
 </template>

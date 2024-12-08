@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
+import { Stability, SectionType } from '@/types/enum'
+
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
@@ -22,9 +24,11 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="1.2"
+      :type="SectionType.Element"
+      :stability="Stability.Stable"
+      version="1.3"
       anchor="title"
       title="Title"
       guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"

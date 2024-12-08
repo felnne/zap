@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch, onMounted } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { AccessRestriction, DropdownItem, Licence } from '@/types/app'
 import type { Constraint } from '@/types/iso'
 import { getLicence, getLicences, getLicencesFiltered } from '@/lib/data'
@@ -75,9 +75,10 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="4.2"
+      :type="SectionType.Element"
+      version="4.3"
       :stability="Stability.Stable"
       anchor="licence"
       title="Licence"

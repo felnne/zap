@@ -1,11 +1,20 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import { emptyIsoRecord } from '@/lib/record'
 import { minimalRecord, supportedRecord } from '@/lib/__tests__/_validation_data'
-import RecordValidation from '@/components/sections/info/RecordValidation.vue'
+import RecordValidation from '@/components/sections/tools/RecordValidation.vue'
 
 describe('RecordValidation', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items-tools' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items-tools'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('renders correctly when empty', async () => {
     const wrapper = mount(RecordValidation)
 
@@ -126,5 +135,10 @@ describe('RecordValidation', () => {
 
     // user input should be hidden when current record is validated
     expect(wrapper.find('#validation-input').exists()).not.toBeTruthy()
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

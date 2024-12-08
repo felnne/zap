@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
-import { ResourceType, Stability } from '@/types/enum'
+import { ResourceType, Stability, SectionType } from '@/types/enum'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -31,9 +31,10 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="2.2"
+      :type="SectionType.Element"
+      version="2.3"
       :stability="Stability.Stable"
       anchor="resource-type"
       title="Resource Type"

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { DropdownItem } from '@/types/app'
 import { getSetting } from '@/lib/data'
 
@@ -15,9 +15,9 @@ describe('SectionTitle', () => {
   let tocItemsDiv: HTMLDivElement
 
   beforeEach(() => {
-    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
     tocItemsDiv = document.createElement('div')
-    tocItemsDiv.id = 'toc-items'
+    tocItemsDiv.id = 'toc-items-element'
     document.body.appendChild(tocItemsDiv)
   })
 
@@ -31,6 +31,7 @@ describe('SectionTitle', () => {
 
     const wrapper = mount(SectionTitle, {
       props: {
+        type: SectionType.Element,
         version: version,
         anchor: anchor,
         title: title,
@@ -70,7 +71,7 @@ describe('SectionTitle', () => {
 
   it('renders properly without subtitle, guidance, data files or dependant sections', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, anchor: anchor, title: title },
+      props: { type: SectionType.Element, version: version, anchor: anchor, title: title },
     })
 
     expect(wrapper.find('h3').exists()).toBe(false)
@@ -81,7 +82,13 @@ describe('SectionTitle', () => {
 
   it('renders properly with experimental stability', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, stability: Stability.Experimental, anchor: anchor, title: title },
+      props: {
+        type: SectionType.Element,
+        version: version,
+        stability: Stability.Experimental,
+        anchor: anchor,
+        title: title,
+      },
     })
 
     expect(wrapper.find('div.section-stability').text()).toBe(Stability.Experimental)
@@ -90,7 +97,7 @@ describe('SectionTitle', () => {
 
   it('renders teleported content', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, anchor: anchor, title: title },
+      props: { type: SectionType.Element, version: version, anchor: anchor, title: title },
     })
 
     await wrapper.vm.$nextTick() // wait for onMount and teleport to occur
@@ -102,7 +109,13 @@ describe('SectionTitle', () => {
 
   it('does not render teleported content when TOC disabled', async () => {
     const wrapper = mount(SectionTitle, {
-      props: { version: version, anchor: anchor, title: title, addToc: false },
+      props: {
+        type: SectionType.Element,
+        version: version,
+        anchor: anchor,
+        title: title,
+        addToc: false,
+      },
     })
 
     await wrapper.vm.$nextTick() // wait for onMount and teleport to occur

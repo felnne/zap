@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { DistributionOption } from '@/types/iso'
 import { getServiceSlugs } from '@/lib/data'
 
@@ -26,9 +26,10 @@ watch(
 )
 </script>
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="4.1"
+      :type="SectionType.Element"
+      version="4.2"
       :stability="Stability.Stable"
       anchor="services"
       title="Services"

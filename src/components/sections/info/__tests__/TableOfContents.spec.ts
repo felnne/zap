@@ -7,6 +7,8 @@ describe('TableOfContents', () => {
   it('renders properly', async () => {
     const wrapper = mount(TableOfContents)
 
-    expect(wrapper.find('#toc-items').exists()).toBeTruthy()
+    expect(wrapper.find('#toc-items-element').exists()).toBeTruthy()
+    expect(wrapper.find('#toc-items-info').exists()).toBeTruthy()
+    expect(wrapper.find('#toc-items-tools').exists()).toBeTruthy()
   })
 })

@@ -4,6 +4,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 import { getIndividuals, getOrganisation } from '@/lib/data'
 import { createAuthor } from '@/lib/contacts'
 import type { PointOfContact as Contact } from '@/types/iso'
+import { Stability, SectionType } from '@/types/enum'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -38,9 +39,11 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="2.4"
+      :type="SectionType.Element"
+      :stability="Stability.Stable"
+      version="2.5"
       anchor="contacts"
       title="Contacts"
       sub-title="Authors"

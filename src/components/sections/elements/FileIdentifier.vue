@@ -2,6 +2,8 @@
 import { onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
+import { Stability, SectionType } from '@/types/enum'
+
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
@@ -20,8 +22,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <SectionBorder>
-    <SectionTitle version="1.2" anchor="file-identifier" title="File identifier" />
+  <SectionBorder :type="SectionType.Element">
+    <SectionTitle
+      :stability="Stability.Stable"
+      :type="SectionType.Element"
+      version="1.3"
+      anchor="file-identifier"
+      title="File identifier"
+    />
     <Output id="file-identifier-output" :data="uuid"></Output>
   </SectionBorder>
 </template>

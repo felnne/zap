@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { ResourceType, Stability } from '@/types/enum'
+import { ResourceType, Stability, SectionType } from '@/types/enum'
+
 import type { DropdownItem, Licence } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { getPublisherOrgSlug } from '@/lib/contacts'
@@ -67,9 +68,10 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="5.2"
+      :type="SectionType.Element"
+      version="5.3"
       :stability="Stability.Stable"
       anchor="identifiers"
       title="Identifiers"

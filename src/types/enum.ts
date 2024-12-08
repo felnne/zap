@@ -3,6 +3,12 @@ export enum Stability {
   Experimental = 'experimental',
 }
 
+export enum SectionType {
+  Element = 'element',
+  Info = 'info',
+  Tools = 'tools',
+}
+
 export enum DownloadType {
   File = 'file',
   San = 'san',

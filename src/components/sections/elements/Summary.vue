@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { DropdownItem } from '@/types/app'
 import { summariseAbstract } from '@/lib/ai'
 
@@ -52,9 +52,10 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="1.0"
+      :type="SectionType.Element"
+      version="1.1"
       :stability="Stability.Experimental"
       anchor="summary"
       title="Summary"
