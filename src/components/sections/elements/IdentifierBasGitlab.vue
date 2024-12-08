@@ -29,7 +29,7 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return {
     identifier: issueUrl.value,
     href: issueUrl.value,
-    namespace: instance,
+    namespace: instance.replace(/^https?:\/\//, ''),
   }
 })
 

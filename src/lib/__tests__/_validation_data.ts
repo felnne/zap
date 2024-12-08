@@ -36,7 +36,7 @@ export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyOb
 // taken from Metadata Library minimal_product_v1 record config
 export const minimalRecord: IsoRecord = {
   $schema:
-    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
+    'https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json',
   file_identifier: 'f866c298-3b9a-4624-ac31-cd6b97c146fa',
   metadata: {
     contacts: [
@@ -240,7 +240,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
         },
       ],
       other_citation_details:
-        'Required citation:\n> Gerrish, L. (2024). _x_ (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
+        'Required citation:\n> Gerrish, L. (2024). _x_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
     },
     distribution: [
       {

@@ -6,11 +6,11 @@ import IdentifierBasGitlab from '@/components/sections/elements/IdentifierBasGit
 
 describe('IdentifierBasGitlab', () => {
   it('emits value when selected and filled in', async () => {
-    const identifier = 'https://gitlab.data.bas.ac.uk/MAGIC/general-and-helpdesk/-/issues/1981'
+    const identifier = 'https://gitlab.data.bas.ac.uk/MAGIC/general-and-helpdesk/-/issues/xxx'
     const expectedIdentifier: Identifier = {
       identifier: identifier,
       href: identifier,
-      namespace: 'https://gitlab.data.bas.ac.uk',
+      namespace: 'gitlab.data.bas.ac.uk',
     }
 
     const wrapper = mount(IdentifierBasGitlab)

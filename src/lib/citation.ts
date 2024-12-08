@@ -177,10 +177,10 @@ export function formatCitation(citation: string, url: string = '', doi: string =
    * formatCitation('Watson, C. (2004). Title. Publisher. https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d', 'https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d')
    *
    * Citation before:
-   * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93a1479e-8379-4820-b510-ef8a7639d29d'
+   * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93a1479e-8379-4820-b510-ef8a7639d29d'
    *
    * Citation after:
-   * 'Watson, C., &amp; Cinnamon, J. (2004). _Ice-cream shop locations_ (Version 1.0) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
+   * 'Watson, C., &amp; Cinnamon, J. (2004). _Ice-cream shop locations_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
    */
   if (doi != '') {
     url = formatDoi(doi)

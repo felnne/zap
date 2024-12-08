@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test('can copy value to clipboard', async ({ page, browserName }) => {
+test('can copy value to clipboard', async ({ page }) => {
   await page.goto('/')
 
   // // click the button with id 'export-use-current'

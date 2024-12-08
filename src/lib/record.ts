@@ -38,7 +38,7 @@ export const emptyIsoRecord: IsoRecord = {
    * Some properties are not included as they may not be included in all records.
    */
   $schema:
-    'https://metadata-standards.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v3.json', // required
+    'https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json', // required
   file_identifier: '', // required (profile), default/auto-generated value set
   hierarchy_level: '', // required (profile), default/auto-generated value set
   metadata: {

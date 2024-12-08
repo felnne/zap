@@ -7,7 +7,7 @@ import RecordExport from '@/components/sections/tools/RecordExport.vue'
 
 export function mockCreateObjectUrl() {
   const createObjectURLMock = vi.fn().mockImplementation((file: File) => {
-      return file.name
+    return file.name
   })
   Reflect.deleteProperty(global.window.URL, 'createObjectURL')
   window.URL.createObjectURL = createObjectURLMock

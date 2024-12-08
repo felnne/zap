@@ -215,11 +215,11 @@ describe('Identifiers (Integration)', () => {
 
     // set the checkbox button with an id #identifier-bas-gitlab-selection to selected
     await wrapper.find('input#identifier-bas-gitlab-selection').setValue()
-    expect(wrapper.find('pre').text()).toContain('https://gitlab.data.bas.ac.uk')
+    expect(wrapper.find('pre').text()).toContain('gitlab.data.bas.ac.uk')
 
     // set the checkbox button with an id #identifier-bas-gitlab-selection to un-selected
     await wrapper.find('input#identifier-bas-gitlab-selection').setValue(false)
-    expect(wrapper.find('pre').text()).not.toContain('https://gitlab.data.bas.ac.uk')
+    expect(wrapper.find('pre').text()).not.toContain('gitlab.data.bas.ac.uk')
   })
 
   afterEach(() => {

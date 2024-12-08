@@ -18,7 +18,7 @@ const record: Record = {
   identifiers: [
     { identifier: doiIdentifier, href: `https://doi.org/${doiIdentifier}`, namespace: 'doi' },
   ] as Identifier[],
-  edition: '1.0',
+  edition: '1',
   dates: [
     {
       date: { js: new Date(2014, 0, 20), iso: '2014-01-20', precision: 'day' },
