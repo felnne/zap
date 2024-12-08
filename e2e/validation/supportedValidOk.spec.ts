@@ -5,7 +5,7 @@ test('a record drawn together from filled in sections validates', async ({ page 
 
   // file identifier has a default/auto-generated value
 
-  // resource type has a default/auto-generated value
+  // resource type has a default/auto-generated value (Dataset)
 
   // identifiers has a default/auto-generated value
 
@@ -25,7 +25,7 @@ test('a record drawn together from filled in sections validates', async ({ page 
   // set element with id 'title-input' to 'x'
   await page.fill('textarea#title-input', 'x')
 
-  // set element with id `summary-input' to 'xxxx'
+  // set element with id 'summary-input' to 'xxxx'
   await page.fill('textarea#summary-input', 'xxxx')
 
   // set element with id 'abstract-input' to 'xx'
