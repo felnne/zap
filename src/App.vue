@@ -14,6 +14,7 @@ import ExternalServices from '@/components/sections/tools/ExternalServices.vue'
 import Ideas from '@/components/sections/info/Ideas.vue'
 import Prologue from '@/components/sections/info/Prologue.vue'
 import RecordValidation from '@/components/sections/tools/RecordValidation.vue'
+import RecordExport from '@/components/sections/tools/RecordExport.vue'
 import Resources from '@/components/sections/info/Resources.vue'
 import TableOfContents from '@/components/sections/info/TableOfContents.vue'
 
@@ -46,6 +47,7 @@ const Record = defineAsyncComponent({
       />
       <Resources />
       <RecordValidation :current-record="currentIsoRecord" />
+      <RecordExport :current-record="currentIsoRecord" />
       <Ideas />
       <Epilogue :app-env="appEnvironment" />
     </div>
