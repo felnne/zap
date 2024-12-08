@@ -78,6 +78,10 @@
       "label": "Checksums.",
       "state": "todo"
     },
+    {
+      "label": "JSON Export",
+      "state": "complete"
+    },
     { "label": "Templates and samples.", "state": "todo" },
     { "label": "Wizard UI.", "state": "todo" },
     { "label": "QGIS plugin.", "state": "todo" },
