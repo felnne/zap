@@ -12,7 +12,6 @@ import Output from '@/components/bases/Output.vue'
 import TwoColumn from '@/components/bases/TwoColumn.vue'
 import IdentifierSelf from '@/components/sections/elements/IdentifierSelf.vue'
 import IdentifierDoi from '@/components/sections/elements/IdentifierDoi.vue'
-import IdentifierEsri from '@/components/sections/elements/IdentifierEsri.vue'
 import IdentifierBasGitlab from '@/components/sections/elements/IdentifierBasGitlab.vue'
 
 const props = defineProps({
@@ -86,10 +85,6 @@ watch(
           <IdentifierDoi
             v-if="showDoi"
             :file-identifier="fileIdentifier"
-            @add:identifier="(event: Identifier) => addIdentifier(event)"
-            @remove:identifier="(event: Identifier) => removeIdentifier(event)"
-          />
-          <IdentifierEsri
             @add:identifier="(event: Identifier) => addIdentifier(event)"
             @remove:identifier="(event: Identifier) => removeIdentifier(event)"
           />

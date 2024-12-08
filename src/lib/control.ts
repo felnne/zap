@@ -13,7 +13,6 @@ export const showSection = (section: string, resourceType: ResourceType): boolea
     'contacts',
     'downloads',
     'identifierDoi',
-    'identifierEsri',
     'licence',
     'lineage',
     'services',

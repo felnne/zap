@@ -161,8 +161,8 @@ describe('Identifiers (Integration)', () => {
       },
     })
 
-    const esriIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
-    expect(esriIdentifier.exists()).not.toBeTruthy()
+    const doiIdentifier = wrapper.findComponent({ name: 'IdentifierDoi' })
+    expect(doiIdentifier.exists()).not.toBeTruthy()
   })
 
   it('removes DOI identifier when publisher changes', async () => {
@@ -201,25 +201,6 @@ describe('Identifiers (Integration)', () => {
     // set the checkbox button with an id #identifier-doi-selection to un-selected
     await wrapper.find('input#identifier-doi-selection').setValue(false)
     expect(wrapper.find('pre').text()).not.toContain('https://doi.org/')
-  })
-
-  it('toggling esri identifier updates output correctly', async () => {
-    const wrapper = mount(Identifiers, {
-      props: { fileIdentifier: '123', resourceType: ResourceType.Dataset, licence: licence },
-      global: {
-        directives: {
-          clipboard: Clipboard,
-        },
-      },
-    })
-
-    // set the checkbox button with an id #identifier-esri-selection to selected
-    await wrapper.find('input#identifier-esri-selection').setValue()
-    expect(wrapper.find('pre').text()).toContain('https://bas.maps.arcgis.com')
-
-    // set the checkbox button with an id #identifier-esri-selection to un-selected
-    await wrapper.find('input#identifier-esri-selection').setValue(false)
-    expect(wrapper.find('pre').text()).not.toContain('https://bas.maps.arcgis.com')
   })
 
   it('toggling gitlab identifier updates output correctly', async () => {
