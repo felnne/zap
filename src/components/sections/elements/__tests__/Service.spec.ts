@@ -9,7 +9,7 @@ import { createServiceDistributionOption } from '@/lib/distribution'
 
 import Service from '@/components/sections/elements/Service.vue'
 
-const expectedServiceSlug = 'wms'
+const expectedServiceSlug = 'fake_service'
 const expectedService = getService(expectedServiceSlug)
 const expectedDistributor: IsoContact = createOrgPointOfContact(
   getOrganisation('bas_magic'),
@@ -48,7 +48,7 @@ describe('Service', () => {
       },
     })
 
-    const inputElement = wrapper.find(`input#service-wms-endpoint`)
+    const inputElement = wrapper.find(`input#service-${expectedServiceSlug}-endpoint`)
     expect(inputElement.attributes().disabled).toBe('')
   })
 

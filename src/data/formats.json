@@ -5,7 +5,6 @@
       "slug": "gpkg",
       "name": "GeoPackage",
       "description": "an OGC GeoPackage",
-      "version": "1.2",
       "extensions": [".gpkg"],
       "mediaTypes": ["application/geopackage+sqlite3"],
       "url": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3"
@@ -56,11 +55,11 @@
       "extensions": [".shp.zip"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"
     },
-    "wms": {
-      "slug": "wms",
-      "name": "OGC Web Map Service (WMS)",
-      "url": "https://www.ogc.org/standards/wms",
-      "version": "1.3.0"
+    "fake_service": {
+      "slug": "fake_service",
+      "name": "Fake Service Type",
+      "description": "Placeholder service type.",
+      "url": "https://fake.service"
     }
   }
 }
