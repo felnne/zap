@@ -59,10 +59,10 @@ test('a record drawn together from filled in sections validates', async ({ page 
   await page.setInputFiles('input#download-1-file', './sample-data/gpkg/sample.gpkg')
   await page.click('text=Upload')
 
-  // check element with id 'service-wms-selection'
-  await page.check('input#service-wms-selection')
-  // set element with id 'service-wms-endpoint' to 'https://example.com'
-  await page.fill('input#service-wms-endpoint', 'https://example.com')
+  // check element with id 'service-fake_service-selection'
+  await page.check('input#service-fake_service-selection')
+  // set element with id 'service-fake_service-endpoint' to 'https://example.com'
+  await page.fill('input#service-fake_service-endpoint', 'https://example.com')
 
   // set element with id 'lineage-input' to 'xxxx'
   await page.fill('textarea#lineage-input', 'xxxx')

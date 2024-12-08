@@ -45,7 +45,6 @@ const checkExtent: WellKnownExtent = {
 const checkFormat: Format = {
   slug: 'gpkg',
   name: 'GeoPackage',
-  version: '1.2',
   description: 'an OGC GeoPackage',
   extensions: ['.gpkg'],
   mediaTypes: ['application/geopackage+sqlite3'],
@@ -277,9 +276,9 @@ describe('getProjection', () => {
 describe('getService', () => {
   it('loads expected service', () => {
     const checkService = {
-      slug: 'wms',
-      name: 'OGC Web Map Service (WMS)',
-      description: 'Access information as a OGC Web Map Service layer.',
+      slug: 'fake_service',
+      name: 'Fake Service Type',
+      description: 'Placeholder service type.',
     }
 
     expect(getService(checkService.slug)).toEqual(checkService)
@@ -292,7 +291,7 @@ describe('getServiceSlugs', () => {
   })
 
   it('includes expected service slug', () => {
-    const checkServiceSlug = 'wms'
+    const checkServiceSlug = 'fake_service'
 
     expect(getServiceSlugs()).toContain(checkServiceSlug)
   })

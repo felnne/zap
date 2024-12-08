@@ -1,10 +1,10 @@
 {
   "$schema": "../schemas/services.json",
   "services": {
-    "wms": {
-      "slug": "wms",
-      "name": "OGC Web Map Service (WMS)",
-      "description": "Access information as a OGC Web Map Service layer."
+    "fake_service": {
+      "slug": "fake_service",
+      "name": "Fake Service Type",
+      "description": "Placeholder service type."
     }
   }
 }

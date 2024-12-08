@@ -146,7 +146,7 @@ describe('Record [Integration]', () => {
       createDownloadDistributionOption(expectedFormat, expectedUrl, expectedDistributor),
     ]
 
-    const expectedServiceSlug = 'wms'
+    const expectedServiceSlug = 'fake_service'
     const expectedService = getService(expectedServiceSlug)
     const expectedEndpoint = 'https://www.example.com'
     const expectedServicesDistOptions: IsoDistributionOption[] = [

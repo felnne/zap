@@ -289,16 +289,15 @@ describe('createDownloadDistributionOption', () => {
 describe('createServiceDistributionOption', () => {
   it('builds a distribution option from a service, online resource and organisation', () => {
     const service = {
-      slug: 'wms',
-      name: 'OGC Web Map Service (WMS)',
-      description: 'Access information as a OGC Web Map Service layer.',
+      slug: 'fake_service',
+      name: 'Fake Service Type',
+      description: 'Placeholder service type.',
     }
     const url = 'https://example.com'
     const expectedDistributionOption = {
       format: {
-        format: 'OGC Web Map Service (WMS)',
-        href: 'https://www.ogc.org/standards/wms',
-        version: '1.3.0',
+        format: 'Fake Service Type',
+        href: 'https://fake.service',
       },
       transfer_option: {
         online_resource: {

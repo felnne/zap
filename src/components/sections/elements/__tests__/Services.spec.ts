@@ -52,7 +52,7 @@ describe('Services [Integration]', () => {
   })
 
   it('emits distributionOptions when service enabled', async () => {
-    const expectedServiceSlug = 'wms'
+    const expectedServiceSlug = 'fake_service'
     const expectedService = getService(expectedServiceSlug)
     const expectedEndpoint = 'https://www.example.com'
     const expectedDistributor: IsoContact = createOrgPointOfContact(
@@ -88,7 +88,7 @@ describe('Services [Integration]', () => {
   })
 
   it('emits distributionOptions when service disabled', async () => {
-    const expectedServiceSlug = 'wms'
+    const expectedServiceSlug = 'fake_service'
     const expectedEndpoint = 'https://www.example.com'
     const expectedDistributionOptions: DistributionOption[] = []
 

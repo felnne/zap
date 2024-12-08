@@ -287,15 +287,14 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
       },
       {
         format: {
-          format: 'OGC Web Map Service (WMS)',
-          href: 'https://www.ogc.org/standards/wms',
-          version: '1.3.0',
+          format: 'Fake Service Type',
+          href: 'https://fake.service',
         },
         transfer_option: {
           online_resource: {
             href: 'https://example.com',
-            title: 'OGC Web Map Service (WMS)',
-            description: 'Access information as a OGC Web Map Service layer.',
+            title: 'Fake Service Type',
+            description: 'Access information as a Placeholder service type.',
             function: 'download',
           },
         },
