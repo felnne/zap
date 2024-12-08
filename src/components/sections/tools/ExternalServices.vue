@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { EsriToken } from '@/types/app'
 import {
   getSignInUrl as getAgolSignInUrl,
@@ -47,14 +47,15 @@ watch(
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-sky-500">
+  <SectionBorder :type="SectionType.Tools">
     <SectionTitle
-      version="1.0"
+      :type="SectionType.Tools"
+      version="1.1"
       :stability="Stability.Stable"
       anchor="external-services"
       title="External Services"
       sub-title="ArcGIS Online"
-      :add-toc="false"
+      :add-toc="true"
     />
     <div class="space-y-4">
       <GuidanceText

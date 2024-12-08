@@ -1,10 +1,19 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { EsriToken } from '@/types/app'
-import ExternalServices from '@/components/sections/info/ExternalServices.vue'
+import ExternalServices from '@/components/sections/tools/ExternalServices.vue'
 
 describe('FileIdentifier', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items-tools' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items-tools'
+    document.body.appendChild(tocItemsDiv)
+  })
+
   it('shows AGOL sign in link when not signed in', async () => {
     const wrapper = mount(ExternalServices, {})
 
@@ -37,5 +46,10 @@ describe('FileIdentifier', () => {
     }
 
     window.location.hash = ''
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
   })
 })

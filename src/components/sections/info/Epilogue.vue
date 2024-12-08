@@ -2,7 +2,7 @@
 import { computed, type ComputedRef } from 'vue'
 
 import type { AppEnvironment } from '@/types/app'
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import { getSetting } from '@/lib/data'
 
 import Link from '@/components/bases/Link.vue'
@@ -30,10 +30,11 @@ let timeDisplay: ComputedRef<string> = computed(() => {
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-sky-500">
+  <SectionBorder :type="SectionType.Info">
     <SectionTitle
-      version="4.0"
-      :stability="Stability.Experimental"
+      :type="SectionType.Element"
+      version="4.1"
+      :stability="Stability.Stable"
       anchor="epilogue"
       title="Meta"
       :add-toc="false"

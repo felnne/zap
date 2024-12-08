@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { SectionType } from '@/types/enum'
+
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Link from '@/components/bases/Link.vue'
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-sky-500">
-    <SectionTitle version="2.0" anchor="resources" title="Resources" :add-toc="false" />
+  <SectionBorder :type="SectionType.Info">
+    <SectionTitle
+      :type="SectionType.Info"
+      version="2.1"
+      anchor="resources"
+      title="Resources"
+      :add-toc="true"
+    />
     <div class="space-y-4">
       <p>
         Distributor and publisher selections are based on the logic from

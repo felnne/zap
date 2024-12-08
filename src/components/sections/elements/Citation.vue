@@ -3,6 +3,7 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import type { DropdownItem, Record } from '@/types/app'
 import type { Identifier } from '@/types/iso'
+import { Stability, SectionType } from '@/types/enum'
 import { getPublisherOrgSlug } from '@/lib/contacts'
 import { fetchFakeCitation, formatCitation } from '@/lib/citation'
 import { getOrganisation } from '@/lib/data'
@@ -142,9 +143,11 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="4.2"
+      :type="SectionType.Element"
+      :stability="Stability.Stable"
+      version="4.3"
       anchor="citation"
       title="Citation"
       :data-file-href="['organisations.json']"

@@ -1,15 +1,15 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
+import { SectionType } from '@/types/enum'
+
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 
 const propDefaults = { borderColourClass: 'border-neutral-500' }
 
 describe('SectionBorder', () => {
   it('renders properly with default classes', () => {
-    const wrapper = mount(SectionBorder, {
-      props: { borderColourClass: propDefaults.borderColourClass },
-    })
+    const wrapper = mount(SectionBorder, { props: { type: SectionType.Element } })
 
     expect(wrapper.find('section').classes()).toContain(propDefaults.borderColourClass)
   })
@@ -18,7 +18,7 @@ describe('SectionBorder', () => {
     const expected = 'border-sky-500'
     const unexpected = propDefaults.borderColourClass
 
-    const wrapper = mount(SectionBorder, { props: { borderColourClass: expected } })
+    const wrapper = mount(SectionBorder, { props: { type: SectionType.Info } })
 
     expect(wrapper.find('section').classes()).toContain(expected)
     expect(wrapper.find('section').classes()).not.toContain(unexpected)

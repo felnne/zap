@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 import { type DefinedError } from 'ajv'
 
-import { Stability, ValidationStatus } from '@/types/enum'
+import { Stability, ValidationStatus, SectionType } from '@/types/enum'
 import type { Record as IsoRecord } from '@/types/iso'
 import { validateRecordText } from '@/lib/validation'
 import { emptyIsoRecord } from '@/lib/record'
@@ -106,13 +106,14 @@ watch(
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-sky-500">
+  <SectionBorder :type="SectionType.Tools">
     <SectionTitle
-      version="2.0"
+      :type="SectionType.Tools"
+      version="2.1"
       :stability="Stability.Stable"
       anchor="validate"
       title="Record Validation"
-      :add-toc="false"
+      :add-toc="true"
     />
     <div class="space-y-4">
       <div class="space-y-2">

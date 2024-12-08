@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
-import { AppEnvironmentLabel, Stability } from '@/types/enum'
+import { AppEnvironmentLabel, Stability, SectionType } from '@/types/enum'
 import type { AppEnvironment } from '@/types/app'
 import { getSetting } from '@/lib/data'
 
@@ -41,10 +41,11 @@ let title: ComputedRef<string> = computed(() => {
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-orange-500">
+  <SectionBorder :type="SectionType.Info">
     <SectionTitle
-      version="2.0"
-      :stability="Stability.Experimental"
+      :type="SectionType.Info"
+      version="2.1"
+      :stability="Stability.Stable"
       anchor="prologue"
       :title="title"
       :add-toc="false"

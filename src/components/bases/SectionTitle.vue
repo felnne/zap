@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, onMounted, ref } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import type { DropdownItem } from '@/types/app'
 import { getSetting } from '@/lib/data'
 
 import DropDown from '@/components/bases/DropDown.vue'
 import Link from '@/components/bases/Link.vue'
+import SubSectionTitle from '@/components/bases/SubSectionTitle.vue'
 
 const props = defineProps({
+  type: {
+    type: String as PropType<SectionType>,
+    required: true,
+  },
   version: {
     type: String,
     required: true,
@@ -73,6 +78,10 @@ let stabilityClasses: ComputedRef<string[]> = computed(() => {
   return classes
 })
 
+let tocTarget: ComputedRef<string> = computed(() => {
+  return `#toc-items-${props.type}`
+})
+
 onMounted(() => {
   teleport.value = true
 })
@@ -113,11 +122,9 @@ onMounted(() => {
         >
       </div>
     </div>
-    <h3 v-if="subTitle != ''" class="text-xl font-semibold text-neutral-500">
-      {{ subTitle }}
-    </h3>
+    <SubSectionTitle v-if="subTitle != ''">{{ subTitle }}</SubSectionTitle>
   </header>
-  <Teleport v-if="teleport && addToc" to="#toc-items">
+  <Teleport v-if="teleport && addToc" :to="tocTarget">
     <Link class="toc-item" :href="`#${anchor}`">{{ title }}</Link>
   </Teleport>
 </template>

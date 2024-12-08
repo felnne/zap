@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, nextTick, onMounted, ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import { getExtents, getExtent, getProjection } from '@/lib/data'
 import { createExtent, createProjection } from '@/lib/extents'
 import type { EsriToken, WellKnownExtent } from '@/types/app'
@@ -62,9 +62,10 @@ watch(extent, () => {
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="4.1"
+      :type="SectionType.Element"
+      version="4.2"
       :stability="Stability.Stable"
       anchor="spatial-extent"
       title="Spatial extent"

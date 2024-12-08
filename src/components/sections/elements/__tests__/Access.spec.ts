@@ -20,9 +20,9 @@ describe('Access', () => {
   let tocItemsDiv: HTMLDivElement
 
   beforeEach(() => {
-    // TOC link in section title will be teleported into a '#toc-items' element so create a fake one to stop warnings
+    // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
     tocItemsDiv = document.createElement('div')
-    tocItemsDiv.id = 'toc-items'
+    tocItemsDiv.id = 'toc-items-element'
     document.body.appendChild(tocItemsDiv)
   })
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import { Stability } from '@/types/enum'
+import { Stability, SectionType } from '@/types/enum'
 import { createAccessConstraint, decodeAccessConstraintPermissions } from '@/lib/constraints'
 import type { AccessPermission, AccessRestriction } from '@/types/app'
 import type { Constraint } from '@/types/iso'
@@ -58,9 +58,10 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
+  <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      version="2.0"
+      :type="SectionType.Element"
+      version="2.1"
       :stability="Stability.Stable"
       anchor="access"
       title="Access Restrictions"

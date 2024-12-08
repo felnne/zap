@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
+import { Stability, SectionType } from '@/types/enum'
+
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
@@ -29,8 +31,14 @@ watch(
 </script>
 
 <template>
-  <SectionBorder>
-    <SectionTitle version="1.2" anchor="edition" title="Edition" />
+  <SectionBorder :type="SectionType.Element">
+    <SectionTitle
+      :stability="Stability.Stable"
+      :type="SectionType.Element"
+      version="1.3"
+      anchor="edition"
+      title="Edition"
+    />
     <TwoColumn>
       <template #left>
         <div>

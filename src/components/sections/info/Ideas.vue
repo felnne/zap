@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Stability, SectionType } from '@/types/enum'
 import { getIdeas } from '@/lib/data'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
@@ -11,8 +12,15 @@ const feedbackText = 'Thought of a good idea? Suggest it using feedback tool (bo
 </script>
 
 <template>
-  <SectionBorder border-colour-class="border-sky-500">
-    <SectionTitle version="2.1" anchor="ideas" title="Ideas" :add-toc="false" />
+  <SectionBorder :type="SectionType.Info">
+    <SectionTitle
+      :type="SectionType.Info"
+      :stability="Stability.Stable"
+      version="2.2"
+      anchor="ideas"
+      title="Ideas"
+      :add-toc="false"
+    />
     <div class="space-y-4">
       <GuidanceText>{{ feedbackText }}</GuidanceText>
       <div class="space-y-2">
