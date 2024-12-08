@@ -19,6 +19,7 @@
 ### Removed
 
 * Research topics component
+* Esri identifier (as not a 1:1 mapping)
 
 ## [0.10.4] - 2024-10-18
 
