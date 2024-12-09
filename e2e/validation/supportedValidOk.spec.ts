@@ -59,6 +59,11 @@ test('a record drawn together from filled in sections validates', async ({ page 
   await page.setInputFiles('input#download-1-file', './sample-data/gpkg/sample.gpkg')
   await page.click('text=Upload')
 
+  await page.click('text=Add overview')
+  await page.click('text=Local File')
+  await page.setInputFiles('input#thumbnail-overview-file', './sample-data/png/sample.png')
+  await page.click('text=Upload')
+
   // check element with id 'service-fake_service-selection'
   await page.check('input#service-fake_service-selection')
   // set element with id 'service-fake_service-endpoint' to 'https://example.com'

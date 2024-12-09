@@ -8,6 +8,7 @@ import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
   DistributionOption as IsoDistributionOption,
+  GraphicOverview as IsoGraphicOverview,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
 } from '@/types/iso'
@@ -29,12 +30,17 @@ vi.mock('@/lib/esriNoTest', () => ({
 
 describe('Record [Integration]', () => {
   let tocItemsDiv: HTMLDivElement
+  let tocItemsDivTools: HTMLDivElement
 
   beforeEach(() => {
     // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
     tocItemsDiv = document.createElement('div')
     tocItemsDiv.id = 'toc-items-element'
     document.body.appendChild(tocItemsDiv)
+
+    tocItemsDivTools = document.createElement('div')
+    tocItemsDivTools.id = 'toc-items-tools'
+    document.body.appendChild(tocItemsDivTools)
   })
 
   it('emits ISO record correctly when a section set directly changes', async () => {
@@ -71,6 +77,9 @@ describe('Record [Integration]', () => {
     const expectedContacts: IsoContact[] = [expectedAuthor, expectedPoC]
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -89,6 +98,38 @@ describe('Record [Integration]', () => {
       // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
       const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.contacts).toEqual(expectedContacts)
+    }
+  })
+
+  it('emits ISO record correctly when a section that forms aggregated graphic overviews changes', async () => {
+    const expectedOverview: IsoGraphicOverview = {
+      identifier: 'x',
+      description: 'xx',
+      href: 'https://example.com/image.png',
+      mime_type: 'image/png',
+    }
+    const expectedOverviews: IsoGraphicOverview[] = [expectedOverview]
+
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+    await wrapper
+      .findComponent({ name: 'Thumbnails' })
+      .vm.$emit('update:isoGraphicOverviews', expectedOverviews)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.graphic_overviews).toEqual(expectedOverviews)
     }
   })
 
@@ -258,5 +299,6 @@ describe('Record [Integration]', () => {
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
+    document.body.removeChild(tocItemsDivTools)
   })
 })

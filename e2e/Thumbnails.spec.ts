@@ -1,0 +1,28 @@
+import { test, expect } from '@playwright/test'
+
+test('thumbnail upload works', async ({ page }) => {
+  const fileName = 'sample.png'
+
+  await page.goto('/')
+
+  await page.click('text=Add overview')
+
+  await page.click('text=Local File')
+
+  await page.setInputFiles('input#thumbnail-overview-file', `./sample-data/png/${fileName}`)
+
+  await page.click('text=Upload')
+
+  // wait for 3 seconds - workaround for not having an event or state to check that the file has been uploaded
+  await page.waitForTimeout(3000)
+
+  const url = await page.inputValue('input#thumbnail-overview-url')
+
+  // take screenshot of input#thumbnail-overview-url
+  const browserName = page.context().browser()?.browserType().name()
+  await page.screenshot({
+    path: `playwright-screenshots/thumbnail-with-file-uploaded_${browserName}.png`,
+  })
+
+  expect(url).toContain(fileName)
+})

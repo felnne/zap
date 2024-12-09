@@ -1,0 +1,139 @@
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
+import Clipboard from 'v-clipboard'
+
+import type { GraphicOverview as IsoGraphicOverview } from '@/types/iso'
+import { getFormatByType } from '@/lib/data'
+
+import Thumbnails from '@/components/sections/elements/Thumbnails.vue'
+
+const fileIdentifier = 'x'
+const expectedOverview: IsoGraphicOverview = {
+  identifier: 'overview',
+  description: 'General overview of resource',
+  href: 'https://example.com/image.png',
+  mime_type: getFormatByType('image/png')!.mediaTypes![0],
+}
+
+describe('Thumbnails', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items-element'
+    document.body.appendChild(tocItemsDiv)
+  })
+
+  it('clicking thumbnail type button adds a new thumbnail', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click thumbnail type button
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // check a thumbnail element is rendered
+    expect(wrapper.find('#thumbnail-overview').exists()).toBeTruthy()
+  })
+
+  it('thumbnail type button is disabled after clicking', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click thumbnail type button
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // same thumbnail type button is now disabled
+    const button = wrapper.find('button#add-thumbnail-overview')
+    expect(button.attributes().disabled).toBe('')
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
+  })
+})
+
+describe('Thumbnails [Integration]', () => {
+  let tocItemsDiv: HTMLDivElement
+
+  beforeEach(() => {
+    // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
+    tocItemsDiv = document.createElement('div')
+    tocItemsDiv.id = 'toc-items-element'
+    document.body.appendChild(tocItemsDiv)
+  })
+
+  it('renders a graphic overview if file upload type picked', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click thumbnail type button
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // click file upload source
+    await wrapper.find('button#upload-file').trigger('click')
+
+    // check a file upload element is rendered
+    expect(wrapper.find('#thumbnail-overview-file').exists()).toBeTruthy()
+  })
+
+  it('adds and emits a graphicOverview', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add thumbnail
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // simulate event from child component
+    const childComponent = wrapper.findComponent({ name: 'Thumbnail' })
+    await childComponent.vm.$emit('update:isoGraphicOverview', expectedOverview)
+
+    expect(wrapper.find('pre').text()).toBe(JSON.stringify([expectedOverview], null, 2))
+
+    const emittedIsoGraphicOverviews: unknown[][] | undefined = wrapper.emitted(
+      'update:isoGraphicOverviews'
+    )
+    expect(emittedIsoGraphicOverviews).toBeTruthy()
+    if (emittedIsoGraphicOverviews) {
+      expect(emittedIsoGraphicOverviews[0][0]).toEqual([expectedOverview])
+    }
+  })
+
+  afterEach(() => {
+    // clean up '#toc-items' element
+    document.body.removeChild(tocItemsDiv)
+  })
+})

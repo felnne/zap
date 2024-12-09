@@ -24,6 +24,7 @@ import {
   getServiceSlugs,
   getService,
   getSetting,
+  getThumbnails,
 } from '@/lib/data'
 
 const checkExtent: WellKnownExtent = {
@@ -307,5 +308,23 @@ describe('getServiceSlugs', () => {
 describe('getSetting', () => {
   it('loads expected setting', () => {
     expect(getSetting('bas_esri_agol_slug')).toEqual('bas')
+  })
+})
+
+describe('getThumbnails', () => {
+  it('loads expected thumbnail type', () => {
+    const checkThumbnail = {
+      slug: 'overview',
+      identifier: 'overview',
+      description: 'General overview of resource',
+      sizePxH: 128,
+      sizePxW: 128,
+      mediaTypes: [
+        'https://jpeg.org/jpeg/',
+        'https://www.iana.org/assignments/media-types/image/png',
+      ],
+    }
+
+    expect(getThumbnails()[0]).toEqual(checkThumbnail)
   })
 })

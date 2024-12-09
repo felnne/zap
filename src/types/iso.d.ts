@@ -51,6 +51,13 @@ export type GeographicExtent = {
   }
 }
 
+export type GraphicOverview = {
+  identifier: string
+  href: string
+  description?: string
+  mime_type: string
+}
+
 export type Identification = {
   title: Title
   abstract: string
@@ -61,6 +68,7 @@ export type Identification = {
   identifiers: Identifier[]
   contacts: PointOfContact[]
   maintenance: Maintenance
+  graphic_overviews?: GraphicOverview[]
   keywords?: KeywordSet[]
   constraints: Constraint[]
   language: string

@@ -1,0 +1,16 @@
+{
+  "$schema": "../schemas/thumbnails.json",
+  "thumbnails": {
+    "overview": {
+      "slug": "overview",
+      "identifier": "overview",
+      "description": "General overview of resource",
+      "size_px_h": 128,
+      "size_px_w": 128,
+      "media_types": [
+        "https://jpeg.org/jpeg/",
+        "https://www.iana.org/assignments/media-types/image/png"
+      ]
+    }
+  }
+}

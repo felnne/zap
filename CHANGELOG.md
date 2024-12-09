@@ -10,6 +10,7 @@
 * additional date types (creation, revision, released)
 * support for custom media types (GeoPDF, zipped ShapeFile etc.)
 * initial record export component
+* initial thumbnail component
 
 ### Changed
 

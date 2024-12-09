@@ -9,11 +9,6 @@ export enum SectionType {
   Tools = 'tools',
 }
 
-export enum DownloadType {
-  File = 'file',
-  San = 'san',
-}
-
 export enum ResourceType {
   Collection = 'collection',
   Dataset = 'dataset',
@@ -27,6 +22,11 @@ export enum ValidationStatus {
   Error = 'error', // input is present, but is not allowed
   Invalid = 'invalid', // input is present, but cannot be understood be parsed
   Valid = 'valid', // input is present, can be understood and is allowed
+}
+
+export enum UploadSource {
+  File = 'file',
+  San = 'san',
 }
 
 export enum UploadStatus {
