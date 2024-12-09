@@ -42,6 +42,7 @@ const Record = defineAsyncComponent({
       <ExternalServices @update:esri-token="(event: EsriToken) => (esriToken = event)" />
       <TableOfContents />
       <Record
+        :app-env="appEnvironment"
         :esri-token="esriToken"
         @update:iso-record="(event: IsoRecord) => (currentIsoRecord = event)"
       />

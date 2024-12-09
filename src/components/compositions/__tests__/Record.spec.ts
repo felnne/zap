@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import { ResourceType } from '@/types/enum'
-import type { AccessRestriction, Licence, Format } from '@/types/app'
+import { AppEnvironmentLabel, ResourceType } from '@/types/enum'
+import type { AppEnvironment, AccessRestriction, Licence, Format } from '@/types/app'
 import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
@@ -28,6 +28,10 @@ vi.mock('@/lib/esriNoTest', () => ({
   loadCssTheme: vi.fn().mockReturnValue({ mock: true }),
 }))
 
+const minimalEnvironment: AppEnvironment = {
+  label: AppEnvironmentLabel.LocalDevelopment,
+}
+
 describe('Record [Integration]', () => {
   let tocItemsDiv: HTMLDivElement
   let tocItemsDivTools: HTMLDivElement
@@ -47,6 +51,9 @@ describe('Record [Integration]', () => {
     const expectedAbstract = 'x'
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -147,6 +154,9 @@ describe('Record [Integration]', () => {
     const expectedUsageConstraint: IsoConstraint = createUsageConstraint(expectedLicence)
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -195,6 +205,9 @@ describe('Record [Integration]', () => {
     ]
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -226,6 +239,9 @@ describe('Record [Integration]', () => {
 
   it('emits ISO record correctly when no sections that form aggregated distribution options set', async () => {
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -253,6 +269,9 @@ describe('Record [Integration]', () => {
     }
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -276,6 +295,9 @@ describe('Record [Integration]', () => {
 
   it('emits ISO record correctly when no sections that form aggregated lineage set', async () => {
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -293,6 +315,44 @@ describe('Record [Integration]', () => {
       const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       // expect not to have lineage key set
       expect(emittedIsoRecordTyped.identification.lineage).toBeUndefined()
+    }
+  })
+
+  it('emits ISO record correctly when sample data is set', async () => {
+    const expectedTitle = 'x'
+    const expectedAbstract = 'xx'
+    const expectedLineage: IsoLineage = {
+      statement: 'xxx',
+    }
+
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    const component = wrapper.findComponent({ name: 'RecordSample' })
+    component.vm.emit('update:isoTitleValue', expectedTitle)
+    component.vm.$emit('update:isoAbstract', expectedAbstract)
+    component.vm.$emit('update:isoLineageStatement', expectedLineage.statement)
+
+    await wrapper.vm.$nextTick()
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index is to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.title.value).toEqual(expectedTitle)
+      expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
+      expect(emittedIsoRecordTyped.identification.lineage).toEqual(expectedLineage)
     }
   })
 

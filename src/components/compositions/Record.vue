@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import { ResourceType as ResourceTypeEM } from '@/types/enum'
+import { AppEnvironmentLabel, ResourceType as ResourceTypeEM } from '@/types/enum'
 import type {
   AccessRestriction,
+  AppEnvironment,
   DateImpreciseLabelled,
   EsriToken,
   Licence as LicenceT,
@@ -36,6 +37,7 @@ import GeographicExtent from '@/components/sections/elements/GeographicExtent.vu
 import Identifiers from '@/components/sections/elements/Identifiers.vue'
 import Licence from '@/components/sections/elements/Licence.vue'
 import Lineage from '@/components/sections/elements/Lineage.vue'
+import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
@@ -43,6 +45,10 @@ import Thumbnails from '@/components/sections/elements/Thumbnails.vue'
 import Title from '@/components/sections/elements/Title.vue'
 
 defineProps({
+  appEnv: {
+    type: Object as () => AppEnvironment,
+    required: true,
+  },
   esriToken: {
     type: Object as () => EsriToken | undefined,
     default: undefined,
@@ -254,6 +260,12 @@ watch(
     />
     <Lineage
       v-if="show('lineage')"
+      @update:iso-lineage-statement="(event: string) => (lineageStatement = event)"
+    />
+    <RecordSample
+      v-if="appEnv.label == AppEnvironmentLabel.LocalDevelopment"
+      @update:iso-abstract="(event: string) => (isoRecord.identification.abstract = event)"
+      @update:iso-title-value="(event: string) => (isoRecord.identification.title.value = event)"
       @update:iso-lineage-statement="(event: string) => (lineageStatement = event)"
     />
   </section>

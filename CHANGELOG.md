@@ -11,6 +11,7 @@
 * support for custom media types (GeoPDF, zipped ShapeFile etc.)
 * initial record export component
 * initial thumbnail component
+* initial sample data component (very basic, only shown in local dev)
 
 ### Changed
 
