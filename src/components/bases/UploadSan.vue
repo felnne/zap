@@ -12,8 +12,12 @@ import FormInput from '@/components/bases/FormInput.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
 
 defineProps({
-  index: {
-    type: Number,
+  context: {
+    type: String,
+    required: true,
+  },
+  identifier: {
+    type: [Number, String],
     required: true,
   },
 })
@@ -120,13 +124,13 @@ watch(
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">SAN Path</FormLabel>
         <FormInput
-          :id="'download-' + index + '-path'"
+          :id="context + '-' + identifier + '-path'"
           v-model="path"
           type="text"
-          :name="'download-' + index + '-path'"
+          :name="context + '-' + identifier + '-path'"
         />
         <ButtonStat
-          :id="'download-' + index + '-stat'"
+          :id="context + '-' + identifier + '-stat'"
           :state="state"
           @button-click="statPath"
         ></ButtonStat>
@@ -134,10 +138,10 @@ watch(
       <div class="flex flex-grow space-x-2">
         <FormLabel class="text-neutral-500">URL</FormLabel>
         <FormInput
-          :id="'download-' + index + '-url'"
+          :id="context + '-' + identifier + '-url'"
           v-model="url"
           type="text"
-          name="'download-' + index + '-url'"
+          :name="context + '-' + identifier + '-url'"
           readonly
         />
       </div>

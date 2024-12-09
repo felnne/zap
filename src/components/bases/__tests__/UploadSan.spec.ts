@@ -7,30 +7,32 @@ import axios from 'axios'
 import { encodeSanPath } from '@/lib/upload'
 import { getFormatString } from '@/lib/distribution'
 
-import DownloadSan from '@/components/sections/elements/DownloadSan.vue'
+import UploadSan from '@/components/bases/UploadSan.vue'
 
 vi.mock('axios')
 
-describe('DownloadSan', () => {
+const context = 'foo'
+const identifier = 1
+
+describe('UploadSan', () => {
   afterEach(() => {
     // cleaning up after the previous test
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
   it('renders correctly', async () => {
-    const index = 1
-    const wrapper = mount(DownloadSan, {
+    const wrapper = mount(UploadSan, {
       props: {
-        index: index,
+        context: context,
+        identifier: identifier,
       },
     })
 
-    // expect input to exist with id 'download-{expectedIndex}-path'
-    expect(wrapper.find(`input#download-${index}-path`).exists()).toBeTruthy()
+    // expect input to exist with id '{context}-{identifier}-path' (e.g. 'foo-1-path')
+    expect(wrapper.find(`input#${context}-${identifier}-path`).exists()).toBeTruthy()
   })
 
   it('sets and emits expected URL when path set and triggered', async () => {
-    const index = 1
     const path = '/data/somewhere/image.png'
     const expectedUrl = encodeSanPath(path)
     const expectedSizeBytes = 400
@@ -45,26 +47,27 @@ describe('DownloadSan', () => {
     }
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
-    const wrapper = mount(DownloadSan, {
+    const wrapper = mount(UploadSan, {
       props: {
-        index: index,
+        context: context,
+        identifier: identifier,
       },
     })
 
-    // set input with id 'download-{expectedIndex}-path' to path
-    const input = wrapper.find(`input#download-${index}-path`)
+    // set input with id '{context}-{identifier}-path' to path (e.g. 'foo-1-path')
+    const input = wrapper.find(`input#${context}-${identifier}-path`)
     input.setValue(path)
     input.trigger('input')
 
-    // simulate click event for button with id 'download-{expectedIndex}-stat'
+    // simulate click event for button with id '{context}-{identifier}-stat' (e.g. 'foo-1-stat')
     await wrapper.findComponent({ name: 'ButtonStat' }).vm.$emit('button-click')
 
     await flushPromises()
 
-    // expect input with id 'download-{expectedIndex}-url' to have expected value
-    expect((wrapper.find(`input#download-${index}-url`).element as HTMLInputElement).value).toBe(
-      expectedUrl
-    )
+    // expect input with id '{context}-{identifier}-url' to have expected value (e.g. 'foo-1-url')
+    expect(
+      (wrapper.find(`input#${context}-${identifier}-url`).element as HTMLInputElement).value
+    ).toBe(expectedUrl)
 
     const emittedUrl: unknown[][] | undefined = wrapper.emitted('update:url')
     expect(emittedUrl).toBeTruthy()
@@ -79,15 +82,15 @@ describe('DownloadSan', () => {
     const path = '/data/somewhere/image.png'
     const expectedFormat = getFormatString(path)
 
-    const index = 1
-    const wrapper = mount(DownloadSan, {
+    const wrapper = mount(UploadSan, {
       props: {
-        index: index,
+        context: context,
+        identifier: identifier,
       },
     })
 
-    // set input with id 'download-{expectedIndex}-path' to path
-    const input = wrapper.find(`input#download-${index}-path`)
+    // set input with id '{context}-{identifier}-path' to path (e.g. 'foo-1-path')
+    const input = wrapper.find(`input#${context}-${identifier}-path`)
     input.setValue(path)
     input.trigger('input')
 
@@ -101,7 +104,6 @@ describe('DownloadSan', () => {
   })
 
   it('emits size when path set', async () => {
-    const index = 1
     const path = '/data/somewhere/image.png'
     const expectedSizeBytes = 400
 
@@ -115,18 +117,19 @@ describe('DownloadSan', () => {
     }
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
-    const wrapper = mount(DownloadSan, {
+    const wrapper = mount(UploadSan, {
       props: {
-        index: index,
+        context: context,
+        identifier: identifier,
       },
     })
 
-    // set input with id 'download-{expectedIndex}-path' to path
-    const input = wrapper.find(`input#download-${index}-path`)
+    // set input with id '{context}-{identifier}-path' to path
+    const input = wrapper.find(`input#${context}-${identifier}-path`)
     input.setValue(path)
     input.trigger('input')
 
-    // simulate click event for button with id 'download-{expectedIndex}-stat'
+    // simulate click event for button with id '{context}-{identifier}-stat' (e.g. 'foo-1-stat')
     await wrapper.findComponent({ name: 'ButtonStat' }).vm.$emit('button-click')
 
     await flushPromises()

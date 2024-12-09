@@ -18,6 +18,7 @@
 * Reorganise static components separately from base components
 * upgrading dependencies
 * Simplifying default edition
+* Refactoring Download component into base Upload component with Download wrapper
 
 ### Removed
 

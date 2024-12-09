@@ -11,8 +11,12 @@ import FormInput from '@/components/bases/FormInput.vue'
 import ButtonUpload from '@/components/bases/ButtonUpload.vue'
 
 const props = defineProps({
-  index: {
-    type: Number,
+  context: {
+    type: String,
+    required: true,
+  },
+  identifier: {
+    type: [Number, String],
     required: true,
   },
   fileIdentifier: {
@@ -128,14 +132,14 @@ watch(
     <div class="flex space-x-2">
       <FormLabel class="text-neutral-500">File</FormLabel>
       <input
-        :id="'download-' + index + '-file'"
+        :id="context + '-' + identifier + '-file'"
         ref="fileInput"
         class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow file:hover:bg-neutral-100"
         type="file"
         @change="onFileChange"
       />
       <ButtonUpload
-        :id="'download-' + index + '-upload'"
+        :id="context + '-' + identifier + '-upload'"
         :state="state"
         @click="uploadFile"
       ></ButtonUpload>
@@ -143,10 +147,10 @@ watch(
     <div class="flex flex-grow space-x-2">
       <FormLabel class="text-neutral-500">URL</FormLabel>
       <FormInput
-        :id="'download-' + index + '-url'"
+        :id="context + '-' + identifier + '-url'"
         v-model="url"
         type="text"
-        name="'download-' + index + '-url'"
+        :name="context + '-' + identifier + '-url'"
         readonly
       />
     </div>
