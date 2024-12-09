@@ -15,8 +15,8 @@ export function mockCreateObjectUrl() {
   Reflect.deleteProperty(global.window.URL, 'revokeObjectURL')
   window.URL.revokeObjectURL = revokeObjectURLMock
 }
-
 mockCreateObjectUrl()
+
 describe('RecordExport', () => {
   let tocItemsDiv: HTMLDivElement
 
