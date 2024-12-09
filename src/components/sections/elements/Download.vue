@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { ResourceType, DownloadType } from '@/types/enum'
-import type { Format, Licence } from '@/types/app'
+import { ResourceType } from '@/types/enum'
+import type { Licence, Upload as UploadT } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Output from '@/components/bases/Output.vue'
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
-import DownloadFile from '@/components/sections/elements/DownloadFile.vue'
-import DownloadSan from '@/components/sections/elements/DownloadSan.vue'
-import DownloadSwitcher from '@/components/sections/elements/DownloadSwitcher.vue'
+import Upload from '@/components/bases/Upload.vue'
 
 const props = defineProps({
   index: {
@@ -35,27 +33,25 @@ const emit = defineEmits<{
   'update:isoDistributionOption': [id: DistributionOption]
 }>()
 
-let type = ref<DownloadType | undefined>(undefined)
-let format = ref<Format | undefined>(undefined)
-let sizeBytes = ref<number | undefined>(undefined)
-let url = ref<string | undefined>(undefined)
+let upload = ref<UploadT | undefined>(undefined)
 
 let distributor: ComputedRef<IsoContact> = computed(() =>
   createDistributor(props.resourceType, props.licence)
 )
 
 let distributionOption: ComputedRef<DistributionOption | undefined> = computed(() => {
-  if (!format.value) return undefined
+  if (!upload.value || !upload.value.format) return undefined
+
   return createDownloadDistributionOption(
-    format.value,
-    url.value ? url.value : '',
+    upload.value.format,
+    upload.value.url ? upload.value.url : '',
     distributor.value,
-    sizeBytes.value
+    upload.value.sizeBytes
   )
 })
 
 watch(
-  () => url.value,
+  () => upload.value,
   () => {
     // a download is only useful when there's a URL, which is sensitive to / embeds the format so doesn't need watching
     if (distributionOption.value) {
@@ -67,28 +63,12 @@ watch(
 
 <template>
   <SubSectionBorder :id="'download-' + index" class="space-y-2">
-    <template v-if="type === DownloadType.File">
-      <DownloadFile
-        :index="index"
-        :file-identifier="fileIdentifier"
-        @update:format="(event: Format) => (format = event)"
-        @update:size-bytes="(event: number) => (sizeBytes = event)"
-        @update:url="(event: string) => (url = event)"
-      ></DownloadFile>
-    </template>
-    <template v-else-if="type === DownloadType.San">
-      <DownloadSan
-        :index="index"
-        @update:format="(event: Format) => (format = event)"
-        @update:size-bytes="(event: number) => (sizeBytes = event)"
-        @update:url="(event: string) => (url = event)"
-      ></DownloadSan>
-    </template>
-    <template v-else>
-      <p>
-        <DownloadSwitcher @update:type="(event: DownloadType) => (type = event)"></DownloadSwitcher>
-      </p>
-    </template>
+    <Upload
+      :context="'download'"
+      :identifier="index"
+      :file-identifier="fileIdentifier"
+      @update:upload="(event: UploadT) => (upload = event)"
+    ></Upload>
     <Output
       v-if="distributionOption"
       :id="'download-' + index + '-output'"

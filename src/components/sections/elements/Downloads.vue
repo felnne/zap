@@ -56,8 +56,8 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="8.1"
-      :stability="Stability.Stable"
+      version="9.0"
+      :stability="Stability.Experimental"
       anchor="downloads"
       title="Downloads"
       :data-file-href="['formats.json', 'organisations.json']"
