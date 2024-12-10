@@ -12,7 +12,6 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
-import TwoColumn from '@/components/bases/TwoColumn.vue'
 import ThreeColumn from '@/components/bases/ThreeColumn.vue'
 import GeographicExtentMap from '@/components/sections/elements/GeographicExtentMap.vue'
 
@@ -117,7 +116,13 @@ watch(extent, async () => {
               {{ wke.name }}
             </FormLabel>
             <FormLabel>
-              <input id="extent-custom" type="radio" name="extents" value="custom" v-model="selectedWkeSlug" />
+              <input
+                id="extent-custom"
+                v-model="selectedWkeSlug"
+                type="radio"
+                name="extents"
+                value="custom"
+              />
               Custom extent
             </FormLabel>
           </div>
@@ -125,21 +130,41 @@ watch(extent, async () => {
             <div class="flex items-center space-x-4">
               <div class="space-y-2">
                 <FormLabel>West Longitude</FormLabel>
-                <FormInput id="bbox-west-long" v-model="bbox_west_long" type="number" name="west-long" />
+                <FormInput
+                  id="bbox-west-long"
+                  v-model="bbox_west_long"
+                  type="number"
+                  name="west-long"
+                />
               </div>
               <div class="space-y-2">
                 <FormLabel>East Longitude</FormLabel>
-                <FormInput id="bbox-east-long" v-model="bbox_east_long" type="number" name="east-long" />
+                <FormInput
+                  id="bbox-east-long"
+                  v-model="bbox_east_long"
+                  type="number"
+                  name="east-long"
+                />
               </div>
             </div>
             <div class="flex items-center space-x-4">
               <div class="space-y-2">
                 <FormLabel>South Latitude</FormLabel>
-                <FormInput id="bbox-south-lat" v-model="bbox_south_lat" type="number" name="south-lat" />
+                <FormInput
+                  id="bbox-south-lat"
+                  v-model="bbox_south_lat"
+                  type="number"
+                  name="south-lat"
+                />
               </div>
               <div class="space-y-2">
                 <FormLabel>North Latitude</FormLabel>
-                <FormInput id="bbox-north-lat" v-model="bbox_north_lat" type="number" name="north-lat" />
+                <FormInput
+                  id="bbox-north-lat"
+                  v-model="bbox_north_lat"
+                  type="number"
+                  name="north-lat"
+                />
               </div>
             </div>
           </div>
@@ -156,12 +181,12 @@ watch(extent, async () => {
             <Output max-height-class="max-h-16" :data="projection"></Output>
           </div>
         </div>
-        </template>
-        <template #right>
-          <div class="space-y-2">
-            <div class="text-sky-500">Preview (2D, EPSG:3857)</div>
-            <GeographicExtentMap v-if="renderMaps" :extent="extent.geographic" />
-          </div>
+      </template>
+      <template #right>
+        <div class="space-y-2">
+          <div class="text-sky-500">Preview (2D, EPSG:3857)</div>
+          <GeographicExtentMap v-if="renderMaps" :extent="extent.geographic" />
+        </div>
       </template>
     </ThreeColumn>
   </SectionBorder>

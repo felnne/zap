@@ -37,7 +37,7 @@
     { "label": "Syntax highlighting for outputs.", "state": "cancelled" },
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
-    { "label": "Thumbnails.", "state": "todo" },
+    { "label": "Thumbnails.", "state": "complete" },
     { "label": "Open licences logos.", "state": "todo" },
     { "label": "Coordinate reference system section.", "state": "complete" },
     { "label": "Validation.", "state": "complete" },
@@ -88,7 +88,8 @@
     { "label": "QGIS plugin.", "state": "todo" },
     { "label": "ArcGIS plugin.", "state": "todo" },
     { "label": "Maintenance information (progress, update frequency", "state": "todo" },
-    { "label": "Data sources", "state": "todo" }
+    { "label": "Data sources", "state": "todo" },
+    { "label": "2D spatial extent visualisation", "state": "complete" },
     { "label": "3D spatial extent visualisation", "state": "removed" }
   ]
 }

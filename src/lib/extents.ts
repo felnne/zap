@@ -1,4 +1,5 @@
 import type { Projection } from '@/types/app'
+import type { Extent } from '@/types/iso'
 import type { GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
 
 export const createExtent = (extent: GeographicExtent, identifier: string): Extent => {
