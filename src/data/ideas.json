@@ -88,5 +88,6 @@
     { "label": "ArcGIS plugin.", "state": "todo" },
     { "label": "Maintenance information (progress, update frequency", "state": "todo" },
     { "label": "Data sources", "state": "todo" }
+    { "label": "3D spatial extent visualisation", "state": "removed" }
   ]
 }

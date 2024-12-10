@@ -11,7 +11,6 @@ const expectedIsoExtentIdentifier = 'bounding'
 
 vi.mock('@/lib/esriNoTest', () => ({
   initExtentMap: vi.fn().mockReturnValue({ mock: true }),
-  initExtentGlobe: vi.fn().mockReturnValue({ mock: true }),
   loadCssTheme: vi.fn().mockReturnValue({ mock: true }),
 }))
 

@@ -24,7 +24,7 @@ describe('createExtent', () => {
       geographic: extent.extent.geographic,
     }
 
-    expect(createExtent(extent, identifier)).toStrictEqual(expectedExtent)
+    expect(createExtent(extent.extent.geographic, identifier)).toStrictEqual(expectedExtent)
   })
 })
 

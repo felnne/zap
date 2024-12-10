@@ -1,17 +1,12 @@
 import Map from '@arcgis/core/Map'
 import MapView from '@arcgis/core/views/MapView'
-import SceneView from '@arcgis/core/views/SceneView'
 import Graphic from '@arcgis/core/Graphic'
 import { Polygon } from '@arcgis/core/geometry'
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer.js'
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol'
 import Color from '@arcgis/core/Color'
-import Camera from '@arcgis/core/Camera'
 
-import type { EsriToken, WellKnownExtent } from '@/types/app'
-import { getSetting } from '@/lib/data'
-import { get2dBasemap, get3dBasemap } from '@/lib/esri'
+import { get2dBasemap } from '@/lib/esri'
 
 /*
  * Functions in this module are not tested.
@@ -43,44 +38,6 @@ export const initExtentMap = (container: string, extent: WellKnownExtent) => {
   view.when(() => {
     view.graphics.add(extentGraphic)
   })
-}
-
-export const initExtentGlobe = (
-  /*
-   * Creates a basic 3D scene
-   *
-   * Consists of a basemap with a feature loaded from a restricted feature service that corresponds to the given extent.
-   * This is needed to load a feature with a densified geometry. This scene cannot show arbitrary geometries.
-   */
-  container: string,
-  extent: WellKnownExtent,
-  accessToken: EsriToken
-) => {
-  const basemap = get3dBasemap()
-
-  const map = new Map({
-    basemap: basemap,
-    ground: 'world-elevation',
-  })
-
-  const view = new SceneView({
-    container: container,
-    map: map,
-    ui: {
-      components: ['attribution', 'zoom', 'navigation-toggle'],
-    },
-    environment: {
-      lighting: {
-        type: 'virtual',
-      },
-    },
-  })
-
-  const layer = make3dExtentLayer(extent, accessToken)
-  map.add(layer)
-
-  // zoom to feature
-  navigateToFeature3d(view, layer)
 }
 
 export const loadCssTheme = () => {
@@ -146,57 +103,4 @@ export const make2dExtentGraphic = (extent: WellKnownExtent): Graphic => {
     geometry: extentPolygon,
     symbol: polygonSymbol,
   })
-}
-
-export const make3dExtentLayer = (extent: WellKnownExtent, token: EsriToken): FeatureLayer => {
-  /*
-   * Get feature layer from secure feature service
-   *
-   * This feature layer contains features for each Well Know Extent, which use densified geometries to ensure they can
-   * be displayed correctly in 3D and other projections. Each feature maps to a WKE via their slug (a property of the JS
-   * object and attribute in the feature layer). This layer is populated using a related Python script.
-   *
-   * In ArcGIS Online, applications cannot be granted access to restricted feature services, therefore an access token
-   * for a user acquired via OAuth is needed.
-   */
-  const endpoint = getSetting('app_extents_layer_endpoint')
-  const layer = new FeatureLayer({ url: endpoint, apiKey: token.accessToken })
-  layer.definitionExpression = `Slug = '${extent.slug}'`
-
-  return layer
-}
-
-export const navigateToFeature3d = async (view: SceneView, layer: FeatureLayer) => {
-  /*
-   * Zoom to a given feature from a layer in a 3D scene
-   *
-   * The feature to zoom to is the given extent.
-   *
-   * When zoomed to the selected feature likely won't be visible (due to some sort of bug with layer visibility settings).
-   * To work around this, the camera is zoomed out 300% after the initial zoom. This workaround is not suitable as it
-   * doesn't work for all features.
-   */
-  const query = layer.createQuery()
-  const results = await layer.queryFeatures(query)
-
-  await view.when()
-  await view.goTo({
-    target: results.features[0],
-    heading: 0,
-    tilt: 0,
-  })
-
-  // Zoom back out to workaround visibility bug
-  await view.goTo(
-    new Camera({
-      position: {
-        x: view.camera.position.x,
-        y: view.camera.position.y,
-        z: view.viewpoint.camera.position.z * 3, // zooming out
-        spatialReference: view.camera.position.spatialReference,
-      },
-      heading: view.camera.heading,
-      tilt: view.camera.tilt,
-    })
-  )
 }
