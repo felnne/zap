@@ -53,7 +53,6 @@ let distributionOption: ComputedRef<DistributionOption | undefined> = computed((
 watch(
   () => upload.value,
   () => {
-    // a download is only useful when there's a URL, which is sensitive to / embeds the format so doesn't need watching
     if (distributionOption.value) {
       emit('update:isoDistributionOption', distributionOption.value)
     }
