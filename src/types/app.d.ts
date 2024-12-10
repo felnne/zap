@@ -1,6 +1,7 @@
 import { AppEnvironmentLabel, ResourceType, UploadSource } from '@/types/enum'
 import type {
   Address,
+  GeographicExtent as GeographicExtentIso,
   GraphicOverview,
   Identifier,
   KeywordSet as KeywordSetIso,
@@ -132,7 +133,7 @@ type WellKnownExtent = {
   slug: string
   name: string
   extent: {
-    geographic: GeographicExtent
+    geographic: GeographicExtentIso
   }
   projectionSlug: string
 }

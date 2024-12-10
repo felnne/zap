@@ -12,6 +12,8 @@
 * initial record export component
 * initial thumbnail component
 * initial sample data component (very basic, only shown in local dev)
+* initial support for custom geographic extents
+* three column base layout
 
 ### Changed
 
@@ -27,6 +29,7 @@
 * Research topics component
 * Esri identifier (as not a 1:1 mapping)
 * WMS service (as no longer supported, replaced with placeholder to ensure services section still works)
+* 3D spatial extent visualisation
 
 ## [0.10.4] - 2024-10-18
 
