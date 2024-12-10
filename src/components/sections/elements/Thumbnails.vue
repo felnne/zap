@@ -9,6 +9,7 @@ import { getThumbnails } from '@/lib/data'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
+import SectionLabel from '@/components/bases/SectionLabel.vue'
 import Button from '@/components/bases/Button.vue'
 import Output from '@/components/bases/Output.vue'
 import Thumbnail from '@/components/sections/elements/Thumbnail.vue'
@@ -75,6 +76,18 @@ watch(
         >
           Add {{ thumbnail.identifier }}
         </Button>
+      </div>
+      <div v-if="graphicOverviewsCount > 0" class="space-y-4">
+        <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>
+        <div class="flex items-center space-x-2 border border-sky-500 p-2">
+          <figure
+            v-for="graphicOverview in Object.values(graphicOverviews)"
+            :key="graphicOverview.identifier"
+          >
+            <img :src="graphicOverview.href" :alt="graphicOverview.description" />
+            <figcaption>{{ graphicOverview.identifier }}</figcaption>
+          </figure>
+        </div>
       </div>
       <Output v-if="graphicOverviewsCount > 0" :data="Object.values(graphicOverviews)" />
     </div>
