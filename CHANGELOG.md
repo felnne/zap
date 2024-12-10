@@ -10,6 +10,8 @@
 * additional date types (creation, revision, released)
 * support for custom media types (GeoPDF, zipped ShapeFile etc.)
 * initial record export component
+* initial thumbnail component
+* initial sample data component (very basic, only shown in local dev)
 
 ### Changed
 
@@ -18,6 +20,7 @@
 * Reorganise static components separately from base components
 * upgrading dependencies
 * Simplifying default edition
+* Refactoring Download component into base Upload component with Download wrapper
 
 ### Removed
 

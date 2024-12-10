@@ -7,6 +7,7 @@ import type {
   Organisation,
   Projection,
   Service,
+  Thumbnail,
   WellKnownExtent,
 } from '@/types/app'
 import type { DomainConsistency } from '@/types/iso'
@@ -22,6 +23,7 @@ import profilesData from '@/data/profiles.json'
 import projectionsData from '@/data/projections.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
+import thumbnailsData from '@/data/thumbnails.json'
 
 type StrKeyObj = { [key: string]: unknown }
 
@@ -174,4 +176,16 @@ export const getServiceSlugs = (): string[] => {
 export const getSetting = (key: string): string => {
   /* Get specific application setting */
   return (settingsData.settings as Record<string, string>)[key]
+}
+
+export const getThumbnails = (): Thumbnail[] => {
+  /* Get information for all thumbnail types */
+  return Object.values(thumbnailsData.thumbnails).map(
+    ({ size_px_h, size_px_w, media_types, ...thumbnail }) => ({
+      ...thumbnail,
+      sizePxH: size_px_h,
+      sizePxW: size_px_w,
+      mediaTypes: media_types,
+    })
+  )
 }

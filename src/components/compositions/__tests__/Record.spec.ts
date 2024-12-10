@@ -2,12 +2,13 @@ import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import { ResourceType } from '@/types/enum'
-import type { AccessRestriction, Licence, Format } from '@/types/app'
+import { AppEnvironmentLabel, ResourceType } from '@/types/enum'
+import type { AppEnvironment, AccessRestriction, Licence, Format } from '@/types/app'
 import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
   DistributionOption as IsoDistributionOption,
+  GraphicOverview as IsoGraphicOverview,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
 } from '@/types/iso'
@@ -27,20 +28,32 @@ vi.mock('@/lib/esriNoTest', () => ({
   loadCssTheme: vi.fn().mockReturnValue({ mock: true }),
 }))
 
+const minimalEnvironment: AppEnvironment = {
+  label: AppEnvironmentLabel.LocalDevelopment,
+}
+
 describe('Record [Integration]', () => {
   let tocItemsDiv: HTMLDivElement
+  let tocItemsDivTools: HTMLDivElement
 
   beforeEach(() => {
     // TOC link in section title will be teleported into a '#toc-items-element' element so create a fake one to stop warnings
     tocItemsDiv = document.createElement('div')
     tocItemsDiv.id = 'toc-items-element'
     document.body.appendChild(tocItemsDiv)
+
+    tocItemsDivTools = document.createElement('div')
+    tocItemsDivTools.id = 'toc-items-tools'
+    document.body.appendChild(tocItemsDivTools)
   })
 
   it('emits ISO record correctly when a section set directly changes', async () => {
     const expectedAbstract = 'x'
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -71,6 +84,9 @@ describe('Record [Integration]', () => {
     const expectedContacts: IsoContact[] = [expectedAuthor, expectedPoC]
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -92,6 +108,38 @@ describe('Record [Integration]', () => {
     }
   })
 
+  it('emits ISO record correctly when a section that forms aggregated graphic overviews changes', async () => {
+    const expectedOverview: IsoGraphicOverview = {
+      identifier: 'x',
+      description: 'xx',
+      href: 'https://example.com/image.png',
+      mime_type: 'image/png',
+    }
+    const expectedOverviews: IsoGraphicOverview[] = [expectedOverview]
+
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+    await wrapper
+      .findComponent({ name: 'Thumbnails' })
+      .vm.$emit('update:isoGraphicOverviews', expectedOverviews)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.graphic_overviews).toEqual(expectedOverviews)
+    }
+  })
+
   it('emits ISO record correctly when a section that forms aggregated constraints changes', async () => {
     const expectedAccessRestriction: AccessRestriction = {
       slug: 'anonymous',
@@ -106,6 +154,9 @@ describe('Record [Integration]', () => {
     const expectedUsageConstraint: IsoConstraint = createUsageConstraint(expectedLicence)
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -154,6 +205,9 @@ describe('Record [Integration]', () => {
     ]
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -185,6 +239,9 @@ describe('Record [Integration]', () => {
 
   it('emits ISO record correctly when no sections that form aggregated distribution options set', async () => {
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -212,6 +269,9 @@ describe('Record [Integration]', () => {
     }
 
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -235,6 +295,9 @@ describe('Record [Integration]', () => {
 
   it('emits ISO record correctly when no sections that form aggregated lineage set', async () => {
     const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -255,8 +318,47 @@ describe('Record [Integration]', () => {
     }
   })
 
+  it('emits ISO record correctly when sample data is set', async () => {
+    const expectedTitle = 'x'
+    const expectedAbstract = 'xx'
+    const expectedLineage: IsoLineage = {
+      statement: 'xxx',
+    }
+
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    const component = wrapper.findComponent({ name: 'RecordSample' })
+    component.vm.emit('update:isoTitleValue', expectedTitle)
+    component.vm.$emit('update:isoAbstract', expectedAbstract)
+    component.vm.$emit('update:isoLineageStatement', expectedLineage.statement)
+
+    await wrapper.vm.$nextTick()
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index is to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.title.value).toEqual(expectedTitle)
+      expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
+      expect(emittedIsoRecordTyped.identification.lineage).toEqual(expectedLineage)
+    }
+  })
+
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
+    document.body.removeChild(tocItemsDivTools)
   })
 })

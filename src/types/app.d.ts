@@ -1,6 +1,7 @@
-import { AppEnvironmentLabel, ResourceType } from '@/types/enum'
+import { AppEnvironmentLabel, ResourceType, UploadSource } from '@/types/enum'
 import type {
   Address,
+  GraphicOverview,
   Identifier,
   KeywordSet as KeywordSetIso,
   OnlineResource,
@@ -118,6 +119,7 @@ export type Record = {
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
+  graphicOverviews?: GraphicOverview[]
 }
 
 type Service = {
@@ -133,4 +135,20 @@ type WellKnownExtent = {
     geographic: GeographicExtent
   }
   projectionSlug: string
+}
+
+type Thumbnail = {
+  slug: string
+  identifier: string
+  description: string
+  sizePxH: number
+  sizePxW: number
+  mediaTypes: string[]
+}
+
+type Upload = {
+  source: UploadSource
+  format: Format
+  sizeBytes: number
+  url: string
 }

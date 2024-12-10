@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import { ResourceType as ResourceTypeEM } from '@/types/enum'
+import { AppEnvironmentLabel, ResourceType as ResourceTypeEM } from '@/types/enum'
 import type {
   AccessRestriction,
+  AppEnvironment,
   DateImpreciseLabelled,
   EsriToken,
   Licence as LicenceT,
@@ -14,6 +15,7 @@ import type {
   Dates as IsoDates,
   DistributionOption as IsoDistributionOption,
   Extent as IsoExtent,
+  GraphicOverview as IsoGraphicOverview,
   Identifier,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
@@ -35,12 +37,18 @@ import GeographicExtent from '@/components/sections/elements/GeographicExtent.vu
 import Identifiers from '@/components/sections/elements/Identifiers.vue'
 import Licence from '@/components/sections/elements/Licence.vue'
 import Lineage from '@/components/sections/elements/Lineage.vue'
+import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
+import Thumbnails from '@/components/sections/elements/Thumbnails.vue'
 import Title from '@/components/sections/elements/Title.vue'
 
 defineProps({
+  appEnv: {
+    type: Object as () => AppEnvironment,
+    required: true,
+  },
   esriToken: {
     type: Object as () => EsriToken | undefined,
     default: undefined,
@@ -60,6 +68,8 @@ const magicPoC = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
 let contacts: ComputedRef<IsoContact[]> = computed(() => {
   return [...authors.value, magicPoC]
 })
+
+const thumbnails = ref<IsoGraphicOverview[]>([])
 
 const accessConstraint = ref<IsoConstraint | null>(null)
 const licenceConstraint = ref<IsoConstraint | null>(null)
@@ -104,6 +114,17 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
       identification: {
         ...mergedRecord.identification,
         contacts: contacts.value,
+      },
+    }
+  }
+
+  // merge isoRecord and thumbnails at 'isoRecord.identification.graphic_overviews' if not empty
+  if (thumbnails.value.length > 0) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        graphic_overviews: thumbnails.value,
       },
     }
   }
@@ -218,6 +239,10 @@ watch(
         (event: string) => (isoRecord.identification.other_citation_details = event)
       "
     />
+    <Thumbnails
+      :file-identifier="record.fileIdentifier"
+      @update:iso-graphic-overviews="(event: IsoGraphicOverview[]) => (thumbnails = event)"
+    />
     <Downloads
       v-if="show('downloads')"
       :file-identifier="record.fileIdentifier"
@@ -235,6 +260,12 @@ watch(
     />
     <Lineage
       v-if="show('lineage')"
+      @update:iso-lineage-statement="(event: string) => (lineageStatement = event)"
+    />
+    <RecordSample
+      v-if="appEnv.label == AppEnvironmentLabel.LocalDevelopment"
+      @update:iso-abstract="(event: string) => (isoRecord.identification.abstract = event)"
+      @update:iso-title-value="(event: string) => (isoRecord.identification.title.value = event)"
       @update:iso-lineage-statement="(event: string) => (lineageStatement = event)"
     />
   </section>

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "thumbnails": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Thumbnail" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "thumbnails"],
+  "definitions": {
+    "Thumbnail": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "identifier": { "type": "string" },
+        "description": { "type": "string" },
+        "size_px_h": { "type": "integer" },
+        "size_px_w": { "type": "integer" },
+        "media_types": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "identifier", "description", "media_types"]
+    }
+  }
+}

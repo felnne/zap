@@ -45,7 +45,7 @@ describe('Downloads', () => {
     // click button
     await wrapper.find('button#add-download').trigger('click')
 
-    // check a Download element is rendered
+    // check a upload element is rendered
     expect(wrapper.find('#download-1').exists()).toBeTruthy()
   })
 
@@ -112,7 +112,7 @@ describe('Downloads [Integration]', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('renders a file download if file download type picked', async () => {
+  it('renders a file download if file upload type picked', async () => {
     const wrapper = mount(Downloads, {
       props: {
         fileIdentifier: fileIdentifier,
@@ -129,14 +129,14 @@ describe('Downloads [Integration]', () => {
     // click add download button
     await wrapper.find('button#add-download').trigger('click')
 
-    // click file download type
-    await wrapper.find('button#download-file').trigger('click')
+    // click file upload source
+    await wrapper.find('button#upload-file').trigger('click')
 
-    // check a File Download element is rendered
+    // check a file upload element is rendered
     expect(wrapper.find('#download-1-file').exists()).toBeTruthy()
   })
 
-  it('renders a san download if san download type picked', async () => {
+  it('renders a san download if san upload source picked', async () => {
     const wrapper = mount(Downloads, {
       props: {
         fileIdentifier: fileIdentifier,
@@ -153,10 +153,10 @@ describe('Downloads [Integration]', () => {
     // click add download button
     await wrapper.find('button#add-download').trigger('click')
 
-    // click file download type
-    await wrapper.find('button#download-san').trigger('click')
+    // click file upload type
+    await wrapper.find('button#upload-san').trigger('click')
 
-    // check a File Download element is rendered
+    // check a SAN upload element is rendered
     expect(wrapper.find('#download-1-path').exists()).toBeTruthy()
   })
 
@@ -183,9 +183,6 @@ describe('Downloads [Integration]', () => {
 
     // add download
     await wrapper.find('button#add-download').trigger('click')
-
-    // pick file download type
-    await wrapper.find('button#download-file').trigger('click')
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
@@ -231,9 +228,6 @@ describe('Downloads [Integration]', () => {
 
     // add download
     await wrapper.find('button#add-download').trigger('click')
-
-    // pick file download type
-    await wrapper.find('button#download-file').trigger('click')
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
