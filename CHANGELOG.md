@@ -12,6 +12,7 @@
 * initial record export component
 * initial thumbnail component
 * initial sample data component (very basic, only shown in local dev)
+* three column base layout
 
 ### Changed
 
