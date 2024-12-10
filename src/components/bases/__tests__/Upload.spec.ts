@@ -40,10 +40,12 @@ describe('Upload', () => {
     await childComponent.vm.$emit('update:sizeBytes', expectedSizeBytes)
     await childComponent.vm.$emit('update:url', expectedUrl)
 
-    const emittedUpload: unknown[][] | undefined = wrapper.emitted('update:upload')
-    expect(emittedUpload).toBeTruthy()
-    if (emittedUpload) {
-      expect(emittedUpload[0][0]).toEqual(expectedUploadFile)
+    const emittedUploads: unknown[][] | undefined = wrapper.emitted('update:upload')
+    expect(emittedUploads).toBeTruthy()
+    if (emittedUploads) {
+      // skip to the last index to wait for all property updates to apply
+      const emittedUpload = emittedUploads[emittedUploads.length - 1][0]
+      expect(emittedUpload).toEqual(expectedUploadFile)
     }
   })
 
