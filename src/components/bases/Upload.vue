@@ -33,20 +33,20 @@ let sizeBytes = ref<number | undefined>(undefined)
 let url = ref<string | undefined>(undefined)
 
 let upload: ComputedRef<Upload | undefined> = computed(() => {
-  if (!source.value || !format.value || !sizeBytes.value || !url.value) return undefined
+  if (!source.value || !format.value || !sizeBytes.value) return undefined
+  const url_ = url.value ? url.value : ''
 
   return {
     source: source.value,
     format: format.value,
     sizeBytes: sizeBytes.value,
-    url: url.value,
+    url: url_,
   }
 })
 
 watch(
-  () => url.value,
+  () => format.value,
   () => {
-    // a upload is only useful when there's a URL, which is sensitive to/embeds the format so doesn't need watching
     if (upload.value) {
       emit('update:upload', upload.value)
     }
