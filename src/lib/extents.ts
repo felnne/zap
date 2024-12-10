@@ -1,16 +1,16 @@
-import type { Projection, WellKnownExtent } from '@/types/app'
-import type { Extent, ReferenceSystemInfo } from '@/types/iso'
+import type { Projection } from '@/types/app'
+import type { GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
 
-export const createExtent = (wke: WellKnownExtent, identifier: string): Extent => {
+export const createExtent = (extent: GeographicExtent, identifier: string): Extent => {
   /*
-   * Convert an application specific Well Known Extent into an (identified) ISO 19115 geographic extent
+   * Convert a Geographic extent into an (identified) ISO 19115 geographic extent
    *
    * The BAS Metadata Library requires extents to be identified via an ID, with at least a 'bounding' extent.
    * As the WKE is a wrapper around an ISO 19115 geographic extent, that subset is returned without change.
    */
   return {
     identifier: identifier,
-    geographic: wke.extent.geographic,
+    geographic: extent,
   }
 }
 

@@ -4,6 +4,7 @@
     { "label": "BAS Research Topics topic keywords.", "state": "removed" },
     { "label": "ISO topic mapped from research topic.", "state": "removed" },
     { "label": "Place keywords based on Well-Known Extents.", "state": "todo" },
+    { "label": "Custom spatial extents.", "state": "complete" },
     { "label": "Table of contents.", "state": "complete" },
     { "label": "Dark mode.", "state": "complete" },
     { "label": "DOI identifier based on file identifier.", "state": "complete" },

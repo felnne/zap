@@ -6,6 +6,7 @@ import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol'
 import Color from '@arcgis/core/Color'
 
+import type { GeographicExtent } from '@/types/iso'
 import { get2dBasemap } from '@/lib/esri'
 
 /*
@@ -15,7 +16,7 @@ import { get2dBasemap } from '@/lib/esri'
  * Esri are aware of this limitation, and are investigating a solution, but is dependent on an upstream library they use.
  */
 
-export const initExtentMap = (container: string, extent: WellKnownExtent) => {
+export const initExtentMap = (container: string, extent: GeographicExtent) => {
   /*
    * Creates a basic 2D map
    *
@@ -54,7 +55,7 @@ export const loadCssTheme = () => {
   }
 }
 
-export const make2dExtentGraphic = (extent: WellKnownExtent): Graphic => {
+export const make2dExtentGraphic = (extent: GeographicExtent): Graphic => {
   /*
    * Construct a polygon graphic from a Well Known Extent
    *
@@ -72,10 +73,10 @@ export const make2dExtentGraphic = (extent: WellKnownExtent): Graphic => {
    * Where: [west, east, south, north] = [xmin, ymin, xmax, ymax]
    */
   const bbox = [
-    extent.extent.geographic.bounding_box.west_longitude,
-    extent.extent.geographic.bounding_box.east_longitude,
-    extent.extent.geographic.bounding_box.north_latitude,
-    extent.extent.geographic.bounding_box.south_latitude,
+    extent.bounding_box.west_longitude,
+    extent.bounding_box.east_longitude,
+    extent.bounding_box.north_latitude,
+    extent.bounding_box.south_latitude,
   ]
 
   const extentPolygon = new Polygon({

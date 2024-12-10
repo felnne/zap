@@ -74,7 +74,7 @@ describe('GeographicExtent', () => {
       expect(emittedIsoExtent[0][0]).toEqual(expectedInitialIsoExtent)
     }
 
-    // set radio input with id 'extent-sub_antarctica' to checked
+    // set radio input with id 'extent-sub_antarctica' to checked (well known extent)
     await wrapper.find('input#extent-sub_antarctica').setValue()
 
     await wrapper.vm.$nextTick()
@@ -85,7 +85,7 @@ describe('GeographicExtent', () => {
     }
   })
 
-  it('renders extent from choice', async () => {
+  it('renders extent from well known extent choice', async () => {
     const wke = getExtent('antarctica')
     const projection = getProjection(wke.projectionSlug)
 
@@ -113,7 +113,7 @@ describe('GeographicExtent', () => {
     expect(wrapper.find('#spatial-crs pre').text()).toBe(JSON.stringify(expectedCRS, null, 2))
   })
 
-  it('updates extent from choice', async () => {
+  it('updates extent from well known extent choice', async () => {
     const expectedValueInExtent = -50
 
     const wrapper = mount(GeographicExtent, {
@@ -126,6 +126,25 @@ describe('GeographicExtent', () => {
 
     // set radio input with id 'extent-sub_antarctica' to checked
     await wrapper.find('input#extent-sub_antarctica').setValue()
+
+    expect(wrapper.find('pre').text()).toContain(expectedValueInExtent)
+  })
+
+  it('renders extent from custom extent choice', async () => {
+    const expectedValueInExtent = 100
+
+    const wrapper = mount(GeographicExtent, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // set radio input with id 'extent-custom' to checked
+    await wrapper.find('input#extent-custom').setValue()
+
+    await wrapper.find('input#bbox-west-long').setValue(expectedValueInExtent)
 
     expect(wrapper.find('pre').text()).toContain(expectedValueInExtent)
   })
