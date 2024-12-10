@@ -127,6 +127,8 @@ describe('Record [Integration]', () => {
         },
       },
     })
+
+    // simulate event from thumbnails component that sets thumbnails computed property
     await wrapper
       .findComponent({ name: 'Thumbnails' })
       .vm.$emit('update:isoGraphicOverviews', expectedOverviews)

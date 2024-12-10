@@ -33,7 +33,8 @@ let graphicOverview: ComputedRef<GraphicOverview | undefined> = computed(() => {
     !upload.value ||
     !upload.value.format ||
     !upload.value.format.mediaTypes ||
-    !upload.value.format.mediaTypes[0]
+    !upload.value.format.mediaTypes[0] ||
+    upload.value.url === ''
   )
     return undefined
 
