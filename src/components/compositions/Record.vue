@@ -59,8 +59,25 @@ const emit = defineEmits<{
   'update:isoRecord': [id: IsoRecord]
 }>()
 
-const record = ref<Record>(emptyRecord)
+const show = (section: string): boolean => showSection(section, record.value.resourceType)
 
+const setSummary = (summary: string) => {
+  if (summary !== '') {
+    isoRecord.value.identification.purpose = summary
+  } else {
+    delete isoRecord.value.identification.purpose
+  }
+}
+
+const setCitation = (citation: string) => {
+  if (citation !== '') {
+    isoRecord.value.identification.other_citation_details = citation
+  } else {
+    delete isoRecord.value.identification.other_citation_details
+  }
+}
+
+const record = ref<Record>(emptyRecord)
 const isoRecord = ref<IsoRecord>(emptyIsoRecord)
 
 const authors = ref<IsoContact[]>([])
@@ -162,8 +179,6 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
   return mergedRecord
 })
 
-const show = (section: string): boolean => showSection(section, record.value.resourceType)
-
 watch(
   () => isoRecordMerged.value,
   () => {
@@ -206,7 +221,7 @@ watch(
     />
     <Summary
       :abstract="record.abstract"
-      @update:iso-purpose="(event: string) => (isoRecord.identification.purpose = event)"
+      @update:iso-purpose="(event: string) => setSummary(event)"
     />
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
@@ -235,9 +250,7 @@ watch(
     <Citation
       v-if="show('citation')"
       :record="record"
-      @update:iso-other-citation-details="
-        (event: string) => (isoRecord.identification.other_citation_details = event)
-      "
+      @update:iso-other-citation-details="(event: string) => setCitation(event)"
     />
     <Thumbnails
       :file-identifier="record.fileIdentifier"

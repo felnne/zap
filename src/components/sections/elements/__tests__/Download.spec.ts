@@ -3,14 +3,14 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType, UploadSource } from '@/types/enum'
-import type { Format, Licence, Upload as UploadT } from '@/types/app'
+import type { DistributionOptionIndexed, Format, Licence, Upload as UploadT } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { getFormatByType, getLicence } from '@/lib/data'
 import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
 
 import Download from '@/components/sections/elements/Download.vue'
 
-const index = 1
+const index = '1'
 const fileIdentifier = 'x'
 const resourceType = ResourceType.Dataset
 const licence: Licence = getLicence('OGL_UK_3_0')
@@ -26,9 +26,13 @@ const expectedDistributionOption: DistributionOption = createDownloadDistributio
   distributor,
   expectedSizeBytes
 )
+const expectedDistributionOptionIndexed: DistributionOptionIndexed = {
+  index: index,
+  distributionOption: expectedDistributionOption,
+}
 
 describe('Download', () => {
-  it('emits and renders distribution option when distributor and format are valid and URL set', async () => {
+  it('emits distribution option when distributor and format are valid and URL set', async () => {
     const UploadFile: UploadT = {
       source: UploadSource.File,
       format: expectedFormat,
@@ -54,14 +58,37 @@ describe('Download', () => {
     const childComponent = wrapper.findComponent({ name: 'Upload' })
     await childComponent.vm.$emit('update:upload', UploadFile)
 
-    expect(wrapper.find('pre').text()).toBe(JSON.stringify(expectedDistributionOption, null, 2))
-
     const emittedIsoDistOptionsDownload: unknown[][] | undefined = wrapper.emitted(
-      'update:isoDistributionOption'
+      'update:distributionOptionIndexed'
     )
     expect(emittedIsoDistOptionsDownload).toBeTruthy()
     if (emittedIsoDistOptionsDownload) {
-      expect(emittedIsoDistOptionsDownload[0][0]).toEqual(expectedDistributionOption)
+      expect(emittedIsoDistOptionsDownload[0][0]).toEqual(expectedDistributionOptionIndexed)
+    }
+  })
+
+  it('emits destroy event when remove button clicked', async () => {
+    const wrapper = mount(Download, {
+      props: {
+        index: index,
+        fileIdentifier: fileIdentifier,
+        resourceType: resourceType,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click #download-{index}-destroy button (e.g. #download-1-destroy)
+    await wrapper.find(`button#download-${index}-destroy`).trigger('click')
+
+    const emittedDestroy: unknown[][] | undefined = wrapper.emitted('destroy')
+    expect(emittedDestroy).toBeTruthy()
+    if (emittedDestroy) {
+      expect(emittedDestroy[0][0]).toEqual(index)
     }
   })
 })

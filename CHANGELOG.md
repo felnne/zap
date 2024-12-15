@@ -14,6 +14,7 @@
 * initial sample data component (very basic, only shown in local dev)
 * initial support for custom geographic extents
 * three column base layout
+* removable optional sections (downloads, thumbnails, summary and citation)
 
 ### Changed
 

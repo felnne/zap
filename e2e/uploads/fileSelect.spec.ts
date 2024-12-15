@@ -15,7 +15,7 @@ test('can select file, and output is rendered correctly', async ({ page }) => {
   })
 
   // assert details about file are in rendered distribution option
-  const downloadOutput = await page.textContent('#download-1-output pre')
+  const downloadOutput = await page.textContent('#downloads-output pre')
   expect(downloadOutput).toContain(`"href": ""`)
   expect(downloadOutput).toContain(
     '"href": "https://www.iana.org/assignments/media-types/image/png"'

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import type { Format, Licence } from '@/types/app'
+import type { DistributionOptionIndexed, Format, Licence } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { deepMergeObjects, getFormatByType, getFormatExtensions, getLicence } from '@/lib/data'
 import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
@@ -160,13 +160,17 @@ describe('Downloads [Integration]', () => {
     expect(wrapper.find('#download-1-path').exists()).toBeTruthy()
   })
 
-  it('adds and emits a distributionOption', async () => {
+  it('renders and emits a DistributionOptionIndexed from a download', async () => {
     const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
       expectedFormat,
       expectedUrl,
       expectedDistributor,
       expectedSizeBytes
     )
+    const expectedDistributionOptionIndexed: DistributionOptionIndexed = {
+      index: '1',
+      distributionOption: expectedDistributionOption,
+    }
 
     const wrapper = mount(Downloads, {
       props: {
@@ -186,7 +190,14 @@ describe('Downloads [Integration]', () => {
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
-    await childComponent.vm.$emit('update:isoDistributionOption', expectedDistributionOption)
+    await childComponent.vm.$emit(
+      'update:distributionOptionIndexed',
+      expectedDistributionOptionIndexed
+    )
+
+    expect(wrapper.find('#downloads-output pre').text()).toBe(
+      JSON.stringify([expectedDistributionOption], null, 2)
+    )
 
     const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
       'update:isoDistOptionsDownloads'
@@ -197,9 +208,8 @@ describe('Downloads [Integration]', () => {
     }
   })
 
-  it('updates and emits an updated distributionOption', async () => {
-    // this is no longer a realistic example of when a distributionOption would be updated (as the URL would now never
-    // be blank) but I can't think of a better example right now.
+  it('updates and emits an updated distributionOptionIndexed', async () => {
+    const index = '1'
     const initialUrl = ''
     const updatedUrl = expectedUrl
     const expectedInitialDistributionOption: DistributionOption = createDownloadDistributionOption(
@@ -212,6 +222,14 @@ describe('Downloads [Integration]', () => {
       { transfer_option: { online_resource: { href: updatedUrl } } },
       expectedInitialDistributionOption
     ) as DistributionOption
+    const expectedInitialDistributionOptionIndexed: DistributionOptionIndexed = {
+      index: index,
+      distributionOption: expectedInitialDistributionOption,
+    }
+    const expectedUpdatedDistributionOptionIndexed: DistributionOptionIndexed = {
+      index: index,
+      distributionOption: expectedUpdatedDistributionOption,
+    }
 
     const wrapper = mount(Downloads, {
       props: {
@@ -231,7 +249,10 @@ describe('Downloads [Integration]', () => {
 
     // simulate event from child component
     const childComponent = wrapper.findComponent({ name: 'Download' })
-    await childComponent.vm.$emit('update:isoDistributionOption', expectedInitialDistributionOption)
+    await childComponent.vm.$emit(
+      'update:distributionOptionIndexed',
+      expectedInitialDistributionOptionIndexed
+    )
 
     const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
       'update:isoDistOptionsDownloads'
@@ -242,10 +263,138 @@ describe('Downloads [Integration]', () => {
     }
 
     // simulate event from child component again (after update)
-    await childComponent.vm.$emit('update:isoDistributionOption', expectedUpdatedDistributionOption)
+    await childComponent.vm.$emit(
+      'update:distributionOptionIndexed',
+      expectedUpdatedDistributionOptionIndexed
+    )
     if (emittedIsoDistOptionsDownloads) {
       expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([expectedUpdatedDistributionOption])
     }
+  })
+
+  it('removes a download and emits updated distribution options', async () => {
+    const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
+      expectedFormat,
+      expectedUrl,
+      expectedDistributor,
+      expectedSizeBytes
+    )
+    const expectedDistributionOptionIndexed: DistributionOptionIndexed = {
+      index: '1',
+      distributionOption: expectedDistributionOption,
+    }
+
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add download
+    await wrapper.find('button#add-download').trigger('click')
+    const childComponent = wrapper.findComponent({ name: 'Download' })
+
+    // simulate update event from child component
+    await childComponent.vm.$emit(
+      'update:distributionOptionIndexed',
+      expectedDistributionOptionIndexed
+    )
+    const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
+      'update:isoDistOptionsDownloads'
+    )
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption])
+    }
+
+    // simulate destroy event from child component
+    await childComponent.vm.$emit('destroy', expectedDistributionOptionIndexed.index)
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([])
+    }
+  })
+
+  it('removes a download, leaving existing distribution options and not reusing removed index', async () => {
+    const expectedDistributionOption1: DistributionOption = createDownloadDistributionOption(
+      expectedFormat,
+      expectedUrl,
+      expectedDistributor,
+      expectedSizeBytes
+    )
+    const expectedDistributionOptionIndexed1: DistributionOptionIndexed = {
+      index: '1',
+      distributionOption: expectedDistributionOption1,
+    }
+    const expectedDistributionOption2: DistributionOption = createDownloadDistributionOption(
+      expectedFormat,
+      'https://example.com/image2.png',
+      expectedDistributor,
+      expectedSizeBytes
+    )
+    const expectedDistributionOptionIndexed2: DistributionOptionIndexed = {
+      index: '2',
+      distributionOption: expectedDistributionOption2,
+    }
+
+    const wrapper = mount(Downloads, {
+      props: {
+        fileIdentifier: fileIdentifier,
+        resourceType: ResourceType.Dataset,
+        licence: licence,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add downloads
+    await wrapper.find('button#add-download').trigger('click')
+    await wrapper.find('button#add-download').trigger('click')
+
+    // simulate event from 1st download child component
+    const download1 = wrapper.findAllComponents({ name: 'Download' })[0]
+    await download1.vm.$emit('update:distributionOptionIndexed', expectedDistributionOptionIndexed1)
+    const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
+      'update:isoDistOptionsDownloads'
+    )
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption1])
+    }
+
+    // simulate event from 2nd download child component
+    const download2 = wrapper.findAllComponents({ name: 'Download' })[1]
+    await download2.vm.$emit('update:distributionOptionIndexed', expectedDistributionOptionIndexed2)
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([
+        expectedDistributionOption1,
+        expectedDistributionOption2,
+      ])
+    }
+
+    // simulate destroy event from 1st child component
+    await download1.vm.$emit('destroy', expectedDistributionOptionIndexed1.index)
+    expect(emittedIsoDistOptionsDownloads).toBeTruthy()
+    if (emittedIsoDistOptionsDownloads) {
+      expect(emittedIsoDistOptionsDownloads[2][0]).toEqual([expectedDistributionOption2])
+    }
+
+    // add another download
+    await wrapper.find('button#add-download').trigger('click')
+
+    // check the new download has a new index
+    const download3 = wrapper.findAllComponents({ name: 'Download' })[1]
+    expect(download3.find('button#download-3-destroy').exists()).toBeTruthy()
   })
 
   afterEach(() => {

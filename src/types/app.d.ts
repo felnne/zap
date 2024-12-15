@@ -1,8 +1,9 @@
 import { AppEnvironmentLabel, ResourceType, UploadSource } from '@/types/enum'
 import type {
   Address,
+  DistributionOption as DistributionOptionIso,
   GeographicExtent as GeographicExtentIso,
-  GraphicOverview,
+  GraphicOverview as GraphicOverviewIso,
   Identifier,
   KeywordSet as KeywordSetIso,
   OnlineResource,
@@ -39,6 +40,11 @@ export type DateImprecise = {
 export type DateImpreciseLabelled = {
   date: DateImprecise
   label: string
+}
+
+export type DistributionOptionIndexed = {
+  index: string
+  distributionOption: DistributionOptionIso
 }
 
 type DropdownItem = {
@@ -120,7 +126,7 @@ export type Record = {
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
-  graphicOverviews?: GraphicOverview[]
+  graphicOverviews?: GraphicOverviewIso[]
 }
 
 type Service = {

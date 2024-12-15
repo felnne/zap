@@ -4,25 +4,11 @@ import { mount } from '@vue/test-utils'
 import UploadFile from '@/components/bases/UploadFile.vue'
 
 const context = 'foo'
+const identifier = 'x'
 const fileIdentifier = 'x'
 
 describe('UploadFile', () => {
-  it('renders correctly with numeric identifier', async () => {
-    const identifier = 1
-    const wrapper = mount(UploadFile, {
-      props: {
-        context: context,
-        identifier: identifier,
-        fileIdentifier: fileIdentifier,
-      },
-    })
-
-    // expect input to exist with id '{context}-{identifier}-file' (e.g. 'foo-1-file')
-    expect(wrapper.find(`input#${context}-${identifier}-file`).exists()).toBeTruthy()
-  })
-
   it('renders correctly with string identifier', async () => {
-    const identifier = 'x'
     const wrapper = mount(UploadFile, {
       props: {
         context: context,

@@ -8,8 +8,8 @@ import { getFormatByType } from '@/lib/data'
 import Upload from '@/components/bases/Upload.vue'
 
 const context = 'foo'
-const identifier = 1
-const fileIdentifier = 'x'
+const identifier = 'x'
+const fileIdentifier = 'xx'
 
 const expectedFormat: Format = getFormatByType('image/png') as Format
 const expectedSizeBytes = 3843

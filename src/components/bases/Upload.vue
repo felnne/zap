@@ -14,7 +14,7 @@ defineProps({
     required: true,
   },
   identifier: {
-    type: [Number, String],
+    type: String,
     required: true,
   },
   fileIdentifier: {
@@ -76,8 +76,6 @@ watch(
     ></UploadSan>
   </template>
   <template v-else>
-    <p>
-      <UploadSwitcher @update:source="(event: UploadSource) => (source = event)"></UploadSwitcher>
-    </p>
+    <UploadSwitcher @update:source="(event: UploadSource) => (source = event)"></UploadSwitcher>
   </template>
 </template>

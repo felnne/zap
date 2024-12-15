@@ -25,6 +25,15 @@ const emit = defineEmits<{
   'update:isoGraphicOverviews': [id: GraphicOverview[]]
 }>()
 
+const update = (identifier: string, graphic: GraphicOverview) => {
+  graphicOverviews.value[identifier] = graphic
+}
+
+const destroy = (identifier: string) => {
+  selectedThumbnails.value = selectedThumbnails.value.filter((i) => i.slug !== identifier)
+  delete graphicOverviews.value[identifier]
+}
+
 const dependantSections: DropdownItem[] = [{ href: '#file-identifier', title: 'File Identifier' }]
 
 const thumbnailTypes = getThumbnails()
@@ -62,9 +71,8 @@ watch(
         :identifier="thumbnail.identifier"
         :description="thumbnail.description"
         :file-identifier="fileIdentifier"
-        @update:iso-graphic-overview="
-          (event: GraphicOverview) => (graphicOverviews[thumbnail.slug] = event)
-        "
+        @update:iso-graphic-overview="(event: GraphicOverview) => update(thumbnail.slug, event)"
+        @destroy="destroy(thumbnail.slug)"
       ></Thumbnail>
       <div class="flex items-center space-x-2">
         <Button
@@ -89,7 +97,11 @@ watch(
           </figure>
         </div>
       </div>
-      <Output v-if="graphicOverviewsCount > 0" :data="Object.values(graphicOverviews)" />
+      <Output
+        v-if="graphicOverviewsCount > 0"
+        id="thumbnails-output"
+        :data="Object.values(graphicOverviews)"
+      />
     </div>
   </SectionBorder>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, type PropType, watch } from 'vue'
+import { computed, type ComputedRef, ref, type PropType, watch } from 'vue'
 
 import { ResourceType, Stability, SectionType } from '@/types/enum'
 
-import type { DropdownItem, Licence } from '@/types/app'
+import type { DistributionOptionIndexed, DropdownItem, Licence } from '@/types/app'
 import type { DistributionOption } from '@/types/iso'
 import { getFormatExtensions } from '@/lib/data'
 
@@ -11,6 +11,7 @@ import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Button from '@/components/bases/Button.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
+import Output from '@/components/bases/Output.vue'
 import Download from '@/components/sections/elements/Download.vue'
 
 defineProps({
@@ -32,6 +33,20 @@ const emit = defineEmits<{
   'update:isoDistOptionsDownloads': [id: DistributionOption[]]
 }>()
 
+const add = () => {
+  indexCount.value += 1
+  indexes.value.push(String(indexCount.value))
+}
+
+const update = (option: DistributionOptionIndexed) => {
+  distributionOptions.value[option.index] = option.distributionOption
+}
+
+const destroy = (index: string) => {
+  indexes.value = indexes.value.filter((i) => i !== index)
+  delete distributionOptions.value[index]
+}
+
 const dependantSections: DropdownItem[] = [
   { href: '#file-identifier', title: 'File Identifier' },
   { href: '#licence', title: 'Licence' },
@@ -40,9 +55,13 @@ const dependantSections: DropdownItem[] = [
 
 const supportedExtensions = getFormatExtensions()
 
-const distributionOptions = ref<Record<string, DistributionOption>>({})
+let indexCount = ref<number>(0)
+let indexes = ref<string[]>([])
+let distributionOptions = ref<Record<string, DistributionOption>>({})
 
-let count = ref(0)
+let distributionOptionsCount: ComputedRef<number> = computed(() => {
+  return Object.keys(distributionOptions.value).length
+})
 
 watch(
   () => distributionOptions,
@@ -65,18 +84,17 @@ watch(
     />
     <div class="space-y-4">
       <Download
-        v-for="index in count"
+        v-for="index in indexes"
         :key="index"
         :file-identifier="fileIdentifier"
         :resource-type="resourceType"
         :licence="licence"
         :index="index"
-        @update:iso-distribution-option="
-          (event: DistributionOption) => (distributionOptions[index] = event)
-        "
+        @update:distribution-option-indexed="(event: DistributionOptionIndexed) => update(event)"
+        @destroy="(event: string) => destroy(event)"
       ></Download>
       <div class="flex items-center space-x-2">
-        <Button id="add-download" @click="count++"> Add Download </Button>
+        <Button id="add-download" @click="add()"> Add Download </Button>
         <GuidanceText
           >Supported formats:
           <template v-for="(ext, index) in supportedExtensions" :key="ext">
@@ -85,6 +103,11 @@ watch(
           </template>
         </GuidanceText>
       </div>
+      <Output
+        v-if="distributionOptionsCount > 0"
+        id="downloads-output"
+        :data="Object.values(distributionOptions)"
+      />
     </div>
   </SectionBorder>
 </template>

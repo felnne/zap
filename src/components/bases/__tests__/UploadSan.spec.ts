@@ -12,7 +12,7 @@ import UploadSan from '@/components/bases/UploadSan.vue'
 vi.mock('axios')
 
 const context = 'foo'
-const identifier = 1
+const identifier = 'x'
 
 describe('UploadSan', () => {
   afterEach(() => {
