@@ -6,6 +6,7 @@ import type { GraphicOverview } from '@/types/iso'
 
 import SubSectionBorder from '@/components/bases/SubSectionBorder.vue'
 import Upload from '@/components/bases/Upload.vue'
+import Button from '@/components/bases/Button.vue'
 
 const props = defineProps({
   identifier: {
@@ -23,8 +24,13 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
+  destroy: [id: void]
   'update:isoGraphicOverview': [id: GraphicOverview]
 }>()
+
+const destroy = () => {
+  emit('destroy')
+}
 
 let upload = ref<UploadT | undefined>(undefined)
 
@@ -58,12 +64,13 @@ watch(
 </script>
 
 <template>
-  <SubSectionBorder :id="'thumbnail-' + identifier" class="space-y-2">
+  <SubSectionBorder :id="'thumbnail-' + identifier" class="flex space-x-4">
     <Upload
       :context="'thumbnail'"
       :identifier="identifier"
       :file-identifier="fileIdentifier"
       @update:upload="(event: UploadT) => (upload = event)"
     ></Upload>
+    <Button :id="'thumbnail-' + identifier + '-destroy'" @click="destroy()">✖️</Button>
   </SubSectionBorder>
 </template>

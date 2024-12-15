@@ -14,6 +14,6 @@ test('unsupported file types are rejected correctly', async ({ page }) => {
     await dialog.accept()
   })
 
-  const element = await page.$('#download-1-output pre')
+  const element = await page.$('#downloads-output pre')
   expect(element).toBeNull()
 })

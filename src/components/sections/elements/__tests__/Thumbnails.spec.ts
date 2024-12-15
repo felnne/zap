@@ -64,6 +64,30 @@ describe('Thumbnails', () => {
     expect(button.attributes().disabled).toBe('')
   })
 
+  it('thumbnail type button is re-enabled after destroying previous instance', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click thumbnail type button
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // destroy thumbnail type
+    const childComponent = wrapper.findComponent({ name: 'Thumbnail' })
+    await childComponent.vm.$emit('destroy')
+
+    // same thumbnail type button is enabled
+    const button = wrapper.find('button#add-thumbnail-overview')
+    expect(button.attributes().disabled).toBeUndefined()
+  })
+
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
@@ -102,7 +126,7 @@ describe('Thumbnails [Integration]', () => {
     expect(wrapper.find('#thumbnail-overview-file').exists()).toBeTruthy()
   })
 
-  it('adds and emits a graphicOverview', async () => {
+  it('renders and emits a graphicOverview', async () => {
     const wrapper = mount(Thumbnails, {
       props: {
         fileIdentifier: fileIdentifier,
@@ -121,7 +145,9 @@ describe('Thumbnails [Integration]', () => {
     const childComponent = wrapper.findComponent({ name: 'Thumbnail' })
     await childComponent.vm.$emit('update:isoGraphicOverview', expectedOverview)
 
-    expect(wrapper.find('pre').text()).toBe(JSON.stringify([expectedOverview], null, 2))
+    expect(wrapper.find('#thumbnails-output pre').text()).toBe(
+      JSON.stringify([expectedOverview], null, 2)
+    )
 
     const emittedIsoGraphicOverviews: unknown[][] | undefined = wrapper.emitted(
       'update:isoGraphicOverviews'
@@ -129,6 +155,40 @@ describe('Thumbnails [Integration]', () => {
     expect(emittedIsoGraphicOverviews).toBeTruthy()
     if (emittedIsoGraphicOverviews) {
       expect(emittedIsoGraphicOverviews[0][0]).toEqual([expectedOverview])
+    }
+  })
+
+  it('removes a download and emits updated graphicOverviews', async () => {
+    const wrapper = mount(Thumbnails, {
+      props: {
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // add thumbnail
+    await wrapper.find('button#add-thumbnail-overview').trigger('click')
+
+    // simulate event from child component
+    const childComponent = wrapper.findComponent({ name: 'Thumbnail' })
+    await childComponent.vm.$emit('update:isoGraphicOverview', expectedOverview)
+    const emittedIsoGraphicOverviews: unknown[][] | undefined = wrapper.emitted(
+      'update:isoGraphicOverviews'
+    )
+    expect(emittedIsoGraphicOverviews).toBeTruthy()
+    if (emittedIsoGraphicOverviews) {
+      expect(emittedIsoGraphicOverviews[0][0]).toEqual([expectedOverview])
+    }
+
+    // simulate destroy event from child component
+    await childComponent.vm.$emit('destroy')
+    expect(emittedIsoGraphicOverviews).toBeTruthy()
+    if (emittedIsoGraphicOverviews) {
+      expect(emittedIsoGraphicOverviews[1][0]).toEqual([])
     }
   })
 

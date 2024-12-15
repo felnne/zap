@@ -18,6 +18,6 @@ test('unsupported file types are rejected correctly', async ({ page }) => {
 
   expect(await page.inputValue('input#download-1-path')).toEqual('')
 
-  const element = await page.$('#download-1-output pre')
+  const element = await page.$('#downloads-output pre')
   expect(element).toBeNull()
 })

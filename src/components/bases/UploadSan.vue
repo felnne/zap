@@ -17,7 +17,7 @@ defineProps({
     required: true,
   },
   identifier: {
-    type: [Number, String],
+    type: String,
     required: true,
   },
 })

@@ -320,6 +320,43 @@ describe('Record [Integration]', () => {
     }
   })
 
+  it('emits ISO record correctly when an optional section is set to an empty value', async () => {
+    const expectedSummary = 'x'
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from optional child component to trigger ISO record emit
+    await wrapper.findComponent({ name: 'Summary' }).vm.$emit('update:isoPurpose', expectedSummary)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect to have summary property set
+      expect(emittedIsoRecordTyped.identification.purpose).toEqual(expectedSummary)
+    }
+
+    // simulate event from optional child component to trigger ISO record emit with empty value
+    await wrapper.findComponent({ name: 'Summary' }).vm.$emit('update:isoPurpose', '')
+
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for any updates
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect not to have summary property set
+      expect(emittedIsoRecordTyped.identification.purpose).toBeUndefined()
+    }
+  })
+
   it('emits ISO record correctly when sample data is set', async () => {
     const expectedTitle = 'x'
     const expectedAbstract = 'xx'

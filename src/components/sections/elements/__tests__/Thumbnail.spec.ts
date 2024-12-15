@@ -58,4 +58,25 @@ describe('Thumbnail', () => {
       expect(emittedIsoGraphicOverview[0][0]).toEqual(expectedOverview)
     }
   })
+
+  it('emits destroy event when remove button clicked', async () => {
+    const wrapper = mount(Thumbnail, {
+      props: {
+        identifier: identifier,
+        description: description,
+        fileIdentifier: fileIdentifier,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // click #thumbnail-{identifier}-destroy button (e.g. #thumbnail-overview-destroy)
+    await wrapper.find(`button#thumbnail-${identifier}-destroy`).trigger('click')
+
+    const emittedDestroy: unknown[][] | undefined = wrapper.emitted('destroy')
+    expect(emittedDestroy).toBeTruthy()
+  })
 })
