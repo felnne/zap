@@ -18,6 +18,7 @@ import type {
   GraphicOverview as IsoGraphicOverview,
   Identifier,
   Lineage as IsoLineage,
+  Maintenance as IsoMaintenance,
   PointOfContact as IsoContact,
   Record as IsoRecord,
 } from '@/types/iso'
@@ -37,6 +38,7 @@ import GeographicExtent from '@/components/sections/elements/GeographicExtent.vu
 import Identifiers from '@/components/sections/elements/Identifiers.vue'
 import Licence from '@/components/sections/elements/Licence.vue'
 import Lineage from '@/components/sections/elements/Lineage.vue'
+import Maintenance from '@/components/sections/elements/Maintenance.vue'
 import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
@@ -194,6 +196,12 @@ watch(
       @update:file-identifier="(event: string) => (record.fileIdentifier = event)"
       @update:iso-file-identifier="(event: string) => (isoRecord.file_identifier = event)"
     />
+    <Maintenance
+      @update:iso-maintenance="
+        (event: IsoMaintenance) => (isoRecord.identification.maintenance = event)
+      "
+    >
+    </Maintenance>
     <ResourceType
       @update:resource-type="(event: ResourceTypeEM) => (record.resourceType = event)"
       @update:iso-hierarchy-level="(event: string) => (isoRecord.hierarchy_level = event)"
