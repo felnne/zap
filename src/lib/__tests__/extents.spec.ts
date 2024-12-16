@@ -1,30 +1,52 @@
 import { describe, it, expect } from 'vitest'
 
 import type { Projection, WellKnownExtent } from '@/types/app'
+import type { TemporalExtent } from '@/types/iso'
 import { createExtent, createProjection } from '@/lib/extents'
 
+const geographicExtent: WellKnownExtent = {
+  slug: 'antarctica',
+  name: 'Antarctica',
+  projectionSlug: 'epsg_3031',
+  extent: {
+    geographic: {
+      west: -180,
+      east: 180,
+      south: -90,
+      north: -60,
+    },
+  },
+}
+const identifier = 'bounding'
+
 describe('createExtent', () => {
-  it('creates ISO extent from app extent', () => {
-    const extent: WellKnownExtent = {
-      slug: 'antarctica',
-      name: 'Antarctica',
-      projectionSlug: 'epsg_3031',
-      extent: {
-        geographic: {
-          west: -180,
-          east: 180,
-          south: -90,
-          north: -60,
-        },
-      },
-    }
-    const identifier = 'bounding'
+  it('creates ISO extent with geographic component', () => {
     const expectedExtent = {
       identifier: identifier,
-      geographic: extent.extent.geographic,
+      geographic: geographicExtent.extent.geographic,
     }
 
-    expect(createExtent(extent.extent.geographic, identifier)).toStrictEqual(expectedExtent)
+    expect(createExtent(identifier, geographicExtent.extent.geographic)).toStrictEqual(
+      expectedExtent
+    )
+  })
+
+  it('creates ISO extent with geographic and temporal components', () => {
+    const temporalExtent: TemporalExtent = {
+      period: {
+        start: '2000-01-01',
+        end: '2022-01-01',
+      },
+    }
+    const expectedExtent = {
+      identifier: identifier,
+      geographic: geographicExtent.extent.geographic,
+      temporal: temporalExtent,
+    }
+
+    expect(
+      createExtent(identifier, geographicExtent.extent.geographic, temporalExtent)
+    ).toStrictEqual(expectedExtent)
   })
 })
 

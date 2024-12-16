@@ -16,6 +16,7 @@
 * three column base layout
 * removable optional sections (downloads, thumbnails, summary and citation)
 * initial status (progress) component
+* initial temporal extent component
 
 ### Changed
 

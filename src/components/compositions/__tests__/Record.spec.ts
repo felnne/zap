@@ -8,12 +8,22 @@ import type {
   Record as IsoRecord,
   Constraint as IsoConstraint,
   DistributionOption as IsoDistributionOption,
+  Extent as IsoExtent,
+  GeographicExtent as IsoGeographicExtent,
   GraphicOverview as IsoGraphicOverview,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
+  TemporalExtent as IsoTemporalExtent,
 } from '@/types/iso'
 import { createAuthor, createOrgSlugPointOfContact } from '@/lib/contacts'
-import { getFormatByType, getIndividual, getLicence, getOrganisation, getService } from '@/lib/data'
+import {
+  getExtent,
+  getFormatByType,
+  getIndividual,
+  getLicence,
+  getOrganisation,
+  getService,
+} from '@/lib/data'
 import { createAccessConstraint, createUsageConstraint } from '@/lib/constraints'
 import {
   createDistributor,
@@ -261,6 +271,47 @@ describe('Record [Integration]', () => {
       const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       // expect not to have distribution key set
       expect(emittedIsoRecordTyped.distribution).toBeUndefined()
+    }
+  })
+
+  it('emits ISO record correctly when a section that forms aggregated extents changes', async () => {
+    const expectedGeographicExtent: IsoGeographicExtent = getExtent('antarctica').extent.geographic
+    const expectedTemporalExtent: IsoTemporalExtent = {
+      period: { start: '2021-01-01', end: '2021-12-31' },
+    }
+    const expectedExtent: IsoExtent = {
+      identifier: 'bounding',
+      geographic: expectedGeographicExtent,
+      temporal: expectedTemporalExtent,
+    }
+
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate event from child component that sets a part of extents computed property [Geographic]
+    await wrapper
+      .findComponent({ name: 'GeographicExtent' })
+      .vm.$emit('update:isoExtentGeographic', expectedGeographicExtent)
+
+    // simulate event from child component that sets a part of extents computed property [Temporal]
+    await wrapper
+      .findComponent({ name: 'TemporalExtent' })
+      .vm.$emit('update:isoExtentTemporal', expectedTemporalExtent)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for both properties to be included and initial emits from licence to be ignored
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      expect(emittedIsoRecordTyped.identification.extents).toEqual([expectedExtent])
     }
   })
 
