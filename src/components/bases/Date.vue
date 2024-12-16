@@ -17,6 +17,11 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   showTime: {
     type: Boolean,
     required: false,
@@ -56,7 +61,7 @@ let selectionClasses: ComputedRef<string[]> = computed(() => {
 })
 
 let yearDisabled: ComputedRef<boolean> = computed(() => {
-  return !selected.value
+  return props.disabled || !selected.value
 })
 
 let monthDisabled: ComputedRef<boolean> = computed(() => {
@@ -135,7 +140,7 @@ watch(date, () => {
         :class="selectionClasses"
         type="checkbox"
         name="dates"
-        :disabled="required"
+        :disabled="disabled || required"
       />
       <span>{{ label }}</span>
       <span v-if="required">(<em>required</em>)</span>
@@ -143,7 +148,7 @@ watch(date, () => {
     <div class="space-y-2">
       <FormLabel for="date-year" class="block">Year</FormLabel>
       <FormInput
-        id="date-year"
+        :id="`date-${label}-year`"
         v-model="year"
         class="w-16"
         type="number"
@@ -154,7 +159,7 @@ watch(date, () => {
     <div class="space-y-2">
       <FormLabel for="date-month" class="block">Month</FormLabel>
       <FormInput
-        id="date-month"
+        :id="`date-${label}-month`"
         v-model="month"
         class="w-14"
         type="number"
@@ -167,7 +172,7 @@ watch(date, () => {
     <div class="space-y-2">
       <FormLabel for="date-day" class="block">Day</FormLabel>
       <FormInput
-        id="date-day"
+        :id="`date-${label}-day`"
         v-model="day"
         class="w-14"
         type="number"
@@ -181,7 +186,7 @@ watch(date, () => {
       <div class="space-y-2">
         <FormLabel for="date-hour" class="block">Hour</FormLabel>
         <FormInput
-          id="date-hour"
+          :id="`date-${label}-hour`"
           v-model="hour"
           class="w-14"
           type="number"
@@ -194,7 +199,7 @@ watch(date, () => {
       <div class="space-y-2">
         <FormLabel for="date-minute" class="block">Min.</FormLabel>
         <FormInput
-          id="date-minute"
+          :id="`date-${label}-minute`"
           v-model="minute"
           class="w-14"
           type="number"
@@ -207,7 +212,7 @@ watch(date, () => {
       <div class="space-y-2">
         <FormLabel for="date-second" class="block">Sec.</FormLabel>
         <FormInput
-          id="date-second"
+          :id="`date-${label}-second`"
           v-model="second"
           class="w-14"
           type="number"

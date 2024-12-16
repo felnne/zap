@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import type { DateImpreciseLabelled } from '@/types/app'
-import DateComp from '@/components/sections/elements/Date.vue'
+import DateComp from '@/components/bases/Date.vue'
 
 const referenceDate = new Date(2004, 4, 18, 3, 0, 0, 0)
 const referenceDateTime = new Date(Date.UTC(2004, 4, 18, 14, 35, 59, 0))
@@ -40,40 +40,40 @@ describe('Date', () => {
   it('sets correct default values without time', async () => {
     const wrapper = mount(DateComp, { props: { label: label } })
 
-    const yearElement = wrapper.find('input#date-year')
+    const yearElement = wrapper.find(`input#date-${label}-year`)
     expect((yearElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getFullYear().toString()
     )
 
-    const monthElement = wrapper.find('input#date-month')
+    const monthElement = wrapper.find(`input#date-${label}-month`)
     expect((monthElement.element as HTMLInputElement).value).toBe(
       (expectedInitialDateValue.getMonth() + 1).toString()
     )
 
-    const dayElement = wrapper.find('input#date-day')
+    const dayElement = wrapper.find(`input#date-${label}-day`)
     expect((dayElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getDate().toString()
     )
 
-    expect(wrapper.find('input#date-hour').exists()).toBe(false)
-    expect(wrapper.find('input#date-minute').exists()).toBe(false)
-    expect(wrapper.find('input#date-second').exists()).toBe(false)
+    expect(wrapper.find(`input#date-${label}-hour`).exists()).toBe(false)
+    expect(wrapper.find(`input#date-${label}-minute`).exists()).toBe(false)
+    expect(wrapper.find(`input#date-${label}-second`).exists()).toBe(false)
   })
 
   it('sets correct default values with time', async () => {
     const wrapper = mount(DateComp, { props: { label: label, showTime: true } })
 
-    const hourElement = wrapper.find('input#date-hour')
+    const hourElement = wrapper.find(`input#date-${label}-hour`)
     expect((hourElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getUTCHours().toString()
     )
 
-    const minuteElement = wrapper.find('input#date-minute')
+    const minuteElement = wrapper.find(`input#date-${label}-minute`)
     expect((minuteElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getUTCMinutes().toString()
     )
 
-    const secondElement = wrapper.find('input#date-second')
+    const secondElement = wrapper.find(`input#date-${label}-second`)
     expect((secondElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getUTCSeconds().toString()
     )
@@ -137,7 +137,7 @@ describe('Date', () => {
 
     // decrement year value
 
-    const inputElement = wrapper.find('input#date-year')
+    const inputElement = wrapper.find(`input#date-${label}-year`)
     expect((inputElement.element as HTMLInputElement).value).toBe(
       expectedInitialDateValue.getFullYear().toString()
     )
@@ -174,7 +174,7 @@ describe('Date', () => {
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
 
     // only need to set the month to unknown as we don't allow day to be set without month
-    const inputElement = wrapper.find('input#date-month')
+    const inputElement = wrapper.find(`input#date-${label}-month`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
@@ -211,7 +211,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
 
-    const inputElement = wrapper.find('input#date-day')
+    const inputElement = wrapper.find(`input#date-${label}-day`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
@@ -249,7 +249,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
 
-    const inputElement = wrapper.find('input#date-hour')
+    const inputElement = wrapper.find(`input#date-${label}-hour`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
@@ -288,7 +288,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
 
-    const inputElement = wrapper.find('input#date-minute')
+    const inputElement = wrapper.find(`input#date-${label}-minute`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
@@ -327,7 +327,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
 
-    const inputElement = wrapper.find('input#date-second')
+    const inputElement = wrapper.find(`input#date-${label}-second`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
@@ -351,14 +351,14 @@ describe('Date', () => {
 
     await wrapper.vm.$nextTick() // wait for watcher to fire
 
-    const inputElement = wrapper.find('input#date-month')
+    const inputElement = wrapper.find(`input#date-${label}-month`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
-    expect(wrapper.find('input#date-day').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-hour').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-minute').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-second').attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-day`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-hour`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-minute`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-second`).attributes().disabled).toBe('')
   })
 
   it('disables higher precision inputs at month precision', async () => {
@@ -372,13 +372,13 @@ describe('Date', () => {
 
     await wrapper.vm.$nextTick() // wait for watcher to fire
 
-    const inputElement = wrapper.find('input#date-day')
+    const inputElement = wrapper.find(`input#date-${label}-day`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
-    expect(wrapper.find('input#date-hour').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-minute').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-second').attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-hour`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-minute`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-second`).attributes().disabled).toBe('')
   })
 
   it('disables higher precision inputs at day precision', async () => {
@@ -392,12 +392,12 @@ describe('Date', () => {
 
     await wrapper.vm.$nextTick() // wait for watcher to fire
 
-    const inputElement = wrapper.find('input#date-hour')
+    const inputElement = wrapper.find(`input#date-${label}-hour`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
-    expect(wrapper.find('input#date-minute').attributes().disabled).toBe('')
-    expect(wrapper.find('input#date-second').attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-minute`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-second`).attributes().disabled).toBe('')
   })
 
   it('disables higher precision inputs at hour precision', async () => {
@@ -411,11 +411,11 @@ describe('Date', () => {
 
     await wrapper.vm.$nextTick() // wait for watcher to fire
 
-    const inputElement = wrapper.find('input#date-minute')
+    const inputElement = wrapper.find(`input#date-${label}-minute`)
     await inputElement.setValue(impreciseValue)
     expect((inputElement.element as HTMLInputElement).value).toBe(impreciseValue)
 
-    expect(wrapper.find('input#date-second').attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-second`).attributes().disabled).toBe('')
   })
 
   it('can be selected', async () => {
@@ -458,6 +458,41 @@ describe('Date', () => {
     if (emittedDate3) {
       expect(emittedDate3[0][0]).toEqual(expectedInitial)
     }
+  })
+
+  it('can be disabled', async () => {
+    const wrapper = mount(DateComp, {
+      props: {
+        label: label,
+        disabled: true,
+      },
+    })
+
+    await wrapper.vm.$nextTick() // wait for watcher to fire
+
+    expect(wrapper.find(`input#date-${label}-selection`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-year`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-month`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-day`).attributes().disabled).toBe('')
+  })
+
+  it('can be re-enabled after being disabled', async () => {
+    const wrapper = mount(DateComp, {
+      props: {
+        label: label,
+        disabled: true,
+      },
+    })
+
+    await wrapper.vm.$nextTick() // wait for watcher to fire
+
+    expect(wrapper.find(`input#date-${label}-selection`).attributes().disabled).toBe('')
+    expect(wrapper.find(`input#date-${label}-year`).attributes().disabled).toBe('')
+
+    await wrapper.setProps({ disabled: false })
+
+    expect(wrapper.find(`input#date-${label}-selection`).attributes().disabled).toBe(undefined)
+    // don't check inputs as though not disabled, component is not selected so inputs will remain disabled})
   })
 
   afterEach(() => {

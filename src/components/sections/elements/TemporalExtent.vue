@@ -10,7 +10,7 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
 import TwoColumn from '@/components/bases/TwoColumn.vue'
-import Date from '@/components/sections/elements/Date.vue'
+import Date from '@/components/bases/Date.vue'
 
 const emit = defineEmits<{
   'update:isoExtentTemporal': [id: TemporalExtent | undefined]
