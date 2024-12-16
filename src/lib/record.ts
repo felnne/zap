@@ -30,12 +30,11 @@ export const emptyRecord: Record = {
 
 export const emptyIsoRecord: IsoRecord = {
   /*
-   * A ISO 19115-2 (v3) record with required properties set to initial (null) values.
+   * A ISO 19115-2 (v4) record with required properties set to initially empty ('') values.
    *
-   * This record will not validate until values or items for these properties are set.
-   * It is intended to be used as the initial value in reactive properties and to set a consistent properties order.
-   *
-   * Some properties are not included as they may not be included in all records.
+   * This record will not validate against the record schema until properties are updated.
+   * It is intended to pass type checks when used as an initial value in reactive properties, and to set a consistent
+   * property order.
    */
   $schema:
     'https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json', // required
@@ -45,31 +44,31 @@ export const emptyIsoRecord: IsoRecord = {
     character_set: 'utf8', // recommended (guidance), hard-coded
     language: 'eng', // recommended (guidance), hard-coded
     contacts: [
-      createOrgSlugPointOfContact('bas_magic', 'pointOfContact'), // required (ISO), hard-coded (profile required value)
+      createOrgSlugPointOfContact('bas_magic', 'pointOfContact'), // required (ISO), hard-coded value (profile)
     ],
-    date_stamp: new Date().toISOString().split('T')[0], // required (ISO), default/auto-generated value set
+    date_stamp: new Date().toISOString().split('T')[0], // required (ISO), default/auto-generated value
   },
   identification: {
     title: {
       value: '', // required (ISO)
     },
     abstract: '', // required (ISO)
-    // purpose: '', // may not be set
-    dates: {}, // required (ISO), default/auto-generated value set
-    edition: '', // required (profile), default/auto-generated value set
-    other_citation_details: '', // typically set
-    identifiers: [], // required (profile), default/auto-generated value set
+    // purpose: '', // optional
+    dates: {}, // required: creation (ISO), default/auto-generated value - others conditional (profile) or optional
+    edition: '', // required (profile), default/auto-generated value
+    // other_citation_details: '', optional
+    identifiers: [], // required (profile), default/auto-generated value
     contacts: [], // required (profile)
     maintenance: {
-      maintenance_frequency: 'asNeeded', // required (profile), temporarily hard-coded value
-      progress: 'completed', // required (profile), temporarily hard-coded value
+      maintenance_frequency: '', // required (profile)
+      progress: '', // required (profile)
     },
-    constraints: [], // required (profile), default/auto-generated value set
-    character_set: 'utf8', // recommended (guidance) , hard-coded
-    language: 'eng', // required (ISO), hard-coded
+    constraints: [], // required (profile), default/auto-generated value
+    character_set: 'utf8', // recommended (guidance), value hard-coded
+    language: 'eng', // required (ISO), value hard-coded
     extents: [], // required (profile)
-    // lineage: {'statement': ''},  // conditional (profile), if not a collection
-    domain_consistency: [getDomainConsistency('magic_discovery_v1')], // required (profile), hard-coded (profile required value)
+    // lineage: {'statement': ''},  // conditional: if not collection (profile)
+    domain_consistency: [getDomainConsistency('magic_discovery_v1')], // required (profile), hard-coded value (profile)
   },
-  // distribution: [],  // may not be set
+  // distribution: [],  // optional
 }

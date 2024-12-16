@@ -15,6 +15,7 @@
 * initial support for custom geographic extents
 * three column base layout
 * removable optional sections (downloads, thumbnails, summary and citation)
+* initial status (progress) component
 
 ### Changed
 
