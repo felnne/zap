@@ -1,18 +1,24 @@
 import type { Projection } from '@/types/app'
-import type { Extent } from '@/types/iso'
-import type { GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
+import type { Extent, GeographicExtent, TemporalExtent, ReferenceSystemInfo } from '@/types/iso'
 
-export const createExtent = (extent: GeographicExtent, identifier: string): Extent => {
+export const createExtent = (
+  identifier: string,
+  geographic: GeographicExtent,
+  temporal?: TemporalExtent
+): Extent => {
   /*
-   * Convert a Geographic extent into an (identified) ISO 19115 geographic extent
+   * Create an (identified) ISO 19115 spatio-temporal extent with geographic and optional temporal components
    *
    * The BAS Metadata Library requires extents to be identified via an ID, with at least a 'bounding' extent.
-   * As the WKE is a wrapper around an ISO 19115 geographic extent, that subset is returned without change.
    */
-  return {
+  const extent: Extent = {
     identifier: identifier,
-    geographic: extent,
+    geographic: geographic,
   }
+  if (temporal) {
+    extent.temporal = temporal
+  }
+  return extent
 }
 
 export const createProjection = (projection: Projection): ReferenceSystemInfo => {

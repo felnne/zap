@@ -74,8 +74,6 @@ export const minimalRecord: IsoRecord = {
     },
     dates: {
       creation: '2024-09-14',
-      released: '2024-09-14T11:16:22+00:00',
-      publication: '2024-09-14T11:16:22+00:00',
     },
     edition: '1',
     identifiers: [
@@ -195,6 +193,11 @@ export const minimalRecord: IsoRecord = {
 export const supportedRecord: IsoRecord = deepMergeObjects(
   {
     identification: {
+      dates: {
+        revision: '2024-10-14',
+        released: '2024-09-14T11:16:22+00:00',
+        publication: '2024-09-14T11:16:22+00:00',
+      },
       purpose: 'Test Record',
       identifiers: [
         {
@@ -245,6 +248,41 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           description: 'General overview of resource',
           href: 'https://example.com/image.png',
           mime_type: 'image/png',
+        },
+      ],
+      extents: [
+        {
+          identifier: 'partialTemporal',
+          geographic: {
+            bounding_box: {
+              west_longitude: -180.0,
+              east_longitude: 180.0,
+              south_latitude: -90.0,
+              north_latitude: -60.0,
+            },
+          },
+          temporal: {
+            period: {
+              start: '2024-09-14',
+            },
+          },
+        },
+        {
+          identifier: 'boundTemporal',
+          geographic: {
+            bounding_box: {
+              west_longitude: -180.0,
+              east_longitude: 180.0,
+              south_latitude: -90.0,
+              north_latitude: -60.0,
+            },
+          },
+          temporal: {
+            period: {
+              start: '2024-09-14',
+              end: '2024-09-14',
+            },
+          },
         },
       ],
       other_citation_details:

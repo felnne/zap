@@ -44,6 +44,12 @@ test('a record drawn together from filled in sections validates', async ({ page 
 
   // spatial extent has a default/auto-generated value
 
+  // check element with id 'date-start-selection' (temporal extent)
+  await page.check('input#date-start-selection')
+
+  // check element with id 'date-end-selection' (temporal extent)
+  await page.check('input#date-end-selection')
+
   // check element with id 'individual-https_orcid_org_0000_0003_1410_9122'
   await page.check('input#individual-https_orcid_org_0000_0003_1410_9122')
 

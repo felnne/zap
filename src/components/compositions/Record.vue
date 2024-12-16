@@ -15,13 +15,16 @@ import type {
   Dates as IsoDates,
   DistributionOption as IsoDistributionOption,
   Extent as IsoExtent,
+  GeographicExtent as IsoGeographicExtent,
   GraphicOverview as IsoGraphicOverview,
   Identifier,
   Lineage as IsoLineage,
   Maintenance as IsoMaintenance,
   PointOfContact as IsoContact,
+  TemporalExtent as IsoTemporalExtent,
   Record as IsoRecord,
 } from '@/types/iso'
+import { createExtent } from '@/lib/extents'
 import { emptyRecord, emptyIsoRecord } from '@/lib/record'
 import { showSection } from '@/lib/control'
 import { createOrgSlugPointOfContact } from '@/lib/contacts'
@@ -43,6 +46,7 @@ import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
+import TemporalExtent from '@/components/sections/elements/TemporalExtent.vue'
 import Thumbnails from '@/components/sections/elements/Thumbnails.vue'
 import Title from '@/components/sections/elements/Title.vue'
 
@@ -90,6 +94,16 @@ let contacts: ComputedRef<IsoContact[]> = computed(() => {
 
 const thumbnails = ref<IsoGraphicOverview[]>([])
 
+const extentIdentifier = 'bounding'
+const extentGeographic = ref<IsoGeographicExtent | undefined>(undefined)
+const extentTemporal = ref<IsoTemporalExtent | undefined>(undefined)
+let extents: ComputedRef<IsoExtent[]> = computed(() => {
+  if (!extentGeographic.value) {
+    return []
+  }
+  return [createExtent(extentIdentifier, extentGeographic.value, extentTemporal.value)]
+})
+
 const accessConstraint = ref<IsoConstraint | null>(null)
 const licenceConstraint = ref<IsoConstraint | null>(null)
 let constraints: ComputedRef<IsoConstraint[]> = computed(() => {
@@ -133,6 +147,17 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
       identification: {
         ...mergedRecord.identification,
         contacts: contacts.value,
+      },
+    }
+  }
+
+  // merge isoRecord and extents at 'isoRecord.identification.extents' if not empty
+  if (extents.value.length > 0) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        extents: extents.value,
       },
     }
   }
@@ -237,7 +262,10 @@ watch(
     />
     <GeographicExtent
       :esri-token="esriToken || undefined"
-      @update:iso-extent="(event: IsoExtent) => (isoRecord.identification.extents = [event])"
+      @update:iso-extent-geographic="(event: IsoGeographicExtent) => (extentGeographic = event)"
+    />
+    <TemporalExtent
+      @update:iso-extent-temporal="(event: IsoTemporalExtent) => (extentTemporal = event)"
     />
     <Contacts
       v-if="show('contacts')"

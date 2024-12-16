@@ -34,6 +34,7 @@ export type DomainConsistency = {
 export type Extent = {
   identifier: string
   geographic: GeographicExtent
+  temporal?: TemporalExtent
 }
 
 export type Format = {
@@ -170,6 +171,13 @@ export type ReferenceSystemInfo = {
 export type Size = {
   unit: string
   magnitude: number
+}
+
+export type TemporalExtent = {
+  period: {
+    start: string
+    end?: string
+  }
 }
 
 export type Title = {

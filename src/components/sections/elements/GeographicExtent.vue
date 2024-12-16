@@ -2,10 +2,10 @@
 import { computed, type ComputedRef, nextTick, onMounted, ref, watch } from 'vue'
 
 import type { EsriToken, WellKnownExtent } from '@/types/app'
-import type { Extent, GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
+import type { GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
 import { Stability, SectionType } from '@/types/enum'
 import { getExtents, getExtent, getProjection } from '@/lib/data'
-import { createExtent, createProjection } from '@/lib/extents'
+import { createProjection } from '@/lib/extents'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -24,10 +24,9 @@ defineProps({
 })
 
 const emit = defineEmits<{
-  'update:isoExtent': [id: Extent]
+  'update:isoExtentGeographic': [id: GeographicExtent]
 }>()
 
-const extentIdentifier = 'bounding'
 const wellKnownExtents = getExtents()
 
 let bbox_west_long = ref<number>(0)
@@ -55,11 +54,11 @@ let customExtent: ComputedRef<GeographicExtent> = computed(() => {
   }
 })
 
-let extent: ComputedRef<Extent> = computed(() => {
+let extent: ComputedRef<GeographicExtent> = computed(() => {
   if (wellKnownExtent.value) {
-    return createExtent(wellKnownExtent.value.extent.geographic, extentIdentifier)
+    return wellKnownExtent.value.extent.geographic
   }
-  return createExtent(customExtent.value, extentIdentifier)
+  return customExtent.value
 })
 
 let projection: ComputedRef<ReferenceSystemInfo | undefined> = computed(() => {
@@ -68,7 +67,7 @@ let projection: ComputedRef<ReferenceSystemInfo | undefined> = computed(() => {
 })
 
 onMounted(() => {
-  emit('update:isoExtent', extent.value)
+  emit('update:isoExtentGeographic', extent.value)
 })
 
 watch(wellKnownExtent, () => {
@@ -86,7 +85,7 @@ watch(extent, async () => {
   await nextTick()
   renderMaps.value = true
 
-  emit('update:isoExtent', extent.value)
+  emit('update:isoExtentGeographic', extent.value)
 })
 </script>
 
@@ -94,11 +93,10 @@ watch(extent, async () => {
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="4.2"
+      version="4.3"
       :stability="Stability.Stable"
-      anchor="spatial-extent"
+      anchor="extent-geographic"
       title="Spatial extent"
-      sub-title="Well-known extents"
       :data-file-href="['extents.json', 'projections.json']"
     />
     <ThreeColumn>
@@ -107,7 +105,7 @@ watch(extent, async () => {
           <div class="space-y-2">
             <FormLabel v-for="wke in wellKnownExtents" :key="wke.slug">
               <input
-                :id="'extent-' + wke.slug"
+                :id="`extent-geo-${wke.slug}`"
                 v-model="selectedWkeSlug"
                 type="radio"
                 name="extents"
@@ -117,7 +115,7 @@ watch(extent, async () => {
             </FormLabel>
             <FormLabel>
               <input
-                id="extent-custom"
+                id="extent-geo-custom"
                 v-model="selectedWkeSlug"
                 type="radio"
                 name="extents"
@@ -172,8 +170,8 @@ watch(extent, async () => {
       </template>
       <template #middle>
         <div class="space-y-4">
-          <div id="geographic-extent" class="space-y-2">
-            <p>Extent:</p>
+          <div id="extent-geographic" class="space-y-2">
+            <p>Extent (Geographic):</p>
             <Output v-if="extent" :data="extent"></Output>
           </div>
           <div v-if="projection" id="spatial-crs" class="space-y-2">
@@ -185,7 +183,7 @@ watch(extent, async () => {
       <template #right>
         <div class="space-y-2">
           <div class="text-sky-500">Preview (2D, EPSG:3857)</div>
-          <GeographicExtentMap v-if="renderMaps" :extent="extent.geographic" />
+          <GeographicExtentMap v-if="renderMaps" :extent="extent" />
         </div>
       </template>
     </ThreeColumn>

@@ -3,11 +3,9 @@ import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
-import type { Extent, ReferenceSystemInfo } from '@/types/iso'
+import type { GeographicExtent as GeographicExtentT, ReferenceSystemInfo } from '@/types/iso'
 import { getExtent, getProjection } from '@/lib/data'
 import GeographicExtent from '@/components/sections/elements/GeographicExtent.vue'
-
-const expectedIsoExtentIdentifier = 'bounding'
 
 vi.mock('@/lib/esriNoTest', () => ({
   initExtentMap: vi.fn().mockReturnValue({ mock: true }),
@@ -26,10 +24,7 @@ describe('GeographicExtent', () => {
 
   it('emits value when mounted', async () => {
     const wke = getExtent('antarctica')
-    const expectedExtent: Extent = {
-      identifier: expectedIsoExtentIdentifier,
-      geographic: wke.extent.geographic,
-    }
+    const expectedGeographicExtent: GeographicExtentT = wke.extent.geographic
 
     const wrapper = mount(GeographicExtent, {
       global: {
@@ -39,25 +34,21 @@ describe('GeographicExtent', () => {
       },
     })
 
-    const emittedIsoExtent: unknown[][] | undefined = wrapper.emitted('update:isoExtent')
-    expect(emittedIsoExtent).toBeTruthy()
-    if (emittedIsoExtent) {
-      expect(emittedIsoExtent[0][0]).toEqual(expectedExtent)
+    const emittedIsoExtentGeographic: unknown[][] | undefined = wrapper.emitted(
+      'update:isoExtentGeographic'
+    )
+    expect(emittedIsoExtentGeographic).toBeTruthy()
+    if (emittedIsoExtentGeographic) {
+      expect(emittedIsoExtentGeographic[0][0]).toEqual(expectedGeographicExtent)
     }
   })
 
   it('emits value when updated', async () => {
     const initialWke = getExtent('antarctica')
-    const expectedInitialIsoExtent: Extent = {
-      identifier: expectedIsoExtentIdentifier,
-      geographic: initialWke.extent.geographic,
-    }
+    const expectedInitialIsoExtentGeographic: GeographicExtentT = initialWke.extent.geographic
 
     const updatedWke = getExtent('sub_antarctica')
-    const expectedUpdatedIsoExtent: Extent = {
-      identifier: expectedIsoExtentIdentifier,
-      geographic: updatedWke.extent.geographic,
-    }
+    const expectedUpdatedIsoExtentGeographic: GeographicExtentT = updatedWke.extent.geographic
 
     const wrapper = mount(GeographicExtent, {
       global: {
@@ -68,20 +59,22 @@ describe('GeographicExtent', () => {
     })
 
     // initial value
-    const emittedIsoExtent: unknown[][] | undefined = wrapper.emitted('update:isoExtent')
-    expect(emittedIsoExtent).toBeTruthy()
-    if (emittedIsoExtent) {
-      expect(emittedIsoExtent[0][0]).toEqual(expectedInitialIsoExtent)
+    const emittedIsoExtentGeographic: unknown[][] | undefined = wrapper.emitted(
+      'update:isoExtentGeographic'
+    )
+    expect(emittedIsoExtentGeographic).toBeTruthy()
+    if (emittedIsoExtentGeographic) {
+      expect(emittedIsoExtentGeographic[0][0]).toEqual(expectedInitialIsoExtentGeographic)
     }
 
-    // set radio input with id 'extent-sub_antarctica' to checked (well known extent)
-    await wrapper.find('input#extent-sub_antarctica').setValue()
+    // set radio input with id 'extent-geo-sub_antarctica' to checked (well known extent)
+    await wrapper.find('input#extent-geo-sub_antarctica').setValue()
 
     await wrapper.vm.$nextTick()
 
     // updated value
-    if (emittedIsoExtent) {
-      expect(emittedIsoExtent[1][0]).toEqual(expectedUpdatedIsoExtent)
+    if (emittedIsoExtentGeographic) {
+      expect(emittedIsoExtentGeographic[1][0]).toEqual(expectedUpdatedIsoExtentGeographic)
     }
   })
 
@@ -89,10 +82,7 @@ describe('GeographicExtent', () => {
     const wke = getExtent('antarctica')
     const projection = getProjection(wke.projectionSlug)
 
-    const expectedExtent: Extent = {
-      identifier: expectedIsoExtentIdentifier,
-      geographic: wke.extent.geographic,
-    }
+    const expectedExtentGeographic: GeographicExtentT = wke.extent.geographic
     const expectedCRS: ReferenceSystemInfo = {
       authority: projection.authority,
       code: projection.code,
@@ -107,8 +97,8 @@ describe('GeographicExtent', () => {
       },
     })
 
-    expect(wrapper.find('#geographic-extent pre').text()).toBe(
-      JSON.stringify(expectedExtent, null, 2)
+    expect(wrapper.find('#extent-geographic pre').text()).toBe(
+      JSON.stringify(expectedExtentGeographic, null, 2)
     )
     expect(wrapper.find('#spatial-crs pre').text()).toBe(JSON.stringify(expectedCRS, null, 2))
   })
@@ -124,8 +114,8 @@ describe('GeographicExtent', () => {
       },
     })
 
-    // set radio input with id 'extent-sub_antarctica' to checked
-    await wrapper.find('input#extent-sub_antarctica').setValue()
+    // set radio input with id 'extent-geo-sub_antarctica' to checked
+    await wrapper.find('input#extent-geo-sub_antarctica').setValue()
 
     expect(wrapper.find('pre').text()).toContain(expectedValueInExtent)
   })
@@ -141,8 +131,8 @@ describe('GeographicExtent', () => {
       },
     })
 
-    // set radio input with id 'extent-custom' to checked
-    await wrapper.find('input#extent-custom').setValue()
+    // set radio input with id 'extent-geo-custom' to checked
+    await wrapper.find('input#extent-geo-custom').setValue()
 
     await wrapper.find('input#bbox-west-long').setValue(expectedValueInExtent)
 

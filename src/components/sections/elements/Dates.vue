@@ -10,7 +10,7 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
 import TwoColumn from '@/components/bases/TwoColumn.vue'
-import Date from '@/components/sections/elements/Date.vue'
+import Date from '@/components/bases/Date.vue'
 
 const emit = defineEmits<{
   'update:dates': [id: DateImpreciseLabelled[]]
@@ -53,7 +53,7 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="2.1"
+      version="2.2"
       anchor="dates"
       title="Dates"
       :stability="Stability.Experimental"

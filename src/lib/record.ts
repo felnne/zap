@@ -66,7 +66,7 @@ export const emptyIsoRecord: IsoRecord = {
     constraints: [], // required (profile), default/auto-generated value
     character_set: 'utf8', // recommended (guidance), value hard-coded
     language: 'eng', // required (ISO), value hard-coded
-    extents: [], // required (profile)
+    extents: [], // required: geographic (profile), optional: temporal
     // lineage: {'statement': ''},  // conditional: if not collection (profile)
     domain_consistency: [getDomainConsistency('magic_discovery_v1')], // required (profile), hard-coded value (profile)
   },
