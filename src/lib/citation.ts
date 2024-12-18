@@ -1,7 +1,7 @@
-import axios from 'axios'
 import removeMd from 'remove-markdown'
 
 import type { Identifier } from '@/types/iso'
+import { CitationTemplate } from '@/types/enum'
 
 export function formatName(name: string): string {
   /*
@@ -60,60 +60,15 @@ export function formatAuthors(authors: string[]): string {
   return ''
 }
 
-export function formatYear(year: string): string {
+export function formatScale(scale: number): string {
   /*
-   * Format resource year
+   * Format a map scale
    *
-   * Values are formatted according to the APA style (brackets).
+   * Example:
+   * > 4000000
+   * < 1:4,000,000
    */
-  return `(${year}).`
-}
-
-export function formatTitle(title: string): string {
-  /*
-   * Format resource titles
-   *
-   * Markdown formatting is removed in this context as the APA style requires italics.
-   */
-  return `<i>${removeMd(title)}</i>`
-}
-
-export function formatVersion(version: string): string {
-  /*
-   * Format resource version
-   *
-   * Versions are formatted according to what appears to be the APA style (in brackets with a static 'Version' prefix).
-   */
-  return `(Version ${version})`
-}
-
-export function formatResourceType(resource_type: string): string {
-  /*
-   * Format resource type
-   *
-   * Recognised resource types are formatted according to the APA style (square brackets).
-   * Products are equated to maps, which may prove to be an over-opinionated simplification.
-   *
-   * Unknown resource types are returned unchanged.
-   */
-  let value = ''
-
-  if (resource_type == 'dataset') {
-    value = 'Data set'
-  } else if (resource_type == 'product') {
-    value = 'Map'
-  }
-
-  if (value == '') {
-    return value
-  }
-
-  return `[${value}].`
-}
-
-export function formatPublisher(publisher: string): string {
-  /* Return publisher value without modification */
-  return `${publisher}.`
+  return `1:${scale.toLocaleString()}`
 }
 
 export function formatDoi(doi: string): string {
@@ -147,60 +102,6 @@ export function formatDoi(doi: string): string {
   return `${base}/${doi}`
 }
 
-export function formatCitation(citation: string, url: string = '', doi: string = ''): string {
-  /*
-   * Reformats a citation
-   *
-   * Intended for citations returned by the CrossCite API, though some of the steps performed (such as encoding URLs as
-   * Markdown links) may apply to citations from other sources.
-   *
-   * Steps:
-   * 1. replace <i> tags with underscores
-   * 2. encode url as a MarkDown link
-   * 3. format citation as a blockquote and add a standard introduction
-   *
-   * Where a DOI reference is included, specified as either `[prefix]/[value]` or `https://doi.org/[prefix]/[value]`
-   * (e.g. '10.5285/93a1479e' or 'https://doi.org/10.5285/93a1479e'):
-   * - the URL parameter is set to the DOI as a URL (e.g. 'https://doi.org/10.5285/93a1479e')
-   * - note that if the DOI uses uppercase characters, these are converted to lowercase
-   *
-   * To use, pass the citation string. If the citation includes a URL that is not a DOI, set this as the second
-   * parameter, and if the citation includes a DOI, set this as the third parameter.
-   *
-   * Example (no reference):
-   * formatCitation('Watson, C. (2004). Title. Publisher.')
-   *
-   * Example (DOI reference):
-   * formatCitation('Watson, C. (2004). Title. Publisher. https://doi.org/10.5285/93A1479E-8379-4820-B510-ef8a7639d29d', undefined, '10.5285/93a1479e-8379-4820-b510-ef8a7639d29d')
-   *
-   * Example (non-DOI reference):
-   * formatCitation('Watson, C. (2004). Title. Publisher. https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d', 'https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d')
-   *
-   * Citation before:
-   * 'Watson, C., &amp; Cinnamon, J. (2004). <i>Ice-cream shop locations</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93a1479e-8379-4820-b510-ef8a7639d29d'
-   *
-   * Citation after:
-   * 'Watson, C., &amp; Cinnamon, J. (2004). _Ice-cream shop locations_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
-   */
-  if (doi != '') {
-    url = formatDoi(doi)
-  }
-
-  const formattedUrl = url.toLowerCase()
-  const replaceUrl = `[${formattedUrl}](${formattedUrl})`
-  const prefix = 'Required citation:\n> '
-
-  // if `url` is `''`, the reg-ex `/$^/` is used as the search value to not match anything, making replacement
-  // conditional. Without this, the citation would be prefixed with an empty Markdown link where no URL is provided.
-  return (
-    prefix +
-    citation
-      .replace('<i>', '_')
-      .replace('</i>', '_')
-      .replace(url ? url : /$^/, replaceUrl)
-  )
-}
-
 export function formatReference(identifier: Identifier): string {
   /*
    * Return a reference for an identifier
@@ -208,8 +109,7 @@ export function formatReference(identifier: Identifier): string {
    * The reference being something that can be included in a citation referring to the resource.
    *
    * The value to return will depend on the identifier scheme but is usually the identifier.href to give a URL that can
-   * be followed. Very well established schemes such as ISBN may return the `identifier.title` alone, as such values are
-   * understood by users on their own.
+   * be followed. Unrecognised schemes will return the identifier.identifier as a default.
    */
   if (identifier.namespace == 'data.bas.ac.uk') {
     return identifier.href
@@ -218,57 +118,137 @@ export function formatReference(identifier: Identifier): string {
     return identifier.href
   }
 
-  return ''
+  return identifier.identifier
 }
 
-export async function fetchFakeCitation(
+export function formatCitationAsMarkdown(citation: string, url: string = ''): string {
+  /*
+   * Reformats a citation for use in Markdown editors
+   *
+   * Steps:
+   * 1. replace <i> tags with underscores
+   * 2. encode an optional url as a MarkDown link
+   * 3. format citation as a blockquote and add a standard introduction
+   *
+   * If the citation includes a URL, set this as the second parameter.
+   *
+   * Example (no reference):
+   * > formatCitation('Watson, C. (2004). Title. Publisher.')
+   * < '> Watson, C. (2004). Title. Publisher.'
+   *
+   * Example (DOI reference):
+   * > formatCitation('Watson, C. (2004). <i>Ice-cream shop locations</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/93A1479E-8379-4820-B510-ef8a7639d29d', 'https://doi.org/10.5285/93a1479e-8379-4820-b510-ef8a7639d29d')
+   * < '> Watson, C. (2004). _Ice-cream shop locations_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. [https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d](https://doi.org/93a1479e-8379-4820-b510-ef8a7639d29d)'
+   *
+   * Example (non-DOI reference):
+   * > formatCitation('Watson, C. (2004). Really cool map. Mapping and Geographic Information Centre, British Antarctic Survey. https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d', 'https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d')
+   * < '> Watson, C. (2004). Really cool map. Mapping and Geographic Information Centre, British Antarctic Survey. [https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d](https://data.bas.ac.uk/items/93a1479e-8379-4820-b510-ef8a7639d29d)'
+   */
+
+  const formattedUrl = url.toLowerCase()
+  const replaceUrl = `[${formattedUrl}](${formattedUrl})`
+
+  // if `url` is `''`, the reg-ex `/$^/` is used as the search value to not match anything, making replacement
+  // conditional. Without this, the citation would be prefixed with an empty Markdown link where no URL is provided.
+  return citation
+    .replace('<i>', '_')
+    .replace('</i>', '_')
+    .replace(url ? url : /$^/, replaceUrl)
+}
+
+export function createCitationDataset(
   authors: string[],
   year: string,
   title: string,
-  version: string,
-  resource_type: string,
+  edition: string,
   publisher: string,
   identifier: Identifier
-): Promise<string> {
+): string {
   /*
-   * Generate a DOI citation without needing a real DOI.
-   *
-   * The method is intended for records that don't yet have a DOI, won't have a DOI and for testing.
-   *
-   * The citation is formatted in the same style requested from the CrossCite API, but using direct inputs rather than
-   * DOI metadata. The citation style (APA) is in the form:
-   *
-   * > "[Contacts] ([Year]). <i>[Title]</i> ([Version]) [Modifier (optional)]. [Publisher]. [DOI]"
+   * As per the APA style used by the PDC for datasets.
+   *  > {authors} ({publication_year}). <i>{title}</i> ({edition}) [{resource_type}]. [{publisher}]. {doi}.
+   * >> {authors} ({publication_year}). <i>{title}</i> '(Version {edition})' '[Data set]'. [{publisher}]. {doi}.
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre.
+   * >>> https://data.bas.ac.uk/items/53d75342-b289-4926-a45b-4d3bbcabe795."
    *
    * For compatibility with DOIs issued by the UK PDC, the file identifier (DOI) is converted to uppercase.
-   * For compatibility with the async nature of `fetchCitation()`, the citation string is wrapped in a Promise.
    */
   const authors_ = formatAuthors(authors)
-  const year_ = formatYear(year)
-  const title_ = formatTitle(title)
-  const version_ = formatVersion(version)
-  const modifier_ = formatResourceType(resource_type)
-  const publisher_ = formatPublisher(publisher)
+  const year_ = `(${year}).`
+  const title_ = `<i>${removeMd(title)}</i>`
+  const edition_ = `(Version ${edition})`
+  const modifier_ = `[Data set].`
+  const publisher_ = `${publisher}.`
   const reference_ = formatReference(identifier)
 
-  const citation = `${authors_} ${year_} ${title_} ${version_} ${modifier_} ${publisher_} ${reference_}`
-  return Promise.resolve(citation)
+  return `${authors_} ${year_} ${title_} ${edition_} ${modifier_} ${publisher_} ${reference_}.`
 }
 
-export async function fetchCitation(doi: string): Promise<string> {
-  /*
-   * Fetch a citation for a DOI using the CrossCite API
-   *
-   * Uses content negotiation to request a citation in the given format and style (APA).
-   * See https://citation.crosscite.org/docs.html#sec-4-1 for details.
-   *
-   * The response is a pre-formed citation string.
-   */
-  const url = `https://doi.org/${doi}`
-  const headers = {
-    Accept: 'text/x-bibliography; style=apa',
+export function createCitationMagicMapsGeneral(
+  year: string,
+  edition: string,
+  identifier: Identifier
+): string {
+  // As per: https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5#note_129772
+  //   > {prefix}, {creation_year}, {edition}, {reference}
+  //  >> 'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey', {creation_year}, 'version {edition}', {reference}
+  // >>> "Produced by the Mapping and Geographic Information Centre, British Antarctic Survey, 2021, version 1, https://data.bas.ac.uk/items/xxx/."
+  const prefix =
+    'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey'
+  const version = `version ${edition}`
+  const reference_ = formatReference(identifier)
+  return `${prefix}, ${year}, ${version}, ${reference_}.`
+}
+
+export function createCitationMagicMapsPublished(
+  year: string,
+  title: string,
+  scale: number,
+  series: string,
+  sheet: string,
+  edition: string
+): string {
+  // https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5#note_129772
+  //   > {producer}, {creation_year}. {title}, {scale}. {series}, {sheet}. {edition}. {publisher_location}, {publisher}
+  //  >> 'British Antarctic Survey', {creation_year}. {title}, '1:{scale} scale map'. {series}, {sheet}, 'edition {edition}'. 'Cambridge', 'British Antarctic Survey'
+  // >>> "British Antarctic Survey, 2017. Scotia Sea, 1:4 000 000 scale map. BAS (UKAHT) Series, sheet 1B, edition 7. Cambridge, British Antarctic Survey."
+  const producer = 'British Antarctic Survey'
+  let scale_ = `${formatScale(scale)} scale map`
+  const sheet_ = `sheet ${sheet}`
+  const edition_ = `edition ${edition}`
+  const publisher_location = 'Cambridge'
+  const publisher = producer
+
+  // Workaround for not being able to set scale to a placeholder value
+  if (scale == -1) {
+    scale_ = '?scale'
   }
 
-  const response = await axios.get<string>(url, { headers })
-  return response.data
+  return `${producer}, ${year}. ${title}, ${scale_}. ${series}, ${sheet_}, ${edition_}. ${publisher_location}, ${publisher}.`
+}
+
+export function filterCitationTemplates(resourceType: string): CitationTemplate[] {
+  /* Filter citation templates based on resource type. */
+  if (resourceType == 'dataset') {
+    return [CitationTemplate.dataset]
+  }
+
+  if (resourceType == 'product') {
+    return [CitationTemplate.productMapMagicGeneral, CitationTemplate.productMapMagicPublished]
+  }
+
+  return [CitationTemplate.unknown]
+}
+
+export function defaultCitationTemplate(resourceType: string): CitationTemplate {
+  /* Get default citation template for a given resource type.  */
+  if (resourceType === 'dataset') {
+    return CitationTemplate.dataset
+  }
+
+  if (resourceType === 'product') {
+    return CitationTemplate.productMapMagicGeneral
+  }
+
+  return CitationTemplate.unknown
 }

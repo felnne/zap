@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, it, expect } from 'vitest'
-import { mount, flushPromises } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
@@ -59,13 +59,10 @@ describe('Citation', () => {
       },
     })
 
-    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
-    await flushPromises()
+    await wrapper.vm.$nextTick()
 
     // fill in input
-    wrapper.find('textarea#citation-input').setValue(expected)
-
-    await flushPromises()
+    await wrapper.find('textarea#citation-input').setValue(expected)
 
     const emittedIsoOtherCitationDetails: unknown[][] | undefined = wrapper.emitted(
       'update:isoOtherCitationDetails'
@@ -86,8 +83,7 @@ describe('Citation', () => {
       },
     })
 
-    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
-    await flushPromises()
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.find('div#citation-preview').html()).toContain(`<i>${record.title}</i>`)
   })
@@ -102,8 +98,7 @@ describe('Citation', () => {
       },
     })
 
-    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
-    await flushPromises()
+    await wrapper.vm.$nextTick()
 
     wrapper.find('button#citation-use-generated').trigger('click')
     await wrapper.vm.$nextTick()
@@ -125,8 +120,7 @@ describe('Citation', () => {
       },
     })
 
-    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
-    await flushPromises()
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.find('div#citation-preview').html()).toContain(initialPublisher.name)
 
@@ -137,10 +131,58 @@ describe('Citation', () => {
       getPublisherOrgSlug(updatedRecord.resourceType, updatedRecord.licence)
     )
 
-    // getCitation() is async, so need to wait for it to resolve otherwise element will be empty
-    await flushPromises()
-
     expect(wrapper.find('div#citation-preview').html()).toContain(updatedPublisher.name)
+  })
+
+  it('uses the correct default template', async () => {
+    const wrapper = mount(Citation, {
+      props: { record: record },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    // select input with id #citation-template should be set to 'dataset'
+    expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
+      'Dataset'
+    )
+  })
+
+  it('updates citation preview if citation template changes', async () => {
+    const productRecord = { ...record, resourceType: ResourceType.Product }
+
+    const wrapper = mount(Citation, {
+      props: { record: productRecord },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    const templateOptionInitial = (
+      wrapper.find('select#citation-template').element as HTMLSelectElement
+    ).value
+    expect(wrapper.find('div#citation-preview').html()).toContain(
+      'Produced by the Mapping and Geographic Information Centre,'
+    )
+
+    // change citation-template select to 'Product (Map, MAGIC, Published)'
+    await wrapper.find('select#citation-template').setValue('Product (Map, MAGIC, Published)')
+
+    await wrapper.vm.$nextTick()
+
+    const templateOptionUpdated = (
+      wrapper.find('select#citation-template').element as HTMLSelectElement
+    ).value
+    expect(wrapper.find('div#citation-preview').html()).toContain('sheet ')
+    expect(templateOptionInitial).not.toBe(templateOptionUpdated)
   })
 
   afterEach(() => {

@@ -26,6 +26,7 @@
 * upgrading dependencies
 * Simplifying default edition
 * Refactoring Download component into base Upload component with Download wrapper
+* Citation formatting based on https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5
 
 ### Removed
 

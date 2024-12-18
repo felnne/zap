@@ -1,17 +1,19 @@
 import { describe, it, expect } from 'vitest'
 
+import { CitationTemplate } from '@/types/enum'
+
 import {
   formatName,
   formatAuthors,
-  formatYear,
-  formatTitle,
-  formatVersion,
-  formatResourceType,
-  formatPublisher,
+  formatScale,
   formatDoi,
-  formatCitation,
   formatReference,
-  fetchFakeCitation,
+  formatCitationAsMarkdown,
+  createCitationDataset,
+  createCitationMagicMapsGeneral,
+  createCitationMagicMapsPublished,
+  filterCitationTemplates,
+  defaultCitationTemplate,
 } from '@/lib/citation'
 
 describe('formatName', () => {
@@ -50,41 +52,9 @@ describe('formatAuthors', () => {
   })
 })
 
-describe('formatYear', () => {
-  it('formats a year', () => {
-    expect(formatYear('2014')).toBe('(2014).')
-  })
-})
-
-describe('formatTitle', () => {
-  it('formats a title', () => {
-    expect(formatTitle('Title')).toBe('<i>Title</i>')
-  })
-})
-
-describe('formatVersion', () => {
-  it('formats a version', () => {
-    expect(formatVersion('1')).toBe('(Version 1)')
-  })
-})
-
-describe('formatResourceType', () => {
-  it('formats a dataset type', () => {
-    expect(formatResourceType('dataset')).toBe('[Data set].')
-  })
-
-  it('formats a product type', () => {
-    expect(formatResourceType('product')).toBe('[Map].')
-  })
-
-  it("doesn't format an unknown type", () => {
-    expect(formatResourceType('x')).toBe('')
-  })
-})
-
-describe('formatPublisher', () => {
-  it('formats a publisher', () => {
-    expect(formatPublisher('Publisher')).toBe('Publisher.')
+describe('formatScale', () => {
+  it('formats a scale', () => {
+    expect(formatScale(400_000)).toBe('1:400,000')
   })
 })
 
@@ -99,49 +69,6 @@ describe('formatDoi', () => {
 
   it("doesn't format an empty value", () => {
     expect(formatDoi('')).toBe('')
-  })
-})
-
-describe('formatCitation', () => {
-  it('formats a citation without a reference', () => {
-    expect(
-      formatCitation('Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher.')
-    ).toBe('Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher.')
-  })
-
-  it('formats a citation with a non-DOI reference', () => {
-    expect(
-      formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-        'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
-      )
-    ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
-    )
-  })
-
-  it('formats a citation with a DOI reference', () => {
-    expect(
-      formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://doi.org/10.5066/f7vq30rm',
-        undefined,
-        'https://doi.org/10.5066/f7vq30rm'
-      )
-    ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
-    )
-  })
-
-  it('formats a citation with a DOI reference in upper case', () => {
-    expect(
-      formatCitation(
-        'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://doi.org/10.5066/F7VQ30RM',
-        undefined,
-        'https://doi.org/10.5066/F7VQ30RM'
-      )
-    ).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://doi.org/10.5066/f7vq30rm](https://doi.org/10.5066/f7vq30rm)'
-    )
   })
 })
 
@@ -166,49 +93,89 @@ describe('formatReference', () => {
     ).toBe('https://doi.org/10.5066/f7vq30rm')
   })
 
-  it("doesn't return an unknown reference", () => {
+  it('returns the identifier value of an unknown reference scheme', () => {
     expect(
       formatReference({
         namespace: 'x',
         identifier: 'y',
         href: 'z',
       })
-    ).toBe('')
+    ).toBe('y')
   })
 })
 
-describe('fetchFakeCitation', () => {
-  it('fetches a fake citation', async () => {
+describe('formatCitationAsMarkdown', () => {
+  it('formats a citation without a title or URL as markdown', () => {
+    expect(formatCitationAsMarkdown('Watson, C. (2014).')).toBe('Watson, C. (2014).')
+  })
+
+  it('formats a citation with a formatted title as markdown', () => {
+    expect(formatCitationAsMarkdown('Watson, C. (2014). <i>title</i>.')).toBe(
+      'Watson, C. (2014). _title_.'
+    )
+  })
+
+  it('formats a citation with a URL as markdown', () => {
     expect(
-      await fetchFakeCitation(['Watson, Constance'], '2014', 'Title', '1', 'dataset', 'Publisher', {
+      formatCitationAsMarkdown('Watson, C. (2014). https://example.com.', 'https://example.com')
+    ).toBe('Watson, C. (2014). [https://example.com](https://example.com).')
+  })
+})
+
+describe('createCitationDataset', () => {
+  it('creates a citation for a dataset resource', async () => {
+    expect(
+      createCitationDataset(['Watson, Constance'], '2014', 'Title', '1', 'Publisher', {
         namespace: 'data.bas.ac.uk',
         identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
         href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
       })
     ).toBe(
-      'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564'
+      'Watson, C. (2014). <i>Title</i> (Version 1) [Data set]. Publisher. https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564.'
     )
   })
 })
 
-describe('integration_fetchAndFormatFakeCitation', () => {
-  it('fetches and formats a citation', async () => {
-    const identifier = {
-      namespace: 'data.bas.ac.uk',
-      identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-      href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
-    }
-    const citation = await fetchFakeCitation(
-      ['Watson, Constance'],
-      '2014',
-      'Title',
-      '1',
-      'dataset',
-      'Publisher',
-      identifier
+describe('createCitationMagicMapsGeneral', () => {
+  it('creates a citation for a general MAGIC map product resource', async () => {
+    expect(
+      createCitationMagicMapsGeneral('2014', '1', {
+        namespace: 'data.bas.ac.uk',
+        identifier: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
+        href: 'https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564',
+      })
+    ).toBe(
+      'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey, 2014, version 1, https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564.'
     )
-    expect(await formatCitation(citation, identifier.href)).toBe(
-      'Required citation:\n> Watson, C. (2014). _Title_ (Version 1) [Data set]. Publisher. [https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564](https://data.bas.ac.uk/items/973c7fed-66d2-42a2-a461-1fdb9bf48564)'
+  })
+})
+
+describe('createCitationMagicMapsGeneral', () => {
+  it('creates a citation for a published MAGIC map product resource', async () => {
+    expect(
+      createCitationMagicMapsPublished('2014', 'Title', 400_000, 'Example Series', '1A', '1')
+    ).toBe(
+      'British Antarctic Survey, 2014. Title, 1:400,000 scale map. Example Series, sheet 1A, edition 1. Cambridge, British Antarctic Survey.'
     )
+  })
+})
+
+describe('filterCitationTemplates', () => {
+  it('filters templates based on an unknown resource type', async () => {
+    expect(filterCitationTemplates('x')).toEqual([CitationTemplate.unknown])
+  })
+
+  it('filters templates based on a known resource type', async () => {
+    expect(filterCitationTemplates('dataset')).toEqual([CitationTemplate.dataset])
+  })
+})
+
+describe('defaultCitationTemplate', () => {
+  it('returns a template based on an unknown resource type', async () => {
+    expect(defaultCitationTemplate('x')).toEqual(CitationTemplate.unknown)
+  })
+
+  it('returns a template based on a known resource type', async () => {
+    expect(defaultCitationTemplate('dataset')).toEqual(CitationTemplate.dataset)
   })
 })

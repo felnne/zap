@@ -3,15 +3,22 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
 import type { DropdownItem, Record } from '@/types/app'
 import type { Identifier } from '@/types/iso'
-import { Stability, SectionType } from '@/types/enum'
+import { CitationTemplate, Stability, SectionType } from '@/types/enum'
 import { getPublisherOrgSlug } from '@/lib/contacts'
-import { fetchFakeCitation, formatCitation } from '@/lib/citation'
+import {
+  createCitationDataset,
+  createCitationMagicMapsGeneral,
+  createCitationMagicMapsPublished,
+  formatCitationAsMarkdown,
+  filterCitationTemplates,
+  defaultCitationTemplate,
+} from '@/lib/citation'
 import { getOrganisation } from '@/lib/data'
 
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
+import FormLabel from '@/components/bases/FormLabel.vue'
 import GuidanceText from '@/components/bases/GuidanceText.vue'
-import Link from '@/components/bases/Link.vue'
 import Button from '@/components/bases/Button.vue'
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionLabel from '@/components/bases/SectionLabel.vue'
@@ -28,23 +35,38 @@ const emit = defineEmits<{
   'update:isoOtherCitationDetails': [id: string]
 }>()
 
-const getCitation = async () => {
-  citation.value = await fetchFakeCitation(
-    authors.value,
-    publicationYear.value,
-    props.record.title,
-    props.record.edition,
-    props.record.resourceType,
-    publisher.value,
-    identifier.value
-  )
-
-  // use to get the citation for real DOIs from CrossCite
-  // citation.value = await fetchCitation(doi.value)
+const getCitation = () => {
+  if (template.value === CitationTemplate.dataset) {
+    citation.value = createCitationDataset(
+      authors.value,
+      publicationYear.value,
+      title.value,
+      props.record.edition,
+      publisher.value,
+      identifier.value
+    )
+  } else if (template.value === CitationTemplate.productMapMagicGeneral) {
+    citation.value = createCitationMagicMapsGeneral(
+      creationYear.value,
+      props.record.edition,
+      identifier.value
+    )
+  } else if (template.value === CitationTemplate.productMapMagicPublished) {
+    citation.value = createCitationMagicMapsPublished(
+      creationYear.value,
+      title.value,
+      -1,
+      '?series',
+      '?sheet',
+      props.record.edition
+    )
+  } else {
+    citation.value = '[Error: Unknown citation template]'
+  }
 }
 
 const copyFromPreview = () => {
-  markdownInput.value = citationFormatted.value
+  markdownInput.value = formatCitationAsMarkdown(citation.value, identifier.value.href)
 }
 
 const dependantSections: DropdownItem[] = [
@@ -57,6 +79,7 @@ const dependantSections: DropdownItem[] = [
   { href: '#title', title: 'Title' },
 ]
 
+let template = ref<CitationTemplate>(CitationTemplate.unknown)
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
 let otherCitationDetails = ref<string>('')
@@ -83,17 +106,28 @@ let identifier: ComputedRef<Identifier> = computed(() => {
   return { title: '', identifier: '', href: '' }
 })
 
-let doi: ComputedRef<string> = computed(() => {
-  if (identifier.value.namespace === 'doi') {
-    return identifier.value.identifier
-  }
-  return ''
-})
-
 let authors: ComputedRef<string[]> = computed(() => {
+  if (props.record.contacts.length === 0) {
+    return ['?authors']
+  }
   return props.record.contacts
     .map((contact) => contact.individual?.name ?? '')
     .filter((contact) => contact !== '')
+})
+
+let title: ComputedRef<string> = computed(() => {
+  if (props.record.title === '') {
+    return '?title'
+  }
+  return props.record.title
+})
+
+let creationYear: ComputedRef<string> = computed(() => {
+  const creationDate = props.record.dates.find((date) => date.label === 'creation')
+  if (creationDate) {
+    return String(creationDate.date.js.getFullYear())
+  }
+  return '?creation_year'
 })
 
 let publicationYear: ComputedRef<string> = computed(() => {
@@ -101,7 +135,7 @@ let publicationYear: ComputedRef<string> = computed(() => {
   if (publicationDate) {
     return String(publicationDate.date.js.getFullYear())
   }
-  return ''
+  return '?publication_year'
 })
 
 let publisher: ComputedRef<string> = computed(() => {
@@ -111,20 +145,28 @@ let publisher: ComputedRef<string> = computed(() => {
   return publisher.name
 })
 
-let citationFormatted: ComputedRef<string> = computed(() => {
-  return formatCitation(citation.value, identifier.value.href, doi.value)
+let availableCitationTemplates: ComputedRef<CitationTemplate[]> = computed(() => {
+  return filterCitationTemplates(props.record.resourceType)
 })
 
 onMounted(() => {
+  template.value = defaultCitationTemplate(props.record.resourceType)
+  getCitation()
+})
+
+watch([() => props.record.resourceType], () => {
+  template.value = defaultCitationTemplate(props.record.resourceType)
   getCitation()
 })
 
 watch(
   [
+    () => template.value,
     () => props.record.resourceType,
     () => identifier.value,
     () => props.record.edition,
     () => props.record.title,
+    () => creationYear.value,
     () => publicationYear.value,
     () => authors.value,
     () => props.record.licence,
@@ -146,26 +188,34 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      :stability="Stability.Stable"
-      version="4.3"
+      :stability="Stability.Experimental"
+      version="5.0"
       anchor="citation"
       title="Citation"
       :data-file-href="['organisations.json']"
       :depends-on="dependantSections"
     />
     <div class="mb-10 space-y-2">
-      <SectionLabel>Constructed citation (APA style)</SectionLabel>
+      <SectionLabel>Constructed citation</SectionLabel>
       <Prose id="citation-preview" :prose-classes="['prose-sm']" :content="citation"></Prose>
       <div class="flex items-center space-x-2">
+        <FormLabel for="citation-template" class="text-neutral-500">Template</FormLabel>
+        <select
+          id="citation-template"
+          v-model="template"
+          name="citation-template"
+          class="border border-black bg-white disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-white dark:bg-black dark:disabled:bg-neutral-700"
+        >
+          <option v-for="option in availableCitationTemplates" :key="option" :value="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <div class="flex items-center space-x-2">
         <Button id="citation-use-generated" @click="copyFromPreview">Copy From Preview</Button>
-        <GuidanceText>
-          Click to copy this citation (with
-          <Link
-            href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/src/utils/crosscite.ts#L66"
-          >
-            some modifications
-          </Link>
-          ) into the input below (replacing any existing value).
+        <GuidanceText
+          >Click to copy this generated citation into the input below (replacing any existing
+          value).
         </GuidanceText>
       </div>
     </div>

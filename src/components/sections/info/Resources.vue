@@ -10,7 +10,7 @@ import Link from '@/components/bases/Link.vue'
   <SectionBorder :type="SectionType.Info">
     <SectionTitle
       :type="SectionType.Info"
-      version="2.1"
+      version="2.2"
       anchor="resources"
       title="Resources"
       :add-toc="true"
@@ -36,6 +36,12 @@ import Link from '@/components/bases/Link.vue'
           >MAGIC Discovery Metadata Profile (v1)</Link
         >
         schemas.
+      </p>
+      <p>
+        Citation suggestions for products are based on the logic from
+        <Link href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5"
+          >MAGIC/mapping-coordination#5</Link
+        >.
       </p>
       <p>
         Examples of completed records can be found in the
