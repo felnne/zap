@@ -18,6 +18,10 @@
       "label": "Citation based on resource type, identifier, title, edition, publication date and contacts.",
       "state": "complete"
     },
+    {
+      "label": "Citation suggestions based on MAGIC map publishing guidelines",
+      "state": "complete"
+    },
     { "label": "Resource type section.", "state": "complete" },
     { "label": "(Publication) date section.", "state": "complete" },
     { "label": "Additional dates (released).", "state": "complete" },

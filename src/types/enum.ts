@@ -5,6 +5,13 @@ export enum AppEnvironmentLabel {
   Production = 'Production',
 }
 
+export enum CitationTemplate {
+  dataset = 'Dataset',
+  productMapMagicGeneral = 'Product (Map, MAGIC, General)',
+  productMapMagicPublished = 'Product (Map, MAGIC, Published)',
+  unknown = 'Unknown',
+}
+
 export enum ResourceType {
   Collection = 'collection',
   Dataset = 'dataset',
