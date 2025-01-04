@@ -89,6 +89,31 @@ describe('Markdown', () => {
     expect(wrapper.find('textarea').element.value).toBe(expected)
   })
 
+  it('renders properly with pasted input', async () => {
+    const expected = 'A\nB'
+    const expectedJson = JSON.stringify(expected)
+
+    const wrapper = mount(Markdown, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // trigger input paste event to trigger paste fix logic
+    wrapper.find('textarea').element.value = expected
+    wrapper.find('textarea').trigger('paste')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('textarea').element.value).toBe(expected)
+
+    // set value normally to trigger reactivity
+    wrapper.find('textarea').setValue(expected)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('textarea').element.value).toBe(expected)
+    expect(wrapper.find('pre').text()).toBe(expectedJson)
+  })
+
   it('emits input event on input', async () => {
     const expected = 'input'
 

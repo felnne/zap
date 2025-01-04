@@ -18,6 +18,10 @@
 * initial status (progress) component
 * initial temporal extent component
 
+### Fixed
+
+* pasting input with new lines in MarkDown inputs
+
 ### Changed
 
 * Refactoring Table of Contents and SectionTitle/SectionBorder base components into types
