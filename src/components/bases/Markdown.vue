@@ -37,6 +37,16 @@ const setInput = () => {
   }
 }
 
+const fixInput = (input: string): string => {
+  return input.replace(/\\n/g, '\n')
+}
+
+const handlePaste = () => {
+  setTimeout(() => {
+    text.value = fixInput(text.value)
+  }, 0)
+}
+
 let text = ref<string>('')
 
 let textJson: ComputedRef<string> = computed(() => {
@@ -61,6 +71,7 @@ watch(
 watch(
   () => text.value,
   () => {
+    console.log('text.value', text.value)
     emit('update:input', text.value)
   }
 )
@@ -78,6 +89,7 @@ watch(
           v-model="text"
           class="w-full flex-grow"
           :class="inputClass"
+          @paste="handlePaste"
         ></FormTextarea>
       </template>
       <template #right>
