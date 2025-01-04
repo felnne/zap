@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.11.0] - 2024-12-16
+
 ### Added
 
 * 'removed' issue component state
