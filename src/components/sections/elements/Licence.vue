@@ -47,6 +47,14 @@ let filteredLicences: ComputedRef<Licence[]> = computed(() => {
   return getLicencesFiltered(open)
 })
 
+let image: ComputedRef<string | undefined> = computed(() => {
+  let mode: 'img_dark' | 'img_light' = window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'img_dark'
+    : 'img_light'
+  if (!selectedLicence.value[mode]) return undefined
+  return `/${selectedLicence.value[mode]}`
+})
+
 let licenceConstraint: ComputedRef<Constraint> = computed(() => {
   return createUsageConstraint(selectedLicence.value)
 })
@@ -78,8 +86,8 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="4.3"
-      :stability="Stability.Stable"
+      version="5.0"
+      :stability="Stability.Experimental"
       anchor="licence"
       title="Licence"
       :data-file-href="['licences.json']"
@@ -102,7 +110,10 @@ watch(
         </div>
       </template>
       <template #right>
-        <Output :data="licenceConstraint"></Output>
+        <div class="space-y-4">
+          <img id="licence-img" :src="image" height="48px" />
+          <Output :data="licenceConstraint"></Output>
+        </div>
       </template>
     </TwoColumn>
   </SectionBorder>

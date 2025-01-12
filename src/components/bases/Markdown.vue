@@ -71,7 +71,6 @@ watch(
 watch(
   () => text.value,
   () => {
-    console.log('text.value', text.value)
     emit('update:input', text.value)
   }
 )

@@ -44,7 +44,7 @@
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
     { "label": "Thumbnails.", "state": "complete" },
-    { "label": "Open licences logos.", "state": "todo" },
+    { "label": "Open licences logos.", "state": "complete" },
     { "label": "Coordinate reference system section.", "state": "complete" },
     { "label": "Validation.", "state": "complete" },
     { "label": "Support depositing downloads.", "state": "todo" },

@@ -5,6 +5,8 @@
       "slug": "OGL_UK_3_0",
       "name": "(UK) Open Government Licence v3.0",
       "url": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "img_light": "licence-ogl.png",
+      "img_dark": "licence-ogl-dark.png",
       "statement": "This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.",
       "open": true
     },
@@ -12,6 +14,8 @@
       "slug": "CC_BY_4_0",
       "name": "Creative Commons Attribution 4.0 International",
       "url": "https://creativecommons.org/licenses/by/4.0/",
+      "img_light": "licence-cc.png",
+      "img_dark": "licence-cc-dark.png",
       "statement": "This information is licensed under the Creative Commons Attribution 4.0 International Licence (CC BY 4.0). To view this licence, visit https://creativecommons.org/licenses/by/4.0/.",
       "open": true
     },
@@ -19,6 +23,8 @@
       "slug": "X_FAKE_CLOSED",
       "name": "Fake Closed Licence",
       "url": "http://www.example.com",
+      "img_light": "licence-fake.png",
+      "img_dark": "licence-ogl-dark.png",
       "statement": "!!NOT A REAL LICENCE!!",
       "open": false
     }

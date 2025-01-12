@@ -56,7 +56,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       version="1.1"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       anchor="summary"
       title="Summary"
       :add-toc="true"
