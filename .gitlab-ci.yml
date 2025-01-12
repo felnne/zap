@@ -61,7 +61,7 @@ before_script:
 
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - op read --out-file $DEPLOY_SSH_PRIVATE_KEY "op://Infrastructure/Zap - GitLab CI private key/private key?ssh-format=openssh"
+    - op read --out-file $DEPLOY_SSH_PRIVATE_KEY "op://Infrastructure/unn4b2qt5cikjjmomgviqxksgi/private key?ssh-format=openssh"
     - eval $(ssh-agent -s)
     - chmod 400 "$DEPLOY_SSH_PRIVATE_KEY"
     - ssh-add "$DEPLOY_SSH_PRIVATE_KEY"
