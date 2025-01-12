@@ -5,6 +5,7 @@
 ### Added
 
 * CDN uploads for public access thumbnails
+* preview/logo for selected licence
 
 ## [0.11.0] - 2024-12-16
 

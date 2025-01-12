@@ -97,6 +97,8 @@ type Licence = {
   slug: string
   name: string
   url: string
+  img_light?: string
+  img_dark?: string
   statement: string
   open: boolean
 }

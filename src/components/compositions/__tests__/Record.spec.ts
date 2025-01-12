@@ -55,6 +55,21 @@ describe('Record [Integration]', () => {
     tocItemsDivTools = document.createElement('div')
     tocItemsDivTools.id = 'toc-items-tools'
     document.body.appendChild(tocItemsDivTools)
+
+    // mock dark-mode detection used in licences component
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    })
   })
 
   it('emits ISO record correctly when a section set directly changes', async () => {
@@ -450,5 +465,7 @@ describe('Record [Integration]', () => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
     document.body.removeChild(tocItemsDivTools)
+
+    vi.restoreAllMocks()
   })
 })

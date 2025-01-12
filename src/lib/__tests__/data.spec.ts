@@ -63,6 +63,8 @@ const checkLicence: Licence = {
   slug: 'OGL_UK_3_0',
   name: '(UK) Open Government Licence v3.0',
   url: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+  img_light: 'licence-ogl.png',
+  img_dark: 'licence-ogl-dark.png',
   statement:
     'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
   open: true,

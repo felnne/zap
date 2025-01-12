@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, it, expect } from 'vitest'
+import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
@@ -29,6 +29,21 @@ describe('Licence', () => {
     tocItemsDiv = document.createElement('div')
     tocItemsDiv.id = 'toc-items-element'
     document.body.appendChild(tocItemsDiv)
+
+    // mock dark-mode detection (`matches` should be false to indicate light mode)
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    })
   })
 
   it('renders and emits licence from open choice', async () => {
@@ -47,6 +62,8 @@ describe('Licence', () => {
     })
 
     // don't need to wait for filter as initial licence happens to be open
+
+    expect(wrapper.find('img#licence-img').attributes('src')).toContain(expectedLicence.img_light)
 
     expect(wrapper.find('pre').text()).toBe(JSON.stringify(expectedConstraint, null, 2))
 
@@ -170,5 +187,7 @@ describe('Licence', () => {
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
+
+    vi.restoreAllMocks()
   })
 })

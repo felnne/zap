@@ -17,6 +17,8 @@
         "slug": { "type": "string" },
         "name": { "type": "string" },
         "url": { "type": "string" },
+        "img_light": { "type": "string" },
+        "img_dark": { "type": "string" },
         "statement": { "type": "string" },
         "open": { "type": "boolean" }
       },
