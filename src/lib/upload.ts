@@ -1,37 +1,46 @@
 import axios from 'axios'
 
+import { UploadAccess } from '@/types/enum'
 import { getSetting } from '@/lib/data'
 
-export async function stageFile(file: File, fileIdentifier: string): Promise<string> {
+export async function uploadFile(
+  file: File,
+  fileIdentifier: string,
+  access: UploadAccess
+): Promise<string> {
   /*
-   * Upload a file to a staging endpoint and return URL
+   * Upload a file to a relevant endpoint and return URL
    *
-   * The target service, and this method, are very minimal implementations for prototyping purposes.
+   * Target services, and this method, are very minimal implementations for prototyping purposes.
    *
-   * The target service expects:
+   * The service expects:
    * - a multi-part form POST request with a part named 'file'
    * - a 'app-file-identifier' header (to organise artefacts per resource)
    *
    * If successful, the target service returns a URL to the uploaded file in the 'location' header.
    */
-  const url = getSetting('app_file_upload_endpoint')
+  let endpoint = getSetting('app_internal_file_upload_endpoint')
+  if (access == UploadAccess.External) {
+    endpoint = getSetting('app_external_file_upload_endpoint')
+  }
+
   const headers = { 'app-file-identifier': fileIdentifier }
   const formData = new FormData()
   formData.append('file', file)
 
   try {
-    const response = await axios.post<string>(url, formData, { headers })
+    const response = await axios.post<string>(endpoint, formData, { headers })
     return response.headers.location
   } catch (error: unknown) {
     if (typeof error === 'object' && error !== null) {
       const errorObj = error as { response?: { data?: { error?: string } } }
       const errorMessage = errorObj.response?.data?.error
       if (errorMessage) {
-        throw new Error(`Error staging file: ${errorMessage}`)
+        throw new Error(`Error uploading file: ${errorMessage}`)
       }
     }
 
-    throw new Error('Error staging file')
+    throw new Error('Error uploading file')
   }
 }
 

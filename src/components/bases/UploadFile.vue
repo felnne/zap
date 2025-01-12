@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref, watch, watchEffect } from 'vue'
+import { computed, type ComputedRef, type PropType, ref, watch, watchEffect } from 'vue'
 
-import { UploadStatus } from '@/types/enum'
+import { UploadAccess, UploadStatus } from '@/types/enum'
 import type { Format } from '@/types/app'
-import { stageFile } from '@/lib/upload'
+import { uploadFile as uploadFile_ } from '@/lib/upload'
 import { getFormatFile } from '@/lib/distribution'
 
 import FormLabel from '@/components/bases/FormLabel.vue'
@@ -22,6 +22,10 @@ const props = defineProps({
   fileIdentifier: {
     type: String,
     required: true,
+  },
+  access: {
+    type: String as PropType<UploadAccess>,
+    default: UploadAccess.Internal,
   },
 })
 
@@ -50,8 +54,8 @@ const uploadFile = async () => {
 
   try {
     state.value = UploadStatus.Uploading
-    let stagedFileUrl = await stageFile(file.value, props.fileIdentifier)
-    url.value = stagedFileUrl
+    let fileUrl = await uploadFile_(file.value, props.fileIdentifier, props.access)
+    url.value = fileUrl
     state.value = UploadStatus.Uploaded
   } catch (e: unknown) {
     state.value = UploadStatus.Error

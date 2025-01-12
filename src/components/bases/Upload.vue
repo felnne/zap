@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref, watch } from 'vue'
+import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { UploadSource } from '@/types/enum'
+import { UploadAccess, UploadSource } from '@/types/enum'
 import type { Format, Upload } from '@/types/app'
 
 import UploadFile from '@/components/bases/UploadFile.vue'
@@ -20,6 +20,10 @@ defineProps({
   fileIdentifier: {
     type: String,
     required: true,
+  },
+  access: {
+    type: String as PropType<UploadAccess>,
+    default: UploadAccess.Internal,
   },
 })
 
@@ -61,6 +65,7 @@ watch(
       :context="context"
       :identifier="identifier"
       :file-identifier="fileIdentifier"
+      :access="access"
       @update:format="(event: Format) => (format = event)"
       @update:size-bytes="(event: number) => (sizeBytes = event)"
       @update:url="(event: string) => (url = event)"

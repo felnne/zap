@@ -38,6 +38,11 @@ export enum Stability {
   Experimental = 'experimental',
 }
 
+export enum UploadAccess {
+  Internal = 'internal',
+  External = 'external',
+}
+
 export enum UploadSource {
   File = 'file',
   San = 'san',

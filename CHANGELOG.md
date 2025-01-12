@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* CDN uploads for public access thumbnails
+
 ## [0.11.0] - 2024-12-16
 
 ### Added
