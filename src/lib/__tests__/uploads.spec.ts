@@ -3,12 +3,13 @@ import axios from 'axios'
 import type { MockedFunction } from 'vitest'
 import type { AxiosInstance } from 'axios'
 
+import { UploadAccess } from '@/types/enum'
 import { getSetting } from '@/lib/data'
-import { stageFile, statSanPath, encodeSanPath } from '@/lib/upload'
+import { uploadFile, statSanPath, encodeSanPath } from '@/lib/upload'
 
 vi.mock('axios')
 
-describe('stageFile', () => {
+describe('uploadFile', () => {
   afterEach(() => {
     // cleaning up after the previous test
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
@@ -31,9 +32,9 @@ describe('stageFile', () => {
     }
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
-    const stagedFileUrl = await stageFile(file, fileIdentifier)
+    const uploadedFileUrl = await uploadFile(file, fileIdentifier, UploadAccess.Internal)
 
-    expect(stagedFileUrl).toStrictEqual(expectedUrl)
+    expect(uploadedFileUrl).toStrictEqual(expectedUrl)
   })
 
   it('throws an error if the file has already been uploaded', async () => {
@@ -56,10 +57,10 @@ describe('stageFile', () => {
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
-      await stageFile(file, fileIdentifier)
+      await uploadFile(file, fileIdentifier, UploadAccess.Internal)
     } catch (error: unknown) {
       if (error instanceof Error) {
-        expect(error.message).toBe(`Error staging file: ${mockError.response.data.error}`)
+        expect(error.message).toBe(`Error uploading file: ${mockError.response.data.error}`)
       }
     }
   })

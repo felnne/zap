@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
+import { UploadAccess } from '@/types/enum'
 import type { Upload as UploadT } from '@/types/app'
 import type { GraphicOverview } from '@/types/iso'
 
@@ -69,6 +70,7 @@ watch(
       :context="'thumbnail'"
       :identifier="identifier"
       :file-identifier="fileIdentifier"
+      :access="UploadAccess.External"
       @update:upload="(event: UploadT) => (upload = event)"
     ></Upload>
     <Button :id="'thumbnail-' + identifier + '-destroy'" @click="destroy()">✖️</Button>

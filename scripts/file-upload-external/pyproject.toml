@@ -1,0 +1,30 @@
+[project]
+name = "zap-file-upload"
+version = "0.1.1"
+license = "MIT"
+description = "File hosting features for Zap ⚡️ editor"
+readme = "README.md"
+authors = [{name = "Felix Fennell", email = "felnne@bas.ac.uk"}]
+requires-python = ">=3.9"
+
+dependencies = [
+    "boto3>=1.35.97",
+    "environs>=14.1.0",
+    "flask>=3.1.0",
+    "flask-cors>=5.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.1",
+]
+
+[[tool.uv.index]]
+name = "gitlab"
+url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1159/packages/pypi/simple"
+publish-url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1159/packages/pypi"
+explicit = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
