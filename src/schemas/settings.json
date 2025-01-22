@@ -31,7 +31,10 @@
         "nerc_ad_tenant_id": { "type": "string" },
         "app_open_ai_proxy_endpoint": { "type": "string" },
         "app_open_ai_model": { "type": "string" },
-        "app_geo_pdf_endpoint": { "type": "string" }
+        "app_geo_pdf_endpoint": { "type": "string" },
+        "app_identifier_namespace_self": { "type": "string" },
+        "app_identifier_namespace_alias": { "type": "string" },
+        "app_catalogue_base": { "type": "string" }
       },
       "additionalProperties": false,
       "required": [
@@ -55,7 +58,10 @@
         "nerc_ad_tenant_id",
         "app_open_ai_proxy_endpoint",
         "app_open_ai_model",
-        "app_geo_pdf_endpoint"
+        "app_geo_pdf_endpoint",
+        "app_identifier_namespace_self",
+        "app_identifier_namespace_alias",
+        "app_catalogue_base"
       ]
     }
   }

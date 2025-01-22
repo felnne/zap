@@ -14,6 +14,11 @@ test('a record drawn together from filled in sections validates', async ({ page 
   // check element with id 'identifier-doi-selection'
   await page.check('input#identifier-doi-selection')
 
+  // check element with id 'identifier-alias-selection'
+  await page.check('input#identifier-alias-selection')
+  // set element with id 'identifier-alias-value' to 'xxx'
+  await page.fill('input#identifier-alias-value', 'xxx')
+
   // check element with id 'identifier-bas-gitlab-selection'
   await page.check('input#identifier-bas-gitlab-selection')
   // set element with id 'identifier-bas-gitlab-id' to 'https://gitlab.data.bas.ac.uk/MAGIC/helpdesk/-/issues/xxx'

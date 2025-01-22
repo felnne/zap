@@ -12,6 +12,7 @@ import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Output from '@/components/bases/Output.vue'
 import TwoColumn from '@/components/bases/TwoColumn.vue'
 import IdentifierSelf from '@/components/sections/elements/IdentifierSelf.vue'
+import IdentifierAlias from '@/components/sections/elements/IdentifierAlias.vue'
 import IdentifierDoi from '@/components/sections/elements/IdentifierDoi.vue'
 import IdentifierBasGitlab from '@/components/sections/elements/IdentifierBasGitlab.vue'
 
@@ -71,8 +72,8 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="5.3"
-      :stability="Stability.Stable"
+      version="6.0"
+      :stability="Stability.Experimental"
       anchor="identifiers"
       title="Identifiers"
       :depends-on="dependantSections"
@@ -87,6 +88,11 @@ watch(
           <IdentifierDoi
             v-if="showDoi"
             :file-identifier="fileIdentifier"
+            @add:identifier="(event: Identifier) => addIdentifier(event)"
+            @remove:identifier="(event: Identifier) => removeIdentifier(event)"
+          />
+          <IdentifierAlias
+            :resource-type="resourceType"
             @add:identifier="(event: Identifier) => addIdentifier(event)"
             @remove:identifier="(event: Identifier) => removeIdentifier(event)"
           />
