@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "collections": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Collection" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "collections"],
+  "definitions": {
+    "Collection": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "identifier": { "type": "string" },
+        "href": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "identifier", "href"]
+    }
+  }
+}

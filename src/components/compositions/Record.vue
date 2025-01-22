@@ -5,12 +5,14 @@ import { AppEnvironmentLabel, ResourceType as ResourceTypeEM } from '@/types/enu
 import type {
   AccessRestriction,
   AppEnvironment,
+  Collection,
   DateImpreciseLabelled,
   EsriToken,
   Licence as LicenceT,
   Record,
 } from '@/types/app'
 import type {
+  Aggregation as IsoAggregation,
   Constraint as IsoConstraint,
   Dates as IsoDates,
   DistributionOption as IsoDistributionOption,
@@ -32,6 +34,7 @@ import { createOrgSlugPointOfContact } from '@/lib/contacts'
 import Abstract from '@/components/sections/elements/Abstract.vue'
 import Access from '@/components/sections/elements/Access.vue'
 import Citation from '@/components/sections/elements/Citation.vue'
+import Collections from '@/components/sections/elements/Collections.vue'
 import Contacts from '@/components/sections/elements/Contacts.vue'
 import Dates from '@/components/sections/elements/Dates.vue'
 import Downloads from '@/components/sections/elements/Downloads.vue'
@@ -85,6 +88,8 @@ const setCitation = (citation: string) => {
 
 const record = ref<Record>(emptyRecord)
 const isoRecord = ref<IsoRecord>(emptyIsoRecord)
+
+const collections = ref<Collection[]>([])
 
 const authors = ref<IsoContact[]>([])
 const magicPoC = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
@@ -231,6 +236,13 @@ watch(
       @update:resource-type="(event: ResourceTypeEM) => (record.resourceType = event)"
       @update:iso-hierarchy-level="(event: string) => (isoRecord.hierarchy_level = event)"
     />
+    <Collections
+      v-if="show('collections')"
+      @update:collections="(event: Collection[]) => (collections = event)"
+      @update:iso-aggregations="
+        (event: IsoAggregation[]) => (isoRecord.identification.aggregations = event)
+      "
+    />
     <Identifiers
       :file-identifier="record.fileIdentifier"
       :resource-type="record.resourceType"
@@ -285,6 +297,7 @@ watch(
     />
     <Citation
       v-if="show('citation')"
+      :collections="collections"
       :record="record"
       @update:iso-other-citation-details="(event: string) => setCitation(event)"
     />

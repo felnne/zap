@@ -1,4 +1,5 @@
 import type {
+  Collection,
   Format,
   Idea,
   Individual,
@@ -12,6 +13,7 @@ import type {
 } from '@/types/app'
 import type { DomainConsistency } from '@/types/iso'
 
+import collectionsData from '@/data/collections.json'
 import extentsData from '@/data/extents.json'
 import formatsData from '@/data/formats.json'
 import ideasData from '@/data/ideas.json'
@@ -50,6 +52,11 @@ export const deepMergeObjects = (source: StrKeyObj, target: StrKeyObj): StrKeyOb
     })
   }
   return output
+}
+
+export const getCollections = (): Collection[] => {
+  /* Get information for all collections */
+  return Object.values(collectionsData.collections)
 }
 
 export const getExtent = (slug: string): WellKnownExtent => {

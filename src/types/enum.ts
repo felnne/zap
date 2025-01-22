@@ -1,3 +1,11 @@
+export enum AggregationAssociation {
+  largerWorkCitation = 'largerWorkCitation',
+}
+
+export enum AggregationInitiative {
+  collection = 'collection',
+}
+
 export enum AppEnvironmentLabel {
   LocalDevelopment = 'Local Development',
   ReviewApp = 'Review App',

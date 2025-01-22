@@ -290,6 +290,17 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           },
         },
       ],
+      aggregations: [
+        {
+          association_type: 'largerWorkCitation',
+          initiative_type: 'collection',
+          identifier: {
+            identifier: '1976fb02-816a-46db-8606-ff4193bbecdb',
+            href: 'https://data.bas.ac.uk/items/1976fb02-816a-46db-8606-ff4193bbecdb',
+            namespace: 'data.bas.ac.uk',
+          },
+        },
+      ],
       other_citation_details:
         'Required citation:\n> Gerrish, L. (2024). _x_ (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
     },

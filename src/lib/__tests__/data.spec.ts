@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Format, Individual, Licence, WellKnownExtent } from '@/types/app'
+import type { Collection, Format, Individual, Licence, WellKnownExtent } from '@/types/app'
 
 import {
   deepMergeObjects,
   getDomainConsistency,
+  getCollections,
   getExtent,
   getExtents,
   getFormat,
@@ -93,6 +94,23 @@ describe('getDomainConsistency', () => {
       'Resource within scope of British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile.'
 
     expect(getDomainConsistency('magic_discovery_v1').explanation).toEqual(checkExplanation)
+  })
+})
+
+describe('getCollections', () => {
+  it('loads some data', () => {
+    expect(getCollections().length).toBeGreaterThan(0)
+  })
+
+  const checkCollection: Collection = {
+    slug: 'd0d91e22_18c1_4c7f_8dfc_20e94cd2c107',
+    name: 'BAS General Interest Maps',
+    identifier: 'd0d91e22-18c1-4c7f-8dfc-20e94cd2c107',
+    href: 'https://data.bas.ac.uk/items/d0d91e22-18c1-4c7f-8dfc-20e94cd2c107',
+  }
+
+  it('includes expected collection', () => {
+    expect(getCollections()).toContainEqual(checkCollection)
   })
 })
 

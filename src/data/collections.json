@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/collections.json",
+  "collections": {
+    "d0d91e22_18c1_4c7f_8dfc_20e94cd2c107": {
+      "slug": "d0d91e22_18c1_4c7f_8dfc_20e94cd2c107",
+      "name": "BAS General Interest Maps",
+      "identifier": "d0d91e22-18c1-4c7f-8dfc-20e94cd2c107",
+      "href": "https://data.bas.ac.uk/items/d0d91e22-18c1-4c7f-8dfc-20e94cd2c107"
+    },
+    "6f5102ae_dfae_4d72_ad07_6ce4c85f5db8": {
+      "slug": "6f5102ae_dfae_4d72_ad07_6ce4c85f5db8",
+      "name": "BAS Published Maps",
+      "identifier": "6f5102ae-dfae-4d72-ad07-6ce4c85f5db8",
+      "href": "https://data.bas.ac.uk/items/6f5102ae-dfae-4d72-ad07-6ce4c85f5db8"
+    }
+  }
+}
