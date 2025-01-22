@@ -38,6 +38,7 @@
     { "label": "Colour code distribution options like JWTs.", "state": "cancelled" },
     { "label": "Hide sections based on resource type.", "state": "complete" },
     { "label": "Access restrictions section.", "state": "complete" },
+    { "label": "Collection aggregations", "state": "complete" },
     { "label": "Aggregations section.", "state": "todo" },
     { "label": "Extent map.", "state": "complete" },
     { "label": "Syntax highlighting for outputs.", "state": "cancelled" },
