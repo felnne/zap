@@ -6,6 +6,12 @@ export type Address = {
   country: string
 }
 
+export type Aggregation = {
+  association_type: string
+  initiative_type?: string
+  identifier: Identifier
+}
+
 export type Constraint = {
   type: string
   restriction_code: string
@@ -72,6 +78,7 @@ export type Identification = {
   graphic_overviews?: GraphicOverview[]
   keywords?: KeywordSet[]
   constraints: Constraint[]
+  aggregations?: Aggregation[]
   language: string
   character_set?: string
   topics?: string[]

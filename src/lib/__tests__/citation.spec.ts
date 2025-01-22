@@ -16,6 +16,8 @@ import {
   defaultCitationTemplate,
 } from '@/lib/citation'
 
+import collectionsData from '@/data/collections.json'
+
 describe('formatName', () => {
   it('formats a name when formatted correctly', () => {
     expect(formatName('Watson, Constance')).toBe('Watson, C.')
@@ -171,11 +173,36 @@ describe('filterCitationTemplates', () => {
 })
 
 describe('defaultCitationTemplate', () => {
-  it('returns a template based on an unknown resource type', async () => {
-    expect(defaultCitationTemplate('x')).toEqual(CitationTemplate.unknown)
+  it('returns a template based on an unknown resource type without collections', async () => {
+    expect(defaultCitationTemplate([], 'x')).toEqual(CitationTemplate.unknown)
   })
 
-  it('returns a template based on a known resource type', async () => {
-    expect(defaultCitationTemplate('dataset')).toEqual(CitationTemplate.dataset)
+  it('returns a template based on a known resource type without collections', async () => {
+    expect(defaultCitationTemplate([], 'dataset')).toEqual(CitationTemplate.dataset)
+  })
+
+  it('returns magic general maps template for product and relevant collection', async () => {
+    const collections = [collectionsData.collections['d0d91e22_18c1_4c7f_8dfc_20e94cd2c107']]
+    expect(defaultCitationTemplate(collections, 'product')).toEqual(
+      CitationTemplate.productMapMagicGeneral
+    )
+  })
+
+  it('returns magic published maps template for product and relevant collection', async () => {
+    const collections = [collectionsData.collections['6f5102ae_dfae_4d72_ad07_6ce4c85f5db8']]
+    expect(defaultCitationTemplate(collections, 'product')).toEqual(
+      CitationTemplate.productMapMagicPublished
+    )
+  })
+
+  it('returns first matching template for multiple collections', async () => {
+    // first matching is based on order defined in collections data file, not in record aggregations
+    const collections = [
+      collectionsData.collections['d0d91e22_18c1_4c7f_8dfc_20e94cd2c107'],
+      collectionsData.collections['6f5102ae_dfae_4d72_ad07_6ce4c85f5db8'],
+    ]
+    expect(defaultCitationTemplate(collections, 'product')).toEqual(
+      CitationTemplate.productMapMagicGeneral
+    )
   })
 })

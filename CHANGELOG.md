@@ -6,6 +6,7 @@
 
 * CDN uploads for public access thumbnails
 * preview/logo for selected licence
+* collections section (limited form of aggregations)
 
 ## [0.11.0] - 2024-12-16
 

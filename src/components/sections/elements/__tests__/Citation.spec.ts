@@ -3,15 +3,19 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import type { DateImpreciseLabelled, Record } from '@/types/app'
+import type { Collection, DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 import { getPublisherOrgSlug } from '@/lib/contacts'
 import { getLicence, getOrganisation } from '@/lib/data'
+
 import Citation from '@/components/sections/elements/Citation.vue'
+
+import collectionsData from '@/data/collections.json'
 
 const identifier = '12345'
 const doiIdentifier = `123/${identifier}`
 
+const collectionsEmpty: Collection[] = []
 const record: Record = {
   fileIdentifier: identifier,
   resourceType: ResourceType.Dataset,
@@ -37,6 +41,9 @@ const record: Record = {
   licence: getLicence('OGL_UK_3_0'),
 }
 
+const recordProduct = structuredClone(record)
+recordProduct.resourceType = ResourceType.Product
+
 describe('Citation', () => {
   let tocItemsDiv: HTMLDivElement
 
@@ -51,7 +58,7 @@ describe('Citation', () => {
     const expected = 'Citation'
 
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { collections: collectionsEmpty, record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -75,7 +82,7 @@ describe('Citation', () => {
 
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { collections: collectionsEmpty, record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -90,7 +97,7 @@ describe('Citation', () => {
 
   it('copies citation preview to input', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { collections: collectionsEmpty, record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -112,7 +119,7 @@ describe('Citation', () => {
     )
 
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { collections: collectionsEmpty, record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -136,7 +143,7 @@ describe('Citation', () => {
 
   it('uses the correct default template', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { collections: collectionsEmpty, record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -152,11 +159,71 @@ describe('Citation', () => {
     )
   })
 
+  it('uses the correct default template for products without collections', async () => {
+    const wrapper = mount(Citation, {
+      props: { collections: collectionsEmpty, record: recordProduct },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    // select input with id #citation-template should be set to 'Product (Map, MAGIC, General)'
+    expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
+      'Product (Map, MAGIC, General)'
+    )
+  })
+
+  it('uses the correct default template for products in MAGIC general maps collection', async () => {
+    const generalMapsCollection = [
+      collectionsData.collections['d0d91e22_18c1_4c7f_8dfc_20e94cd2c107'],
+    ]
+    const wrapper = mount(Citation, {
+      props: { collections: generalMapsCollection, record: recordProduct },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    // select input with id #citation-template should be set to 'Product (Map, MAGIC, General)'
+    expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
+      'Product (Map, MAGIC, General)'
+    )
+  })
+
+  it('uses the correct default template for products in MAGIC published maps collection', async () => {
+    const publishedMapsCollection = [
+      collectionsData.collections['6f5102ae_dfae_4d72_ad07_6ce4c85f5db8'],
+    ]
+    const wrapper = mount(Citation, {
+      props: { collections: publishedMapsCollection, record: recordProduct },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    await wrapper.vm.$nextTick()
+
+    // select input with id #citation-template should be set to 'Product (Map, MAGIC, Published)'
+    expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
+      'Product (Map, MAGIC, Published)'
+    )
+  })
+
   it('updates citation preview if citation template changes', async () => {
     const productRecord = { ...record, resourceType: ResourceType.Product }
 
     const wrapper = mount(Citation, {
-      props: { record: productRecord },
+      props: { collections: collectionsEmpty, record: productRecord },
       global: {
         directives: {
           clipboard: Clipboard,

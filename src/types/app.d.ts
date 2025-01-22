@@ -31,6 +31,13 @@ export type AppEnvironment = {
   time?: string
 }
 
+export type Collection = {
+  slug: string
+  name: string
+  identifier: string
+  href: string
+}
+
 export type DateImprecise = {
   js: Date
   iso: string
