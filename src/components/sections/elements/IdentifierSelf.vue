@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, watch } from 'vue'
 
 import type { Identifier } from '@/types/iso'
+import { getSetting } from '@/lib/data'
 
 import FormLabel from '@/components/bases/FormLabel.vue'
 
@@ -12,8 +13,9 @@ const props = defineProps({
   },
 })
 
-const namespace = 'data.bas.ac.uk'
-const endpoint = `https://${namespace}/items/`
+const namespace = getSetting('app_identifier_namespace_self')
+const urlBase = getSetting('app_catalogue_base')
+const endpoint = `${urlBase}/items/`
 
 const emit = defineEmits<{
   'add:identifier': [id: Identifier]

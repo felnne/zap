@@ -21,6 +21,9 @@
     "nerc_ad_tenant_id": "b311db95-32ad-438f-a101-7ba061712a4e",
     "app_open_ai_proxy_endpoint": "https://zap-openai.flask-dev.nerc-bas.ac.uk/v1/chat/completions",
     "app_open_ai_model": "gpt-4o",
-    "app_geo_pdf_endpoint": "https://zap-geo-pdf.flask-dev.nerc-bas.ac.uk/v1/check"
+    "app_geo_pdf_endpoint": "https://zap-geo-pdf.flask-dev.nerc-bas.ac.uk/v1/check",
+    "app_identifier_namespace_self": "data.bas.ac.uk",
+    "app_identifier_namespace_alias": "alias.data.bas.ac.uk",
+    "app_catalogue_base": "https://data.bas.ac.uk"
   }
 }

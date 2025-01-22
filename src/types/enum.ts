@@ -18,6 +18,12 @@ export enum ResourceType {
   Product = 'product',
 }
 
+export enum ResourceTypeAlias {
+  Collection = 'collections',
+  Dataset = 'datasets',
+  Product = 'maps',
+}
+
 export enum ResourceStatus {
   draft = 'underDevelopment',
   complete = 'completed',

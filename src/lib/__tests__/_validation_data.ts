@@ -210,6 +210,11 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           href: 'https://doi.org/10.5285/25585848-7b80-42f7-8d4a-069d7479c287',
           namespace: 'doi',
         },
+        {
+          identifier: 'foo',
+          href: 'https://data.bas.ac.uk/datasets/foo',
+          namespace: 'alias.data.bas.ac.uk',
+        },
       ],
       contacts: [
         {

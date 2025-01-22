@@ -6,6 +6,7 @@
 
 * CDN uploads for public access thumbnails
 * preview/logo for selected licence
+* Alias identifiers
 
 ## [0.11.0] - 2024-12-16
 
