@@ -4,7 +4,7 @@ import { computed, type ComputedRef, type PropType, ref, watch, onMounted } from
 import { Stability, SectionType } from '@/types/enum'
 import type { AccessRestriction, DropdownItem, Licence } from '@/types/app'
 import type { Constraint } from '@/types/iso'
-import { getLicence, getLicences, getLicencesFiltered } from '@/lib/data'
+import { getLicence, getLicences, getLicencesFiltered, getSetting } from '@/lib/data'
 import { createUsageConstraint } from '@/lib/constraints'
 
 import Output from '@/components/bases/Output.vue'
@@ -36,6 +36,8 @@ const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Res
 
 const licences = getLicences()
 
+const app_assets_base = getSetting('app_assets_base')
+
 let selectedLicenceSlug = ref<string>(licences[0].slug)
 
 let selectedLicence: ComputedRef<Licence> = computed(() => {
@@ -52,7 +54,7 @@ let image: ComputedRef<string | undefined> = computed(() => {
     ? 'img_dark'
     : 'img_light'
   if (!selectedLicence.value[mode]) return undefined
-  return `/${selectedLicence.value[mode]}`
+  return `${app_assets_base}/${selectedLicence.value[mode]}`
 })
 
 let licenceConstraint: ComputedRef<Constraint> = computed(() => {
@@ -118,4 +120,3 @@ watch(
     </TwoColumn>
   </SectionBorder>
 </template>
-@/lib/data@/lib/constraints

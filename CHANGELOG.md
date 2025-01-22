@@ -9,6 +9,10 @@
 * Collections section (limited form of aggregations)
 * Alias identifiers
 
+### Fixed
+
+* App assets hosting location for images etc. fixed to a static path
+
 ## [0.11.0] - 2024-12-16
 
 ### Added
