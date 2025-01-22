@@ -60,4 +60,3 @@ watch(selected, () => {
     {{ accessRestriction.label }}
   </FormLabel>
 </template>
-@/lib/data

@@ -5,38 +5,42 @@
 ### Added
 
 * CDN uploads for public access thumbnails
-* preview/logo for selected licence
-* collections section (limited form of aggregations)
+* Preview/logo for selected licence
+* Collections section (limited form of aggregations)
 * Alias identifiers
+
+### Fixed
+
+* App assets hosting location for images etc. fixed to a static path
 
 ## [0.11.0] - 2024-12-16
 
 ### Added
 
 * 'removed' issue component state
-* loading component for lazy loading Record component
-* support for determining whether PDF downloads are georeferenced
-* additional date types (creation, revision, released)
-* support for custom media types (GeoPDF, zipped ShapeFile etc.)
-* initial record export component
-* initial thumbnail component
-* initial sample data component (very basic, only shown in local dev)
-* initial support for custom geographic extents
-* three column base layout
-* removable optional sections (downloads, thumbnails, summary and citation)
-* initial status (progress) component
-* initial temporal extent component
+* Loading component for lazy loading Record component
+* Support for determining whether PDF downloads are georeferenced
+* Additional date types (creation, revision, released)
+* Support for custom media types (GeoPDF, zipped ShapeFile etc.)
+* Initial record export component
+* Initial thumbnail component
+* Initial sample data component (very basic, only shown in local dev)
+* Initial support for custom geographic extents
+* Three column base layout
+* Removable optional sections (downloads, thumbnails, summary and citation)
+* Initial status (progress) component
+* Initial temporal extent component
 
 ### Fixed
 
-* pasting input with new lines in MarkDown inputs
+* Pasting input with new lines in MarkDown inputs
 
 ### Changed
 
 * Refactoring Table of Contents and SectionTitle/SectionBorder base components into types
 * Updating to ISO v4 and MAGIC Discovery v1 record schemas
 * Reorganise static components separately from base components
-* upgrading dependencies
+* Upgrading dependencies
 * Simplifying default edition
 * Refactoring Download component into base Upload component with Download wrapper
 * Citation formatting based on https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5
@@ -93,24 +97,24 @@
 
 ### Fixed
 
-* incorrect greyscale scheme for MarkDown previews ('slate' rather than 'neutral')
-* missing dark mode support for MarkDown previews
+* Incorrect greyscale scheme for MarkDown previews ('slate' rather than 'neutral')
+* Missing dark mode support for MarkDown previews
 * ISO date conversion timezone issues
 
 ### Changed
 
-* adding state to upload button in downloads (pending, uploading, uploading, etc.)
-* making URL input readonly for file based downloads
-* splitting Download component into Download and DownloadFile components
-* streamlining how distributors are made
-* refactoring Status enum from RecordValidation component to an app wide ValidationStatus enum
-* adjusting for `basweb` HTTPS support
-* splitting e2e tests into smaller files
-* using Vitest fake timers support for dates section testing
-* upgrading dependencies (x2)
-* upgrading to eslint v9 (flat config)
-* upgrading to vitest 2.x
-* upgrading to Metadata Library ISO 19115 v4 config (removing local modifications but using local mirror)
+* Adding state to upload button in downloads (pending, uploading, uploading, etc.)
+* Making URL input readonly for file based downloads
+* Splitting Download component into Download and DownloadFile components
+* Streamlining how distributors are made
+* Refactoring Status enum from RecordValidation component to an app wide ValidationStatus enum
+* Adjusting for `basweb` HTTPS support
+* Splitting e2e tests into smaller files
+* Using Vitest fake timers support for dates section testing
+* Upgrading dependencies (x2)
+* Upgrading to eslint v9 (flat config)
+* Upgrading to vitest 2.x
+* Upgrading to Metadata Library ISO 19115 v4 config (removing local modifications but using local mirror)
 
 ### Removed
 
@@ -121,51 +125,51 @@
 ### Added
 
 * ISO Record object (alongside existing App Record) to give a complete record for validation
-* record validation component expanded to validate all sections in current record
+* Record validation component expanded to validate all sections in current record
 * e2e tests for record validation
 * ID attribute support in markdown component/base
 
 ### Fixed
 
-* invalid lineage structure (missing statement element)
-* invalid extent structure (missing 'bounding' identifier)
-* accessing ArcGIS view before ready in 2d extent map
-* various small eslint warnings
+* Invalid lineage structure (missing statement element)
+* Invalid extent structure (missing 'bounding' identifier)
+* Accessing ArcGIS view before ready in 2d extent map
+* Various small eslint warnings
 
 ### Changed
 
-* large scale refactoring, all sections emit ISO outputs for assembling into combined ISO Record object
-* large scale refactoring, renaming `utils` to `lib` better reflecting their purpose
-* large scale refactoring, sections moved under components, divided into _info_ and _element_
-* large scale refactoring, record sections split out of app component into new _Record_ composition component and lib
-* aligning methods used to create ISO points of contact (between record metadata, distributors and authors)
-* significant refactoring and aligning of data used for testing validation section
-* improved styles for validation status
+* Large scale refactoring, all sections emit ISO outputs for assembling into combined ISO Record object
+* Large scale refactoring, renaming `utils` to `lib` better reflecting their purpose
+* Large scale refactoring, sections moved under components, divided into _info_ and _element_
+* Large scale refactoring, record sections split out of app component into new _Record_ composition component and lib
+* Aligning methods used to create ISO points of contact (between record metadata, distributors and authors)
+* Significant refactoring and aligning of data used for testing validation section
+* Improved styles for validation status
 * NPM tasks updated to streamline running all linting tools locally
-* disabling Sentry plugin in local development
+* Disabling Sentry plugin in local development
 
 ## [0.8.1] - 2024-04-01
 
 ### Changed
 
-* updating VSCode recommendations to avoid deprecated extensions
-* updating Node packages to latest versions
+* Updating VSCode recommendations to avoid deprecated extensions
+* Updating Node packages to latest versions
 
 ## [0.8.0] - 2024-02-18
 
 ### Added
 
 * URL parameter for downloads allowing transfer option href to be configured
-* basic support for uploading files to a staging area for downloads
+* Basic support for uploading files to a staging area for downloads
 
 ### Fixed
 
 * e2e tests missing from linting/formatter tasks
-* identifier schema/type used incorrect term ('title' instead of 'namespace')
+* Identifier schema/type used incorrect term ('title' instead of 'namespace')
 
 ### Changed
 
-* updating app dependencies
+* Updating app dependencies
 
 ## [0.7.0] - 2024-02-04
 

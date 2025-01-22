@@ -108,4 +108,3 @@ watch(
     </TwoColumn>
   </SectionBorder>
 </template>
-@/lib/contacts

@@ -68,4 +68,3 @@ watch(
     </TwoColumn>
   </SectionBorder>
 </template>
-@/lib/data@/lib/contacts

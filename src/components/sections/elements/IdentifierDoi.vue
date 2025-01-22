@@ -61,4 +61,3 @@ watch(selected, (value) => {
     DOI (NERC prefix)
   </FormLabel>
 </template>
-@/lib/data

@@ -30,4 +30,3 @@ const feedbackText = 'Thought of a good idea? Suggest it using feedback tool (bo
     </div>
   </SectionBorder>
 </template>
-@/lib/data
