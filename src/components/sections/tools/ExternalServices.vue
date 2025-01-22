@@ -73,4 +73,3 @@ watch(
     </div>
   </SectionBorder>
 </template>
-@/lib/esriAuth

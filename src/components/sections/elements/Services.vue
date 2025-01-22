@@ -54,4 +54,3 @@ watch(
     </div>
   </SectionBorder>
 </template>
-@/lib/data

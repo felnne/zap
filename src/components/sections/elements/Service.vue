@@ -76,4 +76,3 @@ watch(
     <Output v-show="selected" :data="distributionOption"></Output>
   </SubSectionBorder>
 </template>
-@/lib/data@/lib/distribution

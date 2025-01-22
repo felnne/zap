@@ -53,4 +53,3 @@ let timeDisplay: ComputedRef<string> = computed(() => {
     </div>
   </SectionBorder>
 </template>
-@/lib/data

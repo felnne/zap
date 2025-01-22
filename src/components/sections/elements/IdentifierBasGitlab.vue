@@ -72,4 +72,3 @@ watch(issueUrl, () => {
     />
   </form>
 </template>
-@/lib/data
