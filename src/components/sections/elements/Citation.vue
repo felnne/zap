@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import type { DropdownItem, Record } from '@/types/app'
+import type { Collection, DropdownItem, Record } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { CitationTemplate, Stability, SectionType } from '@/types/enum'
 import { getPublisherOrgSlug } from '@/lib/contacts'
@@ -25,6 +25,10 @@ import SectionLabel from '@/components/bases/SectionLabel.vue'
 import Prose from '@/components/bases/Prose.vue'
 
 const props = defineProps({
+  collections: {
+    type: Array as () => Collection[],
+    required: true,
+  },
   record: {
     type: Object as () => Record,
     required: true,
@@ -70,9 +74,10 @@ const copyFromPreview = () => {
 }
 
 const dependantSections: DropdownItem[] = [
+  { href: '#collections', title: 'Collections' },
   { href: '#contacts', title: 'Contacts' },
   { href: '#dates', title: 'Dates' },
-  { href: '#title', title: 'Edition' },
+  { href: '#edition', title: 'Edition' },
   { href: '#identifiers', title: 'Identifiers' },
   { href: '#licence', title: 'Licence' },
   { href: '#resource-type', title: 'Resource Type' },
@@ -150,12 +155,12 @@ let availableCitationTemplates: ComputedRef<CitationTemplate[]> = computed(() =>
 })
 
 onMounted(() => {
-  template.value = defaultCitationTemplate(props.record.resourceType)
+  template.value = defaultCitationTemplate(props.collections, props.record.resourceType)
   getCitation()
 })
 
-watch([() => props.record.resourceType], () => {
-  template.value = defaultCitationTemplate(props.record.resourceType)
+watch([() => props.collections, () => props.record.resourceType], () => {
+  template.value = defaultCitationTemplate(props.collections, props.record.resourceType)
   getCitation()
 })
 
@@ -189,7 +194,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Experimental"
-      version="5.0"
+      version="6.0"
       anchor="citation"
       title="Citation"
       :data-file-href="['organisations.json']"

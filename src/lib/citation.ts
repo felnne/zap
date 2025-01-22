@@ -1,5 +1,6 @@
 import removeMd from 'remove-markdown'
 
+import type { Collection } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { CitationTemplate } from '@/types/enum'
 
@@ -189,6 +190,7 @@ export function createCitationMagicMapsGeneral(
   edition: string,
   identifier: Identifier
 ): string {
+  // Format citation for https://data.bas.ac.uk/items/d0d91e22-18c1-4c7f-8dfc-20e94cd2c107
   // As per: https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5#note_129772
   //   > {prefix}, {creation_year}, {edition}, {reference}
   //  >> 'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey', {creation_year}, 'version {edition}', {reference}
@@ -208,6 +210,7 @@ export function createCitationMagicMapsPublished(
   sheet: string,
   edition: string
 ): string {
+  // Format citation for https://data.bas.ac.uk/items/6f5102ae-dfae-4d72-ad07-6ce4c85f5db8
   // https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5#note_129772
   //   > {producer}, {creation_year}. {title}, {scale}. {series}, {sheet}. {edition}. {publisher_location}, {publisher}
   //  >> 'British Antarctic Survey', {creation_year}. {title}, '1:{scale} scale map'. {series}, {sheet}, 'edition {edition}'. 'Cambridge', 'British Antarctic Survey'
@@ -240,13 +243,24 @@ export function filterCitationTemplates(resourceType: string): CitationTemplate[
   return [CitationTemplate.unknown]
 }
 
-export function defaultCitationTemplate(resourceType: string): CitationTemplate {
+export function defaultCitationTemplate(
+  collections: Collection[],
+  resourceType: string
+): CitationTemplate {
   /* Get default citation template for a given resource type.  */
   if (resourceType === 'dataset') {
     return CitationTemplate.dataset
   }
 
   if (resourceType === 'product') {
+    const collectionSlugs = collections.map((collection) => collection.slug)
+
+    if (collectionSlugs.includes('d0d91e22_18c1_4c7f_8dfc_20e94cd2c107')) {
+      return CitationTemplate.productMapMagicGeneral
+    } else if (collectionSlugs.includes('6f5102ae_dfae_4d72_ad07_6ce4c85f5db8')) {
+      return CitationTemplate.productMapMagicPublished
+    }
+
     return CitationTemplate.productMapMagicGeneral
   }
 

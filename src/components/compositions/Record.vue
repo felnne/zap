@@ -297,6 +297,7 @@ watch(
     />
     <Citation
       v-if="show('citation')"
+      :collections="collections"
       :record="record"
       @update:iso-other-citation-details="(event: string) => setCitation(event)"
     />
