@@ -135,6 +135,7 @@ export type Record = {
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
+  collections: Collection[]
 }
 
 export type Series = {

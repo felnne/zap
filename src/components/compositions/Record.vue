@@ -90,8 +90,6 @@ const setCitation = (citation: string) => {
 const record = ref<Record>(emptyRecord)
 const isoRecord = ref<IsoRecord>(emptyIsoRecord)
 
-const collections = ref<Collection[]>([])
-
 const authors = ref<IsoContact[]>([])
 const magicPoC = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
 let contacts: ComputedRef<IsoContact[]> = computed(() => {
@@ -239,7 +237,7 @@ watch(
     />
     <Collections
       v-if="show('collections')"
-      @update:collections="(event: Collection[]) => (collections = event)"
+      @update:collections="(event: Collection[]) => (record.collections = event)"
       @update:iso-aggregations="
         (event: IsoAggregation[]) => (isoRecord.identification.aggregations = event)
       "
@@ -306,7 +304,6 @@ watch(
     />
     <Citation
       v-if="show('citation')"
-      :collections="collections"
       :record="record"
       @update:iso-other-citation-details="(event: string) => setCitation(event)"
     />
