@@ -487,6 +487,41 @@ describe('Record [Integration]', () => {
     }
   })
 
+  it('emits ISO record correctly when optional physical size section is set to an empty value', async () => {
+    const dimensions = { width: 1, height: 2 }
+    const expectedInfo = JSON.stringify({
+      physical_size_width_mm: dimensions.width,
+      physical_size_height_mm: dimensions.height,
+    })
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate change in resource type to product to enable child component to be rendered
+    await wrapper
+      .findComponent({ name: 'ResourceType' })
+      .vm.$emit('update:resourceType', ResourceType.Product)
+
+    // simulate event from optional child component to trigger ISO record emit
+    await wrapper.findComponent({ name: 'PhysicalSize' }).vm.$emit('update:dimensions', dimensions)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect to have series property set
+      expect(emittedIsoRecordTyped.identification.supplemental_information).toEqual(expectedInfo)
+    }
+  })
+
   it('emits ISO record correctly when sample data is set', async () => {
     const expectedTitle = 'x'
     const expectedAbstract = 'xx'

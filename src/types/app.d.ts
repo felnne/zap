@@ -119,6 +119,18 @@ export type Organisation = {
   online_resource: OnlineResource
 }
 
+export type PhysicalDimensions = {
+  width: number
+  height: number
+}
+
+export type PhysicalSize = {
+  slug: string
+  name: string
+  width_mm: number
+  height_mm: number
+}
+
 export type Projection = ReferenceSystemInfo & {
   slug: string
 }
@@ -148,6 +160,10 @@ export type Service = {
   name: string
   description: string
 }
+
+export type SupplementalInformation = {
+  physical_size_width_mm?: number
+  physical_size_height_mm?: number
 }
 
 export type Thumbnail = {

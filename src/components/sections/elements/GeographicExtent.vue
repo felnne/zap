@@ -13,7 +13,7 @@ import Output from '@/components/bases/Output.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
 import ThreeColumn from '@/components/bases/ThreeColumn.vue'
-import GeographicExtentMap from '@/components/sections/elements/GeographicExtentMap.vue'
+// import GeographicExtentMap from '@/components/sections/elements/GeographicExtentMap.vue'
 
 defineProps({
   esriToken: {
@@ -66,6 +66,16 @@ let projection: ComputedRef<ReferenceSystemInfo | undefined> = computed(() => {
   return createProjection(getProjection(wellKnownExtent.value.projectionSlug))
 })
 
+let embeddedMapsUri: ComputedRef<string | undefined> = computed(() => {
+  const bbox = extent.value.bounding_box
+  const minX = bbox.west_longitude
+  const maxX = bbox.east_longitude
+  const minY = bbox.south_latitude
+  const maxY = bbox.north_latitude
+
+  return `https://embedded-maps-testing.data.bas.ac.uk/v1/?bbox=[${minX},${minY},${maxX},${maxY}]`
+})
+
 onMounted(() => {
   emit('update:isoExtentGeographic', extent.value)
 })
@@ -93,8 +103,8 @@ watch(extent, async () => {
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="4.3"
-      :stability="Stability.Stable"
+      version="5.0"
+      :stability="Stability.Experimental"
       anchor="extent-geographic"
       title="Spatial extent"
       :data-file-href="['extents.json', 'projections.json']"
@@ -182,8 +192,9 @@ watch(extent, async () => {
       </template>
       <template #right>
         <div class="space-y-2">
-          <div class="text-sky-500">Preview (2D, EPSG:3857)</div>
-          <GeographicExtentMap v-if="renderMaps" :extent="extent" />
+          <div class="text-sky-500">Preview (2D)</div>
+          <!-- <GeographicExtentMap v-if="renderMaps" :extent="extent" /> -->
+          <iframe :src="embeddedMapsUri" class="h-96 w-full border border-sky-500"></iframe>
         </div>
       </template>
     </ThreeColumn>
