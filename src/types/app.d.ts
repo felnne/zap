@@ -58,13 +58,6 @@ export type DropdownItem = {
   title: string
 }
 
-export type EsriToken = {
-  accessToken: string
-  expiresIn: number
-  expiresAt: Date
-  username: string
-}
-
 export type Format = {
   slug: string
   extensions?: string[]
