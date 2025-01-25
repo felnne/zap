@@ -255,6 +255,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           mime_type: 'image/png',
         },
       ],
+      spatial_resolution: 400,
       extents: [
         {
           identifier: 'partialTemporal',
