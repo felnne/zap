@@ -6,6 +6,7 @@ import type {
   KeywordSet,
   Licence,
   Organisation,
+  PhysicalSize,
   Projection,
   Series,
   Service,
@@ -22,6 +23,7 @@ import individualsData from '@/data/individuals.json'
 import keywordSetData from '@/data/keywords.json'
 import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
+import physicalSizesData from '@/data/physical_sizes.json'
 import profilesData from '@/data/profiles.json'
 import projectionsData from '@/data/projections.json'
 import seriesData from '@/data/series.json'
@@ -161,6 +163,11 @@ export const getLicencesFiltered = (open: boolean): Licence[] => {
 export const getOrganisation = (slug: string): Organisation => {
   /* Get information for a specific organisation */
   return (organisationsData.organisations as Record<string, Organisation>)[slug]
+}
+
+export const getPhysicalSizes = (): PhysicalSize[] => {
+  /* Get information for all physical sizes */
+  return Object.values(physicalSizesData.sizes)
 }
 
 export const getProjection = (slug: string): Projection => {

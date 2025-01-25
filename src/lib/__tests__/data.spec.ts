@@ -29,6 +29,7 @@ import {
   getLicences,
   getLicencesFiltered,
   getOrganisation,
+  getPhysicalSizes,
   getProjection,
   getSeries,
   getServiceSlugs,
@@ -292,6 +293,23 @@ describe('getOrganisation', () => {
     }
 
     expect(getOrganisation(checkOrganisation.slug)).toEqual(checkOrganisation)
+  })
+})
+
+describe('getPhysicalSizes', () => {
+  it('loads some data', () => {
+    expect(getPhysicalSizes().length).toBeGreaterThan(0)
+  })
+
+  const checkSize: PhysicalSize = {
+    slug: 'iso_a4_portrait',
+    name: 'A4 Portrait',
+    width_mm: 210,
+    height_mm: 297,
+  }
+
+  it('includes expected size', () => {
+    expect(getPhysicalSizes()).toContainEqual(checkSize)
   })
 })
 

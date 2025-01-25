@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "sizes": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Size" }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["$schema", "sizes"],
+  "definitions": {
+    "Size": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "width_mm": { "type": "number" },
+        "height_mm": { "type": "number" }
+      },
+      "additionalProperties": false,
+      "required": ["slug", "name", "width_mm", "height_mm"]
+    }
+  }
+}

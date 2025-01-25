@@ -10,6 +10,7 @@
 * Alias identifiers
 * Scale section
 * Map series section
+* Physical size section
 
 ### Fixed
 

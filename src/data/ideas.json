@@ -28,7 +28,7 @@
     { "label": "Additional dates (publication).", "state": "complete" },
     { "label": "Additional dates.", "state": "complete" },
     { "label": "Edition section.", "state": "complete" },
-    { "label": "Physical size for products.", "state": "todo" },
+    { "label": "Physical size for products.", "state": "complete" },
     { "label": "Series name for products.", "state": "complete" },
     { "label": "Sheet number for products.", "state": "todo" },
     { "label": "Include WMTS in services section.", "state": "cancelled" },

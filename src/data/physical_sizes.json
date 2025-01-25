@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/physical_sizes.json",
+  "sizes": {
+    "iso_a4_portrait": {
+      "slug": "iso_a4_portrait",
+      "name": "A4 Portrait",
+      "width_mm": 210,
+      "height_mm": 297
+    },
+    "iso_a4_landscape": {
+      "slug": "iso_a4_landscape",
+      "name": "A4 Landscape",
+      "width_mm": 297,
+      "height_mm": 210
+    }
+  }
+}

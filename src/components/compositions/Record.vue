@@ -9,6 +9,7 @@ import type {
   DateImpreciseLabelled,
   EsriToken,
   Licence as LicenceT,
+  PhysicalDimensions,
   Record,
 } from '@/types/app'
 import type {
@@ -31,6 +32,7 @@ import { createExtent } from '@/lib/extents'
 import { emptyRecord, emptyIsoRecord } from '@/lib/record'
 import { showSection } from '@/lib/control'
 import { createOrgSlugPointOfContact } from '@/lib/contacts'
+import { createSupplementalInfo } from '@/lib/supplemental'
 
 import Abstract from '@/components/sections/elements/Abstract.vue'
 import Access from '@/components/sections/elements/Access.vue'
@@ -46,6 +48,7 @@ import Identifiers from '@/components/sections/elements/Identifiers.vue'
 import Licence from '@/components/sections/elements/Licence.vue'
 import Lineage from '@/components/sections/elements/Lineage.vue'
 import Maintenance from '@/components/sections/elements/Maintenance.vue'
+import PhysicalSize from '@/components/sections/elements/PhysicalSize.vue'
 import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Scale from '@/components/sections/elements/Scale.vue'
@@ -144,6 +147,11 @@ let distributionOptions: ComputedRef<IsoDistributionOption[]> = computed(() => {
   return [...distributionOptionsDownloads.value, ...distributionOptionsServices.value]
 })
 
+const dimensions = ref<PhysicalDimensions | undefined>(undefined)
+let supplementalInfo: ComputedRef<string | undefined> = computed(() => {
+  return createSupplementalInfo(dimensions.value)
+})
+
 let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
   let mergedRecord = isoRecord.value
 
@@ -217,6 +225,17 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
       identification: {
         ...mergedRecord.identification,
         series: series.value,
+      },
+    }
+  }
+
+  // merge isoRecord and supplementalInfo at 'isoRecord.identification.supplemental_information' if not undefined
+  if (supplementalInfo.value) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        supplemental_information: supplementalInfo.value,
       },
     }
   }
@@ -304,6 +323,10 @@ watch(
       @update:iso-extent-temporal="
         (event: IsoTemporalExtent | undefined) => (extentTemporal = event)
       "
+    />
+    <PhysicalSize
+      v-if="show('physical_size')"
+      @update:dimensions="(event: PhysicalDimensions) => (dimensions = event)"
     />
     <Contacts
       v-if="show('contacts')"
