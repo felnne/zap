@@ -71,6 +71,7 @@ export type Identification = {
   purpose?: string
   dates: Dates
   edition: string
+  series?: Series
   other_citation_details?: string
   identifiers: Identifier[]
   contacts: PointOfContact[]
@@ -174,6 +175,12 @@ export type ReferenceSystemInfo = {
   authority: object
   code: object
   version: string
+}
+
+export type Series = {
+  name: string
+  edition?: string
+  sheet?: string
 }
 
 export type Size = {

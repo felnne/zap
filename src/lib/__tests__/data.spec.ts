@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest'
 
-import type { Collection, Format, Individual, Licence, WellKnownExtent } from '@/types/app'
+import type {
+  Collection,
+  Format,
+  Individual,
+  Licence,
+  PhysicalSize,
+  Series,
+  WellKnownExtent,
+} from '@/types/app'
 
 import {
   deepMergeObjects,
@@ -22,6 +30,7 @@ import {
   getLicencesFiltered,
   getOrganisation,
   getProjection,
+  getSeries,
   getServiceSlugs,
   getService,
   getSetting,
@@ -291,6 +300,21 @@ describe('getProjection', () => {
     const checkProjectionSlug = 'epsg_3031'
 
     expect(getProjection(checkProjectionSlug).slug).toEqual(checkProjectionSlug)
+  })
+})
+
+describe('getSeries', () => {
+  it('loads some data', () => {
+    expect(getSeries().length).toBeGreaterThan(0)
+  })
+
+  const checkSeries: Series = {
+    slug: '321fce3c_8495_428d_b389_985953fe57e5',
+    name: 'Charming maps',
+  }
+
+  it('includes expected collection', () => {
+    expect(getSeries()).toContainEqual(checkSeries)
   })
 })
 

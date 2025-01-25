@@ -9,6 +9,7 @@
 * Collections section (limited form of aggregations)
 * Alias identifiers
 * Scale section
+* Map series section
 
 ### Fixed
 

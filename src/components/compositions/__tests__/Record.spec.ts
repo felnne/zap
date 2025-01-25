@@ -13,6 +13,7 @@ import type {
   GraphicOverview as IsoGraphicOverview,
   Lineage as IsoLineage,
   PointOfContact as IsoContact,
+  Series as IsoSeries,
   TemporalExtent as IsoTemporalExtent,
 } from '@/types/iso'
 import { createAuthor, createOrgSlugPointOfContact } from '@/lib/contacts'
@@ -441,6 +442,48 @@ describe('Record [Integration]', () => {
       const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
       // expect not to have summary property set
       expect(emittedIsoRecordTyped.identification.purpose).toBeUndefined()
+    }
+  })
+
+  it('emits ISO record correctly when optional series section is set to an empty value', async () => {
+    const expectedSeries: IsoSeries = { name: 'x', edition: 'xx' }
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate change in resource type to product to enable child component to be rendered
+    await wrapper
+      .findComponent({ name: 'ResourceType' })
+      .vm.$emit('update:resourceType', ResourceType.Product)
+
+    // simulate event from optional child component to trigger ISO record emit
+    await wrapper.findComponent({ name: 'Series' }).vm.$emit('update:isoSeries', expectedSeries)
+
+    const emittedIsoRecord: unknown[][] | undefined = wrapper.emitted('update:isoRecord')
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for properties set by default to be included
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect to have series property set
+      expect(emittedIsoRecordTyped.identification.series).toEqual(expectedSeries)
+    }
+
+    // simulate event from optional child component to trigger ISO record emit with empty value
+    await wrapper.findComponent({ name: 'Series' }).vm.$emit('update:isoSeries', undefined)
+
+    expect(emittedIsoRecord).toBeTruthy()
+    if (emittedIsoRecord) {
+      // skip to the last index to wait for any updates
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      // expect not to have summary property set
+      expect(emittedIsoRecordTyped.identification.series).toBeUndefined()
     }
   })
 

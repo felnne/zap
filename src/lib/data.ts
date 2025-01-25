@@ -7,6 +7,7 @@ import type {
   Licence,
   Organisation,
   Projection,
+  Series,
   Service,
   Thumbnail,
   WellKnownExtent,
@@ -23,6 +24,7 @@ import licencesData from '@/data/licences.json'
 import organisationsData from '@/data/organisations.json'
 import profilesData from '@/data/profiles.json'
 import projectionsData from '@/data/projections.json'
+import seriesData from '@/data/series.json'
 import servicesData from '@/data/services.json'
 import settingsData from '@/data/settings.json'
 import thumbnailsData from '@/data/thumbnails.json'
@@ -164,6 +166,11 @@ export const getOrganisation = (slug: string): Organisation => {
 export const getProjection = (slug: string): Projection => {
   /* Get information for a specific projection */
   return (projectionsData.projections as Record<string, Projection>)[slug]
+}
+
+export const getSeries = (): Series[] => {
+  /* Get information for all series */
+  return Object.values(seriesData.series)
 }
 
 export const getService = (slug: string): Service => {

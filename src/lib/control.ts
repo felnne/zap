@@ -20,6 +20,7 @@ export const showSection = (section: string, resourceType: ResourceType): boolea
     'licence',
     'lineage',
     'scale',
+    'series',
     'services',
   ]
 
