@@ -193,6 +193,10 @@ export const minimalRecord: IsoRecord = {
 export const supportedRecord: IsoRecord = deepMergeObjects(
   {
     identification: {
+      series: {
+        name: 'Test Series',
+        edition: '1',
+      },
       dates: {
         revision: '2024-10-14',
         released: '2024-09-14T11:16:22+00:00',

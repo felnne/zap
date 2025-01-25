@@ -1,0 +1,13 @@
+{
+  "$schema": "../schemas/series.json",
+  "series": {
+    "321fce3c_8495_428d_b389_985953fe57e5": {
+      "slug": "321fce3c_8495_428d_b389_985953fe57e5",
+      "name": "Charming maps"
+    },
+    "32134b6c_2263_4f5d_b625_f283a413e17c": {
+      "slug": "32134b6c_2263_4f5d_b625_f283a413e17c",
+      "name": "Spooky maps"
+    }
+  }
+}

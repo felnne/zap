@@ -25,6 +25,7 @@ import type {
   PointOfContact as IsoContact,
   TemporalExtent as IsoTemporalExtent,
   Record as IsoRecord,
+  Series as IsoSeries,
 } from '@/types/iso'
 import { createExtent } from '@/lib/extents'
 import { emptyRecord, emptyIsoRecord } from '@/lib/record'
@@ -48,6 +49,7 @@ import Maintenance from '@/components/sections/elements/Maintenance.vue'
 import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
 import Scale from '@/components/sections/elements/Scale.vue'
+import Series from '@/components/sections/elements/Series.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
 import TemporalExtent from '@/components/sections/elements/TemporalExtent.vue'
@@ -97,6 +99,7 @@ let contacts: ComputedRef<IsoContact[]> = computed(() => {
 })
 
 const thumbnails = ref<IsoGraphicOverview[]>([])
+const series = ref<IsoSeries | undefined>(undefined)
 
 const extentIdentifier = 'bounding'
 const extentGeographic = ref<IsoGeographicExtent | undefined>(undefined)
@@ -207,6 +210,17 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
     }
   }
 
+  // merge isoRecord and series at 'isoRecord.identification.series' if not undefined
+  if (series.value) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        series: series.value,
+      },
+    }
+  }
+
   return mergedRecord
 })
 
@@ -241,6 +255,11 @@ watch(
       @update:iso-aggregations="
         (event: IsoAggregation[]) => (isoRecord.identification.aggregations = event)
       "
+    />
+    <Series
+      v-if="show('series')"
+      :edition="record.edition"
+      @update:iso-series="(event: IsoSeries | undefined) => (series = event)"
     />
     <Identifiers
       :file-identifier="record.fileIdentifier"
