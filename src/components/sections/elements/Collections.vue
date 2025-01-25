@@ -51,7 +51,7 @@ watch(
     />
     <TwoColumn>
       <template #left>
-        <div class="space-y-2">
+        <div>
           <FormLabel v-for="collection in collections" :key="collection.slug">
             <input
               :id="'collection-' + collection.slug"

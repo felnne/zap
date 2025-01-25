@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import Clipboard from 'v-clipboard'
 
 import { ResourceType } from '@/types/enum'
-import type { Collection, DateImpreciseLabelled, Record } from '@/types/app'
+import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
 import { getPublisherOrgSlug } from '@/lib/contacts'
 import { getLicence, getOrganisation } from '@/lib/data'
@@ -15,7 +15,6 @@ import collectionsData from '@/data/collections.json'
 const identifier = '12345'
 const doiIdentifier = `123/${identifier}`
 
-const collectionsEmpty: Collection[] = []
 const record: Record = {
   fileIdentifier: identifier,
   resourceType: ResourceType.Dataset,
@@ -39,6 +38,7 @@ const record: Record = {
     permissions: [],
   },
   licence: getLicence('OGL_UK_3_0'),
+  collections: [],
 }
 
 const recordProduct = structuredClone(record)
@@ -58,7 +58,7 @@ describe('Citation', () => {
     const expected = 'Citation'
 
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: record },
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -82,7 +82,7 @@ describe('Citation', () => {
 
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: record },
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -97,7 +97,7 @@ describe('Citation', () => {
 
   it('copies citation preview to input', async () => {
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: record },
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -119,7 +119,7 @@ describe('Citation', () => {
     )
 
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: record },
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -143,7 +143,7 @@ describe('Citation', () => {
 
   it('uses the correct default template', async () => {
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: record },
+      props: { record: record },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -161,7 +161,7 @@ describe('Citation', () => {
 
   it('uses the correct default template for products without collections', async () => {
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: recordProduct },
+      props: { record: recordProduct },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -178,11 +178,13 @@ describe('Citation', () => {
   })
 
   it('uses the correct default template for products in MAGIC general maps collection', async () => {
-    const generalMapsCollection = [
+    const recordOveride = structuredClone(recordProduct)
+    recordOveride.collections = [
       collectionsData.collections['d0d91e22_18c1_4c7f_8dfc_20e94cd2c107'],
     ]
+
     const wrapper = mount(Citation, {
-      props: { collections: generalMapsCollection, record: recordProduct },
+      props: { record: recordOveride },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -199,11 +201,13 @@ describe('Citation', () => {
   })
 
   it('uses the correct default template for products in MAGIC published maps collection', async () => {
-    const publishedMapsCollection = [
+    const recordOveride = structuredClone(recordProduct)
+    recordOveride.collections = [
       collectionsData.collections['6f5102ae_dfae_4d72_ad07_6ce4c85f5db8'],
     ]
+
     const wrapper = mount(Citation, {
-      props: { collections: publishedMapsCollection, record: recordProduct },
+      props: { record: recordOveride },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -223,7 +227,7 @@ describe('Citation', () => {
     const productRecord = { ...record, resourceType: ResourceType.Product }
 
     const wrapper = mount(Citation, {
-      props: { collections: collectionsEmpty, record: productRecord },
+      props: { record: productRecord },
       global: {
         directives: {
           clipboard: Clipboard,

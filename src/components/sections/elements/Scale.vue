@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
+import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { Stability, SectionType } from '@/types/enum'
 
@@ -16,18 +16,20 @@ const emit = defineEmits<{
 
 const scale = ref<number>(0)
 
-let scale_fmt: ComputedRef<string> = computed(() => {
-  return `1:${scale.value.toLocaleString()}`
+let scale_numeric: ComputedRef<number> = computed(() => {
+  return Number(scale.value)
 })
 
-onMounted(() => {
-  emit('update:isoSpatialResolution', scale.value)
+let scale_fmt: ComputedRef<string> = computed(() => {
+  return `1:${scale.value.toLocaleString()}`
 })
 
 watch(
   () => scale.value,
   () => {
-    emit('update:isoSpatialResolution', scale.value)
+    if (scale.value > 0) {
+      emit('update:isoSpatialResolution', scale_numeric.value)
+    }
   }
 )
 </script>

@@ -55,9 +55,9 @@ describe('createUsageConstraint', () => {
     const licence: Licence = {
       slug: 'OGL_UK_3_0',
       name: '(UK) Open Government Licence v3.0',
-      url: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+      url: 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
       statement:
-        'This information is licensed under the Open Government Licence v3.0. To view this licence, visit http://www.nationalarchives.gov.uk/doc/open-government-licence/.',
+        'This information is licensed under the Open Government Licence v3.0. To view this licence, visit https://www.nationalarchives.gov.uk/doc/open-government-licence/.',
       open: true,
     }
     const expectedConstraint = {

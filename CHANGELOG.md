@@ -8,11 +8,13 @@
 * Preview/logo for selected licence
 * Collections section (limited form of aggregations)
 * Alias identifiers
-* Scale element
+* Scale section
 
 ### Fixed
 
 * App assets hosting location for images etc. fixed to a static path
+* Typo in ORCID spelling
+* Typo in OGL URL
 
 ## [0.11.0] - 2024-12-16
 

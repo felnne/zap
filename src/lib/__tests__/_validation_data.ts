@@ -221,7 +221,7 @@ export const supportedRecord: IsoRecord = deepMergeObjects(
           individual: {
             name: 'Gerrish, Laura',
             href: 'https://orcid.org/0000-0003-1410-9122',
-            title: 'ocrid',
+            title: 'orcid',
           },
           organisation: {
             name: 'British Antarctic Survey',

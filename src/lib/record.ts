@@ -26,6 +26,7 @@ export const emptyRecord: Record = {
     statement: '',
     open: false,
   },
+  collections: [],
 }
 
 export const emptyIsoRecord: IsoRecord = {

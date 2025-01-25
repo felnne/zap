@@ -90,8 +90,6 @@ const setCitation = (citation: string) => {
 const record = ref<Record>(emptyRecord)
 const isoRecord = ref<IsoRecord>(emptyIsoRecord)
 
-const collections = ref<Collection[]>([])
-
 const authors = ref<IsoContact[]>([])
 const magicPoC = createOrgSlugPointOfContact('bas_magic', 'pointOfContact')
 let contacts: ComputedRef<IsoContact[]> = computed(() => {
@@ -239,7 +237,7 @@ watch(
     />
     <Collections
       v-if="show('collections')"
-      @update:collections="(event: Collection[]) => (collections = event)"
+      @update:collections="(event: Collection[]) => (record.collections = event)"
       @update:iso-aggregations="
         (event: IsoAggregation[]) => (isoRecord.identification.aggregations = event)
       "
@@ -275,14 +273,18 @@ watch(
     />
     <Scale
       v-if="show('scale')"
-      @update:iso-spatial-resolution="(event: number) => (isoRecord.identification.spatial_resolution = event)" 
+      @update:iso-spatial-resolution="
+        (event: number) => (isoRecord.identification.spatial_resolution = event)
+      "
     />
     <GeographicExtent
       :esri-token="esriToken || undefined"
       @update:iso-extent-geographic="(event: IsoGeographicExtent) => (extentGeographic = event)"
     />
     <TemporalExtent
-      @update:iso-extent-temporal="(event: IsoTemporalExtent) => (extentTemporal = event)"
+      @update:iso-extent-temporal="
+        (event: IsoTemporalExtent | undefined) => (extentTemporal = event)
+      "
     />
     <Contacts
       v-if="show('contacts')"
@@ -302,7 +304,6 @@ watch(
     />
     <Citation
       v-if="show('citation')"
-      :collections="collections"
       :record="record"
       @update:iso-other-citation-details="(event: string) => setCitation(event)"
     />

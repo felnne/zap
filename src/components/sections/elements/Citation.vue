@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 
-import type { Collection, DropdownItem, Record } from '@/types/app'
+import type { DropdownItem, Record } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { CitationTemplate, Stability, SectionType } from '@/types/enum'
 import { getPublisherOrgSlug } from '@/lib/contacts'
@@ -25,10 +25,6 @@ import SectionLabel from '@/components/bases/SectionLabel.vue'
 import Prose from '@/components/bases/Prose.vue'
 
 const props = defineProps({
-  collections: {
-    type: Array as () => Collection[],
-    required: true,
-  },
   record: {
     type: Object as () => Record,
     required: true,
@@ -155,12 +151,12 @@ let availableCitationTemplates: ComputedRef<CitationTemplate[]> = computed(() =>
 })
 
 onMounted(() => {
-  template.value = defaultCitationTemplate(props.collections, props.record.resourceType)
+  template.value = defaultCitationTemplate(props.record.collections, props.record.resourceType)
   getCitation()
 })
 
-watch([() => props.collections, () => props.record.resourceType], () => {
-  template.value = defaultCitationTemplate(props.collections, props.record.resourceType)
+watch([() => props.record.resourceType], () => {
+  template.value = defaultCitationTemplate(props.record.collections, props.record.resourceType)
   getCitation()
 })
 
