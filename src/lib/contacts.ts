@@ -18,7 +18,7 @@ export const createAuthor = (individual: Individual, organisation: Organisation)
     individual: {
       name: individual.name,
       href: individual.orcid,
-      title: 'ocrid',
+      title: 'orcid',
     },
     email: individual.email,
     online_resource: {

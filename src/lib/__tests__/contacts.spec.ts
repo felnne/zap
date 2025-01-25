@@ -49,7 +49,7 @@ describe('createAuthor', () => {
       individual: {
         name: individual.name,
         href: individual.orcid,
-        title: 'ocrid',
+        title: 'orcid',
       },
       organisation: {
         name: organisation.name,
