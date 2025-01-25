@@ -275,14 +275,18 @@ watch(
     />
     <Scale
       v-if="show('scale')"
-      @update:iso-spatial-resolution="(event: number) => (isoRecord.identification.spatial_resolution = event)" 
+      @update:iso-spatial-resolution="
+        (event: number) => (isoRecord.identification.spatial_resolution = event)
+      "
     />
     <GeographicExtent
       :esri-token="esriToken || undefined"
       @update:iso-extent-geographic="(event: IsoGeographicExtent) => (extentGeographic = event)"
     />
     <TemporalExtent
-      @update:iso-extent-temporal="(event: IsoTemporalExtent) => (extentTemporal = event)"
+      @update:iso-extent-temporal="
+        (event: IsoTemporalExtent | undefined) => (extentTemporal = event)
+      "
     />
     <Contacts
       v-if="show('contacts')"

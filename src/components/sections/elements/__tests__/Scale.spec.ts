@@ -14,9 +14,7 @@ describe('Scale', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('emits values when mounted', async () => {
-    const expected = '1'
-
+  it('does not emit value when mounted', async () => {
     const wrapper = mount(Scale, {
       global: {
         directives: {
@@ -25,16 +23,15 @@ describe('Scale', () => {
       },
     })
 
-    const emittedIsoSpatialResolution: unknown[][] | undefined = wrapper.emitted('update:isoSpatialResolution')
-    expect(emittedIsoSpatialResolution).toBeTruthy()
-    if (emittedIsoSpatialResolution) {
-      expect(emittedIsoSpatialResolution[0][0]).toEqual(expected)
-    }
+    const emittedIsoSpatialResolution: unknown[][] | undefined = wrapper.emitted(
+      'update:isoSpatialResolution'
+    )
+    expect(emittedIsoSpatialResolution).not.toBeTruthy()
   })
 
   it('emits values when updated', async () => {
-    const expectedInitial = '1'
-    const expectedUpdated = '2'
+    const expectedInitial = 1
+    const expectedUpdated = 2
 
     const wrapper = mount(Scale, {
       global: {
@@ -44,18 +41,23 @@ describe('Scale', () => {
       },
     })
 
+    // set value
+    const inputElement = wrapper.find('input')
+    await inputElement.setValue(expectedInitial)
+    expect(inputElement.element.value).toBe(String(expectedInitial))
+
     // initial value
-    const emittedIsoSpatialResolution: unknown[][] | undefined = wrapper.emitted('update:isoSpatialResolution')
+    const emittedIsoSpatialResolution: unknown[][] | undefined = wrapper.emitted(
+      'update:isoSpatialResolution'
+    )
     expect(emittedIsoSpatialResolution).toBeTruthy()
     if (emittedIsoSpatialResolution) {
       expect(emittedIsoSpatialResolution[0][0]).toEqual(expectedInitial)
     }
 
     // update value
-    const inputElement = wrapper.find('input')
-    expect(inputElement.element.value).toBe(expectedInitial)
     await inputElement.setValue(expectedUpdated)
-    expect(inputElement.element.value).toBe(expectedUpdated)
+    expect(inputElement.element.value).toBe(String(expectedUpdated))
 
     await wrapper.vm.$nextTick()
 

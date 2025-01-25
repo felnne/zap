@@ -3,7 +3,6 @@ import type {
   Address,
   DistributionOption as DistributionOptionIso,
   GeographicExtent as GeographicExtentIso,
-  GraphicOverview as GraphicOverviewIso,
   Identifier,
   KeywordSet as KeywordSetIso,
   OnlineResource,
@@ -11,14 +10,14 @@ import type {
   ReferenceSystemInfo,
 } from '@/iso'
 
-type AccessPermission = {
+export type AccessPermission = {
   scheme: string
   schemeVersion: string
   directoryId: string
   objectId: string | null
 }
 
-type AccessRestriction = {
+export type AccessRestriction = {
   slug: string
   restriction: string
   label: string
@@ -54,7 +53,7 @@ export type DistributionOptionIndexed = {
   distributionOption: DistributionOptionIso
 }
 
-type DropdownItem = {
+export type DropdownItem = {
   href: string
   title: string
 }
@@ -100,7 +99,7 @@ export type KeywordTerm = {
   isoTopics: string[]
 }
 
-type Licence = {
+export type Licence = {
   slug: string
   name: string
   url: string
@@ -124,6 +123,7 @@ export type Projection = ReferenceSystemInfo & {
   slug: string
 }
 
+// only things that pass between components are included here
 export type Record = {
   fileIdentifier: string
   resourceType: ResourceType
@@ -135,25 +135,21 @@ export type Record = {
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
-  graphicOverviews?: GraphicOverviewIso[]
 }
 
-type Service = {
+export type Series = {
+  slug: string
+  name: string
+}
+
+export type Service = {
   slug: string
   name: string
   description: string
 }
-
-type WellKnownExtent = {
-  slug: string
-  name: string
-  extent: {
-    geographic: GeographicExtentIso
-  }
-  projectionSlug: string
 }
 
-type Thumbnail = {
+export type Thumbnail = {
   slug: string
   identifier: string
   description: string
@@ -162,7 +158,16 @@ type Thumbnail = {
   mediaTypes: string[]
 }
 
-type Upload = {
+export type WellKnownExtent = {
+  slug: string
+  name: string
+  extent: {
+    geographic: GeographicExtentIso
+  }
+  projectionSlug: string
+}
+
+export type Upload = {
   source: UploadSource
   format: Format
   sizeBytes: number

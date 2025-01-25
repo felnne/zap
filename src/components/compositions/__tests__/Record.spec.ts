@@ -72,6 +72,27 @@ describe('Record [Integration]', () => {
     })
   })
 
+  it('renders a section only shown for a non-default resource type', async () => {
+    const wrapper = mount(Record, {
+      props: {
+        appEnv: minimalEnvironment,
+      },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // simulate change in resource type
+    await wrapper
+      .findComponent({ name: 'ResourceType' })
+      .vm.$emit('update:resourceType', ResourceType.Product)
+
+    // series is a component that's not shown with the default 'dataset' resource type
+    expect(wrapper.findComponent({ name: 'Series' }).exists()).toBe(true)
+  })
+
   it('emits ISO record correctly when a section set directly changes', async () => {
     const expectedAbstract = 'x'
 
@@ -386,7 +407,7 @@ describe('Record [Integration]', () => {
     }
   })
 
-  it('emits ISO record correctly when an optional section is set to an empty value', async () => {
+  it('emits ISO record correctly when optional purpose section is set to an empty value', async () => {
     const expectedSummary = 'x'
     const wrapper = mount(Record, {
       props: {
