@@ -47,6 +47,7 @@ import Lineage from '@/components/sections/elements/Lineage.vue'
 import Maintenance from '@/components/sections/elements/Maintenance.vue'
 import RecordSample from '@/components/sections/tools/RecordSample.vue'
 import ResourceType from '@/components/sections/elements/ResourceType.vue'
+import Scale from '@/components/sections/elements/Scale.vue'
 import Services from '@/components/sections/elements/Services.vue'
 import Summary from '@/components/sections/elements/Summary.vue'
 import TemporalExtent from '@/components/sections/elements/TemporalExtent.vue'
@@ -271,6 +272,10 @@ watch(
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
       @update:iso-dates="(event: IsoDates) => (isoRecord.identification.dates = event)"
+    />
+    <Scale
+      v-if="show('scale')"
+      @update:iso-spatial-resolution="(event: number) => (isoRecord.identification.spatial_resolution = event)" 
     />
     <GeographicExtent
       :esri-token="esriToken || undefined"

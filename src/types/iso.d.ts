@@ -82,6 +82,7 @@ export type Identification = {
   language: string
   character_set?: string
   topics?: string[]
+  spatial_resolution?: number
   extents: Extent[]
   lineage?: Lineage
   domain_consistency: DomainConsistency[]

@@ -8,6 +8,7 @@
 * Preview/logo for selected licence
 * Collections section (limited form of aggregations)
 * Alias identifiers
+* Scale element
 
 ### Fixed
 
