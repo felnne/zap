@@ -72,20 +72,6 @@ const emit = defineEmits<{
 
 const show = (section: string): boolean => showSection(section, record.value.resourceType)
 
-const setSummary = (summary: string) => {
-  if (summary !== '') {
-    isoRecord.value.identification.purpose = summary
-  } else {
-    delete isoRecord.value.identification.purpose
-  }
-}
-
-const setCitation = (citation: string) => {
-  if (citation !== '') {
-    isoRecord.value.identification.other_citation_details = citation
-  } else {
-    delete isoRecord.value.identification.other_citation_details
-  }
 const standard: IsoMetadataStandard = {
   "name": "ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data",
   "version": "ISO 19115-2:2009(E)",
@@ -100,6 +86,8 @@ let contacts: ComputedRef<IsoContact[]> = computed(() => {
   return [...authors.value, magicPoC]
 })
 
+const summary = ref<string>('')
+const citation = ref<string>('')
 const thumbnails = ref<IsoGraphicOverview[]>([])
 const series = ref<IsoSeries | undefined>(undefined)
 
@@ -207,6 +195,28 @@ let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
     }
   }
 
+  // merge isoRecord and summary at 'isoRecord.identification.purpose' if not undefined
+  if (summary.value) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        purpose: summary.value,
+      },
+    }
+  }
+
+  // merge isoRecord and citation at 'isoRecord.identification.other_citation_details' if not undefined
+  if (citation.value) {
+    mergedRecord = {
+      ...mergedRecord,
+      identification: {
+        ...mergedRecord.identification,
+        other_citation_details: citation.value,
+      },
+    }
+  }
+
   // merge isoRecord and lineage at 'isoRecord.identification.lineage' if not undefined
   if (lineage.value) {
     mergedRecord = {
@@ -303,7 +313,7 @@ watch(
     />
     <Summary
       :abstract="record.abstract"
-      @update:iso-purpose="(event: string) => setSummary(event)"
+      @update:iso-purpose="(event: string) => (summary = event)"
     />
     <Dates
       @update:dates="(event: DateImpreciseLabelled[]) => (record.dates = event)"
@@ -346,7 +356,7 @@ watch(
     <Citation
       v-if="show('citation')"
       :record="record"
-      @update:iso-other-citation-details="(event: string) => setCitation(event)"
+      @update:iso-other-citation-details="(event: string) => (citation = event)"
     />
     <Thumbnails
       :file-identifier="record.fileIdentifier"
