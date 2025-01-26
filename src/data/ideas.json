@@ -98,8 +98,9 @@
     { "label": "ArcGIS plugin.", "state": "todo" },
     { "label": "Maintenance information (progress, update frequency", "state": "todo" },
     { "label": "Data sources", "state": "todo" },
-    { "label": "2D spatial extent visualisation", "state": "complete" },
+    { "label": "2D spatial extent visualisation", "state": "removed" },
     { "label": "3D spatial extent visualisation", "state": "removed" },
+    { "label": "Embedded Maps Service for geographic extent preview", "state": "todo" },
     { "label": "Alias identifiers", "state": "complete" }
   ]
 }

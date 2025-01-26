@@ -369,7 +369,7 @@ describe('getServiceSlugs', () => {
 
 describe('getSetting', () => {
   it('loads expected setting', () => {
-    expect(getSetting('bas_esri_agol_slug')).toEqual('bas')
+    expect(getSetting('bas_gitlab_domain')).toEqual('https://gitlab.data.bas.ac.uk')
   })
 })
 

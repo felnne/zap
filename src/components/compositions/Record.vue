@@ -7,7 +7,6 @@ import type {
   AppEnvironment,
   Collection,
   DateImpreciseLabelled,
-  EsriToken,
   Licence as LicenceT,
   PhysicalDimensions,
   Record,
@@ -63,10 +62,6 @@ defineProps({
   appEnv: {
     type: Object as () => AppEnvironment,
     required: true,
-  },
-  esriToken: {
-    type: Object as () => EsriToken | undefined,
-    default: undefined,
   },
 })
 
@@ -316,7 +311,6 @@ watch(
       "
     />
     <GeographicExtent
-      :esri-token="esriToken || undefined"
       @update:iso-extent-geographic="(event: IsoGeographicExtent) => (extentGeographic = event)"
     />
     <TemporalExtent

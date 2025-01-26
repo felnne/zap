@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, nextTick, onMounted, ref, watch } from 'vue'
 
-import type { EsriToken, WellKnownExtent } from '@/types/app'
+import type { WellKnownExtent } from '@/types/app'
 import type { GeographicExtent, ReferenceSystemInfo } from '@/types/iso'
 import { Stability, SectionType } from '@/types/enum'
-import { getExtents, getExtent, getProjection } from '@/lib/data'
+import { getExtents, getExtent, getProjection, getSetting } from '@/lib/data'
 import { createProjection } from '@/lib/extents'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
@@ -13,15 +13,7 @@ import Output from '@/components/bases/Output.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
 import ThreeColumn from '@/components/bases/ThreeColumn.vue'
-// import GeographicExtentMap from '@/components/sections/elements/GeographicExtentMap.vue'
-
-defineProps({
-  esriToken: {
-    type: Object as () => EsriToken | undefined,
-    required: false,
-    default: undefined,
-  },
-})
+import Link from '@/components/bases/Link.vue'
 
 const emit = defineEmits<{
   'update:isoExtentGeographic': [id: GeographicExtent]
@@ -66,14 +58,14 @@ let projection: ComputedRef<ReferenceSystemInfo | undefined> = computed(() => {
   return createProjection(getProjection(wellKnownExtent.value.projectionSlug))
 })
 
-let embeddedMapsUri: ComputedRef<string | undefined> = computed(() => {
+let embeddedMapsUri: ComputedRef<string> = computed(() => {
   const bbox = extent.value.bounding_box
   const minX = bbox.west_longitude
   const maxX = bbox.east_longitude
   const minY = bbox.south_latitude
   const maxY = bbox.north_latitude
 
-  return `https://embedded-maps-testing.data.bas.ac.uk/v1/?bbox=[${minX},${minY},${maxX},${maxY}]`
+  return `${getSetting('app_embedded_maps_base')}/?bbox=[${minX},${minY},${maxX},${maxY}]&globe_overview=true`
 })
 
 onMounted(() => {
@@ -103,7 +95,7 @@ watch(extent, async () => {
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="5.0"
+      version="6.0"
       :stability="Stability.Experimental"
       anchor="extent-geographic"
       title="Spatial extent"
@@ -137,7 +129,7 @@ watch(extent, async () => {
           <div v-if="selectedWkeSlug == 'custom'" class="space-y-4">
             <div class="flex items-center space-x-4">
               <div class="space-y-2">
-                <FormLabel>West Longitude</FormLabel>
+                <FormLabel>West Longitude (Min X)</FormLabel>
                 <FormInput
                   id="bbox-west-long"
                   v-model="bbox_west_long"
@@ -146,7 +138,7 @@ watch(extent, async () => {
                 />
               </div>
               <div class="space-y-2">
-                <FormLabel>East Longitude</FormLabel>
+                <FormLabel>East Longitude (Max X)</FormLabel>
                 <FormInput
                   id="bbox-east-long"
                   v-model="bbox_east_long"
@@ -157,7 +149,7 @@ watch(extent, async () => {
             </div>
             <div class="flex items-center space-x-4">
               <div class="space-y-2">
-                <FormLabel>South Latitude</FormLabel>
+                <FormLabel>South Latitude (Min Y)</FormLabel>
                 <FormInput
                   id="bbox-south-lat"
                   v-model="bbox_south_lat"
@@ -166,7 +158,7 @@ watch(extent, async () => {
                 />
               </div>
               <div class="space-y-2">
-                <FormLabel>North Latitude</FormLabel>
+                <FormLabel>North Latitude (Max Y)</FormLabel>
                 <FormInput
                   id="bbox-north-lat"
                   v-model="bbox_north_lat"
@@ -193,8 +185,8 @@ watch(extent, async () => {
       <template #right>
         <div class="space-y-2">
           <div class="text-sky-500">Preview (2D)</div>
-          <!-- <GeographicExtentMap v-if="renderMaps" :extent="extent" /> -->
-          <iframe :src="embeddedMapsUri" class="h-96 w-full border border-sky-500"></iframe>
+          <Link :href="embeddedMapsUri" target="_blank">Temp link</Link>
+          <!-- <iframe :src="embeddedMapsUri" class="h-96 w-full border border-sky-500"></iframe> -->
         </div>
       </template>
     </ThreeColumn>

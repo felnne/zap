@@ -11,20 +11,12 @@
     "Settings": {
       "type": "object",
       "properties": {
-        "agol_app_account_slug": { "type": "string" },
-        "agol_app_client_id": { "type": "string" },
-        "app_extents_layer_endpoint": { "type": "string" },
-        "app_extents_2d_basemap_light": { "type": "string" },
-        "app_extents_2d_basemap_dark": { "type": "string" },
-        "app_extents_3d_basemap_light": { "type": "string" },
-        "app_extents_3d_basemap_dark": { "type": "string" },
         "app_internal_file_upload_endpoint": { "type": "string" },
         "app_external_file_upload_endpoint": { "type": "string" },
         "app_san_stat_endpoint": { "type": "string" },
         "app_san_endpoint": { "type": "string" },
         "app_production_url": { "type": "string" },
         "app_assets_base": { "type": "string" },
-        "bas_esri_agol_slug": { "type": "string" },
         "bas_gitlab_domain": { "type": "string" },
         "app_gitlab_url": { "type": "string" },
         "app_section_data_file_url_base": { "type": "string" },
@@ -35,24 +27,17 @@
         "app_geo_pdf_endpoint": { "type": "string" },
         "app_identifier_namespace_self": { "type": "string" },
         "app_identifier_namespace_alias": { "type": "string" },
-        "app_catalogue_base": { "type": "string" }
+        "app_catalogue_base": { "type": "string" },
+        "app_embedded_maps_base": { "type": "string" }
       },
       "additionalProperties": false,
       "required": [
-        "agol_app_account_slug",
-        "agol_app_client_id",
-        "app_extents_layer_endpoint",
-        "app_extents_2d_basemap_light",
-        "app_extents_2d_basemap_dark",
-        "app_extents_3d_basemap_light",
-        "app_extents_3d_basemap_dark",
         "app_internal_file_upload_endpoint",
         "app_external_file_upload_endpoint",
         "app_san_stat_endpoint",
         "app_san_endpoint",
         "app_production_url",
         "app_assets_base",
-        "bas_esri_agol_slug",
         "bas_gitlab_domain",
         "app_gitlab_url",
         "app_section_data_file_url_base",
@@ -63,7 +48,8 @@
         "app_geo_pdf_endpoint",
         "app_identifier_namespace_self",
         "app_identifier_namespace_alias",
-        "app_catalogue_base"
+        "app_catalogue_base",
+        "app_embedded_maps_base"
       ]
     }
   }
