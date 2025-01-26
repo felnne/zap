@@ -17,6 +17,7 @@
 * App assets hosting location for images etc. fixed to a static path
 * Typo in ORCID spelling
 * Typo in OGL URL
+* Missing metadata standard name/version in generated records
 
 ## [0.11.0] - 2024-12-16
 
