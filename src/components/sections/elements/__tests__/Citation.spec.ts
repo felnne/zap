@@ -5,8 +5,7 @@ import Clipboard from 'v-clipboard'
 import { ResourceType } from '@/types/enum'
 import type { DateImpreciseLabelled, Record } from '@/types/app'
 import type { Identifier, PointOfContact as Contact } from '@/types/iso'
-import { getPublisherOrgSlug } from '@/lib/contacts'
-import { getLicence, getOrganisation } from '@/lib/data'
+import { getLicence } from '@/lib/data'
 
 import Citation from '@/components/sections/elements/Citation.vue'
 
@@ -15,7 +14,7 @@ import collectionsData from '@/data/collections.json'
 const identifier = '12345'
 const doiIdentifier = `123/${identifier}`
 
-const record: Record = {
+const recordDatasetOpen: Record = {
   fileIdentifier: identifier,
   resourceType: ResourceType.Dataset,
   identifiers: [
@@ -41,7 +40,10 @@ const record: Record = {
   collections: [],
 }
 
-const recordProduct = structuredClone(record)
+const recordDatasetClosed = structuredClone(recordDatasetOpen)
+recordDatasetClosed.licence = getLicence('X_FAKE_CLOSED')
+
+const recordProduct = structuredClone(recordDatasetOpen)
 recordProduct.resourceType = ResourceType.Product
 
 describe('Citation', () => {
@@ -58,7 +60,7 @@ describe('Citation', () => {
     const expected = 'Citation'
 
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { record: recordDatasetOpen },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -82,7 +84,7 @@ describe('Citation', () => {
 
   it('renders properly', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { record: recordDatasetOpen },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -92,12 +94,14 @@ describe('Citation', () => {
 
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.find('div#citation-preview').html()).toContain(`<i>${record.title}</i>`)
+    expect(wrapper.find('div#citation-preview').html()).toContain(
+      `<i>${recordDatasetOpen.title}</i>`
+    )
   })
 
   it('copies citation preview to input', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { record: recordDatasetOpen },
       global: {
         directives: {
           clipboard: Clipboard,
@@ -110,52 +114,62 @@ describe('Citation', () => {
     wrapper.find('button#citation-use-generated').trigger('click')
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.find('textarea').element.value).toContain(`_${record.title}_`)
+    expect(wrapper.find('textarea').element.value).toContain(`_${recordDatasetOpen.title}_`)
   })
 
   it('switches publisher when open access changes', async () => {
-    const initialPublisher = getOrganisation(
-      getPublisherOrgSlug(record.resourceType, record.licence)
-    )
+    const initialPublisherName = 'UK Polar Data Centre'
+    const updatedPublisherName = 'Mapping and Geographic Information Centre'
 
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { record: recordDatasetOpen },
       global: {
         directives: {
           clipboard: Clipboard,
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.find('div#citation-preview').html()).toContain(initialPublisher.name)
+    expect(wrapper.find('div#citation-preview').html()).toContain(initialPublisherName)
 
-    // change licence prop
-    const updatedRecord = { ...record, licence: getLicence('X_FAKE_CLOSED') }
-    await wrapper.setProps({ record: updatedRecord })
-    const updatedPublisher = getOrganisation(
-      getPublisherOrgSlug(updatedRecord.resourceType, updatedRecord.licence)
-    )
+    // change licence via record
+    await wrapper.setProps({ record: recordDatasetClosed })
 
-    expect(wrapper.find('div#citation-preview').html()).toContain(updatedPublisher.name)
+    expect(wrapper.find('div#citation-preview').html()).toContain(updatedPublisherName)
   })
 
-  it('uses the correct default template', async () => {
+  it('uses the correct default template for open datasets', async () => {
     const wrapper = mount(Citation, {
-      props: { record: record },
+      props: { record: recordDatasetOpen },
       global: {
         directives: {
           clipboard: Clipboard,
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
-    // select input with id #citation-template should be set to 'dataset'
+    // select input with id #citation-template should be set to 'Dataset (PDC)'
     expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
-      'Dataset'
+      'Dataset (PDC)'
+    )
+  })
+
+  it('uses the correct default template for closed datasets', async () => {
+    const wrapper = mount(Citation, {
+      props: { record: recordDatasetClosed },
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+    await wrapper.vm.$nextTick()
+
+    // select input with id #citation-template should be set to 'Dataset (MAGIC)'
+    expect((wrapper.find('select#citation-template').element as HTMLSelectElement).value).toBe(
+      'Dataset (MAGIC)'
     )
   })
 
@@ -168,7 +182,6 @@ describe('Citation', () => {
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
     // select input with id #citation-template should be set to 'Product (Map, MAGIC, General)'
@@ -191,7 +204,6 @@ describe('Citation', () => {
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
     // select input with id #citation-template should be set to 'Product (Map, MAGIC, General)'
@@ -214,7 +226,6 @@ describe('Citation', () => {
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
     // select input with id #citation-template should be set to 'Product (Map, MAGIC, Published)'
@@ -224,17 +235,14 @@ describe('Citation', () => {
   })
 
   it('updates citation preview if citation template changes', async () => {
-    const productRecord = { ...record, resourceType: ResourceType.Product }
-
     const wrapper = mount(Citation, {
-      props: { record: productRecord },
+      props: { record: recordProduct },
       global: {
         directives: {
           clipboard: Clipboard,
         },
       },
     })
-
     await wrapper.vm.$nextTick()
 
     const templateOptionInitial = (
@@ -246,7 +254,6 @@ describe('Citation', () => {
 
     // change citation-template select to 'Product (Map, MAGIC, Published)'
     await wrapper.find('select#citation-template').setValue('Product (Map, MAGIC, Published)')
-
     await wrapper.vm.$nextTick()
 
     const templateOptionUpdated = (

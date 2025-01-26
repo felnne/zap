@@ -14,7 +14,8 @@ export enum AppEnvironmentLabel {
 }
 
 export enum CitationTemplate {
-  dataset = 'Dataset',
+  datasetPdc = 'Dataset (PDC)',
+  datasetMagic = 'Dataset (MAGIC)',
   productMapMagicGeneral = 'Product (Map, MAGIC, General)',
   productMapMagicPublished = 'Product (Map, MAGIC, Published)',
   unknown = 'Unknown',

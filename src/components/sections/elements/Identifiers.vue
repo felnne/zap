@@ -5,7 +5,7 @@ import { ResourceType, Stability, SectionType } from '@/types/enum'
 
 import type { DropdownItem, Licence } from '@/types/app'
 import type { Identifier } from '@/types/iso'
-import { getPublisherOrgSlug } from '@/lib/contacts'
+import { doiPossible } from '@/lib/identifiers'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -54,9 +54,8 @@ const dependantSections: DropdownItem[] = [
 const identifiers = ref<Identifier[]>([])
 
 let showDoi: ComputedRef<boolean> = computed(() => {
-  // only show DOI identifier if the publisher is the PDC
-  const publisherSlug = getPublisherOrgSlug(props.resourceType, props.licence)
-  return publisherSlug === 'nerc_eds_pdc' ? true : false
+  // only show DOI identifier if the publisher could be the PDC
+  return doiPossible(props.resourceType, props.licence)
 })
 
 watch(

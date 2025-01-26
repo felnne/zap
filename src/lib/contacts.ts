@@ -1,5 +1,4 @@
-import { ResourceType } from '@/types/enum'
-import type { Individual, Licence, Organisation } from '@/types/app'
+import type { Individual, Organisation } from '@/types/app'
 import type { PointOfContact as Contact } from '@/types/iso'
 import { getOrganisation } from '@/lib/data'
 
@@ -70,21 +69,4 @@ export const createOrgPointOfContact = (organisation: Organisation, role: string
   }
 
   return contact
-}
-
-export const getPublisherOrgSlug = (resourceType: ResourceType, licence: Licence): string => {
-  /*
-   * Determine which team will act as the publisher for a resource
-   *
-   * As per https://gitlab.data.bas.ac.uk/MAGIC/data-management/-/issues/41
-   *
-   * Returns the slug of the publishing organisation, which can be retrieved using `getOrganisation()`.
-   */
-  let orgSlug = 'bas_magic'
-
-  if (resourceType == ResourceType.Dataset && licence.open) {
-    orgSlug = 'nerc_eds_pdc'
-  }
-
-  return orgSlug
 }

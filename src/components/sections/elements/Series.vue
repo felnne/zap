@@ -23,6 +23,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
+  'update:series': [id: Series | undefined]
   'update:isoSeries': [id: IsoSeries | undefined]
 }>()
 
@@ -37,7 +38,11 @@ let sheet = ref<string | undefined>(undefined)
 
 let selectedSeries: ComputedRef<Series | undefined> = computed(() => {
   if (!selectedSlug.value) return undefined
-  return allSeries.find((s) => s.slug === selectedSlug.value)
+  let series = allSeries.find((s) => s.slug === selectedSlug.value)
+  if (series && sheet.value) {
+    series = { ...series, sheet: sheet.value }
+  }
+  return series
 })
 
 let isoSeries: ComputedRef<IsoSeries | undefined> = computed(() => {
@@ -57,6 +62,7 @@ let isoSeries: ComputedRef<IsoSeries | undefined> = computed(() => {
 watch(
   () => selectedSeries.value,
   () => {
+    emit('update:series', selectedSeries.value)
     emit('update:isoSeries', isoSeries.value)
   }
 )
@@ -67,7 +73,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Experimental"
-      version="1.0"
+      version="1.1"
       anchor="series"
       title="Series"
       :data-file-href="['series.json']"
