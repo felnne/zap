@@ -20,7 +20,7 @@ describe('Series', () => {
     document.body.appendChild(tocItemsDiv)
   })
 
-  it('renders collections as choices', async () => {
+  it('renders series as choices', async () => {
     const expectedSeries: SeriesT[] = Object.values(seriesData.series)
 
     const wrapper = mount(Series, {
@@ -80,6 +80,11 @@ describe('Series', () => {
     await wrapper.find(`input#series-${seriesA.slug}`).setValue()
     await wrapper.vm.$nextTick()
 
+    const emittedSeries = wrapper.emitted('update:series') as SeriesT[][][]
+    expect(emittedSeries).toBeTruthy()
+    if (emittedSeries) {
+      expect(emittedSeries[0][0]).toEqual(seriesA)
+    }
     const emittedIsoSeries = wrapper.emitted('update:isoSeries') as IsoSeries[][][]
     expect(emittedIsoSeries).toBeTruthy()
     if (emittedIsoSeries) {
@@ -90,6 +95,9 @@ describe('Series', () => {
     await wrapper.find(`input#series-${seriesB.slug}`).setValue()
     await wrapper.vm.$nextTick()
 
+    if (emittedSeries[1]) {
+      expect(emittedSeries[1][0]).toEqual(seriesB)
+    }
     if (emittedIsoSeries[1]) {
       expect(emittedIsoSeries[1][0]).toEqual(isoSeriesB)
     }

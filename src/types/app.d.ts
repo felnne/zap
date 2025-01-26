@@ -140,12 +140,15 @@ export type Record = {
   contacts: PointOfContact[]
   accessRestriction: AccessRestriction
   licence: Licence
+  scale?: number
+  series?: Series
   collections: Collection[]
 }
 
 export type Series = {
   slug: string
   name: string
+  sheet?: string
 }
 
 export type Service = {

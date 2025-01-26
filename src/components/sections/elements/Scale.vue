@@ -2,6 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { Stability, SectionType } from '@/types/enum'
+import { formatScale } from '@/lib/citation'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -21,7 +22,7 @@ let scale_numeric: ComputedRef<number> = computed(() => {
 })
 
 let scale_fmt: ComputedRef<string> = computed(() => {
-  return `1:${scale.value.toLocaleString()}`
+  return formatScale(scale.value)
 })
 
 watch(
@@ -39,7 +40,7 @@ watch(
     <SectionTitle
       :stability="Stability.Experimental"
       :type="SectionType.Element"
-      version="1.0"
+      version="1.1"
       anchor="scale"
       title="Scale"
     />

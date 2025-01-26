@@ -10,6 +10,7 @@ import type {
   Licence as LicenceT,
   PhysicalDimensions,
   Record,
+  Series as SeriesT,
 } from '@/types/app'
 import type {
   Aggregation as IsoAggregation,
@@ -288,7 +289,12 @@ watch(
     <Series
       v-if="show('series')"
       :edition="record.edition"
-      @update:iso-series="(event: IsoSeries | undefined) => (series = event)"
+      @update:series="(event: SeriesT | undefined) => (record.series = event)"
+      @update:iso-series="
+        (event: IsoSeries | undefined) => {
+          series = event
+        }
+      "
     />
     <Identifiers
       :file-identifier="record.fileIdentifier"
@@ -322,7 +328,10 @@ watch(
     <Scale
       v-if="show('scale')"
       @update:iso-spatial-resolution="
-        (event: number) => (isoRecord.identification.spatial_resolution = event)
+        (event: number) => {
+          record.scale = event
+          isoRecord.identification.spatial_resolution = event
+        }
       "
     />
     <GeographicExtent

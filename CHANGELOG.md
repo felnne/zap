@@ -11,6 +11,7 @@
 * Scale section
 * Map series section
 * Physical size section
+* Citation template for MAGIC datasets
 
 ### Fixed
 
@@ -18,6 +19,10 @@
 * Typo in ORCID spelling
 * Typo in OGL URL
 * Missing metadata standard name/version in generated records
+
+### Changed
+
+* Citation section improvements
 
 ## [0.11.0] - 2024-12-16
 

@@ -1,15 +1,8 @@
 import { describe, it, expect } from 'vitest'
 
-import { ResourceType } from '@/types/enum'
-import type { Licence } from '@/types/app'
 import type { PointOfContact as IsoContact } from '@/types/iso'
 import { getOrganisation } from '@/lib/data'
-import {
-  createAuthor,
-  createOrgPointOfContact,
-  createOrgSlugPointOfContact,
-  getPublisherOrgSlug,
-} from '@/lib/contacts'
+import { createAuthor, createOrgPointOfContact, createOrgSlugPointOfContact } from '@/lib/contacts'
 
 const checkRole = 'pointOfContact'
 const checkContact: IsoContact = {
@@ -88,39 +81,5 @@ describe('createOrgPointOfContact', () => {
     const inputRole = checkRole
 
     expect(createOrgPointOfContact(inputOrg, inputRole)).toStrictEqual(checkContact)
-  })
-})
-
-describe('getPublisherSlug', () => {
-  const openLicence: Licence = {
-    slug: 'x',
-    name: 'x',
-    open: true,
-    url: 'x',
-    statement: 'x',
-  }
-
-  const closedLicence: Licence = {
-    slug: 'x',
-    name: 'x',
-    open: false,
-    url: 'x',
-    statement: 'x',
-  }
-
-  it('returns PDC for open datasets', () => {
-    expect(getPublisherOrgSlug(ResourceType.Dataset, openLicence)).toBe('nerc_eds_pdc')
-  })
-
-  it('returns MAGIC for closed datasets', () => {
-    expect(getPublisherOrgSlug(ResourceType.Dataset, closedLicence)).toBe('bas_magic')
-  })
-
-  it('returns MAGIC for open products', () => {
-    expect(getPublisherOrgSlug(ResourceType.Product, openLicence)).toBe('bas_magic')
-  })
-
-  it('returns MAGIC for closed products', () => {
-    expect(getPublisherOrgSlug(ResourceType.Product, closedLicence)).toBe('bas_magic')
   })
 })

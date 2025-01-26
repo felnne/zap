@@ -1,8 +1,9 @@
 import removeMd from 'remove-markdown'
 
+import { CitationTemplate, ResourceType } from '@/types/enum'
 import type { Collection } from '@/types/app'
 import type { Identifier } from '@/types/iso'
-import { CitationTemplate } from '@/types/enum'
+import { getOrganisation } from '@/lib/data'
 
 export function formatName(name: string): string {
   /*
@@ -79,6 +80,8 @@ export function formatDoi(doi: string): string {
    * DOIs are formatted in line with the CrossCite display guidelines (https://www.crossref.org/display-guidelines/),
    * which requires the form `https://doi.org/10.xxxx/xxxxx`.
    *
+   * DOIs are additionally formatted as per PDC's preference to use uppercase for the DOI suffix.
+   *
    * It is safe to use this method for a DOI that is already formatted correctly (i.e. it will not be double formatted).
    *
    * Example (DOI without URL):
@@ -92,15 +95,13 @@ export function formatDoi(doi: string): string {
   if (doi == '') {
     return ''
   }
+  doi = doi.replace('https://doi.org/', '')
 
   const base = 'https://doi.org'
+  const prefix = doi.split('/')[0]
+  const suffix = doi.split('/')[1].toUpperCase()
 
-  // skip if already formatted
-  if (doi.includes(base)) {
-    return doi
-  }
-
-  return `${base}/${doi}`
+  return `${base}/${prefix}/${suffix}`
 }
 
 export function formatReference(identifier: Identifier): string {
@@ -115,8 +116,11 @@ export function formatReference(identifier: Identifier): string {
   if (identifier.namespace == 'data.bas.ac.uk') {
     return identifier.href
   }
-  if (identifier.namespace == 'doi') {
+  if (identifier.namespace == 'alias.data.bas.ac.uk') {
     return identifier.href
+  }
+  if (identifier.namespace == 'doi') {
+    return formatDoi(identifier.href)
   }
 
   return identifier.identifier
@@ -167,10 +171,11 @@ export function createCitationDataset(
 ): string {
   /*
    * As per the APA style used by the PDC for datasets.
-   *  > {authors} ({publication_year}). <i>{title}</i> ({edition}) [{resource_type}]. [{publisher}]. {doi}.
-   * >> {authors} ({publication_year}). <i>{title}</i> '(Version {edition})' '[Data set]'. [{publisher}]. {doi}.
-   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre.
-   * >>> https://data.bas.ac.uk/items/53d75342-b289-4926-a45b-4d3bbcabe795."
+   *  > {authors} ({publication_year}). <i>{title}</i> ({edition}) [{resource_type}]. [{publisher}]. {doi/link}.
+   * >> {authors} ({publication_year}). <i>{title}</i> '(Version {edition})' '[Data set]'. [{publisher}]. {doi/link}.
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/53d75342-B289-4926-A45B-4D3BBCABE795."
+   * or if not DOIed:
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://data.bas.ac.uk/items/53d75342-b289-4926-a45b-4d3bbcabe795."
    *
    * For compatibility with DOIs issued by the UK PDC, the file identifier (DOI) is converted to uppercase.
    */
@@ -185,6 +190,52 @@ export function createCitationDataset(
   return `${authors_} ${year_} ${title_} ${edition_} ${modifier_} ${publisher_} ${reference_}.`
 }
 
+export function createCitationDatasetMagic(
+  authors: string[],
+  year: string,
+  title: string,
+  edition: string,
+  identifier: Identifier
+): string {
+  /*
+   * As per the APA style used by the PDC for datasets but with MAGIC as the publisher and no DOI.
+   *  > {authors} ({publication_year}). <i>{title}</i> ({edition}) [{resource_type}]. [{publisher}]. {link}.
+   * >> {authors} ({publication_year}). <i>{title}</i> '(Version {edition})' '[Data set]'. [{publisher}]. {link}.
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. BAS Mapping and Geographic Information Centre. https://data.bas.ac.uk/items/53d75342-b289-4926-a45b-4d3bbcabe795."
+   *
+   * For compatibility with DOIs issued by the UK PDC, the file identifier (DOI) is converted to uppercase.
+   */
+  return createCitationDataset(
+    authors,
+    year,
+    title,
+    edition,
+    'BAS Mapping and Geographic Information Centre',
+    identifier
+  )
+}
+
+export function createCitationDatasetPdc(
+  authors: string[],
+  year: string,
+  title: string,
+  edition: string,
+  identifier: Identifier
+): string {
+  /*
+   * As per the APA style used by the PDC for datasets.
+   *  > {authors} ({publication_year}). <i>{title}</i> ({edition}) [{resource_type}]. [{publisher}]. {doi/link}.
+   * >> {authors} ({publication_year}). <i>{title}</i> '(Version {edition})' '[Data set]'. [{publisher}]. {doi/link}.
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://doi.org/10.5285/53d75342-B289-4926-A45B-4D3BBCABE795."
+   * or if not DOIed:
+   * >>> "Watson, C. (2014). <i>My first data set</i> (Version 1) [Data set]. NERC EDS UK Polar Data Centre. https://data.bas.ac.uk/items/53d75342-b289-4926-a45b-4d3bbcabe795."
+   *
+   * For compatibility with DOIs issued by the UK PDC, the file identifier (DOI) is converted to uppercase.
+   */
+  const publisher = getOrganisation('nerc_eds_pdc')
+  return createCitationDataset(authors, year, title, edition, publisher.name, identifier)
+}
+
 export function createCitationMagicMapsGeneral(
   year: string,
   edition: string,
@@ -192,8 +243,8 @@ export function createCitationMagicMapsGeneral(
 ): string {
   // Format citation for https://data.bas.ac.uk/items/d0d91e22-18c1-4c7f-8dfc-20e94cd2c107
   // As per: https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5#note_129772
-  //   > {prefix}, {creation_year}, {edition}, {reference}
-  //  >> 'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey', {creation_year}, 'version {edition}', {reference}
+  //   > {prefix}, {creation_year}, {edition}, {link}
+  //  >> 'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey', {creation_year}, 'version {edition}', {link}
   // >>> "Produced by the Mapping and Geographic Information Centre, British Antarctic Survey, 2021, version 1, https://data.bas.ac.uk/items/xxx/."
   const prefix =
     'Produced by the Mapping and Geographic Information Centre, British Antarctic Survey'
@@ -216,27 +267,28 @@ export function createCitationMagicMapsPublished(
   //  >> 'British Antarctic Survey', {creation_year}. {title}, '1:{scale} scale map'. {series}, {sheet}, 'edition {edition}'. 'Cambridge', 'British Antarctic Survey'
   // >>> "British Antarctic Survey, 2017. Scotia Sea, 1:4 000 000 scale map. BAS (UKAHT) Series, sheet 1B, edition 7. Cambridge, British Antarctic Survey."
   const producer = 'British Antarctic Survey'
-  let scale_ = `${formatScale(scale)} scale map`
+  const scale_ = `${formatScale(scale)} scale map`
   const sheet_ = `sheet ${sheet}`
   const edition_ = `edition ${edition}`
   const publisher_location = 'Cambridge'
   const publisher = producer
 
-  // Workaround for not being able to set scale to a placeholder value
-  if (scale == -1) {
-    scale_ = '?scale'
-  }
-
   return `${producer}, ${year}. ${title}, ${scale_}. ${series}, ${sheet_}, ${edition_}. ${publisher_location}, ${publisher}.`
 }
 
-export function filterCitationTemplates(resourceType: string): CitationTemplate[] {
-  /* Filter citation templates based on resource type. */
-  if (resourceType == 'dataset') {
-    return [CitationTemplate.dataset]
+export function filterCitationTemplates(
+  resourceType: ResourceType,
+  open_licence: boolean
+): CitationTemplate[] {
+  /* Filter citation templates based on resource type and licence type. */
+  if (resourceType == ResourceType.Dataset && open_licence) {
+    return [CitationTemplate.datasetPdc, CitationTemplate.datasetMagic]
+  }
+  if (resourceType == ResourceType.Dataset && !open_licence) {
+    return [CitationTemplate.datasetMagic]
   }
 
-  if (resourceType == 'product') {
+  if (resourceType == ResourceType.Product) {
     return [CitationTemplate.productMapMagicGeneral, CitationTemplate.productMapMagicPublished]
   }
 
@@ -244,12 +296,13 @@ export function filterCitationTemplates(resourceType: string): CitationTemplate[
 }
 
 export function defaultCitationTemplate(
+  filteredTemplates: CitationTemplate[],
   collections: Collection[],
   resourceType: string
 ): CitationTemplate {
   /* Get default citation template for a given resource type.  */
   if (resourceType === 'dataset') {
-    return CitationTemplate.dataset
+    return filteredTemplates[0]
   }
 
   if (resourceType === 'product') {
@@ -265,4 +318,55 @@ export function defaultCitationTemplate(
   }
 
   return CitationTemplate.unknown
+}
+
+export function getPreferredReferenceIdentifier(identifiers: Identifier[]): Identifier {
+  /*
+   * Pick identifier to use as reference for citation.
+   *
+   * DOI identifiers are most preferred, then aliases, then data catalogue identifiers.
+   * DOIs are preferred because they have stronger persistence and immutability guarantees.
+   * Alias are preferred because they are preferred by humans.
+   */
+  const doiIdentifier = identifiers.find((i) => i.namespace === 'doi')
+  if (doiIdentifier) {
+    return doiIdentifier
+  }
+
+  const aliasIdentifier = identifiers.find((i) => i.namespace === 'alias.data.bas.ac.uk')
+  if (aliasIdentifier) {
+    return aliasIdentifier
+  }
+
+  const selfIdentifier = identifiers.find((i) => i.namespace === 'data.bas.ac.uk')
+  if (selfIdentifier) {
+    return selfIdentifier
+  }
+
+  return { identifier: '', href: '', namespace: 'x' }
+}
+
+export function getCitation(
+  template: CitationTemplate,
+  authors: string[],
+  creationYear: string,
+  publicationYear: string,
+  title: string,
+  edition: string,
+  identifier: Identifier,
+  scale: number,
+  series: string,
+  sheet: string
+): string {
+  if (template === CitationTemplate.datasetPdc) {
+    return createCitationDatasetPdc(authors, publicationYear, title, edition, identifier)
+  } else if (template === CitationTemplate.datasetMagic) {
+    return createCitationDatasetMagic(authors, publicationYear, title, edition, identifier)
+  } else if (template === CitationTemplate.productMapMagicGeneral) {
+    return createCitationMagicMapsGeneral(creationYear, edition, identifier)
+  } else if (template === CitationTemplate.productMapMagicPublished) {
+    return createCitationMagicMapsPublished(creationYear, title, scale, series, sheet, edition)
+  } else {
+    return '[Error: Unknown citation template]'
+  }
 }

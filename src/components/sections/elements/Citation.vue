@@ -4,16 +4,13 @@ import { computed, type ComputedRef, onMounted, ref, watch } from 'vue'
 import type { DropdownItem, Record } from '@/types/app'
 import type { Identifier } from '@/types/iso'
 import { CitationTemplate, Stability, SectionType } from '@/types/enum'
-import { getPublisherOrgSlug } from '@/lib/contacts'
 import {
-  createCitationDataset,
-  createCitationMagicMapsGeneral,
-  createCitationMagicMapsPublished,
   formatCitationAsMarkdown,
   filterCitationTemplates,
   defaultCitationTemplate,
+  getPreferredReferenceIdentifier,
+  getCitation,
 } from '@/lib/citation'
-import { getOrganisation } from '@/lib/data'
 
 import SectionTitle from '@/components/bases/SectionTitle.vue'
 import Markdown from '@/components/bases/Markdown.vue'
@@ -35,34 +32,23 @@ const emit = defineEmits<{
   'update:isoOtherCitationDetails': [id: string]
 }>()
 
-const getCitation = () => {
-  if (template.value === CitationTemplate.dataset) {
-    citation.value = createCitationDataset(
-      authors.value,
-      publicationYear.value,
-      title.value,
-      props.record.edition,
-      publisher.value,
-      identifier.value
-    )
-  } else if (template.value === CitationTemplate.productMapMagicGeneral) {
-    citation.value = createCitationMagicMapsGeneral(
-      creationYear.value,
-      props.record.edition,
-      identifier.value
-    )
-  } else if (template.value === CitationTemplate.productMapMagicPublished) {
-    citation.value = createCitationMagicMapsPublished(
-      creationYear.value,
-      title.value,
-      -1,
-      '?series',
-      '?sheet',
-      props.record.edition
-    )
-  } else {
-    citation.value = '[Error: Unknown citation template]'
-  }
+const makeCitation = () => {
+  const scale = props.record.scale ? props.record.scale : 0
+  const series = props.record.series ? props.record.series.name : '?series'
+  const sheet = props.record.series?.sheet ? props.record.series.sheet : '?sheet'
+
+  citation.value = getCitation(
+    template.value,
+    authors.value,
+    creationYear.value,
+    publicationYear.value,
+    title.value,
+    props.record.edition,
+    identifier.value,
+    scale,
+    series,
+    sheet
+  )
 }
 
 const copyFromPreview = () => {
@@ -77,34 +63,19 @@ const dependantSections: DropdownItem[] = [
   { href: '#identifiers', title: 'Identifiers' },
   { href: '#licence', title: 'Licence' },
   { href: '#resource-type', title: 'Resource Type' },
+  { href: '#scale', title: 'Scale' },
+  { href: '#series', title: 'Series' },
   { href: '#title', title: 'Title' },
 ]
 
+let availableTemplates = ref<CitationTemplate[]>([])
 let template = ref<CitationTemplate>(CitationTemplate.unknown)
 let citation = ref<string>('')
 let markdownInput = ref<string>('')
 let otherCitationDetails = ref<string>('')
 
 let identifier: ComputedRef<Identifier> = computed(() => {
-  /*
-   * Pick identifier to use in citation.
-   *
-   * DOI identifiers are preferred, then data catalogue identifiers. DOIs are preferred because they have stronger
-   * persistence and immutability guarantees.
-   *
-   * If neither of these identifiers are available, a null identifier if returned.
-   */
-  const doiIdentifier = props.record.identifiers.find((i) => i.namespace === 'doi')
-  if (doiIdentifier) {
-    return doiIdentifier
-  }
-
-  const selfIdentifier = props.record.identifiers.find((i) => i.namespace === 'data.bas.ac.uk')
-  if (selfIdentifier) {
-    return selfIdentifier
-  }
-
-  return { title: '', identifier: '', href: '' }
+  return getPreferredReferenceIdentifier(props.record.identifiers)
 })
 
 let authors: ComputedRef<string[]> = computed(() => {
@@ -139,25 +110,30 @@ let publicationYear: ComputedRef<string> = computed(() => {
   return '?publication_year'
 })
 
-let publisher: ComputedRef<string> = computed(() => {
-  const publisher = getOrganisation(
-    getPublisherOrgSlug(props.record.resourceType, props.record.licence)
-  )
-  return publisher.name
-})
-
-let availableCitationTemplates: ComputedRef<CitationTemplate[]> = computed(() => {
-  return filterCitationTemplates(props.record.resourceType)
-})
-
 onMounted(() => {
-  template.value = defaultCitationTemplate(props.record.collections, props.record.resourceType)
-  getCitation()
+  availableTemplates.value = filterCitationTemplates(
+    props.record.resourceType,
+    props.record.licence.open
+  )
+  template.value = defaultCitationTemplate(
+    availableTemplates.value,
+    props.record.collections,
+    props.record.resourceType
+  )
+  makeCitation()
 })
 
-watch([() => props.record.resourceType], () => {
-  template.value = defaultCitationTemplate(props.record.collections, props.record.resourceType)
-  getCitation()
+watch([() => props.record.resourceType, () => props.record.licence], () => {
+  availableTemplates.value = filterCitationTemplates(
+    props.record.resourceType,
+    props.record.licence.open
+  )
+  template.value = defaultCitationTemplate(
+    availableTemplates.value,
+    props.record.collections,
+    props.record.resourceType
+  )
+  makeCitation()
 })
 
 watch(
@@ -173,7 +149,7 @@ watch(
     () => props.record.licence,
   ],
   () => {
-    getCitation()
+    makeCitation()
   }
 )
 
@@ -190,10 +166,9 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Experimental"
-      version="6.0"
+      version="7.0"
       anchor="citation"
       title="Citation"
-      :data-file-href="['organisations.json']"
       :depends-on="dependantSections"
     />
     <div class="mb-10 space-y-2">
@@ -207,7 +182,7 @@ watch(
           name="citation-template"
           class="border border-black bg-white disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-white dark:bg-black dark:disabled:bg-neutral-700"
         >
-          <option v-for="option in availableCitationTemplates" :key="option" :value="option">
+          <option v-for="option in availableTemplates" :key="option" :value="option">
             {{ option }}
           </option>
         </select>
