@@ -22,6 +22,7 @@ import type {
   Identifier,
   Lineage as IsoLineage,
   Maintenance as IsoMaintenance,
+  MetadataStandard as IsoMetadataStandard,
   PointOfContact as IsoContact,
   TemporalExtent as IsoTemporalExtent,
   Record as IsoRecord,
@@ -85,6 +86,9 @@ const setCitation = (citation: string) => {
   } else {
     delete isoRecord.value.identification.other_citation_details
   }
+const standard: IsoMetadataStandard = {
+  "name": "ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data",
+  "version": "ISO 19115-2:2009(E)",
 }
 
 const record = ref<Record>(emptyRecord)
@@ -147,6 +151,7 @@ let supplementalInfo: ComputedRef<string | undefined> = computed(() => {
   return createSupplementalInfo(dimensions.value)
 })
 
+isoRecord.value.metadata.metadata_standard = standard
 let isoRecordMerged: ComputedRef<IsoRecord> = computed(() => {
   let mergedRecord = isoRecord.value
 

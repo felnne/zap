@@ -133,10 +133,16 @@ export type Maintenance = {
 }
 
 export type Metadata = {
+  metadata_standard?: MetadataStandard
   language?: string
   character_set?: string
   contacts: PointOfContact[]
   date_stamp: string
+}
+
+export type MetadataStandard = {
+  name?: string
+  version?: string
 }
 
 export type OnlineResource = {
