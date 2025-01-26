@@ -73,8 +73,8 @@ const emit = defineEmits<{
 const show = (section: string): boolean => showSection(section, record.value.resourceType)
 
 const standard: IsoMetadataStandard = {
-  "name": "ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data",
-  "version": "ISO 19115-2:2009(E)",
+  name: 'ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data',
+  version: 'ISO 19115-2:2009(E)',
 }
 
 const record = ref<Record>(emptyRecord)
