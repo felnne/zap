@@ -12,6 +12,12 @@
       "name": "BAS Published Maps",
       "identifier": "6f5102ae-dfae-4d72-ad07-6ce4c85f5db8",
       "href": "https://data.bas.ac.uk/items/6f5102ae-dfae-4d72-ad07-6ce4c85f5db8"
+    },
+    "125d6ae8_0b9a_4c89_88e2_f3ec59723e52": {
+      "slug": "125d6ae8_0b9a_4c89_88e2_f3ec59723e52",
+      "name": "BAS Assets Tracking Service",
+      "identifier": "125d6ae8-0b9a-4c89-88e2-f3ec59723e52",
+      "href": "https://data.bas.ac.uk/items/125d6ae8-0b9a-4c89-88e2-f3ec59723e52"
     }
   }
 }
