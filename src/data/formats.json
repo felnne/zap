@@ -1,6 +1,14 @@
 {
   "$schema": "../schemas/formats.json",
   "formats": {
+    "geojson": {
+      "slug": "geojson",
+      "name": "GeoJSON",
+      "description": "a GeoJSON document",
+      "extensions": [".geojson", ".json"],
+      "mediaTypes": ["application/geo+json"],
+      "url": "https://www.iana.org/assignments/media-types/application/geo+json"
+    },
     "gpkg": {
       "slug": "gpkg",
       "name": "GeoPackage",

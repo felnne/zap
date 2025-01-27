@@ -83,4 +83,26 @@ test('supported file types are handled correctly', async ({ page }) => {
   expect(download6).toContain(
     '"href": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"'
   )
+
+  // GeoJSON (.geojson)
+  //
+
+  await page.click('text=Add Download')
+  await page.click('text=Local File')
+  await page.setInputFiles('input#download-6-file', './sample-data/geojson/sample.geojson')
+  const download7 = await page.textContent('#downloads-output pre')
+  expect(download7).toContain(
+    '"href": "https://www.iana.org/assignments/media-types/application/geo+json"'
+  )
+
+  // GeoJSON (.json)
+  //
+
+  await page.click('text=Add Download')
+  await page.click('text=Local File')
+  await page.setInputFiles('input#download-6-file', './sample-data/geojson/sample.json')
+  const download8 = await page.textContent('#downloads-output pre')
+  expect(download8).toContain(
+    '"href": "https://www.iana.org/assignments/media-types/application/geo+json"'
+  )
 })
