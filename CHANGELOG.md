@@ -12,6 +12,7 @@
 * Map series section
 * Physical size section
 * Citation template for MAGIC datasets
+* GeoJSON uploads
 
 ### Fixed
 
