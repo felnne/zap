@@ -24,6 +24,7 @@
 ### Changed
 
 * Citation section improvements
+* Upgrading dependencies
 
 ## [0.11.0] - 2024-12-16
 

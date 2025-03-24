@@ -14,12 +14,10 @@ const props = defineProps({
   },
   items: {
     type: Array as PropType<DropdownItem[]>,
-    required: true,
     default: () => [],
   },
   itemsClasses: {
     type: Array as PropType<string[]>,
-    required: false,
     default: () => [],
   },
 })
