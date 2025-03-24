@@ -182,6 +182,7 @@ describe('getFileFormat', () => {
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
       text: () => Promise.resolve(''),
+      bytes: () => Promise.resolve(new Uint8Array(0)),
     }
 
     expect(await getFormatFile(file)).toStrictEqual(expectedFormat)
@@ -198,6 +199,7 @@ describe('getFileFormat', () => {
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
       text: () => Promise.resolve(''),
+      bytes: () => Promise.resolve(new Uint8Array(0)),
     }
 
     expect(await getFormatFile(file)).toStrictEqual(expectedFormat)
@@ -214,6 +216,7 @@ describe('getFileFormat', () => {
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
       text: () => Promise.resolve(''),
+      bytes: () => Promise.resolve(new Uint8Array(0)),
     }
 
     // for use in getPdfFormat call
@@ -241,6 +244,7 @@ describe('getFileFormat', () => {
       slice: () => new Blob(),
       stream: () => new ReadableStream(),
       text: () => Promise.resolve(''),
+      bytes: () => Promise.resolve(new Uint8Array(0)),
     }
 
     await expect(async () => {
