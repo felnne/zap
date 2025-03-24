@@ -17,11 +17,9 @@ variables:
   # Secrets (set in GitLab CI/CD settings)
   # - OP_SERVICE_ACCOUNT_TOKEN
   #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=k34cpwfkqaxp2r56u4aklza6ni&i=xycz7i532uhb37kum3ypnqnhg4&h=magic.1password.eu
-  # - TEST_AGOL_PASSWORD
-  #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=ffy5l25mjdv577qj6izuk6lo4m&i=bq44kugbwpn5ldfoslpkskhm5a&h=magic.1password.eu
 
 image:
-  name: node:20.11.1-alpine
+  name: node:22.14.0-alpine
 
 cache:
   paths:
