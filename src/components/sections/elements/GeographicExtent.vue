@@ -13,7 +13,6 @@ import Output from '@/components/bases/Output.vue'
 import FormLabel from '@/components/bases/FormLabel.vue'
 import FormInput from '@/components/bases/FormInput.vue'
 import ThreeColumn from '@/components/bases/ThreeColumn.vue'
-import Link from '@/components/bases/Link.vue'
 
 const emit = defineEmits<{
   'update:isoExtentGeographic': [id: GeographicExtent]
@@ -65,7 +64,7 @@ let embeddedMapsUri: ComputedRef<string> = computed(() => {
   const minY = bbox.south_latitude
   const maxY = bbox.north_latitude
 
-  return `${getSetting('app_embedded_maps_base')}/?bbox=[${minX},${minY},${maxX},${maxY}]&globe_overview=true`
+  return `${getSetting('app_embedded_maps_base')}/?bbox=[${minX},${minY},${maxX},${maxY}]`
 })
 
 onMounted(() => {
@@ -185,8 +184,7 @@ watch(extent, async () => {
       <template #right>
         <div class="space-y-2">
           <div class="text-sky-500">Preview (2D)</div>
-          <Link :href="embeddedMapsUri" target="_blank">Temp link</Link>
-          <!-- <iframe :src="embeddedMapsUri" class="h-96 w-full border border-sky-500"></iframe> -->
+          <iframe :src="embeddedMapsUri" class="h-96 w-full border border-sky-500"></iframe>
         </div>
       </template>
     </ThreeColumn>
