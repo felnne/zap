@@ -60,10 +60,11 @@ watch(dimensions, async () => {
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="1.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
+      version="1.1"
       anchor="physical-size"
       title="Physical size"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#physical-size"
       :data-file-href="['physical_sizes.json']"
     />
     <TwoColumn>

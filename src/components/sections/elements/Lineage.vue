@@ -25,10 +25,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="1.3"
       :stability="Stability.Stable"
+      version="1.4"
       anchor="lineage"
       title="Lineage"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#lineage"
     />
     <Markdown input-id="lineage-input" @update:input="(event: string) => (statement = event)" />
   </SectionBorder>

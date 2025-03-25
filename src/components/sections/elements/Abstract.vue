@@ -26,10 +26,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="1.2"
       :stability="Stability.Stable"
+      version="1.3"
       anchor="abstract"
       title="Abstract"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#abstract"
     />
     <Markdown input-id="abstract-input" @update:input="(event: string) => (abstract = event)" />
   </SectionBorder>

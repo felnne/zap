@@ -109,10 +109,11 @@ watch(
   <SectionBorder :type="SectionType.Tools">
     <SectionTitle
       :type="SectionType.Tools"
-      version="2.1"
       :stability="Stability.Stable"
+      version="2.2"
       anchor="validate"
       title="Record Validation"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#record-validation"
       :add-toc="true"
     />
     <div class="space-y-4">

@@ -43,10 +43,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      :stability="Stability.Experimental"
-      version="1.0"
+      :stability="Stability.Stable"
+      version="1.1"
       anchor="collections"
       title="Collections"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#collections"
       :data-file-href="['collections.json']"
     />
     <TwoColumn>

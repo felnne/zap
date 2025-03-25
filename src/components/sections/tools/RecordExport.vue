@@ -35,8 +35,8 @@ const props = defineProps({
   <SectionBorder :type="SectionType.Tools">
     <SectionTitle
       :type="SectionType.Tools"
+      :stability="Stability.Stable"
       version="1.0"
-      :stability="Stability.Experimental"
       anchor="export"
       title="Export Record"
       :add-toc="true"

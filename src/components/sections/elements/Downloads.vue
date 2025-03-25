@@ -75,10 +75,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="9.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
+      version="9.1"
       anchor="downloads"
       title="Downloads"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#downloads"
       :data-file-href="['formats.json', 'organisations.json']"
       :depends-on="dependantSections"
     />

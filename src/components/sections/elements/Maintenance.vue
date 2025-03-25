@@ -48,10 +48,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="1.0"
       :stability="Stability.Stable"
+      version="1.1"
       anchor="maintenance"
       title="Maintenance (Status)"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#maintenance-status"
     />
     <TwoColumn>
       <template #left>

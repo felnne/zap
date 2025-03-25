@@ -13,6 +13,7 @@
 * Physical size section
 * Citation template for MAGIC datasets
 * GeoJSON uploads
+* Guidance links based on mapping coordination guidance
 
 ### Fixed
 

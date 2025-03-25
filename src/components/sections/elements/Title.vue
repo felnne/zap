@@ -28,10 +28,10 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="1.3"
+      version="1.4"
       anchor="title"
       title="Title"
-      guidance-href="https://gitlab.data.bas.ac.uk/felnne/zap/-/blob/main/docs/eds-guidance.md#title"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#title"
     />
     <Markdown
       input-id="title-input"

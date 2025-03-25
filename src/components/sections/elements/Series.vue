@@ -72,10 +72,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      :stability="Stability.Experimental"
-      version="1.1"
+      :stability="Stability.Stable"
+      version="1.2"
       anchor="series"
       title="Series"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#series"
       :data-file-href="['series.json']"
     />
     <TwoColumn>

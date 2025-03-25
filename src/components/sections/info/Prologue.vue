@@ -44,8 +44,8 @@ let title: ComputedRef<string> = computed(() => {
   <SectionBorder :type="SectionType.Info">
     <SectionTitle
       :type="SectionType.Info"
-      version="2.1"
       :stability="Stability.Stable"
+      version="2.1"
       anchor="prologue"
       :title="title"
       :add-toc="false"
