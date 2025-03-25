@@ -2,7 +2,7 @@
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
 import { getSeries } from '@/lib/data'
-import type { Series } from '@/types/app'
+import type { DropdownItem, Series } from '@/types/app'
 import type { Series as IsoSeries } from '@/types/iso'
 import { Stability, SectionType } from '@/types/enum'
 
@@ -30,6 +30,8 @@ const emit = defineEmits<{
 const clearSelectedSlug = () => {
   selectedSlug.value = undefined
 }
+
+const dependantSections: DropdownItem[] = [{ href: '#edition', title: 'Edition' }]
 
 const allSeries = getSeries()
 
@@ -73,11 +75,12 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="1.3"
+      version="1.4"
       anchor="series"
       title="Series"
       guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#series"
       :data-file-href="['series.json']"
+      :depends-on="dependantSections"
     />
     <TwoColumn>
       <template #left>
@@ -109,7 +112,7 @@ watch(
         </div>
       </template>
       <template #right>
-        <div class="space-y-4">
+        <div class="space-y-2">
           <Output :data="isoSeries"></Output>
           <GuidanceText>Sheet number isn't currently supported 😔.</GuidanceText>
         </div>

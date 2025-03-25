@@ -33,7 +33,7 @@ const setRequired = () => {
       title="Sample Data"
       :add-toc="true"
     />
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div>
         <Button id="set-sample-required" @click="setRequired">Populate required sections</Button>
       </div>

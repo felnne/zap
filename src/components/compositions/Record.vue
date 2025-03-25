@@ -286,16 +286,6 @@ watch(
         (event: IsoAggregation[]) => (isoRecord.identification.aggregations = event)
       "
     />
-    <Series
-      v-if="show('series')"
-      :edition="record.edition"
-      @update:series="(event: SeriesT | undefined) => (record.series = event)"
-      @update:iso-series="
-        (event: IsoSeries | undefined) => {
-          series = event
-        }
-      "
-    />
     <Identifiers
       :file-identifier="record.fileIdentifier"
       :resource-type="record.resourceType"
@@ -308,6 +298,16 @@ watch(
     <Edition
       @update:edition="(event: string) => (record.edition = event)"
       @update:iso-edition="(event: string) => (isoRecord.identification.edition = event)"
+    />
+    <Series
+      v-if="show('series')"
+      :edition="record.edition"
+      @update:series="(event: SeriesT | undefined) => (record.series = event)"
+      @update:iso-series="
+        (event: IsoSeries | undefined) => {
+          series = event
+        }
+      "
     />
     <Title
       @update:title="(event: string) => (record.title = event)"

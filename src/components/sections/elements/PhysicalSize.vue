@@ -105,10 +105,12 @@ watch(dimensions, async () => {
         </div>
       </template>
       <template #right>
-        <Output v-if="dimensions" id="dimensions" :data="dimensions"></Output>
-        <GuidanceText
-          >Dimensions are encoded within the supplemetal information element.</GuidanceText
-        >
+        <div class="space-y-2">
+          <Output v-if="dimensions" id="dimensions" :data="dimensions"></Output>
+          <GuidanceText
+            >Dimensions are encoded within the supplemetal information element.</GuidanceText
+          >
+        </div>
       </template>
     </TwoColumn>
   </SectionBorder>
