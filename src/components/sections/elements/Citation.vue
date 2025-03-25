@@ -165,10 +165,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      :stability="Stability.Experimental"
-      version="7.0"
+      :stability="Stability.Stable"
+      version="7.1"
       anchor="citation"
       title="Citation"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#citation"
       :depends-on="dependantSections"
     />
     <div class="mb-10 space-y-2">

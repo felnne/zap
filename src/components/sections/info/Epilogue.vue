@@ -33,8 +33,8 @@ let timeDisplay: ComputedRef<string> = computed(() => {
   <SectionBorder :type="SectionType.Info">
     <SectionTitle
       :type="SectionType.Element"
-      version="4.1"
       :stability="Stability.Stable"
+      version="4.1"
       anchor="epilogue"
       title="Meta"
       :add-toc="false"

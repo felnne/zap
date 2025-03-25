@@ -29,8 +29,8 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="4.2"
       :stability="Stability.Stable"
+      version="4.2"
       anchor="services"
       title="Services"
       :data-file-href="['formats.json', 'organisations.json', 'services.json']"

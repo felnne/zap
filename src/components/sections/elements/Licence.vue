@@ -88,10 +88,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="5.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
+      version="5.1"
       anchor="licence"
       title="Licence"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#licence"
       :data-file-href="['licences.json']"
       :depends-on="dependantSections"
     />

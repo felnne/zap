@@ -27,8 +27,8 @@ const setRequired = () => {
   <SectionBorder :type="SectionType.Tools">
     <SectionTitle
       :type="SectionType.Tools"
-      version="1.0"
       :stability="Stability.Experimental"
+      version="1.0"
       anchor="sample"
       title="Sample Data"
       :add-toc="true"

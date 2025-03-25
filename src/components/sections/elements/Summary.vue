@@ -55,10 +55,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="1.1"
       :stability="Stability.Stable"
+      version="1.2"
       anchor="summary"
       title="Summary"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#summary"
       :add-toc="true"
       :depends-on="dependantSections"
     />

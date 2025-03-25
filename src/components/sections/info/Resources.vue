@@ -10,7 +10,7 @@ import Link from '@/components/bases/Link.vue'
   <SectionBorder :type="SectionType.Info">
     <SectionTitle
       :type="SectionType.Info"
-      version="2.2"
+      version="2.3"
       anchor="resources"
       title="Resources"
       :add-toc="true"
@@ -42,6 +42,14 @@ import Link from '@/components/bases/Link.vue'
         <Link href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/issues/5"
           >MAGIC/mapping-coordination#5</Link
         >.
+      </p>
+      <p>
+        Guidance for most sections are provided by the
+        <Link
+          href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance"
+          >Metadata completion guidance</Link
+        >
+        document in the MAGIC Mapping Coordination project.
       </p>
       <p>
         Examples of completed records can be found in the

@@ -61,10 +61,11 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="2.1"
       :stability="Stability.Stable"
+      version="2.2"
       anchor="access"
       title="Access Restrictions"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#access-restrictions"
     />
     <TwoColumn>
       <template #left>

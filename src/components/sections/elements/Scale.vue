@@ -38,11 +38,12 @@ watch(
 <template>
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
       :type="SectionType.Element"
       version="1.1"
       anchor="scale"
       title="Scale"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#scale"
     />
     <TwoColumn>
       <template #left>

@@ -43,10 +43,11 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="2.5"
+      version="2.6"
       anchor="contacts"
       title="Contacts"
       sub-title="Authors"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#contacts"
       :data-file-href="['individuals.json', 'organisations.json']"
     />
     <TwoColumn>

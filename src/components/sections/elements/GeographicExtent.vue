@@ -94,10 +94,11 @@ watch(extent, async () => {
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      version="6.0"
-      :stability="Stability.Experimental"
+      :stability="Stability.Stable"
+      version="6.1"
       anchor="extent-geographic"
       title="Spatial extent"
+      guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#spatial-extent"
       :data-file-href="['extents.json', 'projections.json']"
     />
     <ThreeColumn>
