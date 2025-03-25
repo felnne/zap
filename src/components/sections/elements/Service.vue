@@ -60,7 +60,7 @@ watch(
         />
         {{ service.name }}
       </FormLabel>
-      <div class="flex flex-grow space-x-2">
+      <div class="flex grow space-x-2">
         <FormLabel :for="'service-' + service.slug + '-endpoint'" class="text-neutral-500"
           >Endpoint</FormLabel
         >

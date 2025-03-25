@@ -26,6 +26,7 @@
 * Citation section improvements
 * Upgrading dependencies
 * Upgrading NodeJS to 22.14 LTS release
+* Upgrading to Tailwind 4
 
 ## [0.11.0] - 2024-12-16
 

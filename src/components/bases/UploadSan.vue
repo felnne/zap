@@ -121,7 +121,7 @@ watch(
 <template>
   <div class="space-y-4">
     <div class="flex space-x-4">
-      <div class="flex flex-grow space-x-2">
+      <div class="flex grow space-x-2">
         <FormLabel class="text-neutral-500">SAN Path</FormLabel>
         <FormInput
           :id="context + '-' + identifier + '-path'"
@@ -135,7 +135,7 @@ watch(
           @button-click="statPath"
         ></ButtonStat>
       </div>
-      <div class="flex flex-grow space-x-2">
+      <div class="flex grow space-x-2">
         <FormLabel class="text-neutral-500">URL</FormLabel>
         <FormInput
           :id="context + '-' + identifier + '-url'"
