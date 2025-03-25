@@ -327,8 +327,8 @@ describe('getSeries', () => {
   })
 
   const checkSeries: Series = {
-    slug: '321fce3c_8495_428d_b389_985953fe57e5',
-    name: 'Charming maps',
+    slug: '37558051_e18f_453b_91a1_d3dd715a3186',
+    name: 'BAS Topographic',
   }
 
   it('includes expected collection', () => {
