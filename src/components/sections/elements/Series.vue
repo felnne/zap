@@ -112,7 +112,7 @@ watch(
         </div>
       </template>
       <template #right>
-        <div class="space-y-4">
+        <div class="space-y-2">
           <Output :data="isoSeries"></Output>
           <GuidanceText>Sheet number isn't currently supported 😔.</GuidanceText>
         </div>

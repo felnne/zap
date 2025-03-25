@@ -87,7 +87,7 @@ watch(
         </div>
       </template>
       <template #right>
-        <div class="space-y-4">
+        <div class="space-y-2">
           <Output :data="datesIso"></Output>
           <GuidanceText>Publication/released values can be in the future.</GuidanceText>
           <GuidanceText>If a value is unknown, use 0. Year is required.</GuidanceText>

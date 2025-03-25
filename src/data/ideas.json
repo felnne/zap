@@ -38,10 +38,10 @@
     { "label": "Colour code distribution options like JWTs.", "state": "cancelled" },
     { "label": "Hide sections based on resource type.", "state": "complete" },
     { "label": "Access restrictions section.", "state": "complete" },
-    { "label": "Collection aggregations", "state": "complete" },
+    { "label": "Collection aggregations.", "state": "complete" },
     { "label": "Aggregations section.", "state": "todo" },
     { "label": "Extent map.", "state": "complete" },
-    { "label": "Spatial resolution / scale for products", "state": "complete" },
+    { "label": "Spatial resolution / scale for products.", "state": "complete" },
     { "label": "Syntax highlighting for outputs.", "state": "cancelled" },
     { "label": "Collections resource type.", "state": "complete" },
     { "label": "GitLab identifier.", "state": "complete" },
@@ -52,11 +52,8 @@
     { "label": "Support depositing downloads.", "state": "todo" },
     { "label": "Preserving input values (like GitLab editor).", "state": "todo" },
     { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },
-    {
-      "label": "More fun validation feedback (using internationalisation)?",
-      "state": "todo"
-    },
-    { "label": "Temporal extent", "state": "complete" },
+    { "label": "More fun validation feedback (using internationalisation)?", "state": "todo" },
+    { "label": "Temporal extent.", "state": "complete" },
     { "label": "User feedback.", "state": "complete" },
     {
       "label": "Different colour for mandatory sections (based on ISO / MAGIC Discovery requirements).",
@@ -73,34 +70,25 @@
     { "label": "When Esri item set, add enabled services automatically.", "state": "cancelled" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
     { "label": "Support for files on the SAN.", "state": "complete" },
-    { "label": "[Workflow] Deposit", "state": "todo" },
-    { "label": "[Workflow] Web map review", "state": "todo" },
-    { "label": "Determine whether PDF files are geo-referenced", "state": "complete" },
+    { "label": "[Workflow] Deposit.", "state": "todo" },
+    { "label": "[Workflow] Web map review.", "state": "todo" },
+    { "label": "Determine whether PDF files are geo-referenced.", "state": "complete" },
     {
       "label": "Spatial extent from geo-referenced files (world files, geoPDFs, etc.).",
       "state": "todo"
     },
-    {
-      "label": "Embargos.",
-      "state": "todo"
-    },
-    {
-      "label": "Checksums.",
-      "state": "todo"
-    },
-    {
-      "label": "JSON Export",
-      "state": "complete"
-    },
+    { "label": "Embargos.", "state": "todo" },
+    { "label": "Checksums.", "state": "todo" },
+    { "label": "JSON Export.", "state": "complete" },
     { "label": "Templates and samples.", "state": "todo" },
     { "label": "Wizard UI.", "state": "todo" },
     { "label": "QGIS plugin.", "state": "todo" },
     { "label": "ArcGIS plugin.", "state": "todo" },
-    { "label": "Maintenance information (progress, update frequency", "state": "todo" },
-    { "label": "Data sources", "state": "todo" },
-    { "label": "2D spatial extent visualisation", "state": "removed" },
-    { "label": "3D spatial extent visualisation", "state": "removed" },
-    { "label": "Embedded Maps Service for geographic extent preview", "state": "todo" },
-    { "label": "Alias identifiers", "state": "complete" }
+    { "label": "Maintenance information (progress, update frequency.", "state": "todo" },
+    { "label": "Data sources.", "state": "todo" },
+    { "label": "2D spatial extent visualisation.", "state": "removed" },
+    { "label": "3D spatial extent visualisation.", "state": "removed" },
+    { "label": "Embedded Maps Service for geographic extent preview.", "state": "complete" },
+    { "label": "Alias identifiers.", "state": "complete" }
   ]
 }
