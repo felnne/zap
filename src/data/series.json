@@ -1,13 +1,49 @@
 {
   "$schema": "../schemas/series.json",
   "series": {
-    "321fce3c_8495_428d_b389_985953fe57e5": {
-      "slug": "321fce3c_8495_428d_b389_985953fe57e5",
-      "name": "Charming maps"
+    "73bf570e_c2ee_45d7_b37b_ffdf14c86801": {
+      "slug": "73bf570e_c2ee_45d7_b37b_ffdf14c86801",
+      "name": "BAS Miscellaneous"
     },
-    "32134b6c_2263_4f5d_b625_f283a413e17c": {
-      "slug": "32134b6c_2263_4f5d_b625_f283a413e17c",
-      "name": "Spooky maps"
+    "37558051_e18f_453b_91a1_d3dd715a3186": {
+      "slug": "37558051_e18f_453b_91a1_d3dd715a3186",
+      "name": "BAS Topographic"
+    },
+    "5296fb7f_0f78_4c90_b503_087ca112ca54": {
+      "slug": "5296fb7f_0f78_4c90_b503_087ca112ca54",
+      "name": "BAS 250P"
+    },
+    "e465fac8_f873_41c4_a1cf_076c71bd3be1": {
+      "slug": "e465fac8_f873_41c4_a1cf_076c71bd3be1",
+      "name": "BAS 25"
+    },
+    "50dac1b0_9f3d_4b18_8796_4ca31418b6e3": {
+      "slug": "50dac1b0_9f3d_4b18_8796_4ca31418b6e3",
+      "name": "BAS(UKAHT)"
+    },
+    "3ac7b136_d50b_4aee_b67f_2f756210be57": {
+      "slug": "3ac7b136_d50b_4aee_b67f_2f756210be57",
+      "name": "BAS Thematic Map"
+    },
+    "1075c94e_0887_41fb_b3f5_401a1bf08edd": {
+      "slug": "1075c94e_0887_41fb_b3f5_401a1bf08edd",
+      "name": "BAS Site Maps"
+    },
+    "1f27a692_3a9b_44a6_bb70_eb6bfdb63b4b": {
+      "slug": "1f27a692_3a9b_44a6_bb70_eb6bfdb63b4b",
+      "name": "BAS Local Travel Maps"
+    },
+    "178fab46_5384_40f1_9132_f36f7f0ca981": {
+      "slug": "178fab46_5384_40f1_9132_f36f7f0ca981",
+      "name": "BAS Fieldwork Maps"
+    },
+    "7505365e_4f8e_4d6f_aeea_6f5bd031206c": {
+      "slug": "7505365e_4f8e_4d6f_aeea_6f5bd031206c",
+      "name": "BAS Air Operations Maps"
+    },
+    "95e182fb_a895_4ca0_b9c3_6b7820a77347": {
+      "slug": "95e182fb_a895_4ca0_b9c3_6b7820a77347",
+      "name": "BAS Traverse Maps"
     }
   }
 }

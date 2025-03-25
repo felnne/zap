@@ -14,6 +14,9 @@
 * Citation template for MAGIC datasets
 * GeoJSON uploads
 * Guidance links based on mapping coordination guidance
+* Adding 'all rights reserved' local licence
+* Adding operations mapping local licence
+* Adding addition map series
 
 ### Fixed
 

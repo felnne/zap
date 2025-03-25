@@ -19,13 +19,18 @@
       "statement": "This information is licensed under the Creative Commons Attribution 4.0 International Licence (CC BY 4.0). To view this licence, visit https://creativecommons.org/licenses/by/4.0/.",
       "open": true
     },
-    "X_FAKE_CLOSED": {
-      "slug": "X_FAKE_CLOSED",
-      "name": "Fake Closed Licence",
-      "url": "http://www.example.com",
-      "img_light": "licence-fake.png",
-      "img_dark": "licence-ogl-dark.png",
-      "statement": "!!NOT A REAL LICENCE!!",
+    "X_ALL_RIGHTS_RESERVED_1": {
+      "slug": "X_ALL_RIGHTS_RESERVED_1",
+      "name": "(Local) All Rights Reserved v1",
+      "url": "https://metadata-resources.data.bas.ac.uk/licences/all-rights-reserved-v1/",
+      "statement": "This information is licensed under the (Local) All Rights Reserved v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/all-rights-reserved-v1/.",
+      "open": false
+    },
+    "X_OPERATIONS_MAPPING_1": {
+      "slug": "X_OPERATIONS_MAPPING_1",
+      "name": "(Local) Operations Mapping v1",
+      "url": "https://metadata-resources.data.bas.ac.uk/licences/operations-mapping-v1/",
+      "statement": "This information is licensed under the (Local) Operations Mapping v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/operations-mapping-v1/.",
       "open": false
     }
   }

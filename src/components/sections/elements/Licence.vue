@@ -89,7 +89,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="5.1"
+      version="5.2"
       anchor="licence"
       title="Licence"
       guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#licence"
