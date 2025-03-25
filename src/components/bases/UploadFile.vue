@@ -138,7 +138,7 @@ watch(
       <input
         :id="context + '-' + identifier + '-file'"
         ref="fileInput"
-        class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow file:hover:bg-neutral-100"
+        class="file:cursor-pointer file:border file:border-black file:bg-white file:px-2 file:py-1 file:text-xs file:shadow-sm file:hover:bg-neutral-100"
         type="file"
         @change="onFileChange"
       />
@@ -148,7 +148,7 @@ watch(
         @click="uploadFile"
       ></ButtonUpload>
     </div>
-    <div class="flex flex-grow space-x-2">
+    <div class="flex grow space-x-2">
       <FormLabel class="text-neutral-500">URL</FormLabel>
       <FormInput
         :id="context + '-' + identifier + '-url'"

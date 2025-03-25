@@ -130,7 +130,7 @@ watch(
       </div>
       <div v-if="source == Source.UserInput" class="space-y-2">
         <p>Alternatively, paste a record from elsewhere below to validate it.</p>
-        <FormTextarea id="validation-input" v-model="input" class="w-full flex-grow"></FormTextarea>
+        <FormTextarea id="validation-input" v-model="input" class="w-full grow"></FormTextarea>
       </div>
       <div
         v-if="state != ValidationStatus.Empty"

@@ -91,7 +91,7 @@ onMounted(() => {
   <header class="mb-5 space-y-2">
     <div class="flex items-center justify-between">
       <div class="flex space-x-2">
-        <h2 :id="anchor" class="flex-grow text-2xl font-semibold">{{ title }}</h2>
+        <h2 :id="anchor" class="grow text-2xl font-semibold">{{ title }}</h2>
         <div class="flex flex-col justify-center">
           <div class="section-version text-[8px] text-neutral-500">{{ version }}</div>
           <div class="section-stability text-[8px]" :class="stabilityClasses">{{ stability }}</div>

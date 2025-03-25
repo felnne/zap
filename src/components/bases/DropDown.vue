@@ -44,7 +44,7 @@ let linkClasses: ComputedRef<string[]> = computed(() => {
       leave-to-class="transform opacity-0 scale-95"
     >
       <MenuItems
-        class="absolute right-0 z-10 mt-1 w-56 origin-top-right space-y-2 border border-black bg-white p-2 text-xs shadow focus:outline-none dark:border-white dark:bg-black"
+        class="absolute right-0 z-10 mt-1 w-56 origin-top-right space-y-2 border border-black bg-white p-2 text-xs shadow-sm focus:outline-hidden dark:border-white dark:bg-black"
       >
         <MenuItem v-for="item in items" :key="item.href" v-slot="{ active }">
           <Link :classes="[...linkClasses, active ? 'font-medium' : '']" :href="item.href">{{

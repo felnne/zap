@@ -13,7 +13,7 @@ const setSource = (type: UploadSource) => {
 </script>
 
 <template>
-  <div class="flex flex-grow space-x-2">
+  <div class="flex grow space-x-2">
     <Button id="upload-file" @click="setSource(UploadSource.File)">Local File</Button>
     <Button id="upload-san" @click="setSource(UploadSource.San)">BAS SAN</Button>
   </div>

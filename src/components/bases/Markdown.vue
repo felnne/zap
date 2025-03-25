@@ -86,14 +86,14 @@ watch(
         <FormTextarea
           :id="inputId !== '' ? inputId : null"
           v-model="text"
-          class="w-full flex-grow"
+          class="w-full grow"
           :class="inputClass"
           @paste="handlePaste"
         ></FormTextarea>
       </template>
       <template #right>
         <SectionLabel text-colour-class="text-sky-500">Preview</SectionLabel>
-        <Prose class="flex-grow" :content="textMarkdown"></Prose>
+        <Prose class="grow" :content="textMarkdown"></Prose>
       </template>
     </TwoColumn>
     <Output :data="textJson"></Output>
