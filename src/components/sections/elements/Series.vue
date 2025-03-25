@@ -73,7 +73,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="1.2"
+      version="1.3"
       anchor="series"
       title="Series"
       guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#series"
