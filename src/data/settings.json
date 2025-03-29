@@ -18,6 +18,6 @@
     "app_identifier_namespace_self": "data.bas.ac.uk",
     "app_identifier_namespace_alias": "alias.data.bas.ac.uk",
     "app_catalogue_base": "https://data.bas.ac.uk",
-    "app_embedded_maps_base": "https://embedded-maps-testing.data.bas.ac.uk/v1"
+    "app_embedded_maps_base": "https://embedded-maps.data.bas.ac.uk/v1"
   }
 }

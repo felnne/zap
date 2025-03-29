@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+* Switching to production embedded maps endpoint 
+
 ## [0.12.0] - 2025-03-25
 
 ### Added
