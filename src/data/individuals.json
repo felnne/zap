@@ -7,12 +7,6 @@
       "orcid": "https://orcid.org/0000-0001-5835-7975",
       "email": "natnne@bas.ac.uk"
     },
-    "https_orcid_org_0000_0001_7477_0671": {
-      "slug": "https_orcid_org_0000_0001_7477_0671",
-      "name": "Fox, Adrian",
-      "orcid": "https://orcid.org/0000-0001-7477-0671",
-      "email": "ajfo@bas.ac.uk"
-    },
     "https_orcid_org_0000_0002_0143_4527": {
       "slug": "https_orcid_org_0000_0002_0143_4527",
       "name": "Fleming, Andrew",
@@ -42,6 +36,12 @@
       "name": "Ireland, Louise",
       "orcid": "https://orcid.org/0000-0003-0960-0486",
       "email": "louela@bas.ac.uk"
+    },
+    "https_orcid_org_0000_0003_3557_4816": {
+      "slug": "https_orcid_org_0000_0003_3557_4816",
+      "name": "Skachkova, Aliaksandra",
+      "orcid": "https://orcid.org/0000-0003-3557-4816",
+      "email": "aliska@bas.ac.uk"
     },
     "https_orcid_org_0000_0003_1410_9122": {
       "slug": "https_orcid_org_0000_0003_1410_9122",
