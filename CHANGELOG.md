@@ -4,7 +4,8 @@
 
 ### Changed
 
-* Switching to production embedded maps endpoint 
+* Switching to production embedded maps endpoint
+* Updating data files
 
 ## [0.12.0] - 2025-03-25
 
