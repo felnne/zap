@@ -24,7 +24,7 @@
       "name": "(Local) All Rights Reserved v1",
       "url": "https://metadata-resources.data.bas.ac.uk/licences/all-rights-reserved-v1/",
       "statement": "This information is licensed under the (Local) All Rights Reserved v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/all-rights-reserved-v1/.",
-      "open": false
+      "open": true
     },
     "X_OPERATIONS_MAPPING_1": {
       "slug": "X_OPERATIONS_MAPPING_1",
