@@ -151,7 +151,7 @@ describe('Identifiers (Integration)', () => {
   })
 
   it('hides DOI identifier based on publisher based on licence type', async () => {
-    const closedLicence = getLicence('X_ALL_RIGHTS_RESERVED_1')
+    const closedLicence = getLicence('X_OPERATIONS_MAPPING_1')
     const wrapper = mount(Identifiers, {
       props: { fileIdentifier: '', resourceType: ResourceType.Dataset, licence: closedLicence },
       global: {

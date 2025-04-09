@@ -41,7 +41,7 @@ const recordDatasetOpen: Record = {
 }
 
 const recordDatasetClosed = structuredClone(recordDatasetOpen)
-recordDatasetClosed.licence = getLicence('X_ALL_RIGHTS_RESERVED_1')
+recordDatasetClosed.licence = getLicence('X_OPERATIONS_MAPPING_1')
 
 const recordProduct = structuredClone(recordDatasetOpen)
 recordProduct.resourceType = ResourceType.Product
