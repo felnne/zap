@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+* Classing All Rights Reserved licence as open so it can be used for published maps
+
 ## [0.13.0] - 2025-04-07
 
 ### Changed

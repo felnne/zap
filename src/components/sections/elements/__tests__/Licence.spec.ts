@@ -83,7 +83,7 @@ describe('Licence', () => {
   })
 
   it('renders and emits licence from closed choice', async () => {
-    const expectedLicence = getLicence('X_ALL_RIGHTS_RESERVED_1')
+    const expectedLicence = getLicence('X_OPERATIONS_MAPPING_1')
     const expectedConstraint = createUsageConstraint(expectedLicence)
 
     const wrapper = mount(Licence, {
@@ -144,7 +144,7 @@ describe('Licence', () => {
 
   it('updates licence from restriction', async () => {
     const expectedInitialLicence = getLicence('OGL_UK_3_0')
-    const expectedUpdatedLicence = getLicence('X_ALL_RIGHTS_RESERVED_1')
+    const expectedUpdatedLicence = getLicence('X_OPERATIONS_MAPPING_1')
     const expectedInitialConstraint = createUsageConstraint(expectedInitialLicence)
     const expectedUpdatedConstraint = createUsageConstraint(expectedUpdatedLicence)
 
