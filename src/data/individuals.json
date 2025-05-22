@@ -7,6 +7,11 @@
       "orcid": "https://orcid.org/0000-0001-5835-7975",
       "email": "natnne@bas.ac.uk"
     },
+    "https_orcid_org_0000_0001_7477_0671": {
+      "slug": "https_orcid_org_0000_0001_7477_0671",
+      "name": "Fox, Adrian",
+      "orcid": "https://orcid.org/0000-0001-7477-0671"
+    },
     "https_orcid_org_0000_0002_0143_4527": {
       "slug": "https_orcid_org_0000_0002_0143_4527",
       "name": "Fleming, Andrew",
@@ -24,6 +29,11 @@
       "name": "Fretwell, Peter",
       "orcid": "https://orcid.org/0000-0002-1988-5844",
       "email": "ptf@bas.ac.uk"
+    },
+    "https_orcid_org_0000_0003_0374_9167": {
+      "slug": "https_orcid_org_0000_0003_0374_9167",
+      "name": "Cook, Alison",
+      "orcid": "https://orcid.org/0000-0003-0374-9167"
     },
     "https_orcid_org_0000_0003_0586_7626": {
       "slug": "https_orcid_org_0000_0003_0586_7626",
@@ -54,6 +64,18 @@
       "name": "Fennell, Felix",
       "orcid": "https://orcid.org/0000-0003-3703-3888",
       "email": "felnne@bas.ac.uk"
+    },
+    "https_sandbox_orcid_org_0001_0000_0000_0001": {
+      "slug": "https_sandbox_orcid_org_0001_0000_0000_0001",
+      "name": "Pickard, Bonnie-Claire"
+    },
+    "https_sandbox_orcid_org_0001_0000_0000_0002": {
+      "slug": "https_sandbox_orcid_org_0001_0000_0000_0002",
+      "name": "Martin, Oliva"
+    },
+    "https_sandbox_orcid_org_0001_0000_0000_0003": {
+      "slug": "https_sandbox_orcid_org_0001_0000_0000_0003",
+      "name": "Biszczuk, Magdalena"
     }
   }
 }

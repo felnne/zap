@@ -64,6 +64,31 @@ describe('createAuthor', () => {
 
     expect(createAuthor(individual, organisation)).toStrictEqual(expectedContact)
   })
+
+  it('builds a contact without an ORCID or email', () => {
+    const individual = {
+      slug: 'https_orcid_org_0000_0000_0000_0000',
+      name: 'Watson, Connie',
+    }
+    const organisation = getOrganisation('bas')
+
+    const expectedContact = {
+      individual: {
+        name: individual.name,
+      },
+      organisation: {
+        name: organisation.name,
+        href: organisation.ror,
+        title: 'ror',
+      },
+      phone: organisation.phone,
+      address: organisation.address,
+      online_resource: organisation.online_resource,
+      role: ['author'],
+    }
+
+    expect(createAuthor(individual, organisation)).toStrictEqual(expectedContact)
+  })
 })
 
 describe('createOrgSlugPointOfContact', () => {

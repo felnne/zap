@@ -98,8 +98,8 @@ export type Identifier = {
 
 export type Individual = {
   name: string
-  href: string
-  title: string
+  href?: string
+  title?: string
 }
 
 export type KeywordSet = {
