@@ -9,24 +9,28 @@ export const createAuthor = (individual: Individual, organisation: Organisation)
    * Application individual/organisation objects are supersets of an ISO Point of Contact with more specific properties
    * mapped to generic ISO equivalents (e.g. the schema of the linked identifier is mapped to a generic 'title').
    *
+   * An ORCID identifier is optional, and if present set as the online_resource for the contact.
+   *
    * The role of the point of contact is (logically) fixed as 'author' in this context.
    */
-
   return {
     ...createOrgPointOfContact(organisation, 'author'),
     individual: {
       name: individual.name,
-      href: individual.orcid,
-      title: 'orcid',
+      ...(individual.orcid ? { href: individual.orcid, title: 'orcid' } : {}),
     },
-    email: individual.email,
-    online_resource: {
-      href: individual.orcid,
-      title: 'ORCID record',
-      description:
-        'ORCID is an open, non-profit, community-driven effort to create and maintain a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.',
-      function: 'information',
-    },
+    ...(individual.email ? { email: individual.email } : {}),
+    ...(individual.orcid
+      ? {
+          online_resource: {
+            href: individual.orcid,
+            title: 'ORCID record',
+            description:
+              'ORCID is an open, non-profit, community-driven effort to create and maintain a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.',
+            function: 'information',
+          },
+        }
+      : {}),
     role: ['author'],
   }
 }

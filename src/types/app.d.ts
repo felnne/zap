@@ -76,8 +76,8 @@ export type Idea = {
 export type Individual = {
   slug: string
   name: string
-  orcid: string
-  email: string
+  orcid?: string
+  email?: string
 }
 
 export type KeywordSet = {

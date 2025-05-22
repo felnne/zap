@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* Individuals data file items for previous MAGIC staff
+
 ### Changed
 
 * Classing All Rights Reserved licence as open so it can be used for published maps

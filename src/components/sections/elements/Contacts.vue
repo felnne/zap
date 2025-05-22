@@ -42,8 +42,8 @@ watch(
   <SectionBorder :type="SectionType.Element">
     <SectionTitle
       :type="SectionType.Element"
-      :stability="Stability.Stable"
-      version="2.6"
+      :stability="Stability.Experimental"
+      version="3.0"
       anchor="contacts"
       title="Contacts"
       sub-title="Authors"
