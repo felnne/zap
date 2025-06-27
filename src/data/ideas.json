@@ -50,6 +50,7 @@
     { "label": "Coordinate reference system section.", "state": "complete" },
     { "label": "Validation.", "state": "complete" },
     { "label": "Previewing record as a catalogue item.", "state": "todo" },
+    { "label": "ISBN identifiers.", "state": "todo" },
     { "label": "Support depositing downloads.", "state": "todo" },
     { "label": "Preserving input values (like GitLab editor).", "state": "todo" },
     { "label": "Button to load sample data for all sections (demo mode).", "state": "todo" },

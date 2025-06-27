@@ -32,13 +32,13 @@ test('supported file types are handled correctly', async ({ page }) => {
   await page.click('text=Local File')
   await page.setInputFiles('input#download-3-file', './sample-data/jpeg/sample.jpg')
   const download3 = await page.textContent('#downloads-output pre')
-  expect(download3).toContain('"href": "https://jpeg.org/jpeg/"')
+  expect(download3).toContain('"href": "https://www.iana.org/assignments/media-types/image/jpeg"')
 
   await page.click('text=Add Download')
   await page.click('text=Local File')
   await page.setInputFiles('input#download-4-file', './sample-data/jpeg/sample.jpeg')
   const download4 = await page.textContent('#downloads-output pre')
-  expect(download4).toContain('"href": "https://jpeg.org/jpeg/"')
+  expect(download4).toContain('"href": "https://www.iana.org/assignments/media-types/image/jpeg"')
 
   // PNGs
   //

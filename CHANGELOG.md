@@ -2,12 +2,15 @@
 
 ## [Unreleased]
 
+## [0.14.0] - 2025-06-27
+
 ### Added
 
 * Individuals data file items for previous MAGIC staff
 
 ### Fixed
 
+* Typo in ideas guidance text
 * Including partial supplemental info output for physcial dimensions when not zero
 
 ### Changed
