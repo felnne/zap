@@ -5,7 +5,6 @@ import { UploadAccess, UploadContext, UploadSource } from '@/types/enum'
 import type { Format, Upload } from '@/types/app'
 
 import UploadFile from '@/components/bases/UploadFile.vue'
-import UploadSan from '@/components/bases/UploadSan.vue'
 import UploadSwitcher from '@/components/bases/UploadSwitcher.vue'
 
 defineProps({
@@ -70,15 +69,6 @@ watch(
       @update:size-bytes="(event: number) => (sizeBytes = event)"
       @update:url="(event: string) => (url = event)"
     ></UploadFile>
-  </template>
-  <template v-else-if="source === UploadSource.San">
-    <UploadSan
-      :context="context"
-      :identifier="identifier"
-      @update:format="(event: Format) => (format = event)"
-      @update:size-bytes="(event: number) => (sizeBytes = event)"
-      @update:url="(event: string) => (url = event)"
-    ></UploadSan>
   </template>
   <template v-else>
     <UploadSwitcher @update:source="(event: UploadSource) => (source = event)"></UploadSwitcher>

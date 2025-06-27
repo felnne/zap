@@ -11,6 +11,10 @@
 * Classing All Rights Reserved licence as open so it can be used for published maps
 * Switching downloads to be externally accessible
 
+### Removed
+
+* direct SAN uploads
+
 ## [0.13.0] - 2025-04-07
 
 ### Changed

@@ -136,30 +136,6 @@ describe('Downloads [Integration]', () => {
     expect(wrapper.find('#download-1-file').exists()).toBeTruthy()
   })
 
-  it('renders a san download if san upload source picked', async () => {
-    const wrapper = mount(Downloads, {
-      props: {
-        fileIdentifier: fileIdentifier,
-        resourceType: ResourceType.Dataset,
-        licence: licence,
-      },
-      global: {
-        directives: {
-          clipboard: Clipboard,
-        },
-      },
-    })
-
-    // click add download button
-    await wrapper.find('button#add-download').trigger('click')
-
-    // click file upload type
-    await wrapper.find('button#upload-san').trigger('click')
-
-    // check a SAN upload element is rendered
-    expect(wrapper.find('#download-1-path').exists()).toBeTruthy()
-  })
-
   it('renders and emits a DistributionOptionIndexed from a download', async () => {
     const expectedDistributionOption: DistributionOption = createDownloadDistributionOption(
       expectedFormat,

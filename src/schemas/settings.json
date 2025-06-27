@@ -11,8 +11,6 @@
     "Settings": {
       "type": "object",
       "properties": {
-        "app_san_stat_endpoint": { "type": "string" },
-        "app_san_endpoint": { "type": "string" },
         "app_downloads_file_upload_endpoint": { "type": "string" },
         "app_thumbnails_file_upload_endpoint": { "type": "string" },
         "app_production_url": { "type": "string" },
@@ -32,8 +30,6 @@
       },
       "additionalProperties": false,
       "required": [
-        "app_san_stat_endpoint",
-        "app_san_endpoint",
         "app_downloads_file_upload_endpoint",
         "app_thumbnails_file_upload_endpoint",
         "app_production_url",
