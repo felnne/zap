@@ -30,7 +30,7 @@
       "description": "a JPEG image",
       "extensions": [".jpg", ".jpeg"],
       "mediaTypes": ["image/jpeg"],
-      "url": "https://jpeg.org/jpeg/"
+      "url": "https://www.iana.org/assignments/media-types/image/jpeg"
     },
     "pdf": {
       "slug": "pdf",

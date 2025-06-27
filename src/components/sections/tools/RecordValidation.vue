@@ -117,17 +117,14 @@ watch(
       :add-toc="true"
     />
     <div class="space-y-4">
-      <div class="space-y-2">
-        <p>Click the button below to validate the current record</p>
-        <div class="flex items-center space-x-2">
-          <Button id="validation-use-current" @click="useCurrentRecord"
-            >Validate Current Record</Button
-          >
-          <GuidanceText
-            >Current values for each section will be validated. If values change click the button
-            again to revalidate.</GuidanceText
-          >
-        </div>
+      <div class="flex items-center space-x-2">
+        <Button id="validation-use-current" @click="useCurrentRecord"
+          >Validate Current Record</Button
+        >
+        <GuidanceText
+          >Current values for each section will be validated. If values change click the button
+          again to revalidate.</GuidanceText
+        >
       </div>
       <div v-if="source == Source.UserInput" class="space-y-2">
         <p>Alternatively, paste a record from elsewhere below to validate it.</p>
