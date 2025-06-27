@@ -6,6 +6,10 @@
 
 * Individuals data file items for previous MAGIC staff
 
+### Fixed
+
+* Including partial supplemental info output for physcial dimensions when not zero
+
 ### Changed
 
 * Classing All Rights Reserved licence as open so it can be used for published maps

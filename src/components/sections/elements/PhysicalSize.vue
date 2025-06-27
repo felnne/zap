@@ -4,6 +4,7 @@ import { computed, type ComputedRef, ref, watch } from 'vue'
 import type { PhysicalDimensions, PhysicalSize } from '@/types/app'
 import { Stability, SectionType } from '@/types/enum'
 import { getPhysicalSizes } from '@/lib/data'
+import { createSupplementalInfo } from '@/lib/supplemental'
 
 import SectionBorder from '@/components/bases/SectionBorder.vue'
 import SectionTitle from '@/components/bases/SectionTitle.vue'
@@ -44,6 +45,13 @@ let dimensions: ComputedRef<PhysicalDimensions> = computed(() => {
   return customSize.value
 })
 
+let supplementalInfo: ComputedRef<string | undefined> = computed(() => {
+  if (!dimensions.value || (dimensions.value.width === 0 && dimensions.value.height === 0)) {
+    return undefined
+  }
+  return createSupplementalInfo(dimensions.value)
+})
+
 watch(size, () => {
   if (size.value) {
     width.value = size.value.width_mm
@@ -61,7 +69,7 @@ watch(dimensions, async () => {
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="1.1"
+      version="1.2"
       anchor="physical-size"
       title="Physical size"
       guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#physical-size"
@@ -98,7 +106,7 @@ watch(dimensions, async () => {
               <FormInput id="size-width" v-model="width" type="number" name="size-width" />
             </div>
             <div class="space-y-2">
-              <FormLabel>Height</FormLabel>
+              <FormLabel>Height (mm)</FormLabel>
               <FormInput id="size-height" v-model="height" type="number" name="size-height" />
             </div>
           </div>
@@ -107,8 +115,10 @@ watch(dimensions, async () => {
       <template #right>
         <div class="space-y-2">
           <Output v-if="dimensions" id="dimensions" :data="dimensions"></Output>
+          <Output v-if="supplementalInfo" id="supplemental-info" :data="supplementalInfo"></Output>
           <GuidanceText
-            >Dimensions are encoded within the supplemetal information element.</GuidanceText
+            >If not zero, dimensions are encoded within the supplemetal information element, which
+            may contain other elements not shown here.</GuidanceText
           >
         </div>
       </template>
