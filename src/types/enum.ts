@@ -65,7 +65,6 @@ export enum UploadContext {
 
 export enum UploadSource {
   File = 'file',
-  San = 'san',
 }
 
 export enum UploadStatus {

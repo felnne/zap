@@ -1,8 +1,6 @@
 {
   "$schema": "../schemas/settings.json",
   "settings": {
-    "app_san_stat_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/stat.php",
-    "app_san_endpoint": "bslcenb.nerc-bas.ac.uk",
     "app_downloads_file_upload_endpoint": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap-uploads/upload.php",
     "app_thumbnails_file_upload_endpoint": "https://zap-file-upload.flask-dev.nerc-bas.ac.uk/v1/upload",
     "app_production_url": "https://basweb.nerc-bas.ac.uk/~felnne/apps/zap/prod/",

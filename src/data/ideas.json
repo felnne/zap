@@ -70,7 +70,7 @@
     { "label": "[AI!] Are abstract and lineage useful for discovery?", "state": "todo" },
     { "label": "When Esri item set, add enabled services automatically.", "state": "cancelled" },
     { "label": "Support for files in OneDrive.", "state": "todo" },
-    { "label": "Support for files on the SAN.", "state": "complete" },
+    { "label": "Support for files on the SAN.", "state": "removed" },
     { "label": "[Workflow] Deposit.", "state": "todo" },
     { "label": "[Workflow] Web map review.", "state": "todo" },
     { "label": "Determine whether PDF files are geo-referenced.", "state": "complete" },
