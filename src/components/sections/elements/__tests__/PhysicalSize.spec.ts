@@ -92,6 +92,29 @@ describe('PhysicalSize', () => {
     }
   })
 
+  it('shows supplemental info value for non-zero sizes', async () => {
+    const customDimensions: PhysicalDimensions = { width: 100, height: 200 }
+
+    const wrapper = mount(PhysicalSize, {
+      global: {
+        directives: {
+          clipboard: Clipboard,
+        },
+      },
+    })
+
+    // '#supplemental-info' output not yet visible
+    expect(wrapper.find('#supplemental-info').exists()).toBe(false)
+
+    // set radio input with id 'size-custom' to checked
+    await wrapper.find('input#size-custom').setValue()
+    await wrapper.find('input#size-width').setValue(customDimensions.width)
+    await wrapper.find('input#size-height').setValue(customDimensions.height)
+
+    // '#supplemental-info' output visible
+    expect(wrapper.find('#supplemental-info').exists()).toBe(true)
+  })
+
   afterEach(() => {
     // clean up '#toc-items' element
     document.body.removeChild(tocItemsDiv)
