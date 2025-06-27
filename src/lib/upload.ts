@@ -1,11 +1,12 @@
 import axios from 'axios'
 
-import { UploadAccess } from '@/types/enum'
+import { UploadAccess, UploadContext } from '@/types/enum'
 import { getSetting } from '@/lib/data'
 
 export async function uploadFile(
   file: File,
   fileIdentifier: string,
+  context: UploadContext,
   access: UploadAccess
 ): Promise<string> {
   /*
@@ -15,16 +16,17 @@ export async function uploadFile(
    *
    * The service expects:
    * - a multi-part form POST request with a part named 'file'
-   * - a 'app-file-identifier' header (to organise artefacts per resource)
+   * - an 'app-file-identifier' header (to organise artefacts per resource)
+   * - an 'app-access' header (which is currently ignored)
    *
    * If successful, the target service returns a URL to the uploaded file in the 'location' header.
    */
-  let endpoint = getSetting('app_internal_file_upload_endpoint')
-  if (access == UploadAccess.External) {
-    endpoint = getSetting('app_external_file_upload_endpoint')
+  let endpoint = getSetting('app_downloads_file_upload_endpoint')
+  if (context == UploadContext.Thumbnail) {
+    endpoint = getSetting('app_thumbnails_file_upload_endpoint')
   }
 
-  const headers = { 'app-file-identifier': fileIdentifier }
+  const headers = { 'app-file-identifier': fileIdentifier, 'app-access': access }
   const formData = new FormData()
   formData.append('file', file)
 

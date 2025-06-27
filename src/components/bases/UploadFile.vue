@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch, watchEffect } from 'vue'
 
-import { UploadAccess, UploadStatus } from '@/types/enum'
+import { UploadAccess, UploadContext, UploadStatus } from '@/types/enum'
 import type { Format } from '@/types/app'
 import { uploadFile as uploadFile_ } from '@/lib/upload'
 import { getFormatFile } from '@/lib/distribution'
@@ -12,7 +12,7 @@ import ButtonUpload from '@/components/bases/ButtonUpload.vue'
 
 const props = defineProps({
   context: {
-    type: String,
+    type: String as PropType<UploadContext>,
     required: true,
   },
   identifier: {
@@ -54,7 +54,7 @@ const uploadFile = async () => {
 
   try {
     state.value = UploadStatus.Uploading
-    let fileUrl = await uploadFile_(file.value, props.fileIdentifier, props.access)
+    let fileUrl = await uploadFile_(file.value, props.fileIdentifier, props.context, props.access)
     url.value = fileUrl
     state.value = UploadStatus.Uploaded
   } catch (e: unknown) {
