@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, ref, watch } from 'vue'
 
-import { UploadAccess } from '@/types/enum'
+import { UploadAccess, UploadContext } from '@/types/enum'
 import type { Upload as UploadT } from '@/types/app'
 import type { GraphicOverview } from '@/types/iso'
 
@@ -67,7 +67,7 @@ watch(
 <template>
   <SubSectionBorder :id="'thumbnail-' + identifier" class="flex space-x-4">
     <Upload
-      :context="'thumbnail'"
+      :context="UploadContext.Thumbnail"
       :identifier="identifier"
       :file-identifier="fileIdentifier"
       :access="UploadAccess.External"

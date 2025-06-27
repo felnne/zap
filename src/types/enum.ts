@@ -58,6 +58,11 @@ export enum UploadAccess {
   External = 'external',
 }
 
+export enum UploadContext {
+  Download = 'download',
+  Thumbnail = 'thumbnail',
+}
+
 export enum UploadSource {
   File = 'file',
   San = 'san',

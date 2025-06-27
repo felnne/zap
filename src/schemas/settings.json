@@ -11,10 +11,10 @@
     "Settings": {
       "type": "object",
       "properties": {
-        "app_internal_file_upload_endpoint": { "type": "string" },
-        "app_external_file_upload_endpoint": { "type": "string" },
         "app_san_stat_endpoint": { "type": "string" },
         "app_san_endpoint": { "type": "string" },
+        "app_downloads_file_upload_endpoint": { "type": "string" },
+        "app_thumbnails_file_upload_endpoint": { "type": "string" },
         "app_production_url": { "type": "string" },
         "app_assets_base": { "type": "string" },
         "bas_gitlab_domain": { "type": "string" },
@@ -32,10 +32,10 @@
       },
       "additionalProperties": false,
       "required": [
-        "app_internal_file_upload_endpoint",
-        "app_external_file_upload_endpoint",
         "app_san_stat_endpoint",
         "app_san_endpoint",
+        "app_downloads_file_upload_endpoint",
+        "app_thumbnails_file_upload_endpoint",
         "app_production_url",
         "app_assets_base",
         "bas_gitlab_domain",

@@ -2,7 +2,7 @@
 function addCorsHeaders() {
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Methods: POST, OPTIONS");
-  header("Access-Control-Allow-Headers: app-file-identifier");
+  header("Access-Control-Allow-Headers: app-file-identifier, app-access");
   header('Access-Control-Expose-Headers: location');
   header("Access-Control-Max-Age: 200");
 }
@@ -52,8 +52,8 @@ if (! isset($_FILES["file"])) {
 //
 
 $commonPath = 'apps/zap-uploads';
-$uploadDir = "/users/felnne/public_html" . '/' . $commonPath;
-$accessBase = 'https://basweb.nerc-bas.ac.uk/~felnne' . '/' . $commonPath;
+$uploadDir = "/users/felnne/external_html" . '/' . $commonPath;
+$accessBase = 'https://files.bas.ac.uk/felnne_download' . '/' . $commonPath;
 $fileIdentifier = $_SERVER["HTTP_APP_FILE_IDENTIFIER"];
 $tmpName = $_FILES["file"]["tmp_name"];
 $fileName = $_FILES["file"]["name"];
@@ -84,8 +84,8 @@ if (! move_uploaded_file($tmpName, $filePath)) {
 }
 chmod($filePath, 0664);
 
-header('Access-Control-Expose-Headers: location');
-header("location: " . $accessUrl);
 header("HTTP/1.1 201 Created");
+header("location: " . $accessUrl);
+header('Access-Control-Expose-Headers: location');
 addCorsHeaders();
 exit;

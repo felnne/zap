@@ -76,7 +76,7 @@ watch(
     <SectionTitle
       :type="SectionType.Element"
       :stability="Stability.Stable"
-      version="9.1"
+      version="9.2"
       anchor="downloads"
       title="Downloads"
       guidance-href="https://gitlab.data.bas.ac.uk/MAGIC/mapping-coordination/-/wikis/metadata-completion-guidance#downloads"
@@ -103,6 +103,7 @@ watch(
             <template v-if="index < supportedExtensions.length - 1">, </template>
           </template>
         </GuidanceText>
+        <GuidanceText>Warning: do not upload any restricted files.</GuidanceText>
       </div>
       <Output
         v-if="distributionOptionsCount > 0"

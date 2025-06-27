@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { UploadAccess, UploadSource } from '@/types/enum'
+import { UploadAccess, UploadContext, UploadSource } from '@/types/enum'
 import type { Format, Upload } from '@/types/app'
 
 import UploadFile from '@/components/bases/UploadFile.vue'
@@ -10,7 +10,7 @@ import UploadSwitcher from '@/components/bases/UploadSwitcher.vue'
 
 defineProps({
   context: {
-    type: String,
+    type: String as PropType<UploadContext>,
     required: true,
   },
   identifier: {

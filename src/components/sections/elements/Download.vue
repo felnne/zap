@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
-import { ResourceType, UploadAccess } from '@/types/enum'
+import { ResourceType, UploadAccess, UploadContext } from '@/types/enum'
 import type { DistributionOptionIndexed, Licence, Upload as UploadT } from '@/types/app'
 import type { DistributionOption, PointOfContact as IsoContact } from '@/types/iso'
 import { createDistributor, createDownloadDistributionOption } from '@/lib/distribution'
@@ -75,10 +75,10 @@ watch(
 <template>
   <SubSectionBorder :id="'download-' + index" class="flex space-x-4">
     <Upload
-      :context="'download'"
+      :context="UploadContext.Download"
       :identifier="index"
       :file-identifier="fileIdentifier"
-      :access="UploadAccess.Internal"
+      :access="UploadAccess.External"
       @update:upload="(event: UploadT) => (upload = event)"
     ></Upload>
     <Button :id="'download-' + index + '-destroy'" @click="destroy()">✖️</Button>

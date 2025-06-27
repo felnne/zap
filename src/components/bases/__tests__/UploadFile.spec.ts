@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
+import { UploadContext } from '@/types/enum'
 import UploadFile from '@/components/bases/UploadFile.vue'
 
-const context = 'foo'
+const context = UploadContext.Download
 const identifier = 'x'
 const fileIdentifier = 'x'
 

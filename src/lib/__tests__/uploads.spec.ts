@@ -3,9 +3,8 @@ import axios from 'axios'
 import type { MockedFunction } from 'vitest'
 import type { AxiosInstance } from 'axios'
 
-import { UploadAccess } from '@/types/enum'
-import { getSetting } from '@/lib/data'
-import { uploadFile, statSanPath, encodeSanPath } from '@/lib/upload'
+import { UploadAccess, UploadContext } from '@/types/enum'
+import { uploadFile } from '@/lib/upload'
 
 vi.mock('axios')
 
@@ -15,12 +14,14 @@ describe('uploadFile', () => {
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockReset()
   })
 
-  it('uploads a file', async () => {
+  it('uploads a download file', async () => {
+    const access = UploadAccess.External
+    const context = UploadContext.Download
     const fileIdentifier = '123'
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
     })
-    const expectedUrl = `https://example.com/uploads/${fileIdentifier}/${file.name}`
+    const expectedUrl = `https://example.com/uploads/${access}/${context}/${fileIdentifier}/${file.name}`
 
     const mockResponse = {
       data: {},
@@ -32,12 +33,19 @@ describe('uploadFile', () => {
     }
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockResolvedValue(mockResponse)
 
-    const uploadedFileUrl = await uploadFile(file, fileIdentifier, UploadAccess.Internal)
+    const uploadedFileUrl = await uploadFile(
+      file,
+      fileIdentifier,
+      UploadContext.Download,
+      UploadAccess.Internal
+    )
 
     expect(uploadedFileUrl).toStrictEqual(expectedUrl)
   })
 
   it('throws an error if the file has already been uploaded', async () => {
+    const access = UploadAccess.External
+    const context = UploadContext.Download
     const fileIdentifier = '123'
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
@@ -57,7 +65,7 @@ describe('uploadFile', () => {
     ;(axios.post as MockedFunction<AxiosInstance['post']>).mockRejectedValue(mockError)
 
     try {
-      await uploadFile(file, fileIdentifier, UploadAccess.Internal)
+      await uploadFile(file, fileIdentifier, context, access)
     } catch (error: unknown) {
       if (error instanceof Error) {
         expect(error.message).toBe(`Error uploading file: ${mockError.response.data.error}`)
