@@ -24,6 +24,12 @@
       "name": "BAS Assets Tracking Service",
       "identifier": "125d6ae8-0b9a-4c89-88e2-f3ec59723e52",
       "href": "https://data.bas.ac.uk/items/125d6ae8-0b9a-4c89-88e2-f3ec59723e52"
+    },
+    "cf64dd21_545a_465b_9a67_c28bb4ce9024": {
+      "slug": "cf64dd21_545a_465b_9a67_c28bb4ce9024",
+      "name": "BAS Antarctic Mapping Datasets",
+      "identifier": "cf64dd21-545a-465b-9a67-c28bb4ce9024",
+      "href": "https://data.bas.ac.uk/items/cf64dd21-545a-465b-9a67-c28bb4ce9024"
     }
   }
 }

@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.15.0] - 2025-08-20
+
+### Added
+
+* Additional collection for 'BAS Antarctic Mapping Datasets'
+
 ## [0.14.0] - 2025-06-27
 
 ### Added
