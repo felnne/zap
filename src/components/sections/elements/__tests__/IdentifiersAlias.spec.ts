@@ -9,7 +9,7 @@ describe('IdentifierAlias', () => {
   it('emits value when selected and filled in', async () => {
     const identifier = 'xxx'
     const expectedIdentifier: Identifier = {
-      identifier: identifier,
+      identifier: `datasets/${identifier}`,
       href: `https://data.bas.ac.uk/datasets/${identifier}`,
       namespace: 'alias.data.bas.ac.uk',
     }

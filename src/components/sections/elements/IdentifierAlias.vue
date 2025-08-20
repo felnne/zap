@@ -44,7 +44,7 @@ let prefix: ComputedRef<string> = computed(() => {
 
 let identifier: ComputedRef<Identifier> = computed(() => {
   return {
-    identifier: alias.value,
+    identifier: `${prefix.value}/${alias.value}`,
     href: `${urlBase}/${prefix.value}/${alias.value}`,
     namespace: namespace,
   }
