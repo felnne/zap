@@ -27,13 +27,13 @@ describe('Edition', () => {
 
     const emittedEdition: unknown[][] | undefined = wrapper.emitted('update:edition')
     expect(emittedEdition).toBeTruthy()
-    if (emittedEdition) {
+    if (emittedEdition && emittedEdition[0]) {
       expect(emittedEdition[0][0]).toEqual(expected)
     }
 
     const emittedIsoEdition: unknown[][] | undefined = wrapper.emitted('update:isoEdition')
     expect(emittedIsoEdition).toBeTruthy()
-    if (emittedIsoEdition) {
+    if (emittedIsoEdition && emittedIsoEdition[0]) {
       expect(emittedIsoEdition[0][0]).toEqual(expected)
     }
   })
@@ -53,12 +53,12 @@ describe('Edition', () => {
     // initial value
     const emittedEdition: unknown[][] | undefined = wrapper.emitted('update:edition')
     expect(emittedEdition).toBeTruthy()
-    if (emittedEdition) {
+    if (emittedEdition && emittedEdition[0]) {
       expect(emittedEdition[0][0]).toEqual(expectedInitial)
     }
     const emittedIsoEdition: unknown[][] | undefined = wrapper.emitted('update:isoEdition')
     expect(emittedIsoEdition).toBeTruthy()
-    if (emittedIsoEdition) {
+    if (emittedIsoEdition && emittedIsoEdition[0]) {
       expect(emittedIsoEdition[0][0]).toEqual(expectedInitial)
     }
 
@@ -71,10 +71,10 @@ describe('Edition', () => {
     await wrapper.vm.$nextTick()
 
     // updated value
-    if (emittedEdition) {
+    if (emittedEdition && emittedEdition[1]) {
       expect(emittedEdition[1][0]).toEqual(expectedUpdated)
     }
-    if (emittedIsoEdition) {
+    if (emittedIsoEdition && emittedIsoEdition[1]) {
       expect(emittedIsoEdition[1][0]).toEqual(expectedUpdated)
     }
   })

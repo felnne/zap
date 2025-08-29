@@ -17,7 +17,7 @@ describe('UploadSwitcher', () => {
       const emittedSource: unknown[][] | undefined = wrapper.emitted('update:source')
       expect(emittedSource).toBeTruthy()
       if (emittedSource) {
-        expect(emittedSource[index][0]).toEqual(source)
+        expect(emittedSource[index]![0]).toEqual(source)
       }
 
       index++

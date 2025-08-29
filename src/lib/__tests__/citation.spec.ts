@@ -81,6 +81,11 @@ describe('formatDoi', () => {
   it("doesn't format an empty value", () => {
     expect(formatDoi('')).toBe('')
   })
+
+  it("doesn't format an incomplete value", () => {
+    // expect to raise error
+    expect(() => formatDoi('123')).toThrowError('Invalid DOI: "123"')
+  })
 })
 
 describe('formatReference', () => {

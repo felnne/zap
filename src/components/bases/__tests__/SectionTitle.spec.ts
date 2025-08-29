@@ -27,7 +27,7 @@ describe('SectionTitle', () => {
     const dependantSections: DropdownItem[] = [{ title: 'Something', href: '#something' }]
     const expectedGuidanceHref = 'https://example.com/guidance.html'
     const expectedDataFileHref = `${getSetting('app_section_data_file_url_base')}/${dataFileHref[0]}`
-    const expectedDependantSectionHref = dependantSections[0].href
+    const expectedDependantSectionHref = dependantSections[0]!.href
 
     const wrapper = mount(SectionTitle, {
       props: {
@@ -52,14 +52,10 @@ describe('SectionTitle', () => {
     expect(wrapper.find('a.section-guidance').attributes().href).toBe(expectedGuidanceHref)
 
     // click trigger to open dropdowns
-    wrapper
-      .findAll('button')
-      .filter((e) => e.text().match('Data Files'))[0]
-      .trigger('click')
-    wrapper
-      .findAll('button')
-      .filter((e) => e.text().match('Depends On'))[0]
-      .trigger('click')
+    const dataFilesButton = wrapper.findAll('button').filter((e) => e.text().match('Data Files'))[0]
+    dataFilesButton?.trigger('click')
+    const dependsOnButton = wrapper.findAll('button').filter((e) => e.text().match('Depends On'))[0]
+    dependsOnButton?.trigger('click')
     // wait for next tick to allow transitions to complete
     await wrapper.vm.$nextTick()
 

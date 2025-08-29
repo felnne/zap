@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-08-20
+
+### Added
+
+* Additional collection for 'BAS Geological Maps'
+* Additional series for 'BAS GEOMAP'
+
+### Fixed
+
+* Typescript errors for undefined properties
+
+### Changed
+
+* Upgrading dependencies
+
 ## [0.15.0] - 2025-08-20
 
 ### Added

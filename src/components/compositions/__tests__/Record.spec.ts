@@ -111,7 +111,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
     }
   })
@@ -144,7 +144,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.contacts).toEqual(expectedContacts)
     }
   })
@@ -178,7 +178,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for property updates to be included and initial emits from contacts to be ignored
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.graphic_overviews).toEqual(expectedOverviews)
     }
   })
@@ -221,7 +221,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for both properties to be included and initial emits from licence to be ignored
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.constraints).toEqual([
         expectedAccessConstraint,
         expectedUsageConstraint,
@@ -272,7 +272,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for both properties to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.distribution).toEqual([
         ...expectedDownloadsDistOptions,
         ...expectedServicesDistOptions,
@@ -299,7 +299,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect not to have distribution key set
       expect(emittedIsoRecordTyped.distribution).toBeUndefined()
     }
@@ -341,7 +341,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for both properties to be included and initial emits from licence to be ignored
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.extents).toEqual([expectedExtent])
     }
   })
@@ -372,7 +372,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index is to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.lineage).toEqual(expectedLineage)
     }
   })
@@ -396,7 +396,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect not to have lineage key set
       expect(emittedIsoRecordTyped.identification.lineage).toBeUndefined()
     }
@@ -422,7 +422,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect to have summary property set
       expect(emittedIsoRecordTyped.identification.purpose).toEqual(expectedSummary)
     }
@@ -433,7 +433,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for any updates
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect not to have summary property set
       expect(emittedIsoRecordTyped.identification.purpose).toBeUndefined()
     }
@@ -464,7 +464,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect to have series property set
       expect(emittedIsoRecordTyped.identification.series).toEqual(expectedSeries)
     }
@@ -475,7 +475,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for any updates
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect not to have summary property set
       expect(emittedIsoRecordTyped.identification.series).toBeUndefined()
     }
@@ -510,7 +510,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       // expect to have series property set
       expect(emittedIsoRecordTyped.identification.supplemental_information).toEqual(expectedInfo)
     }
@@ -547,7 +547,7 @@ describe('Record [Integration]', () => {
     expect(emittedIsoRecord).toBeTruthy()
     if (emittedIsoRecord) {
       // skip to the last index is to wait for properties set by default to be included
-      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1][0] as IsoRecord
+      const emittedIsoRecordTyped = emittedIsoRecord[emittedIsoRecord.length - 1]![0] as IsoRecord
       expect(emittedIsoRecordTyped.identification.title.value).toEqual(expectedTitle)
       expect(emittedIsoRecordTyped.identification.abstract).toEqual(expectedAbstract)
       expect(emittedIsoRecordTyped.identification.lineage).toEqual(expectedLineage)

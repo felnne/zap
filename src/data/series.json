@@ -44,6 +44,14 @@
     "95e182fb_a895_4ca0_b9c3_6b7820a77347": {
       "slug": "95e182fb_a895_4ca0_b9c3_6b7820a77347",
       "name": "BAS Traverse Maps"
+    },
+    "7d1d2ff5_8bdb_4bcd_a1a6_408e0ac9d4d1": {
+      "slug": "7d1d2ff5_8bdb_4bcd_a1a6_408e0ac9d4d1",
+      "name": "BAS GEOMAP"
+    },
+    "eff0a9f9_f3d0_4274_a2e4_f67cdd90731b": {
+      "slug": "eff0a9f9_f3d0_4274_a2e4_f67cdd90731b",
+      "name": "BAS GEOMAP 2"
     }
   }
 }

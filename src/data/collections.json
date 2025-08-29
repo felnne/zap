@@ -30,6 +30,12 @@
       "name": "BAS Antarctic Mapping Datasets",
       "identifier": "cf64dd21-545a-465b-9a67-c28bb4ce9024",
       "href": "https://data.bas.ac.uk/items/cf64dd21-545a-465b-9a67-c28bb4ce9024"
+    },
+    "faaeca6f_e67a_45df_ad6d_10c3049daab3": {
+      "slug": "faaeca6f_e67a_45df_ad6d_10c3049daab3",
+      "name": "BAS Geological Maps",
+      "identifier": "faaeca6f-e67a-45df-ad6d-10c3049daab3",
+      "href": "https://data.bas.ac.uk/items/faaeca6f-e67a-45df-ad6d-10c3049daab3"
     }
   }
 }

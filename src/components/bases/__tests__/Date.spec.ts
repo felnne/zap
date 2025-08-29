@@ -12,7 +12,7 @@ const impreciseValue = '0'
 const expectedInitialDateValue = referenceDate
 const expectedInitialDateTimeValue = referenceDateTime
 
-const expectedInitialDateIsoValue = expectedInitialDateValue.toISOString().split('T')[0]
+const expectedInitialDateIsoValue = expectedInitialDateValue.toISOString().split('T')[0]!
 const expectedInitialDateTimeIsoValue = expectedInitialDateTimeValue
   .toISOString()
   .replace('.000Z', '+00:00')
@@ -86,7 +86,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[0]) {
       expect(emittedDate[0][0]).toEqual(expectedInitial)
     }
   })
@@ -99,7 +99,7 @@ describe('Date', () => {
 
     const emittedDateTime: unknown[][] | undefined = wrapper.emitted('add:date')
     expect(emittedDateTime).toBeTruthy()
-    if (emittedDateTime) {
+    if (emittedDateTime && emittedDateTime[0]) {
       expect(emittedDateTime[0][0]).toEqual(expectedInitialTime)
     }
   })
@@ -117,7 +117,7 @@ describe('Date', () => {
     const expectedUpdatedDateValue = new Date()
     expectedUpdatedDateValue.setHours(3, 0, 0, 0)
     expectedUpdatedDateValue.setFullYear(expectedUpdatedDateValue.getFullYear() - 1)
-    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]
+    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]!
     const expectedUpdated: DateImpreciseLabelled = {
       label: label,
       date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'day' },
@@ -131,7 +131,7 @@ describe('Date', () => {
 
     const emittedDate: unknown[][] | undefined = wrapper.emitted('add:date')
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[0]) {
       expect(emittedDate[0][0]).toEqual(expectedInitial)
     }
 
@@ -151,7 +151,7 @@ describe('Date', () => {
 
     // updated value
 
-    if (emittedDate) {
+    if (emittedDate && emittedDate[2]) {
       expect(emittedDate[2][0]).toEqual(expectedUpdated)
     }
   })
@@ -161,7 +161,7 @@ describe('Date', () => {
     expectedUpdatedDateValue.setHours(3, 0, 0, 0)
     expectedUpdatedDateValue.setMonth(0)
     expectedUpdatedDateValue.setDate(1)
-    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('-')[0]
+    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('-')[0]!
     const expectedUpdated: DateImpreciseLabelled = {
       label: label,
       date: { js: expectedUpdatedDateValue, iso: expectedUpdatedDateIsoValue, precision: 'year' },
@@ -182,7 +182,7 @@ describe('Date', () => {
 
     // updated value
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[2]) {
       expect(emittedDate[2][0]).toEqual(expectedUpdated)
     }
   })
@@ -219,7 +219,7 @@ describe('Date', () => {
 
     // updated value
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[2]) {
       expect(emittedDate[2][0]).toEqual(expectedUpdated)
     }
   })
@@ -227,7 +227,7 @@ describe('Date', () => {
   it('computes correct date at day precision', async () => {
     const expectedUpdatedDateValue = new Date()
     expectedUpdatedDateValue.setHours(3, 0, 0, 0)
-    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]
+    const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]!
     const expectedUpdated: DateImpreciseLabelled = {
       label: label,
       date: {
@@ -257,7 +257,7 @@ describe('Date', () => {
 
     // updated value
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[1]) {
       expect(emittedDate[1][0]).toEqual(expectedUpdated)
     }
   })
@@ -296,7 +296,7 @@ describe('Date', () => {
 
     // updated value
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[1]) {
       expect(emittedDate[1][0]).toEqual(expectedUpdated)
     }
   })
@@ -335,7 +335,7 @@ describe('Date', () => {
 
     // updated value
     expect(emittedDate).toBeTruthy()
-    if (emittedDate) {
+    if (emittedDate && emittedDate[1]) {
       expect(emittedDate[1][0]).toEqual(expectedUpdated)
     }
   })
@@ -430,7 +430,7 @@ describe('Date', () => {
 
     const emittedDate2: unknown[][] | undefined = wrapper.emitted('add:date')
     expect(emittedDate2).toBeTruthy()
-    if (emittedDate2) {
+    if (emittedDate2 && emittedDate2[0]) {
       expect(emittedDate2[0][0]).toEqual(expectedInitial)
     }
   })
@@ -447,7 +447,7 @@ describe('Date', () => {
     await wrapper.find(`input#date-${label}-selection`).setValue()
     const emittedDate2: unknown[][] | undefined = wrapper.emitted('add:date')
     expect(emittedDate2).toBeTruthy()
-    if (emittedDate2) {
+    if (emittedDate2 && emittedDate2[0]) {
       expect(emittedDate2[0][0]).toEqual(expectedInitial)
     }
 
@@ -455,7 +455,7 @@ describe('Date', () => {
     await wrapper.find(`input#date-${label}-selection`).setValue(false)
     const emittedDate3: unknown[][] | undefined = wrapper.emitted('remove:date')
     expect(emittedDate3).toBeTruthy()
-    if (emittedDate3) {
+    if (emittedDate3 && emittedDate3[0]) {
       expect(emittedDate3[0][0]).toEqual(expectedInitial)
     }
   })

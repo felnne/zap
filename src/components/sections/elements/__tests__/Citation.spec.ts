@@ -77,7 +77,7 @@ describe('Citation', () => {
       'update:isoOtherCitationDetails'
     )
     expect(emittedIsoOtherCitationDetails).toBeTruthy()
-    if (emittedIsoOtherCitationDetails) {
+    if (emittedIsoOtherCitationDetails && emittedIsoOtherCitationDetails[0]) {
       expect(emittedIsoOtherCitationDetails[0][0]).toEqual(expected)
     }
   })

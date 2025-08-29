@@ -43,13 +43,13 @@ describe('Identifiers', () => {
 
     const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('update:identifiers')
     expect(emittedIdentifier).toBeTruthy()
-    if (emittedIdentifier) {
+    if (emittedIdentifier && emittedIdentifier[0]) {
       expect(emittedIdentifier[0][0]).toEqual([expectedIdentifier])
     }
 
     const emittedIsoIdentifier: unknown[][] | undefined = wrapper.emitted('update:isoIdentifiers')
     expect(emittedIsoIdentifier).toBeTruthy()
-    if (emittedIsoIdentifier) {
+    if (emittedIsoIdentifier && emittedIsoIdentifier[0]) {
       expect(emittedIsoIdentifier[0][0]).toEqual([expectedIdentifier])
     }
   })

@@ -65,7 +65,11 @@ export const getCollections = (): Collection[] => {
 
 export const getExtent = (slug: string): WellKnownExtent => {
   /* Get information for a specific well known extent */
-  return (extentsData.geographic as Record<string, WellKnownExtent>)[slug]
+  const value = (extentsData.geographic as Record<string, WellKnownExtent>)[slug]
+  if (value === undefined) {
+    throw new Error(`Extent "${slug}" not found`)
+  }
+  return value
 }
 
 export const getExtents = (): WellKnownExtent[] => {
@@ -75,12 +79,20 @@ export const getExtents = (): WellKnownExtent[] => {
 
 export const getDomainConsistency = (slug: string): DomainConsistency => {
   /* Get information for a specific profile (represented as a domain consistency element) */
-  return (profilesData.profiles as Record<string, DomainConsistency>)[slug]
+  const value = (profilesData.profiles as Record<string, DomainConsistency>)[slug]
+  if (value === undefined) {
+    throw new Error(`Domain consistency "${slug}" not found`)
+  }
+  return value
 }
 
 export const getFormat = (slug: string): Format => {
   /* Get information for a specific file format */
-  return (formatsData.formats as Record<string, Format>)[slug]
+  const value = (formatsData.formats as Record<string, Format>)[slug]
+  if (value === undefined) {
+    throw new Error(`Format "${slug}" not found`)
+  }
+  return value
 }
 
 export const getFormatByExtension = (extension: string): Format | undefined => {
@@ -122,7 +134,11 @@ export const getIdeas = (): Idea[] => {
 
 export const getIndividual = (slug: string): Individual => {
   /* Get information for a specific individual */
-  return (individualsData.contacts as Record<string, Individual>)[slug]
+  const value = (individualsData.contacts as Record<string, Individual>)[slug]
+  if (value === undefined) {
+    throw new Error(`Individual "${slug}" not found`)
+  }
+  return value
 }
 
 export const getIndividuals = (): Individual[] => {
@@ -138,12 +154,20 @@ export const getIndividuals = (): Individual[] => {
 
 export const getKeywordSet = (slug: string): KeywordSet => {
   /* Get a specific keyword set */
-  return (keywordSetData.keywords as Record<string, KeywordSet>)[slug]
+  const value = (keywordSetData.keywords as Record<string, KeywordSet>)[slug]
+  if (value === undefined) {
+    throw new Error(`Keyword set "${slug}" not found`)
+  }
+  return value
 }
 
 export const getLicence = (slug: string): Licence => {
   /* Get information for a specific licence */
-  return (licencesData.licences as Record<string, Licence>)[slug]
+  const value = (licencesData.licences as Record<string, Licence>)[slug]
+  if (value === undefined) {
+    throw new Error(`Licence "${slug}" not found`)
+  }
+  return value
 }
 
 export const getLicences = (): Licence[] => {
@@ -162,7 +186,11 @@ export const getLicencesFiltered = (open: boolean): Licence[] => {
 
 export const getOrganisation = (slug: string): Organisation => {
   /* Get information for a specific organisation */
-  return (organisationsData.organisations as Record<string, Organisation>)[slug]
+  const value = (organisationsData.organisations as Record<string, Organisation>)[slug]
+  if (value === undefined) {
+    throw new Error(`Organisation "${slug}" not found`)
+  }
+  return value
 }
 
 export const getPhysicalSizes = (): PhysicalSize[] => {
@@ -182,7 +210,11 @@ export const getSeries = (): Series[] => {
 
 export const getService = (slug: string): Service => {
   /* Get information for a specific service type */
-  return (servicesData.services as Record<string, Service>)[slug]
+  const value = (servicesData.services as Record<string, Service>)[slug]
+  if (value === undefined) {
+    throw new Error(`Service "${slug}" not found`)
+  }
+  return value
 }
 
 export const getServiceSlugs = (): string[] => {
@@ -196,7 +228,11 @@ export const getServiceSlugs = (): string[] => {
 
 export const getSetting = (key: string): string => {
   /* Get specific application setting */
-  return (settingsData.settings as Record<string, string>)[key]
+  const value = (settingsData.settings as Record<string, string | undefined>)[key]
+  if (value === undefined) {
+    throw new Error(`Setting "${key}" not found`)
+  }
+  return value
 }
 
 export const getThumbnails = (): Thumbnail[] => {

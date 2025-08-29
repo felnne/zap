@@ -25,7 +25,11 @@ describe('Dates', () => {
   it('adds a date and emits dates', async () => {
     const expectedDate: DateImpreciseLabelled = {
       label: 'creation',
-      date: { js: referenceDate, iso: referenceDate.toISOString().split('T')[0], precision: 'day' },
+      date: {
+        js: referenceDate,
+        iso: referenceDate.toISOString().split('T')[0]!,
+        precision: 'day',
+      },
     }
 
     const wrapper = mount(Dates, { global: { directives: { clipboard: Clipboard } } })
@@ -39,13 +43,13 @@ describe('Dates', () => {
 
     const emittedDates: unknown[][] | undefined = wrapper.emitted('update:dates')
     expect(emittedDates).toBeTruthy()
-    if (emittedDates) {
+    if (emittedDates && emittedDates[1]) {
       expect(emittedDates[1][0]).toEqual([expectedDate])
     }
 
     const emittedIsoDates: unknown[][] | undefined = wrapper.emitted('update:isoDates')
     expect(emittedIsoDates).toBeTruthy()
-    if (emittedIsoDates) {
+    if (emittedIsoDates && emittedIsoDates[1]) {
       expect(emittedIsoDates[1][0]).toEqual({ [expectedDate.label]: expectedDate.date.iso })
     }
   })
@@ -55,7 +59,11 @@ describe('Dates', () => {
 
     const expectedCreationDate: DateImpreciseLabelled = {
       label: 'creation',
-      date: { js: referenceDate, iso: referenceDate.toISOString().split('T')[0], precision: 'day' },
+      date: {
+        js: referenceDate,
+        iso: referenceDate.toISOString().split('T')[0]!,
+        precision: 'day',
+      },
     }
 
     const expectedPublicationDate: DateImpreciseLabelled = {
@@ -81,6 +89,9 @@ describe('Dates', () => {
 
     // add identifier (needs to use a date that is not required and can emit remove:date)
     const childComponent = wrapper.findAllComponents({ name: 'Date' })[2] // is 'publication'
+    if (!childComponent) {
+      throw new Error('Child component not found')
+    }
 
     await childComponent.vm.$emit('add:date', expectedPublicationDate)
     expect(wrapper.find('pre').text()).toContain(
@@ -95,13 +106,17 @@ describe('Dates', () => {
   it('updates an existing identifier', async () => {
     const expectedDateInitial: DateImpreciseLabelled = {
       label: 'creation',
-      date: { js: referenceDate, iso: referenceDate.toISOString().split('T')[0], precision: 'day' },
+      date: {
+        js: referenceDate,
+        iso: referenceDate.toISOString().split('T')[0]!,
+        precision: 'day',
+      },
     }
 
     const updatedDate = new Date(referenceDate.setFullYear(referenceDate.getFullYear() + 1))
     const expectedDateUpdated: DateImpreciseLabelled = {
       label: 'creation',
-      date: { js: updatedDate, iso: updatedDate.toISOString().split('T')[0], precision: 'day' },
+      date: { js: updatedDate, iso: updatedDate.toISOString().split('T')[0]!, precision: 'day' },
     }
 
     const initialOutput = JSON.stringify(

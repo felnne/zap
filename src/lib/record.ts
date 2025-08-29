@@ -47,7 +47,7 @@ export const emptyIsoRecord: IsoRecord = {
     contacts: [
       createOrgSlugPointOfContact('bas_magic', 'pointOfContact'), // required (ISO), hard-coded value (profile)
     ],
-    date_stamp: new Date().toISOString().split('T')[0], // required (ISO), default/auto-generated value
+    date_stamp: new Date().toISOString().split('T')[0]!, // required (ISO), default/auto-generated value
   },
   identification: {
     title: {

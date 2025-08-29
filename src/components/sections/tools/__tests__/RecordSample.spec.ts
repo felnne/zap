@@ -27,19 +27,19 @@ describe('RecordSample', () => {
 
     const emittedIsoTitle: unknown[][] | undefined = wrapper.emitted('update:isoTitleValue')
     expect(emittedIsoTitle).toBeTruthy()
-    if (emittedIsoTitle) {
+    if (emittedIsoTitle && emittedIsoTitle[0]) {
       expect(emittedIsoTitle[0][0]).toEqual(expectedTitle)
     }
 
     const emittedIsoAbstract: unknown[][] | undefined = wrapper.emitted('update:isoAbstract')
     expect(emittedIsoAbstract).toBeTruthy()
-    if (emittedIsoAbstract) {
+    if (emittedIsoAbstract && emittedIsoAbstract[0]) {
       expect(emittedIsoAbstract[0][0]).toEqual(expectedAbstract)
     }
 
     const emittedIsoLineage: unknown[][] | undefined = wrapper.emitted('update:isoLineageStatement')
     expect(emittedIsoLineage).toBeTruthy()
-    if (emittedIsoLineage) {
+    if (emittedIsoLineage && emittedIsoLineage[0]) {
       expect(emittedIsoLineage[0][0]).toEqual(expectedLineage)
     }
   })

@@ -19,6 +19,9 @@ const emit = defineEmits<{
 }>()
 
 const wellKnownExtents = getExtents()
+if (!wellKnownExtents[0]) {
+  throw new Error('No extent found!')
+}
 
 let bbox_west_long = ref<number>(0)
 let bbox_east_long = ref<number>(0)

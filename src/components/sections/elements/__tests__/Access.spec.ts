@@ -40,19 +40,19 @@ describe('Access', () => {
     await childComponent.vm.$emit('update:accessRestriction', expectedRestriction)
 
     // main output is first pre element
-    expect(wrapper.findAll('pre')[0].text()).toBe(JSON.stringify(expectedConstraint, null, 2))
+    expect(wrapper.findAll('pre')[0]!.text()).toBe(JSON.stringify(expectedConstraint, null, 2))
     // decoded permissions is second pre element
-    expect(wrapper.findAll('pre')[1].text()).toBe(JSON.stringify([], null, 2))
+    expect(wrapper.findAll('pre')[1]!.text()).toBe(JSON.stringify([], null, 2))
 
     const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('update:access')
     expect(emittedIdentifier).toBeTruthy()
-    if (emittedIdentifier) {
+    if (emittedIdentifier && emittedIdentifier[0]) {
       expect(emittedIdentifier[0][0]).toEqual(expectedRestriction)
     }
 
     const emittedIsoAccess: unknown[][] | undefined = wrapper.emitted('update:isoAccess')
     expect(emittedIsoAccess).toBeTruthy()
-    if (emittedIsoAccess) {
+    if (emittedIsoAccess && emittedIsoAccess[0]) {
       expect(emittedIsoAccess[0][0]).toEqual(expectedConstraint)
     }
   })
@@ -87,15 +87,15 @@ describe('Access', () => {
     // wait for initially selected restriction to be rendered
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.findAll('pre')[0].text()).toContain(expectedInitialRestriction.label)
+    expect(wrapper.findAll('pre')[0]!.text()).toContain(expectedInitialRestriction.label)
     const emittedAccess: unknown[][] | undefined = wrapper.emitted('update:access')
     expect(emittedAccess).toBeTruthy()
-    if (emittedAccess) {
+    if (emittedAccess && emittedAccess[0]) {
       expect(emittedAccess[0][0]).toEqual(expectedInitialRestriction)
     }
     const emittedIsoAccess: unknown[][] | undefined = wrapper.emitted('update:isoAccess')
     expect(emittedIsoAccess).toBeTruthy()
-    if (emittedIsoAccess) {
+    if (emittedIsoAccess && emittedIsoAccess[0]) {
       expect(emittedIsoAccess[0][0]).toEqual(expectedInitialConstraint)
     }
 
@@ -103,11 +103,11 @@ describe('Access', () => {
     const updatedComponent = wrapper.findComponent({ name: 'AccessNerc' })
     await updatedComponent.vm.$emit('update:accessRestriction', expectedUpdatedRestriction)
 
-    expect(wrapper.findAll('pre')[0].text()).toContain(expectedUpdatedRestriction.label)
-    if (emittedAccess) {
+    expect(wrapper.findAll('pre')[0]!.text()).toContain(expectedUpdatedRestriction.label)
+    if (emittedAccess && emittedAccess[1]) {
       expect(emittedAccess[1][0]).toEqual(expectedUpdatedRestriction)
     }
-    if (emittedIsoAccess) {
+    if (emittedIsoAccess && emittedIsoAccess[1]) {
       expect(emittedIsoAccess[1][0]).toEqual(expectedUpdatedConstraint)
     }
 
@@ -115,20 +115,20 @@ describe('Access', () => {
 
     const initialComponent = wrapper.findComponent({ name: 'AccessAnonymous' })
     await initialComponent.vm.$emit('update:accessRestriction', expectedInitialRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(expectedInitialRestriction.label)
-    if (emittedAccess) {
+    expect(wrapper.findAll('pre')[0]!.text()).toContain(expectedInitialRestriction.label)
+    if (emittedAccess && emittedAccess[2]) {
       expect(emittedAccess[2][0]).toEqual(expectedInitialRestriction)
     }
-    if (emittedIsoAccess) {
+    if (emittedIsoAccess && emittedIsoAccess[2]) {
       expect(emittedIsoAccess[2][0]).toEqual(expectedInitialConstraint)
     }
 
     await updatedComponent.vm.$emit('update:accessRestriction', expectedUpdatedRestriction)
-    expect(wrapper.findAll('pre')[0].text()).toContain(expectedUpdatedRestriction.label)
-    if (emittedAccess) {
+    expect(wrapper.findAll('pre')[0]!.text()).toContain(expectedUpdatedRestriction.label)
+    if (emittedAccess && emittedAccess[3]) {
       expect(emittedAccess[3][0]).toEqual(expectedUpdatedRestriction)
     }
-    if (emittedIsoAccess) {
+    if (emittedIsoAccess && emittedIsoAccess[3]) {
       expect(emittedIsoAccess[3][0]).toEqual(expectedUpdatedConstraint)
     }
   })

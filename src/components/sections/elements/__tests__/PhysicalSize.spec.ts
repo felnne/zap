@@ -34,12 +34,12 @@ describe('PhysicalSize', () => {
 
   it('emits value when updated', async () => {
     const initialDimensions: PhysicalDimensions = {
-      width: physicalSizes[0].width_mm,
-      height: physicalSizes[0].height_mm,
+      width: physicalSizes[0]!.width_mm,
+      height: physicalSizes[0]!.height_mm,
     }
     const updatedDimensions: PhysicalDimensions = {
-      width: physicalSizes[1].width_mm,
-      height: physicalSizes[1].height_mm,
+      width: physicalSizes[1]!.width_mm,
+      height: physicalSizes[1]!.height_mm,
     }
 
     const wrapper = mount(PhysicalSize, {
@@ -56,7 +56,7 @@ describe('PhysicalSize', () => {
     // initial value
     const emittedDimensions: unknown[][] | undefined = wrapper.emitted('update:dimensions')
     expect(emittedDimensions).toBeTruthy()
-    if (emittedDimensions) {
+    if (emittedDimensions && emittedDimensions[0]) {
       expect(emittedDimensions[0][0]).toEqual(initialDimensions)
     }
 
@@ -64,7 +64,7 @@ describe('PhysicalSize', () => {
     await wrapper.find('input#size-iso_a4_landscape').setValue()
 
     // updated value
-    if (emittedDimensions) {
+    if (emittedDimensions && emittedDimensions[1]) {
       expect(emittedDimensions[1][0]).toEqual(updatedDimensions)
     }
   })
@@ -87,9 +87,7 @@ describe('PhysicalSize', () => {
 
     const emittedDimensions: unknown[][] | undefined = wrapper.emitted('update:dimensions')
     expect(emittedDimensions).toBeTruthy()
-    if (emittedDimensions) {
-      expect(emittedDimensions[emittedDimensions.length - 1][0]).toEqual(customDimensions)
-    }
+    expect(emittedDimensions![emittedDimensions!.length - 1]![0]).toEqual(customDimensions)
   })
 
   it('shows supplemental info value for non-zero sizes', async () => {

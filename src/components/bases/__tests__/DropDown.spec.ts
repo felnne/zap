@@ -45,6 +45,6 @@ describe('DropDown', () => {
     // wait for next tick to allow transition to complete
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.find(`a[href="${expectedItems[0].href}"]`).classes()).toContain(itemClasses[0])
+    expect(wrapper.find(`a[href="${expectedItems[0]!.href}"]`).classes()).toContain(itemClasses[0])
   })
 })

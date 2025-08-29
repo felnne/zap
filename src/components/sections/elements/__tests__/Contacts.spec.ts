@@ -35,7 +35,7 @@ describe('Contacts', () => {
   })
 
   it('renders contact for single choice', async () => {
-    const individual: Individual = Object.values(individualsData.contacts)[0]
+    const individual: Individual = Object.values(individualsData.contacts)[0]!
 
     const wrapper = mount(Contacts, {
       global: {
@@ -52,9 +52,9 @@ describe('Contacts', () => {
   })
 
   it('renders contacts for multiple choices', async () => {
-    const individualA: Individual = Object.values(individualsData.contacts)[0]
-    const individualB: Individual = Object.values(individualsData.contacts)[1]
-    const individualC: Individual = Object.values(individualsData.contacts)[2]
+    const individualA: Individual = Object.values(individualsData.contacts)[0]!
+    const individualB: Individual = Object.values(individualsData.contacts)[1]!
+    const individualC: Individual = Object.values(individualsData.contacts)[2]!
 
     const wrapper = mount(Contacts, {
       global: {
@@ -80,8 +80,8 @@ describe('Contacts', () => {
   })
 
   it('emits values when updated', async () => {
-    const individualA: Individual = Object.values(individualsData.contacts)[0]
-    const individualB: Individual = Object.values(individualsData.contacts)[1]
+    const individualA: Individual = Object.values(individualsData.contacts)[0]!
+    const individualB: Individual = Object.values(individualsData.contacts)[1]!
 
     const wrapper = mount(Contacts, {
       global: {
@@ -96,12 +96,12 @@ describe('Contacts', () => {
 
     const emittedContacts = wrapper.emitted('update:contacts') as Contact[][][]
     expect(emittedContacts).toBeTruthy()
-    if (emittedContacts[0]) {
+    if (emittedContacts[0] && emittedContacts[0][0]) {
       expect(emittedContacts[0][0][0]?.individual?.name).toEqual(individualA.name)
     }
     const emittedIsoContacts = wrapper.emitted('update:isoContacts') as Contact[][][]
     expect(emittedIsoContacts).toBeTruthy()
-    if (emittedIsoContacts[0]) {
+    if (emittedIsoContacts[0] && emittedIsoContacts[0][0]) {
       expect(emittedIsoContacts[0][0][0]?.individual?.name).toEqual(individualA.name)
     }
 
@@ -111,10 +111,10 @@ describe('Contacts', () => {
     await wrapper.vm.$nextTick()
 
     // index 2 because index 1 is both contacts selected
-    if (emittedContacts[2]) {
+    if (emittedContacts[2] && emittedContacts[2][0]) {
       expect(emittedContacts[2][0][0]?.individual?.name).toEqual(individualB.name)
     }
-    if (emittedIsoContacts[2]) {
+    if (emittedIsoContacts[2] && emittedIsoContacts[2][0]) {
       expect(emittedIsoContacts[2][0][0]?.individual?.name).toEqual(individualB.name)
     }
   })

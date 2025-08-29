@@ -43,7 +43,7 @@ describe('TemporalExtent', () => {
   it('emits value when start enabled', async () => {
     const expectedExtentTemporal: TemporalExtentT = {
       period: {
-        start: expectedInitialDateIsoValue,
+        start: expectedInitialDateIsoValue!,
       },
     }
 
@@ -66,7 +66,7 @@ describe('TemporalExtent', () => {
       'update:isoExtentTemporal'
     )
     expect(emittedIsoExtentTemporal).toBeTruthy()
-    if (emittedIsoExtentTemporal) {
+    if (emittedIsoExtentTemporal && emittedIsoExtentTemporal[0]) {
       expect(emittedIsoExtentTemporal[0][0]).toEqual(expectedExtentTemporal)
     }
   })
@@ -74,7 +74,7 @@ describe('TemporalExtent', () => {
   it('emits value when updated', async () => {
     const expectedExtentTemporalInitial: TemporalExtentT = {
       period: {
-        start: expectedInitialDateIsoValue,
+        start: expectedInitialDateIsoValue!,
       },
     }
 
@@ -84,7 +84,7 @@ describe('TemporalExtent', () => {
     const expectedUpdatedDateIsoValue = expectedUpdatedDateValue.toISOString().split('T')[0]
     const expectedExtentTemporalUpdated: TemporalExtentT = {
       period: {
-        start: expectedUpdatedDateIsoValue,
+        start: expectedUpdatedDateIsoValue!,
       },
     }
 
@@ -108,7 +108,7 @@ describe('TemporalExtent', () => {
       'update:isoExtentTemporal'
     )
     expect(emittedIsoExtentTemporal).toBeTruthy()
-    if (emittedIsoExtentTemporal) {
+    if (emittedIsoExtentTemporal && emittedIsoExtentTemporal[0]) {
       expect(emittedIsoExtentTemporal[0][0]).toEqual(expectedExtentTemporalInitial)
     }
 
@@ -121,7 +121,7 @@ describe('TemporalExtent', () => {
 
     await wrapper.vm.$nextTick()
 
-    if (emittedIsoExtentTemporal) {
+    if (emittedIsoExtentTemporal && emittedIsoExtentTemporal[1]) {
       expect(emittedIsoExtentTemporal[1][0]).toEqual(expectedExtentTemporalUpdated)
     }
   })
@@ -129,8 +129,8 @@ describe('TemporalExtent', () => {
   it('emits value when beginning and end enabled', async () => {
     const expectedExtentTemporal: TemporalExtentT = {
       period: {
-        start: expectedInitialDateIsoValue,
-        end: expectedInitialDateIsoValue,
+        start: expectedInitialDateIsoValue!,
+        end: expectedInitialDateIsoValue!,
       },
     }
 
@@ -156,7 +156,7 @@ describe('TemporalExtent', () => {
       'update:isoExtentTemporal'
     )
     expect(emittedIsoExtentTemporal).toBeTruthy()
-    if (emittedIsoExtentTemporal) {
+    if (emittedIsoExtentTemporal && emittedIsoExtentTemporal[1]) {
       expect(emittedIsoExtentTemporal[1][0]).toEqual(expectedExtentTemporal)
     }
   })
@@ -183,7 +183,7 @@ describe('TemporalExtent', () => {
       'update:isoExtentTemporal'
     )
     expect(emittedIsoExtentTemporal).toBeTruthy()
-    if (emittedIsoExtentTemporal) {
+    if (emittedIsoExtentTemporal && emittedIsoExtentTemporal[2]) {
       expect(emittedIsoExtentTemporal[2][0]).toEqual(undefined)
     }
   })

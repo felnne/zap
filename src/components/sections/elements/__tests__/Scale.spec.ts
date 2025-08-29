@@ -51,7 +51,7 @@ describe('Scale', () => {
       'update:isoSpatialResolution'
     )
     expect(emittedIsoSpatialResolution).toBeTruthy()
-    if (emittedIsoSpatialResolution) {
+    if (emittedIsoSpatialResolution && emittedIsoSpatialResolution[0]) {
       expect(emittedIsoSpatialResolution[0][0]).toEqual(expectedInitial)
     }
 
@@ -62,7 +62,7 @@ describe('Scale', () => {
     await wrapper.vm.$nextTick()
 
     // updated value
-    if (emittedIsoSpatialResolution) {
+    if (emittedIsoSpatialResolution && emittedIsoSpatialResolution[1]) {
       expect(emittedIsoSpatialResolution[1][0]).toEqual(expectedUpdated)
     }
   })
