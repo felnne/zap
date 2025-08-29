@@ -9,6 +9,10 @@
 * Additional collection for 'BAS Geological Maps'
 * Additional series for 'BAS GEOMAP'
 
+### Changed
+
+* Upgrading dependencies
+
 ## [0.15.0] - 2025-08-20
 
 ### Added
