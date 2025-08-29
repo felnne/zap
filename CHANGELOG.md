@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-08-20
+
+### Added
+
+* Additional collection for 'BAS Geological Maps'
+
 ## [0.15.0] - 2025-08-20
 
 ### Added
