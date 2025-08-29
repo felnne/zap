@@ -104,7 +104,7 @@ test_unit:
 test_e2e:
   stage: 🧪 test
   needs: []
-  image: mcr.microsoft.com/playwright:v1.40.0-jammy
+  image: mcr.microsoft.com/playwright:v1.55.0-noble
   variables:
     PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results.xml
   before_script:
