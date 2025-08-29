@@ -9,6 +9,10 @@
 * Additional collection for 'BAS Geological Maps'
 * Additional series for 'BAS GEOMAP'
 
+### Fixed
+
+* Typescript errors for undefined properties
+
 ### Changed
 
 * Upgrading dependencies

@@ -62,7 +62,7 @@ describe('Download', () => {
       'update:distributionOptionIndexed'
     )
     expect(emittedIsoDistOptionsDownload).toBeTruthy()
-    if (emittedIsoDistOptionsDownload) {
+    if (emittedIsoDistOptionsDownload && emittedIsoDistOptionsDownload[0]) {
       expect(emittedIsoDistOptionsDownload[0][0]).toEqual(expectedDistributionOptionIndexed)
     }
   })
@@ -87,7 +87,7 @@ describe('Download', () => {
 
     const emittedDestroy: unknown[][] | undefined = wrapper.emitted('destroy')
     expect(emittedDestroy).toBeTruthy()
-    if (emittedDestroy) {
+    if (emittedDestroy && emittedDestroy[0]) {
       expect(emittedDestroy[0][0]).toEqual(index)
     }
   })

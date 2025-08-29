@@ -22,7 +22,7 @@ describe('IdentifierSelf', () => {
 
     const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('add:identifier')
     expect(emittedIdentifier).toBeTruthy()
-    if (emittedIdentifier) {
+    if (emittedIdentifier && emittedIdentifier[0]) {
       expect(emittedIdentifier[0][0]).toEqual(expectedIdentifier)
     }
   })

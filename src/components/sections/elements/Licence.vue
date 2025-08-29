@@ -28,13 +28,20 @@ const emit = defineEmits<{
 
 const refreshInitialLicence = () => {
   if (!filteredLicences.value.find((licence) => licence.slug === selectedLicenceSlug.value)) {
-    selectedLicenceSlug.value = filteredLicences.value[0].slug
+    if (filteredLicences.value[0]) {
+      selectedLicenceSlug.value = filteredLicences.value[0].slug
+    } else {
+      throw new Error('No licence found!')
+    }
   }
 }
 
 const dependantSections: DropdownItem[] = [{ href: '#access', title: 'Access Restrictions' }]
 
 const licences = getLicences()
+if (!licences[0]) {
+  throw new Error('No licence found!')
+}
 
 const app_assets_base = getSetting('app_assets_base')
 

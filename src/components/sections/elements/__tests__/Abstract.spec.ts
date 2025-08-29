@@ -33,13 +33,13 @@ describe('Abstract', () => {
 
     const emittedAbstract: unknown[][] | undefined = wrapper.emitted('update:abstract')
     expect(emittedAbstract).toBeTruthy()
-    if (emittedAbstract) {
+    if (emittedAbstract && emittedAbstract[0]) {
       expect(emittedAbstract[0][0]).toEqual(expected)
     }
 
     const emittedIsoAbstract: unknown[][] | undefined = wrapper.emitted('update:isoAbstract')
     expect(emittedIsoAbstract).toBeTruthy()
-    if (emittedIsoAbstract) {
+    if (emittedIsoAbstract && emittedIsoAbstract[0]) {
       expect(emittedIsoAbstract[0][0]).toEqual(expected)
     }
   })

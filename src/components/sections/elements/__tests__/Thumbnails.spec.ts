@@ -12,7 +12,7 @@ const expectedOverview: IsoGraphicOverview = {
   identifier: 'overview',
   description: 'General overview of resource',
   href: 'https://example.com/image.png',
-  mime_type: getFormatByType('image/png')!.mediaTypes![0],
+  mime_type: getFormatByType('image/png')!.mediaTypes![0]!,
 }
 
 describe('Thumbnails', () => {
@@ -153,7 +153,7 @@ describe('Thumbnails [Integration]', () => {
       'update:isoGraphicOverviews'
     )
     expect(emittedIsoGraphicOverviews).toBeTruthy()
-    if (emittedIsoGraphicOverviews) {
+    if (emittedIsoGraphicOverviews && emittedIsoGraphicOverviews[0]) {
       expect(emittedIsoGraphicOverviews[0][0]).toEqual([expectedOverview])
     }
   })
@@ -180,14 +180,14 @@ describe('Thumbnails [Integration]', () => {
       'update:isoGraphicOverviews'
     )
     expect(emittedIsoGraphicOverviews).toBeTruthy()
-    if (emittedIsoGraphicOverviews) {
+    if (emittedIsoGraphicOverviews && emittedIsoGraphicOverviews[0]) {
       expect(emittedIsoGraphicOverviews[0][0]).toEqual([expectedOverview])
     }
 
     // simulate destroy event from child component
     await childComponent.vm.$emit('destroy')
     expect(emittedIsoGraphicOverviews).toBeTruthy()
-    if (emittedIsoGraphicOverviews) {
+    if (emittedIsoGraphicOverviews && emittedIsoGraphicOverviews[1]) {
       expect(emittedIsoGraphicOverviews[1][0]).toEqual([])
     }
   })

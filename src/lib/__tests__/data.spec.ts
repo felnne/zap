@@ -105,6 +105,12 @@ describe('getDomainConsistency', () => {
 
     expect(getDomainConsistency('magic_discovery_v1').explanation).toEqual(checkExplanation)
   })
+
+  it('throws error for missing domain consistency', () => {
+    expect(() => getDomainConsistency('missing')).toThrowError(
+      'Domain consistency "missing" not found'
+    )
+  })
 })
 
 describe('getCollections', () => {
@@ -128,6 +134,10 @@ describe('getExtent', () => {
   it('loads expected extent', () => {
     expect(getExtent(checkExtent.slug)).toEqual(checkExtent)
   })
+
+  it('throws error for missing extent', () => {
+    expect(() => getExtent('missing')).toThrowError('Extent "missing" not found')
+  })
 })
 
 describe('getExtents', () => {
@@ -143,6 +153,10 @@ describe('getExtents', () => {
 describe('getFormat', () => {
   it('loads expected format', () => {
     expect(getFormat(checkFormat.slug)).toEqual(checkFormat)
+  })
+
+  it('throws error for missing format', () => {
+    expect(() => getFormat('missing')).toThrowError('Format "missing" not found')
   })
 })
 
@@ -212,6 +226,10 @@ describe('getIndividual', () => {
   it('loads expected individual', () => {
     expect(getIndividual(checkIndividual.slug)).toEqual(checkIndividual)
   })
+
+  it('throws error for missing individual', () => {
+    expect(() => getIndividual('missing')).toThrowError('Individual "missing" not found')
+  })
 })
 
 describe('getIndividuals', () => {
@@ -240,11 +258,19 @@ describe('getKeywordSet', () => {
 
     expect(getKeywordSet(checkKeywordSet.slug)).toEqual(checkKeywordSet)
   })
+
+  it('throws error for missing keyword set', () => {
+    expect(() => getKeywordSet('missing')).toThrowError('Keyword set "missing" not found')
+  })
 })
 
 describe('getLicence', () => {
   it('loads expected licence', () => {
     expect(getLicence(checkLicence.slug)).toEqual(checkLicence)
+  })
+
+  it('throws error for missing licence', () => {
+    expect(() => getLicence('missing')).toThrowError('Licence "missing" not found')
   })
 })
 
@@ -293,6 +319,10 @@ describe('getOrganisation', () => {
     }
 
     expect(getOrganisation(checkOrganisation.slug)).toEqual(checkOrganisation)
+  })
+
+  it('throws error for missing organisation', () => {
+    expect(() => getOrganisation('missing')).toThrowError('Organisation "missing" not found')
   })
 })
 
@@ -346,6 +376,10 @@ describe('getService', () => {
 
     expect(getService(checkService.slug)).toEqual(checkService)
   })
+
+  it('throws error for missing service', () => {
+    expect(() => getService('missing')).toThrowError('Service "missing" not found')
+  })
 })
 
 describe('getServiceSlugs', () => {
@@ -370,6 +404,10 @@ describe('getServiceSlugs', () => {
 describe('getSetting', () => {
   it('loads expected setting', () => {
     expect(getSetting('bas_gitlab_domain')).toEqual('https://gitlab.data.bas.ac.uk')
+  })
+
+  it('throws error for missing setting', () => {
+    expect(() => getSetting('missing_setting')).toThrowError('Setting "missing_setting" not found')
   })
 })
 

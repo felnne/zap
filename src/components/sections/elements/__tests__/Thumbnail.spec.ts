@@ -21,7 +21,7 @@ const expectedOverview: IsoGraphicOverview = {
   identifier: identifier,
   description: description,
   href: expectedUrl,
-  mime_type: expectedFormat!.mediaTypes![0],
+  mime_type: expectedFormat!.mediaTypes![0]!,
 }
 
 describe('Thumbnail', () => {
@@ -54,7 +54,7 @@ describe('Thumbnail', () => {
       'update:isoGraphicOverview'
     )
     expect(emittedIsoGraphicOverview).toBeTruthy()
-    if (emittedIsoGraphicOverview) {
+    if (emittedIsoGraphicOverview && emittedIsoGraphicOverview[0]) {
       expect(emittedIsoGraphicOverview[0][0]).toEqual(expectedOverview)
     }
   })

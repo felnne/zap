@@ -36,7 +36,7 @@ describe('Collections', () => {
   })
 
   it('renders collection for single choice', async () => {
-    const collection: Collection = Object.values(collectionsData.collections)[0]
+    const collection: Collection = Object.values(collectionsData.collections)[0]!
 
     const wrapper = mount(Collections, {
       global: {
@@ -53,8 +53,8 @@ describe('Collections', () => {
   })
 
   it('renders contacts for multiple choices', async () => {
-    const collectionA: Collection = Object.values(collectionsData.collections)[0]
-    const collectionB: Collection = Object.values(collectionsData.collections)[1]
+    const collectionA: Collection = Object.values(collectionsData.collections)[0]!
+    const collectionB: Collection = Object.values(collectionsData.collections)[1]!
 
     const wrapper = mount(Collections, {
       global: {
@@ -77,8 +77,8 @@ describe('Collections', () => {
   })
 
   it('emits values when updated', async () => {
-    const collectionA: Collection = Object.values(collectionsData.collections)[0]
-    const collectionB: Collection = Object.values(collectionsData.collections)[1]
+    const collectionA: Collection = Object.values(collectionsData.collections)[0]!
+    const collectionB: Collection = Object.values(collectionsData.collections)[1]!
     const aggregationA: Aggregation = createItemCollectionAggregation(collectionA)
     const aggregationB: Aggregation = createItemCollectionAggregation(collectionB)
 
@@ -95,12 +95,12 @@ describe('Collections', () => {
 
     const emittedCollections = wrapper.emitted('update:collections') as Collection[][][]
     expect(emittedCollections).toBeTruthy()
-    if (emittedCollections[0]) {
+    if (emittedCollections[0] && emittedCollections[0][0]) {
       expect(emittedCollections[0][0][0]).toEqual(collectionA)
     }
     const emittedIsoAggregations = wrapper.emitted('update:isoAggregations') as Aggregation[][][]
     expect(emittedIsoAggregations).toBeTruthy()
-    if (emittedIsoAggregations[0]) {
+    if (emittedIsoAggregations[0] && emittedIsoAggregations[0][0]) {
       expect(emittedIsoAggregations[0][0][0]).toEqual(aggregationA)
     }
 
@@ -110,10 +110,10 @@ describe('Collections', () => {
     await wrapper.vm.$nextTick()
 
     // index 2 because index 1 is both contacts selected
-    if (emittedCollections[2]) {
+    if (emittedCollections[2] && emittedCollections[2][0]) {
       expect(emittedCollections[2][0][0]).toEqual(collectionB)
     }
-    if (emittedIsoAggregations[2]) {
+    if (emittedIsoAggregations[2] && emittedIsoAggregations[2][0]) {
       expect(emittedIsoAggregations[2][0][0]).toEqual(aggregationB)
     }
   })

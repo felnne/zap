@@ -34,7 +34,7 @@ describe('Lineage', () => {
       'update:isoLineageStatement'
     )
     expect(emittedIsoLineageStatement).toBeTruthy()
-    if (emittedIsoLineageStatement) {
+    if (emittedIsoLineageStatement && emittedIsoLineageStatement[0]) {
       expect(emittedIsoLineageStatement[0][0]).toEqual(expected)
     }
   })

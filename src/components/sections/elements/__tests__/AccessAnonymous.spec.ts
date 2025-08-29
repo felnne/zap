@@ -22,8 +22,10 @@ describe('AccessAnonymous', () => {
       'update:accessRestriction'
     )
     expect(emittedAccessRestriction).toBeTruthy()
-    if (emittedAccessRestriction) {
-      expect(emittedAccessRestriction[0][0]).toEqual(expectedAccessRestriction)
+    if (emittedAccessRestriction && emittedAccessRestriction[0]) {
+      if (emittedAccessRestriction[0]) {
+        expect(emittedAccessRestriction[0]?.[0]).toEqual(expectedAccessRestriction)
+      }
     }
   })
 
@@ -39,7 +41,7 @@ describe('AccessAnonymous', () => {
     if (!emittedAccessRestriction) {
       return
     }
-    expect(emittedAccessRestriction[0][0]).toEqual(expectedAccessRestriction)
+    expect(emittedAccessRestriction[0]?.[0]).toEqual(expectedAccessRestriction)
 
     // update prop to a different value (deselect) and verify no event emitted
     const previousLength = emittedAccessRestriction.length
@@ -48,7 +50,7 @@ describe('AccessAnonymous', () => {
 
     // reselect
     await wrapper.find('input#access-anonymous').setValue()
-    if (emittedAccessRestriction) {
+    if (emittedAccessRestriction && emittedAccessRestriction[1]) {
       expect(emittedAccessRestriction[1][0]).toEqual(expectedAccessRestriction)
     }
   })

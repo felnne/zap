@@ -179,7 +179,7 @@ describe('Downloads [Integration]', () => {
       'update:isoDistOptionsDownloads'
     )
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[0]) {
       expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption])
     }
   })
@@ -234,7 +234,7 @@ describe('Downloads [Integration]', () => {
       'update:isoDistOptionsDownloads'
     )
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[0]) {
       expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedInitialDistributionOption])
     }
 
@@ -243,7 +243,7 @@ describe('Downloads [Integration]', () => {
       'update:distributionOptionIndexed',
       expectedUpdatedDistributionOptionIndexed
     )
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[1]) {
       expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([expectedUpdatedDistributionOption])
     }
   })
@@ -286,14 +286,14 @@ describe('Downloads [Integration]', () => {
       'update:isoDistOptionsDownloads'
     )
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[0]) {
       expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption])
     }
 
     // simulate destroy event from child component
     await childComponent.vm.$emit('destroy', expectedDistributionOptionIndexed.index)
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[1]) {
       expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([])
     }
   })
@@ -339,19 +339,25 @@ describe('Downloads [Integration]', () => {
 
     // simulate event from 1st download child component
     const download1 = wrapper.findAllComponents({ name: 'Download' })[0]
+    if (!download1) {
+      throw new Error('Download component 1 not found')
+    }
     await download1.vm.$emit('update:distributionOptionIndexed', expectedDistributionOptionIndexed1)
     const emittedIsoDistOptionsDownloads: unknown[][] | undefined = wrapper.emitted(
       'update:isoDistOptionsDownloads'
     )
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[0]) {
       expect(emittedIsoDistOptionsDownloads[0][0]).toEqual([expectedDistributionOption1])
     }
 
     // simulate event from 2nd download child component
     const download2 = wrapper.findAllComponents({ name: 'Download' })[1]
+    if (!download2) {
+      throw new Error('Download component 2 not found')
+    }
     await download2.vm.$emit('update:distributionOptionIndexed', expectedDistributionOptionIndexed2)
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[1]) {
       expect(emittedIsoDistOptionsDownloads[1][0]).toEqual([
         expectedDistributionOption1,
         expectedDistributionOption2,
@@ -361,7 +367,7 @@ describe('Downloads [Integration]', () => {
     // simulate destroy event from 1st child component
     await download1.vm.$emit('destroy', expectedDistributionOptionIndexed1.index)
     expect(emittedIsoDistOptionsDownloads).toBeTruthy()
-    if (emittedIsoDistOptionsDownloads) {
+    if (emittedIsoDistOptionsDownloads && emittedIsoDistOptionsDownloads[2]) {
       expect(emittedIsoDistOptionsDownloads[2][0]).toEqual([expectedDistributionOption2])
     }
 
@@ -370,6 +376,9 @@ describe('Downloads [Integration]', () => {
 
     // check the new download has a new index
     const download3 = wrapper.findAllComponents({ name: 'Download' })[1]
+    if (!download3) {
+      throw new Error('Download component 3 not found')
+    }
     expect(download3.find('button#download-3-destroy').exists()).toBeTruthy()
   })
 

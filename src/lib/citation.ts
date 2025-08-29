@@ -50,7 +50,7 @@ export function formatAuthors(authors: string[]): string {
   const formattedAuthors = authors.map((author) => formatName(author))
 
   if (formattedAuthors.length == 1) {
-    return formattedAuthors[0]
+    return formattedAuthors[0]!
   }
 
   if (authors.length > 1) {
@@ -98,9 +98,12 @@ export function formatDoi(doi: string): string {
   doi = doi.replace('https://doi.org/', '')
 
   const base = 'https://doi.org'
-  const prefix = doi.split('/')[0]
-  const suffix = doi.split('/')[1].toUpperCase()
-
+  const parts = doi.split('/')
+  if (parts.length !== 2) {
+    throw new Error(`Invalid DOI: "${doi}"`)
+  }
+  const prefix = parts[0]
+  const suffix = parts[1]!.toUpperCase()
   return `${base}/${prefix}/${suffix}`
 }
 
@@ -302,7 +305,7 @@ export function defaultCitationTemplate(
 ): CitationTemplate {
   /* Get default citation template for a given resource type.  */
   if (resourceType === 'dataset') {
-    return filteredTemplates[0]
+    return filteredTemplates[0] || CitationTemplate.unknown
   }
 
   if (resourceType === 'product') {

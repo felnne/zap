@@ -71,13 +71,13 @@ describe('Licence', () => {
 
     const emittedLicence: unknown[][] | undefined = wrapper.emitted('update:licence')
     expect(emittedLicence).toBeTruthy()
-    if (emittedLicence) {
+    if (emittedLicence && emittedLicence[0]) {
       expect(emittedLicence[0][0]).toEqual(expectedLicence)
     }
 
     const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
     expect(emittedIsoLicence).toBeTruthy()
-    if (emittedIsoLicence) {
+    if (emittedIsoLicence && emittedIsoLicence[0]) {
       expect(emittedIsoLicence[0][0]).toEqual(expectedConstraint)
     }
   })
@@ -104,13 +104,13 @@ describe('Licence', () => {
 
     const emittedLicence: unknown[][] | undefined = wrapper.emitted('update:licence')
     expect(emittedLicence).toBeTruthy()
-    if (emittedLicence) {
+    if (emittedLicence && emittedLicence[0]) {
       expect(emittedLicence[0][0]).toEqual(expectedLicence)
     }
 
     const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
     expect(emittedIsoLicence).toBeTruthy()
-    if (emittedIsoLicence) {
+    if (emittedIsoLicence && emittedIsoLicence[0]) {
       expect(emittedIsoLicence[0][0]).toEqual(expectedConstraint)
     }
   })
@@ -137,7 +137,7 @@ describe('Licence', () => {
     // check second emit for licence update
     const emittedLicence: unknown[][] | undefined = wrapper.emitted('update:licence')
     expect(emittedLicence).toBeTruthy()
-    if (emittedLicence) {
+    if (emittedLicence && emittedLicence[1]) {
       expect(emittedLicence[1][0]).toEqual(expectedLicence)
     }
   })
@@ -163,12 +163,12 @@ describe('Licence', () => {
 
     const emittedLicence: unknown[][] | undefined = wrapper.emitted('update:licence')
     expect(emittedLicence).toBeTruthy()
-    if (emittedLicence) {
+    if (emittedLicence && emittedLicence[0]) {
       expect(emittedLicence[0][0]).toEqual(expectedInitialLicence)
     }
     const emittedIsoLicence: unknown[][] | undefined = wrapper.emitted('update:isoLicence')
     expect(emittedIsoLicence).toBeTruthy()
-    if (emittedIsoLicence) {
+    if (emittedIsoLicence && emittedIsoLicence[0]) {
       expect(emittedIsoLicence[0][0]).toEqual(expectedInitialConstraint)
     }
 
@@ -176,10 +176,10 @@ describe('Licence', () => {
     await wrapper.setProps({ accessRestriction: closedAccessRestriction })
 
     expect(wrapper.find('pre').text()).toContain(expectedUpdatedLicence.url)
-    if (emittedLicence) {
+    if (emittedLicence && emittedLicence[1]) {
       expect(emittedLicence[1][0]).toEqual(expectedUpdatedLicence)
     }
-    if (emittedIsoLicence) {
+    if (emittedIsoLicence && emittedIsoLicence[1]) {
       expect(emittedIsoLicence[1][0]).toEqual(expectedUpdatedConstraint)
     }
   })

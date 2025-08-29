@@ -34,7 +34,7 @@ describe('Maintenance', () => {
 
     const emittedIsoMaintenance: unknown[][] | undefined = wrapper.emitted('update:isoMaintenance')
     expect(emittedIsoMaintenance).toBeTruthy()
-    if (emittedIsoMaintenance) {
+    if (emittedIsoMaintenance && emittedIsoMaintenance[0]) {
       expect(emittedIsoMaintenance[0][0]).toEqual(expectedMaintenance)
     }
   })
@@ -55,7 +55,7 @@ describe('Maintenance', () => {
 
     const emittedIsoMaintenance: unknown[][] | undefined = wrapper.emitted('update:isoMaintenance')
     expect(emittedIsoMaintenance).toBeTruthy()
-    if (emittedIsoMaintenance) {
+    if (emittedIsoMaintenance && emittedIsoMaintenance[0]) {
       expect(emittedIsoMaintenance[0][0]).toEqual(expectedMaintenance)
     }
 
@@ -66,7 +66,7 @@ describe('Maintenance', () => {
 
     // check second emit for status update
     expect(emittedIsoMaintenance).toBeTruthy()
-    if (emittedIsoMaintenance) {
+    if (emittedIsoMaintenance && emittedIsoMaintenance[1]) {
       expect(emittedIsoMaintenance[1][0]).toEqual(expectedUpdatedMaintenance)
     }
   })

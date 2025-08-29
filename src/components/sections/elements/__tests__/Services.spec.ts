@@ -82,7 +82,7 @@ describe('Services [Integration]', () => {
       'update:isoDistOptionsServices'
     )
     expect(emittedIsoDistOptionsServices).toBeTruthy()
-    if (emittedIsoDistOptionsServices) {
+    if (emittedIsoDistOptionsServices && emittedIsoDistOptionsServices[0]) {
       expect(emittedIsoDistOptionsServices[0][0]).toEqual(expectedDistributionOptions)
     }
   })
@@ -113,7 +113,7 @@ describe('Services [Integration]', () => {
       'update:isoDistOptionsServices'
     )
     expect(emittedIsoDistOptionsServices).toBeTruthy()
-    if (emittedIsoDistOptionsServices) {
+    if (emittedIsoDistOptionsServices && emittedIsoDistOptionsServices[1]) {
       expect(emittedIsoDistOptionsServices[1][0]).toEqual(expectedDistributionOptions)
     }
   })

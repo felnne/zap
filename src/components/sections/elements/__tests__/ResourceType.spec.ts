@@ -28,7 +28,7 @@ describe('ResourceType', () => {
 
     const emittedResourceType: unknown[][] | undefined = wrapper.emitted('update:resourceType')
     expect(emittedResourceType).toBeTruthy()
-    if (emittedResourceType) {
+    if (emittedResourceType && emittedResourceType[0]) {
       expect(emittedResourceType[0][0]).toEqual(expected)
     }
 
@@ -36,7 +36,7 @@ describe('ResourceType', () => {
       'update:isoHierarchyLevel'
     )
     expect(emittedIsoHierarchyLevel).toBeTruthy()
-    if (emittedIsoHierarchyLevel) {
+    if (emittedIsoHierarchyLevel && emittedIsoHierarchyLevel[0]) {
       expect(emittedIsoHierarchyLevel[0][0]).toEqual(expected)
     }
   })
@@ -56,19 +56,19 @@ describe('ResourceType', () => {
     // initial value
     const emittedResourceType: unknown[][] | undefined = wrapper.emitted('update:resourceType')
     expect(emittedResourceType).toBeTruthy()
-    if (emittedResourceType) {
+    if (emittedResourceType && emittedResourceType[0]) {
       expect(emittedResourceType[0][0]).toEqual(expectedInitial)
     }
     const emittedIsoHierarchyLevel: unknown[][] | undefined = wrapper.emitted(
       'update:isoHierarchyLevel'
     )
     expect(emittedIsoHierarchyLevel).toBeTruthy()
-    if (emittedIsoHierarchyLevel) {
+    if (emittedIsoHierarchyLevel && emittedIsoHierarchyLevel[0]) {
       expect(emittedIsoHierarchyLevel[0][0]).toEqual(expectedInitial)
     }
 
     // get the second input as 'dataset' comes after 'collection'
-    const inputElement = wrapper.findAll('input').at(1)
+    const inputElement = wrapper.findAll('input')[1]
     if (inputElement) {
       expect(inputElement.element.value).toBe(expectedInitial)
     }
@@ -79,10 +79,10 @@ describe('ResourceType', () => {
     await wrapper.vm.$nextTick()
 
     // updated value
-    if (emittedResourceType) {
+    if (emittedResourceType && emittedResourceType[1]) {
       expect(emittedResourceType[1][0]).toEqual(expectedUpdated)
     }
-    if (emittedIsoHierarchyLevel) {
+    if (emittedIsoHierarchyLevel && emittedIsoHierarchyLevel[1]) {
       expect(emittedIsoHierarchyLevel[1][0]).toEqual(expectedUpdated)
     }
   })

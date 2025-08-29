@@ -41,13 +41,13 @@ describe('Summary', () => {
 
     const emittedSummary: unknown[][] | undefined = wrapper.emitted('update:summary')
     expect(emittedSummary).toBeTruthy()
-    if (emittedSummary) {
+    if (emittedSummary && emittedSummary[0]) {
       expect(emittedSummary[0][0]).toEqual(expectedUpdated)
     }
 
     const emittedIsoValuePurpose: unknown[][] | undefined = wrapper.emitted('update:isoPurpose')
     expect(emittedIsoValuePurpose).toBeTruthy()
-    if (emittedIsoValuePurpose) {
+    if (emittedIsoValuePurpose && emittedIsoValuePurpose[0]) {
       expect(emittedIsoValuePurpose[0][0]).toEqual(expectedUpdated)
     }
   })

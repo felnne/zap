@@ -28,7 +28,7 @@ describe('FileIdentifier', () => {
 
     const emittedFileIdentifier: unknown[][] | undefined = wrapper.emitted('update:fileIdentifier')
     expect(emittedFileIdentifier).toBeTruthy()
-    if (emittedFileIdentifier) {
+    if (emittedFileIdentifier && emittedFileIdentifier[0]) {
       expect(typeof emittedFileIdentifier[0][0]).toBe('string')
       if (typeof emittedFileIdentifier[0][0] === 'string') {
         expect(uuidv4Regex.test(emittedFileIdentifier[0][0])).toBe(true)
@@ -39,7 +39,7 @@ describe('FileIdentifier', () => {
       'update:isoFileIdentifier'
     )
     expect(emittedIsoFileIdentifier).toBeTruthy()
-    if (emittedIsoFileIdentifier) {
+    if (emittedIsoFileIdentifier && emittedIsoFileIdentifier[0]) {
       expect(typeof emittedIsoFileIdentifier[0][0]).toBe('string')
       if (typeof emittedIsoFileIdentifier[0][0] === 'string') {
         expect(uuidv4Regex.test(emittedIsoFileIdentifier[0][0])).toBe(true)

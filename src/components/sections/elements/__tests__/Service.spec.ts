@@ -79,7 +79,7 @@ describe('Service', () => {
       'update:isoDistributionOption'
     )
     expect(emittedIsoDistributionOption).toBeTruthy()
-    if (emittedIsoDistributionOption) {
+    if (emittedIsoDistributionOption && emittedIsoDistributionOption[0]) {
       expect(emittedIsoDistributionOption[0][0]).toEqual(expectedDistributionOption)
     }
   })
@@ -103,7 +103,7 @@ describe('Service', () => {
     const emittedIsoDistOptionsServices: unknown[][] | undefined =
       wrapper.emitted('update:selected')
     expect(emittedIsoDistOptionsServices).toBeTruthy()
-    if (emittedIsoDistOptionsServices) {
+    if (emittedIsoDistOptionsServices && emittedIsoDistOptionsServices[1]) {
       expect(emittedIsoDistOptionsServices[1][0]).toEqual(false)
     }
   })

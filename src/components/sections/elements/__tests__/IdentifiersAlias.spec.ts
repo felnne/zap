@@ -24,7 +24,7 @@ describe('IdentifierAlias', () => {
 
     const emittedIdentifier: unknown[][] | undefined = wrapper.emitted('add:identifier')
     expect(emittedIdentifier).toBeTruthy()
-    if (emittedIdentifier) {
+    if (emittedIdentifier && emittedIdentifier[1]) {
       // the first event ([0]) is the initial value when the identifier is enabled so check the next
       expect(emittedIdentifier[1][0]).toEqual(expectedIdentifier)
     }

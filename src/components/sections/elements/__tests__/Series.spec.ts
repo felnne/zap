@@ -40,7 +40,7 @@ describe('Series', () => {
   })
 
   it('renders series for single choice', async () => {
-    const series: SeriesT = Object.values(seriesData.series)[0]
+    const series: SeriesT = Object.values(seriesData.series)[0]!
 
     const wrapper = mount(Series, {
       props: {
@@ -60,8 +60,8 @@ describe('Series', () => {
   })
 
   it('emits values when updated', async () => {
-    const seriesA: SeriesT = Object.values(seriesData.series)[0]
-    const seriesB: SeriesT = Object.values(seriesData.series)[1]
+    const seriesA: SeriesT = Object.values(seriesData.series)[0]!
+    const seriesB: SeriesT = Object.values(seriesData.series)[1]!
     const isoSeriesA: IsoSeries = { name: seriesA.name, edition: edition }
     const isoSeriesB: IsoSeries = { name: seriesB.name, edition: edition }
     // sheet/page omitted as currently omitted from underlying ISO schema
@@ -82,12 +82,12 @@ describe('Series', () => {
 
     const emittedSeries = wrapper.emitted('update:series') as SeriesT[][][]
     expect(emittedSeries).toBeTruthy()
-    if (emittedSeries) {
+    if (emittedSeries && emittedSeries[0]) {
       expect(emittedSeries[0][0]).toEqual(seriesA)
     }
     const emittedIsoSeries = wrapper.emitted('update:isoSeries') as IsoSeries[][][]
     expect(emittedIsoSeries).toBeTruthy()
-    if (emittedIsoSeries) {
+    if (emittedIsoSeries && emittedIsoSeries[0]) {
       expect(emittedIsoSeries[0][0]).toEqual(isoSeriesA)
     }
 

@@ -33,13 +33,13 @@ describe('Title', () => {
 
     const emittedTitle: unknown[][] | undefined = wrapper.emitted('update:title')
     expect(emittedTitle).toBeTruthy()
-    if (emittedTitle) {
+    if (emittedTitle && emittedTitle[0]) {
       expect(emittedTitle[0][0]).toEqual(expectedUpdated)
     }
 
     const emittedIsoValueTitle: unknown[][] | undefined = wrapper.emitted('update:title')
     expect(emittedIsoValueTitle).toBeTruthy()
-    if (emittedIsoValueTitle) {
+    if (emittedIsoValueTitle && emittedIsoValueTitle[0]) {
       expect(emittedIsoValueTitle[0][0]).toEqual(expectedUpdated)
     }
   })

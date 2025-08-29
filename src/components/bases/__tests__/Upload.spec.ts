@@ -44,7 +44,7 @@ describe('Upload', () => {
     expect(emittedUploads).toBeTruthy()
     if (emittedUploads) {
       // skip to the last index to wait for all property updates to apply
-      const emittedUpload = emittedUploads[emittedUploads.length - 1][0]
+      const emittedUpload = emittedUploads[emittedUploads.length - 1]![0]
       expect(emittedUpload).toEqual(expectedUploadFile)
     }
   })
