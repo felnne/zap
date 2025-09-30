@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.17.0] - 2025-09-30
+
+### Added
+
+* Additional collections for 'BAS Air Operations Planning Maps' and 'SCAR Air Operations Planning Maps'
+
 ## [0.16.0] - 2025-08-20
 
 ### Added
