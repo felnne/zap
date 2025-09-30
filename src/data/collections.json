@@ -36,6 +36,18 @@
       "name": "BAS Geological Maps",
       "identifier": "faaeca6f-e67a-45df-ad6d-10c3049daab3",
       "href": "https://data.bas.ac.uk/items/faaeca6f-e67a-45df-ad6d-10c3049daab3"
+    },
+    "00203387_0840_447c_b9ae_f25088501031": {
+      "slug": "00203387_0840_447c_b9ae_f25088501031",
+      "name": "BAS Air Operations Planning Maps",
+      "identifier": "00203387-0840-447c-b9ae-f25088501031",
+      "href": "https://data.bas.ac.uk/items/00203387-0840-447c-b9ae-f25088501031"
+    },
+    "6793faf5_16c5_42dc_a835_b214db7f3e85": {
+      "slug": "6793faf5_16c5_42dc_a835_b214db7f3e85",
+      "name": "SCAR Air Operations Planning Maps",
+      "identifier": "6793faf5-16c5-42dc-a835-b214db7f3e85",
+      "href": "https://data.bas.ac.uk/items/6793faf5-16c5-42dc-a835-b214db7f3e85"
     }
   }
 }
