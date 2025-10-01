@@ -63,6 +63,13 @@
       "extensions": [".shp.zip"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"
     },
+    "mbtiles": {
+      "slug": "mbtiles",
+      "name": "MapBox Vector Tiles",
+      "description": "MapBox Vector Tiles format",
+      "extensions": [".mbtiles"],
+      "url": "https://www.iana.org/assignments/media-types/application/vnd.mapbox-vector-tile"
+    },
     "fake_service": {
       "slug": "fake_service",
       "name": "Fake Service Type",
