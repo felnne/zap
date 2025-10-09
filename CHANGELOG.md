@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* Support for MapBox vector tile uploads (`.mbtiles`)
+
 ## [0.17.0] - 2025-09-30
 
 ### Added

@@ -105,4 +105,15 @@ test('supported file types are handled correctly', async ({ page }) => {
   expect(download8).toContain(
     '"href": "https://www.iana.org/assignments/media-types/application/geo+json"'
   )
+
+  // MapBox Vector Tiles (.mbtiles)
+  //
+
+  await page.click('text=Add Download')
+  await page.click('text=Local File')
+  await page.setInputFiles('input#download-7-file', './sample-data/mbtiles/sample.mbtiles')
+  const download9 = await page.textContent('#downloads-output pre')
+  expect(download9).toContain(
+    '"href": "https://www.iana.org/assignments/media-types/application/vnd.mapbox-vector-tile"'
+  )
 })
