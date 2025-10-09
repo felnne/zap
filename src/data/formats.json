@@ -32,6 +32,14 @@
       "mediaTypes": ["image/jpeg"],
       "url": "https://www.iana.org/assignments/media-types/image/jpeg"
     },
+    "mbtiles": {
+      "slug": "mbtiles",
+      "name": "MapBox Vector Tiles",
+      "description": "MapBox Vector Tiles format",
+      "mediaTypes": ["application/vnd.mapbox-vector-tile"],
+      "extensions": [".mbtiles"],
+      "url": "https://www.iana.org/assignments/media-types/application/vnd.mapbox-vector-tile"
+    },
     "pdf": {
       "slug": "pdf",
       "name": "PDF",
@@ -62,13 +70,6 @@
       "description": "an Esri Shapefile (compressed as a Zip file)",
       "extensions": [".shp.zip"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"
-    },
-    "mbtiles": {
-      "slug": "mbtiles",
-      "name": "MapBox Vector Tiles",
-      "description": "MapBox Vector Tiles format",
-      "extensions": [".mbtiles"],
-      "url": "https://www.iana.org/assignments/media-types/application/vnd.mapbox-vector-tile"
     },
     "fake_service": {
       "slug": "fake_service",
