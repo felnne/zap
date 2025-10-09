@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+## [0.18.0] - 2025-10-09
+
 ### Added
 
 * Support for MapBox vector tile uploads (`.mbtiles`)
+* Support for new MAGIC staff
+* Support for 'BAS AIMP and Estates Maps' collection
 
 ## [0.17.0] - 2025-09-30
 

@@ -76,6 +76,12 @@
     "https_sandbox_orcid_org_0001_0000_0000_0003": {
       "slug": "https_sandbox_orcid_org_0001_0000_0000_0003",
       "name": "Biszczuk, Magdalena"
+    },
+    "https_orcid_org_0000_0002_0807_6646": {
+      "slug": "https_orcid_org_0000_0002_0807_6646",
+      "name": "Hughes, Adrian",
+      "orcid": "https://orcid.org/0000-0002-0807-6646",
+      "email": "adrian.hughes@bas.ac.uk"
     }
   }
 }
