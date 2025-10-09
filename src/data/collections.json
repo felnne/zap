@@ -48,6 +48,12 @@
       "name": "SCAR Air Operations Planning Maps",
       "identifier": "6793faf5-16c5-42dc-a835-b214db7f3e85",
       "href": "https://data.bas.ac.uk/items/6793faf5-16c5-42dc-a835-b214db7f3e85"
+    },
+    "7ed4d15e_952f_4be6_893a_9a9fef197426": {
+      "slug": "7ed4d15e_952f_4be6_893a_9a9fef197426",
+      "name": "BAS AIMP and Estates Maps",
+      "identifier": "7ed4d15e-952f-4be6-893a-9a9fef197426",
+      "href": "https://data.bas.ac.uk/items/7ed4d15e-952f-4be6-893a-9a9fef197426"
     }
   }
 }
