@@ -32,7 +32,6 @@ const expectedUrl = 'https://example.com'
 const expectedOnlineResource = {
   href: expectedUrl,
   title: 'PNG',
-  description: 'Download information as a PNG image',
   function: 'download',
 }
 

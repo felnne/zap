@@ -148,7 +148,7 @@ export type MetadataStandard = {
 export type OnlineResource = {
   href: string
   title: string
-  description: string
+  description?: string
   function: string
 }
 

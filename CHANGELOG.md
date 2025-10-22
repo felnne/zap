@@ -5,6 +5,7 @@
 ### Changed
 
 * Updating collections file
+* Download descriptions refactored and only using for specific formats
 
 ## [0.18.0] - 2025-10-09
 
