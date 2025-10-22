@@ -51,9 +51,15 @@
     },
     "7ed4d15e_952f_4be6_893a_9a9fef197426": {
       "slug": "7ed4d15e_952f_4be6_893a_9a9fef197426",
-      "name": "BAS AIMP and Estates Maps",
+      "name": "BAS Polar Estates Maps",
       "identifier": "7ed4d15e-952f-4be6-893a-9a9fef197426",
       "href": "https://data.bas.ac.uk/items/7ed4d15e-952f-4be6-893a-9a9fef197426"
+    },
+    "cf6dee46_493f_464c_8380_c8b2c5356508": {
+      "slug": "cf6dee46_493f_464c_8380_c8b2c5356508",
+      "name": "BAS Legacy Maps",
+      "identifier": "cf6dee46-493f-464c-8380-c8b2c5356508",
+      "href": "https://data.bas.ac.uk/items/cf6dee46-493f-464c-8380-c8b2c5356508"
     }
   }
 }

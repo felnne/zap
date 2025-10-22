@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+* Updating collections file
+
 ## [0.18.0] - 2025-10-09
 
 ### Added
