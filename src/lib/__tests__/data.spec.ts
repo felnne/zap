@@ -57,7 +57,6 @@ const checkExtent: WellKnownExtent = {
 const checkFormat: Format = {
   slug: 'gpkg',
   name: 'GeoPackage',
-  description: 'an OGC GeoPackage',
   extensions: ['.gpkg'],
   mediaTypes: ['application/geopackage+sqlite3'],
   url: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3',

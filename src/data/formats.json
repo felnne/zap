@@ -4,7 +4,6 @@
     "geojson": {
       "slug": "geojson",
       "name": "GeoJSON",
-      "description": "a GeoJSON document",
       "extensions": [".geojson", ".json"],
       "mediaTypes": ["application/geo+json"],
       "url": "https://www.iana.org/assignments/media-types/application/geo+json"
@@ -12,7 +11,6 @@
     "gpkg": {
       "slug": "gpkg",
       "name": "GeoPackage",
-      "description": "an OGC GeoPackage",
       "extensions": [".gpkg"],
       "mediaTypes": ["application/geopackage+sqlite3"],
       "url": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3"
@@ -20,14 +18,13 @@
     "gpkg_zip": {
       "slug": "gpkg_zip",
       "name": "GeoPackage (Zipped)",
-      "description": "an OGC GeoPackage (compressed as a Zip file)",
+      "description": "Download information as a GeoPackage file compressed as a Zip archive.",
       "extensions": [".gpkg.zip"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/geopackage+sqlite3+zip"
     },
     "jpeg": {
       "slug": "jpeg",
       "name": "JPEG",
-      "description": "a JPEG image",
       "extensions": [".jpg", ".jpeg"],
       "mediaTypes": ["image/jpeg"],
       "url": "https://www.iana.org/assignments/media-types/image/jpeg"
@@ -35,7 +32,6 @@
     "mbtiles": {
       "slug": "mbtiles",
       "name": "MapBox Vector Tiles",
-      "description": "MapBox Vector Tiles format",
       "mediaTypes": ["application/vnd.mapbox-vector-tile"],
       "extensions": [".mbtiles"],
       "url": "https://www.iana.org/assignments/media-types/application/vnd.mapbox-vector-tile"
@@ -43,7 +39,6 @@
     "pdf": {
       "slug": "pdf",
       "name": "PDF",
-      "description": "an Adobe PDF",
       "extensions": [".pdf"],
       "mediaTypes": ["application/pdf"],
       "url": "https://www.iana.org/assignments/media-types/application/pdf"
@@ -51,7 +46,7 @@
     "pdf_geo": {
       "slug": "pdf_geo",
       "name": "PDF",
-      "description": "an Adobe PDF with embedded georeferencing",
+      "description": "Download information as a PDF file with embedded georeferencing.",
       "extensions": [],
       "mediaTypes": ["application/pdf+geo"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/pdf+geo"
@@ -59,7 +54,6 @@
     "png": {
       "slug": "png",
       "name": "PNG",
-      "description": "a PNG image",
       "extensions": [".png"],
       "mediaTypes": ["image/png"],
       "url": "https://www.iana.org/assignments/media-types/image/png"
@@ -67,7 +61,7 @@
     "shp_zip": {
       "slug": "shp_zip",
       "name": "Shapefile (Zipped)",
-      "description": "an Esri Shapefile (compressed as a Zip file)",
+      "description": "Download information as a Shapefile compressed as a Zip archive.",
       "extensions": [".shp.zip"],
       "url": "https://metadata-resources.data.bas.ac.uk/media-types/application/shapefile+zip"
     },

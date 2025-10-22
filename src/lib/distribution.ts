@@ -127,6 +127,10 @@ export const createDistributionOption = (
    *
    * Underpins functions for file or service distribution options, which should be used instead of this function.
    */
+  if (onlineResource.description === undefined) {
+    delete onlineResource.description
+  }
+
   const distributionOption: DistributionOption = {
     format: {
       format: format.name,
@@ -166,7 +170,7 @@ export const createDownloadDistributionOption = (
   const onlineResource: OnlineResource = {
     href: url,
     title: format.name,
-    description: `Download information as ${format.description}`,
+    description: format.description,
     function: 'download',
   }
 

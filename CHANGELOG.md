@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.19.0] - 2025-10-22
+
+### Changed
+
+* Updating collections file
+* Download descriptions refactored and only using for specific formats
+
 ## [0.18.0] - 2025-10-09
 
 ### Added
