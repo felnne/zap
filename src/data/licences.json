@@ -26,11 +26,11 @@
       "statement": "This information is licensed under the (Local) All Rights Reserved v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/all-rights-reserved-v1/.",
       "open": true
     },
-    "X_OPERATIONS_MAPPING_1": {
-      "slug": "X_OPERATIONS_MAPPING_1",
-      "name": "(Local) Operations Mapping v1",
-      "url": "https://metadata-resources.data.bas.ac.uk/licences/operations-mapping-v1/",
-      "statement": "This information is licensed under the (Local) Operations Mapping v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/operations-mapping-v1/.",
+    "X_MAGIC_PRODUCTS_1": {
+      "slug": "X_MAGIC_PRODUCTS_1",
+      "name": "(Local) MAGIC Products v1",
+      "url": "https://metadata-resources.data.bas.ac.uk/licences/magic-products-v1/",
+      "statement": "This information is licensed under the (Local) MAGIC Products v1 licence. To view this licence, visit https://metadata-resources.data.bas.ac.uk/licences/magic-products-v1/.",
       "open": false
     }
   }

@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.20.0] - 2025-10-22
+
+### Added
+
+* MAGIC products licence (v1)
+
+### Removed
+
+* Operations licence (v1)
+
 ## [0.19.0] - 2025-10-22
 
 ### Changed
