@@ -82,6 +82,18 @@
       "name": "Hughes, Adrian",
       "orcid": "https://orcid.org/0000-0002-0807-6646",
       "email": "adrian.hughes@bas.ac.uk"
+    },
+    "https_orcid_org_0009_0006_3581_118x": {
+      "slug": "https_orcid_org_0009_0006_3581_118x",
+      "name": "Ling, Wai Tung",
+      "orcid": "https://orcid.org/0009-0006-3581-118X",
+      "email": "wailin@bas.ac.uk"
+    },
+    "https_orcid_org_0009_0007_4798_0922": {
+      "slug": "https_orcid_org_0009_0007_4798_0922",
+      "name": "Hughes, Tom",
+      "orcid": "https://orcid.org/0009-0007-4798-0922",
+      "email": "Tom.Hughes@bas.ac.uk"
     }
   }
 }

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+* Support for new MAGIC staff
+
 ## [0.20.0] - 2025-10-22
 
 ### Added
