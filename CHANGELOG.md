@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-01-13
+
 ### Added
 
 * Support for new MAGIC staff
