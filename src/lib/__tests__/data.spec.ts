@@ -66,7 +66,6 @@ const checkIndividual: Individual = {
   slug: 'https_orcid_org_0000_0003_3703_3888',
   name: 'Fennell, Felix',
   orcid: 'https://orcid.org/0000-0003-3703-3888',
-  email: 'felnne@bas.ac.uk',
 }
 
 const checkLicence: Licence = {

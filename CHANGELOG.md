@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-02-24
+
+### Removed
+
+* email addresses for individual authors
+
 ## [0.21.0] - 2026-01-13
 
 ### Added

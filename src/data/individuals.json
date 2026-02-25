@@ -4,8 +4,7 @@
     "https_orcid_org_0000_0001_5835_7975": {
       "slug": "https_orcid_org_0000_0001_5835_7975",
       "name": "Fenney, Nathan",
-      "orcid": "https://orcid.org/0000-0001-5835-7975",
-      "email": "natnne@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0001-5835-7975"
     },
     "https_orcid_org_0000_0001_7477_0671": {
       "slug": "https_orcid_org_0000_0001_7477_0671",
@@ -15,20 +14,17 @@
     "https_orcid_org_0000_0002_0143_4527": {
       "slug": "https_orcid_org_0000_0002_0143_4527",
       "name": "Fleming, Andrew",
-      "orcid": "https://orcid.org/0000-0002-0143-4527",
-      "email": "ahf@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0002-0143-4527"
     },
     "https_orcid_org_0000_0002_1330_6733": {
       "slug": "https_orcid_org_0000_0002_1330_6733",
       "name": "Cziferszky, Andreas",
-      "orcid": "https://orcid.org/0000-0002-1330-6733",
-      "email": "ancz@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0002-1330-6733"
     },
     "https_orcid_org_0000_0002_1988_5844": {
       "slug": "https_orcid_org_0000_0002_1988_5844",
       "name": "Fretwell, Peter",
-      "orcid": "https://orcid.org/0000-0002-1988-5844",
-      "email": "ptf@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0002-1988-5844"
     },
     "https_orcid_org_0000_0003_0374_9167": {
       "slug": "https_orcid_org_0000_0003_0374_9167",
@@ -38,32 +34,27 @@
     "https_orcid_org_0000_0003_0586_7626": {
       "slug": "https_orcid_org_0000_0003_0586_7626",
       "name": "Field, Elena",
-      "orcid": "https://orcid.org/0000-0003-0586-7626",
-      "email": "eleeld@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0003-0586-7626"
     },
     "https_orcid_org_0000_0003_0960_0486": {
       "slug": "https_orcid_org_0000_0003_0960_0486",
       "name": "Ireland, Louise",
-      "orcid": "https://orcid.org/0000-0003-0960-0486",
-      "email": "louela@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0003-0960-0486"
     },
     "https_orcid_org_0000_0003_3557_4816": {
       "slug": "https_orcid_org_0000_0003_3557_4816",
       "name": "Skachkova, Aliaksandra",
-      "orcid": "https://orcid.org/0000-0003-3557-4816",
-      "email": "aliska@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0003-3557-4816"
     },
     "https_orcid_org_0000_0003_1410_9122": {
       "slug": "https_orcid_org_0000_0003_1410_9122",
       "name": "Gerrish, Laura",
-      "orcid": "https://orcid.org/0000-0003-1410-9122",
-      "email": "lauger@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0003-1410-9122"
     },
     "https_orcid_org_0000_0003_3703_3888": {
       "slug": "https_orcid_org_0000_0003_3703_3888",
       "name": "Fennell, Felix",
-      "orcid": "https://orcid.org/0000-0003-3703-3888",
-      "email": "felnne@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0003-3703-3888"
     },
     "https_sandbox_orcid_org_0001_0000_0000_0001": {
       "slug": "https_sandbox_orcid_org_0001_0000_0000_0001",
@@ -80,20 +71,17 @@
     "https_orcid_org_0000_0002_0807_6646": {
       "slug": "https_orcid_org_0000_0002_0807_6646",
       "name": "Hughes, Adrian",
-      "orcid": "https://orcid.org/0000-0002-0807-6646",
-      "email": "adrian.hughes@bas.ac.uk"
+      "orcid": "https://orcid.org/0000-0002-0807-6646"
     },
     "https_orcid_org_0009_0006_3581_118x": {
       "slug": "https_orcid_org_0009_0006_3581_118x",
       "name": "Ling, Wai Tung",
-      "orcid": "https://orcid.org/0009-0006-3581-118X",
-      "email": "wailin@bas.ac.uk"
+      "orcid": "https://orcid.org/0009-0006-3581-118X"
     },
     "https_orcid_org_0009_0007_4798_0922": {
       "slug": "https_orcid_org_0009_0007_4798_0922",
       "name": "Hughes, Tom",
-      "orcid": "https://orcid.org/0009-0007-4798-0922",
-      "email": "Tom.Hughes@bas.ac.uk"
+      "orcid": "https://orcid.org/0009-0007-4798-0922"
     }
   }
 }
