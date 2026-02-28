@@ -8,3 +8,9 @@ wheels/
 
 # UV generated files
 .venv
+
+# Ruff generated files
+.ruff_cache/
+
+# PyCharm generated files
+.idea/

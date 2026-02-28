@@ -1,36 +1,4 @@
-# ⚡️Zap II
-
-A prototype [Metadata Editor](...) for MAGIC discovery and administration metadata.
-
-## Overview
-
-...
-
-> [!NOTE]
-> This project is focused on needs within the British Antarctic Survey. It has been open-sourced in case parts are of
-> interest to others. Some resources, indicated with a '🛡' or '🔒' symbol, can only be accessed by BAS staff or
-> project members respectively. Contact the [Project Maintainer](#project-maintainer) to request access.
-
-## Usage
-
-...
-
-## Development
-
-See [Development](/docs/dev.md) documentation.
-
-## Project maintainer
-
-Mapping and Geographic Information Centre ([MAGIC](https://www.bas.ac.uk/teams/magic)), British Antarctic Survey
-([BAS](https://www.bas.ac.uk)).
-
-Project lead: [@felnne](https://www.bas.ac.uk/profile/felnne).
-
-## Data protection
-
-A Data Protection Impact Assessment (DPIA) is not in place for this project.
-
-## Licence
+# MIT Licence
 
 Copyright (c) 2021-2026 UK Research and Innovation (UKRI), British Antarctic Survey (BAS).
 
