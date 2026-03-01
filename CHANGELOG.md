@@ -11,4 +11,7 @@ Wherever possible, a reference to an issue in the project issue tracker should b
 ## [Unreleased]
 
 ### Added
+
+* Experimental Streamlit application
+
 <!-- pyml enable no-duplicate-heading,no-duplicate-header -->
