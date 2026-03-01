@@ -482,6 +482,18 @@ wheels = [
 ]
 
 [[package]]
+name = "dunamai"
+version = "1.26.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/c4/346cef905782df6152f29f02d9c8ed4acf7ae66b0e66210b7156c5575ccb/dunamai-1.26.0.tar.gz", hash = "sha256:5396ac43aa20ed059040034e9f9798c7464cf4334c6fc3da3732e29273a2f97d", size = 45500, upload-time = "2026-02-15T02:58:55.534Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/87/10/2c7edbf230e5c507d38367af498fa94258ed97205d9b4b6f63a921fe9c49/dunamai-1.26.0-py3-none-any.whl", hash = "sha256:f584edf0fda0d308cce0961f807bc90a8fe3d9ff4d62f94e72eca7b43f0ed5f6", size = 27322, upload-time = "2026-02-15T02:58:54.143Z" },
+]
+
+[[package]]
 name = "filelock"
 version = "3.24.3"
 source = { registry = "https://pypi.org/simple" }
@@ -2101,6 +2113,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "dunamai" },
     { name = "pymarkdownlnt" },
     { name = "ruff" },
     { name = "safety" },
@@ -2118,6 +2131,7 @@ requires-dist = [{ name = "streamlit", specifier = ">=1.54.0" }]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "dunamai", specifier = ">=1.26.0" },
     { name = "pymarkdownlnt", specifier = ">=0.9.35" },
     { name = "ruff", specifier = ">=0.15.4" },
     { name = "safety", specifier = ">=3.7.0" },
