@@ -52,7 +52,8 @@ outdated = { cmd = "uv tree --outdated --depth=1", help = "List outdated directe
 # CI
 ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
 ci-safety = { cmd = "safety --stage cicd scan --detailed-output", help = "Called by CI" }
-# app
+# app dev
+release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
 run = { cmd = "streamlit run src/zap/streamlit_app.py", help = "Run app" }
 
 [tool.ruff]
