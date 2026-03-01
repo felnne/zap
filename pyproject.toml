@@ -55,6 +55,8 @@ ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-r
 ci-safety = { cmd = "safety --stage cicd scan --detailed-output", help = "Called by CI" }
 # app dev
 release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
+# app
+version = { cmd = "uv version", help = "Show app version" }
 run = { cmd = "streamlit run src/zap/streamlit_app.py", help = "Run app" }
 
 [tool.ruff]
