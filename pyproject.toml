@@ -26,6 +26,12 @@ test = [
     "pytest-random-order>=1.2.0",
 ]
 
+[[tool.uv.index]]
+name = "self"
+url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1159/packages/pypi/simple"
+publish-url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1159/packages/pypi"
+explicit = true
+
 [tool.taskipy.variables]
 docs_targets = "docs/ README.md CHANGELOG.md"
 targets = "src/ tasks/ tests/"
@@ -43,6 +49,9 @@ test-cov = { cmd = "pytest {cov_options}", help = "Run tests with coverage", use
 test-reset = { cmd = "pytest --cache-clear", help = "Reset pytest cache and run tests" }
 safety = { cmd = "safety scan --detailed-output", help = "Check for insecure dependencies" }
 outdated = { cmd = "uv tree --outdated --depth=1", help = "List outdated directed dependencies" }
+# CI
+ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
+ci-safety = { cmd = "safety --stage cicd scan --detailed-output", help = "Called by CI" }
 # app
 run = { cmd = "streamlit run src/zap/streamlit_app.py", help = "Run app" }
 
