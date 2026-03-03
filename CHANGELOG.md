@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-03-02
+
+### Added
+
+* Support for additional MAGIC map series
+
 ## [0.22.0] - 2026-02-24
 
 ### Removed
