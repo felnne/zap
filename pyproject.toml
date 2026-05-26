@@ -9,7 +9,7 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "streamlit>=1.54.0",
+    "streamlit>=1.57.0",
 ]
 
 [dependency-groups]
@@ -17,7 +17,6 @@ dev = [
     "dunamai>=1.26.0",
     "pymarkdownlnt>=0.9.35",
     "ruff>=0.15.4",
-    "safety>=3.7.0",
     "taskipy>=1.14.1",
     "watchdog>=6.0.0",
 ]
@@ -26,6 +25,9 @@ test = [
     "pytest-cov>=7.0.0",
     "pytest-random-order>=1.2.0",
 ]
+
+[tool.uv.exclude-newer-package]
+starlette = false  # Remove after 2026-05-29
 
 [[tool.uv.index]]
 name = "self"
@@ -48,11 +50,10 @@ pre-commit = { cmd = "pre-commit run --all-files", help = "Run pre-commit hooks 
 test = { cmd = "pytest", help = "Run tests" }
 test-cov = { cmd = "pytest {cov_options}", help = "Run tests with coverage", use_vars = true }
 test-reset = { cmd = "pytest --cache-clear", help = "Reset pytest cache and run tests" }
-safety = { cmd = "safety scan --detailed-output", help = "Check for insecure dependencies" }
-outdated = { cmd = "uv tree --outdated --depth=1", help = "List outdated directed dependencies" }
+vulnerabilities = { cmd = "uv audit --frozen", help = "Check for insecure dependencies" }
+outdated = { cmd = "uv tree --all-groups --outdated --depth=1", help = "List outdated directed dependencies" }
 # CI
 ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
-ci-safety = { cmd = "safety --stage cicd scan --detailed-output", help = "Called by CI" }
 # app dev
 release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
 # app
@@ -147,5 +148,5 @@ source = ["src"]
 omit = []
 
 [build-system]
-requires = ["uv_build>=0.9.18,<0.11.0"]
+requires = ["uv_build>=0.9.18,<0.12.0"]
 build-backend = "uv_build"
