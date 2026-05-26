@@ -26,6 +26,9 @@ test = [
     "pytest-random-order>=1.2.0",
 ]
 
+[tool.uv.exclude-newer-package]
+starlette = false  # Remove after 2026-05-29
+
 [[tool.uv.index]]
 name = "self"
 url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1159/packages/pypi/simple"
