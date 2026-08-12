@@ -35,10 +35,10 @@ class TestPreviewSection:
 
         assert len(at.tabs) == 3
         config_tab, source_tab, _preview_tab = at.tabs
-        assert json.loads(config_tab.expander[0].json[0].value)["id"] == expected.file_identifier  # admin
-        assert (
-            json.loads(config_tab.expander[1].json[0].value)["file_identifier"] == expected.file_identifier
-        )  # discovery
+        admin_expander = config_tab.expander[0]
+        discovery_expander = config_tab.expander[1]
+        assert json.loads(admin_expander.json[0].value)["id"] == expected.file_identifier  # admin
+        assert json.loads(discovery_expander.json[0].value)["file_identifier"] == expected.file_identifier
         assert f'<meta content="{expected.identification.title}" property="og:title"/>' in source_tab.code[0].value
         # Can't test preview tab as iframes aren't supported by AT logic (resolves to UnknownElement)
 

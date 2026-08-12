@@ -9,7 +9,13 @@ class TestStreamlitApp:
     """Test Streamlit app."""
 
     def test_app(self):
-        """Can load app."""
+        """
+        Can load app.
+
+        Serves as a limited integration test for some features.
+
+        See `e2e_tests.streamlit.test_workflow.TestWorkflowStreamlit.test_workflow` for a more complete e2e test.
+        """
         app_path = Path(__file__).parent.parent.parent / "src" / "zap" / "streamlit_app.py"
         at = AppTest.from_file(app_path)
         at.run()

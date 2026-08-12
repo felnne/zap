@@ -12,7 +12,8 @@ from bas_metadata_library.standards.magic_administration.v1 import Administratio
 from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys, set_admin
 from lantern.lib.metadata_library.models.record.presets.admin import OPEN_ACCESS
 from lantern.models.record.const import CATALOGUE_NAMESPACE
-from resources.admin_keys import test_keys
+
+from tests.resources.admin_keys import test_keys
 
 
 @pytest.fixture()
