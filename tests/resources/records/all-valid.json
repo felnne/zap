@@ -1,0 +1,242 @@
+{
+  "$schema": "https://metadata-resources.data.bas.ac.uk/bas-metadata-generator-configuration-schemas/v2/iso-19115-2-v4.json",
+  "file_identifier": "ac67a7ad-d2d4-4a30-a527-f60f744eff50",
+  "hierarchy_level": "product",
+  "metadata": {
+    "character_set": "utf8",
+    "language": "eng",
+    "contacts": [
+      {
+        "organisation": {
+          "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
+          "href": "https://ror.org/01rhff309",
+          "title": "ror"
+        },
+        "phone": "+44 (0)1223 221400",
+        "address": {
+          "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+          "city": "Cambridge",
+          "administrative_area": "Cambridgeshire",
+          "postal_code": "CB3 0ET",
+          "country": "United Kingdom"
+        },
+        "email": "magic@bas.ac.uk",
+        "online_resource": {
+          "href": "https://www.bas.ac.uk/teams/magic",
+          "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
+          "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+          "function": "information"
+        },
+        "role": [
+          "pointOfContact"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "type": "access",
+        "restriction_code": "unrestricted",
+        "statement": "Open Access (Anonymous)"
+      },
+      {
+        "type": "usage",
+        "restriction_code": "license",
+        "statement": "This information is licensed under the Creative Commons Attribution-NoDerivatives 4.0 International Licence (CC BY-ND 4.0). To view this licence, visit https://creativecommons.org/licenses/by-nd/4.0/",
+        "href": "https://creativecommons.org/licenses/by-nd/4.0/"
+      }
+    ],
+    "maintenance": {
+      "maintenance_frequency": "asNeeded",
+      "progress": "completed"
+    },
+    "date_stamp": "2026-08-11",
+    "metadata_standard": {
+      "name": "ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data",
+      "version": "ISO 19115-2:2009(E)"
+    }
+  },
+  "identification": {
+    "title": {
+      "value": "..."
+    },
+    "abstract": "...",
+    "dates": {
+      "creation": "2026-08-11T10:31:41+00:00"
+    },
+    "edition": "1",
+    "other_citation_details": "British Antarctic Survey (?year). _..._ (Version 1) [Product]. British Antarctic Survey Mapping and Geographic Information Centre. [https://data.bas.ac.uk/items/ac67a7ad-d2d4-4a30-a527-f60f744eff50](https://data.bas.ac.uk/items/ac67a7ad-d2d4-4a30-a527-f60f744eff50).",
+    "identifiers": [
+      {
+        "identifier": "ac67a7ad-d2d4-4a30-a527-f60f744eff50",
+        "href": "https://lantern.data.bas.ac.uk/items/ac67a7ad-d2d4-4a30-a527-f60f744eff50",
+        "namespace": "lantern.data.bas.ac.uk"
+      }
+    ],
+    "contacts": [
+      {
+        "organisation": {
+          "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
+          "href": "https://ror.org/01rhff309",
+          "title": "ror"
+        },
+        "phone": "+44 (0)1223 221400",
+        "address": {
+          "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+          "city": "Cambridge",
+          "administrative_area": "Cambridgeshire",
+          "postal_code": "CB3 0ET",
+          "country": "United Kingdom"
+        },
+        "email": "magic@bas.ac.uk",
+        "online_resource": {
+          "href": "https://www.bas.ac.uk/teams/magic",
+          "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
+          "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+          "function": "information"
+        },
+        "role": [
+          "pointOfContact",
+          "publisher"
+        ]
+      },
+      {
+        "organisation": {
+          "name": "UK Research and Innovation",
+          "href": "https://ror.org/001aqnf71",
+          "title": "ror"
+        },
+        "address": {
+          "delivery_point": "Polaris House",
+          "city": "Swindon",
+          "postal_code": "SN2 1FL",
+          "country": "United Kingdom"
+        },
+        "online_resource": {
+          "href": "https://www.ukri.org",
+          "title": "UKRI - UK Research and Innovation",
+          "description": "Corporate website for UK Research and Innovation (UKRI).",
+          "function": "information"
+        },
+        "role": [
+          "rightsHolder"
+        ]
+      }
+    ],
+    "maintenance": {
+      "maintenance_frequency": "asNeeded",
+      "progress": "completed"
+    },
+    "constraints": [
+      {
+        "type": "access",
+        "restriction_code": "unrestricted",
+        "statement": "Open Access (Anonymous)"
+      },
+      {
+        "type": "usage",
+        "restriction_code": "license",
+        "statement": "This information is licensed under the Open Government Licence v3.0. To view this licence, visit https://www.nationalarchives.gov.uk/doc/open-government-licence/.",
+        "href": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    ],
+    "supplemental_information": "{\"admin_metadata\": \"eyJjdHkiOiJKV1QiLCJlcGsiOnsia3R5IjoiRUMiLCJjcnYiOiJQLTI1NiIsIngiOiI4MFFReEZ2eS1BdlhJbDVMTGtPNGRoay1aZ3hiRmVqUzh3MU5MY0ZKM1NvIiwieSI6IlZBLVByWDdWd1ZhNmtOUlgta3J0MGk0N2dPb0ZtMTdJTkthYzdsLVY2UW8ifSwiYWxnIjoiRUNESC1FUytBMTI4S1ciLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoiYmFzX21ldGFkYXRhX3Rlc3RpbmdfZW5jcnlwdGlvbl9rZXkifQ.e0TfHG8evPBiVrub5CXHPRGFXKR6Y-dVo8tH7xfLENBAGtbwOg3wlA.8La9uZpY_UFChwyy.wpbjIVuRvPJz11BWnVfj8Oo0SC_rBUiL1JqRGmEjLxEv8r7lfwRBCmwG9eFaesnqFfMojTZl7BOFukkkDeSz3nyt9wltveh8jrU7Za1mbGobt0LEsW4mhH7CqnPWrgJpEM2-IOJz14KHtnH7RqbF98Wz4eRbguNkhFdU2TKYk1dCGkeCRRkI-GlWnNHO-bUsID_jCNxL0Gvprqo5susMQymnc1bJ-V37dyMuGFkeUO0cFZeKZQN9c5dARQ4pq_a8inQ5akUfHaaFIIh2ZqtV4_exL2Wm_9CNfgNFHe5tEf578lR5hSS26CtVba-3OHr75Xx27J8T-Haj8J7_WJ8L2GTpAbzMyQNHjzAToqSKIj8GlmHkRVuHIzXL9u2DopApVBcl4LM_dCfkAW8axgDMQ1rz-zX5QnyBlt3PjPsESK1HNWFpiOgzCljtVYCMyyIvQDVpa0ReTSaMGMri-bbf2YVGOekXav1uRzibi9rxpu1oClxJGQ9oaxiza0YAesXfJYm4LCsUWwI9aTlEp4sCBkqeqQsNIsu__tJ06yEUvXrkLPxQDv18SarNHvCmlXCYLH7SWntECcNVMDu18AVCmDaBgzJBEpV1wTBAlPEIOnFi0yXmRIzO2HNPJ19eAVz6WUacgN5vEtz2y5n_nIGnWXBaghNiDcK2fy0qxnIGVjA1ogL4yXXRqbygvH_2slfLxcB3K78zmwxICRWwEXMzlMriOc50MQKEx9YUcOXSBRUhW1k_hx0O4-TMFvTnzY6vB1KKVl8Su2JgA64_1c5rNcJ04ku7YJ-cUyON8URisDa-V3GQj0rYpLHdW1kMBYZ5cmh5BYJe_ZOEafDCwGCaYHHmNLi1F1VWs8N6LqdtTODb2np7maR3knP6hfxnIgHWNtU6kqYSdxIwHjmzLNV6DRGCgWMV9YTLTyq0vcGvW_oLK-ZFcU2sultsJN61wC4EvR0llv1Z9d1zk8AvT-4G4ZfWYhYu2rZkhVEQKmUF4Q6FFx95ojeOJRcc4CrGnUrrl0SXqrjeQRscjVEI-ExEDeauBSWPhQv3d5xgtMLWBid0ZyXA1w6QFMpHJsM4wbDW4TtTYYDJlj-G9kbAkBrbhNzY1F4t6HhIBllwpemNKS6TdmUGZ4gEDVXNxv_NF3Mhel2kXNTRUDbJ2WWbHLFuF5nYRdaaNHzxYhbh0qzq1QyDtmS99WlD_omAdLlxBqN_krfq-GWaD5fUMEo751XAg8z4ddbkzOUC4FTm1pWsJRmNHYRG7T15jEEQzkRz0O0vOzLobldk_EpZqq7TNM1PhlTRP88HFJ7U9warTSTMiXcu2TluaFBdxqQDr-7NqnZtcykVJJzR2-wShozln-PT0ArmrEIvjfYYRZmQ0bJafbdpXfplLNHGCcs3MD5QZHEl_NBQncm80wbXzt1YQuqWkfkCIOJv9LrN16htTGmz1tXrXjL9J86mHSgoX1QxyHhh4H9XWw3TGBAV7weS-XHPQhrB1pPG4e1vShvj0zaBIm3rKNgYCVn29--Qvi65VjpeTiTUws-0GXcv-dJO1Z1NbxpbTX-l_cNAVd42_jd6RnO7DtqJ2avwdigXu3MBPxbJOmj-IVnEgWCQcbWJpqStSrMPbHg_cKFb7sQu2njdHzsPAY537zFBlYrmAmWxyEIgQ8RB-ESckJBKMwRNWAjBsYtKDhS3xLseRWC4_Q6S7dQxCec.lPk5AEj-BfD0yaCYr_j7EA\"}",
+    "character_set": "utf8",
+    "language": "eng",
+    "extents": [
+      {
+        "identifier": "bounding",
+        "geographic": {
+          "bounding_box": {
+            "west_longitude": 0,
+            "east_longitude": 0,
+            "south_latitude": 0,
+            "north_latitude": 0
+          }
+        }
+      }
+    ],
+    "lineage": {
+      "statement": "..."
+    },
+    "domain_consistency": [
+      {
+        "specification": {
+          "dates": {
+            "publication": "2025-11-24"
+          },
+          "edition": "2",
+          "title": {
+            "value": "British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile",
+            "href": "https://metadata-standards.data.bas.ac.uk/profiles/magic-discovery/v2/"
+          },
+          "contact": {
+            "organisation": {
+              "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
+              "href": "https://ror.org/01rhff309",
+              "title": "ror"
+            },
+            "phone": "+44 (0)1223 221400",
+            "address": {
+              "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+              "city": "Cambridge",
+              "administrative_area": "Cambridgeshire",
+              "postal_code": "CB3 0ET",
+              "country": "United Kingdom"
+            },
+            "email": "magic@bas.ac.uk",
+            "online_resource": {
+              "href": "https://www.bas.ac.uk/teams/magic",
+              "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
+              "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+              "function": "information"
+            },
+            "role": [
+              "publisher"
+            ]
+          }
+        },
+        "explanation": "Resource within scope of the British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Discovery Metadata Profile.",
+        "result": true
+      },
+      {
+        "specification": {
+          "dates": {
+            "publication": "2025-10-22"
+          },
+          "edition": "1",
+          "title": {
+            "value": "British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Administration Metadata Profile",
+            "href": "https://metadata-standards.data.bas.ac.uk/profiles/magic-administration/v1/"
+          },
+          "contact": {
+            "organisation": {
+              "name": "Mapping and Geographic Information Centre, British Antarctic Survey",
+              "href": "https://ror.org/01rhff309",
+              "title": "ror"
+            },
+            "phone": "+44 (0)1223 221400",
+            "address": {
+              "delivery_point": "British Antarctic Survey, High Cross, Madingley Road",
+              "city": "Cambridge",
+              "administrative_area": "Cambridgeshire",
+              "postal_code": "CB3 0ET",
+              "country": "United Kingdom"
+            },
+            "email": "magic@bas.ac.uk",
+            "online_resource": {
+              "href": "https://www.bas.ac.uk/teams/magic",
+              "title": "Mapping and Geographic Information Centre (MAGIC) - BAS public website",
+              "description": "General information about the BAS Mapping and Geographic Information Centre (MAGIC) from the British Antarctic Survey (BAS) public website.",
+              "function": "information"
+            },
+            "role": [
+              "publisher"
+            ]
+          }
+        },
+        "explanation": "Resource within scope of the British Antarctic Survey (BAS) Mapping and Geographic Information Centre (MAGIC) Administration Metadata Profile.",
+        "result": true
+      }
+    ]
+  }
+}

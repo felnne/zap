@@ -19,3 +19,6 @@ wheels/
 .pytest_cache/
 htmlcov/
 .coverage
+
+# Streamlit files
+.streamlit/secrets.toml
