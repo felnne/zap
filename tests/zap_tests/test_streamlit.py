@@ -1,12 +1,18 @@
-from pathlib import Path
-
 from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
 
+from zap.utils import load_secrets
+
 
 class TestStreamlitApp:
     """Test Streamlit app."""
+
+    @staticmethod
+    def _app_script() -> None:
+        from zap.app import app
+
+        app()
 
     def test_app(self):
         """
@@ -16,8 +22,8 @@ class TestStreamlitApp:
 
         See `e2e_tests.streamlit.test_workflow.TestWorkflowStreamlit.test_workflow` for a more complete e2e test.
         """
-        app_path = Path(__file__).parent.parent.parent / "src" / "zap" / "streamlit_app.py"
-        at = AppTest.from_file(app_path)
+        at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))  # .env not loaded as pytest-env values will be used
         at.run()
         assert not at.exception
 

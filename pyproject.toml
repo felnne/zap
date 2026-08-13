@@ -16,6 +16,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "dunamai>=1.26.0",
+    "environs>=15.1.0",
     "pymarkdownlnt>=0.9.35",
     "ruff>=0.15.4",
     "taskipy>=1.14.1",
@@ -24,6 +25,7 @@ dev = [
 test = [
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
+    "pytest-env>=1.7.0",
     "pytest-playwright>=0.8.0",
     "pytest-random-order>=1.2.0",
 ]
@@ -64,10 +66,11 @@ outdated = { cmd = "uv tree --all-groups --outdated --depth=1", help = "List out
 # CI
 ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
 # app dev
+env-init = { cmd = "op inject --in-file resources/dev/.env.tpl --out-file .env", help = "Initialise env file" }
 release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
 # app
 version = { cmd = "uv version", help = "Show app version" }
-run = { cmd = "streamlit run src/zap/streamlit_app.py", help = "Run app" }
+run = { cmd = "python tasks/run.py", help = "Run app" }
 
 [tool.ruff]
 src = ["src"]
@@ -129,6 +132,11 @@ plugins.md013.line_length = 120
 plugins.md013.code_blocks = false
 plugins.md014.enabled = false
 extensions.markdown-extended-autolinks.enabled = true
+
+[tool.pytest_env]
+# Test encryption and signing keys are not sensitive
+ZAP_ADMIN_METADATA_ENCRYPTION_KEY_PRIVATE = "{\"kty\":\"EC\",\"kid\":\"bas_metadata_testing_encryption_key\",\"alg\":\"ECDH-ES+A128KW\",\"crv\":\"P-256\",\"x\":\"kYiwq6MW8lGN6PB2csVMuMRcISVk5eNUpGkjM-mm8QY\",\"y\":\"raOTT2xAQhHFKhPHy338L8Ql0hvgsDtHwtEc8pCOf2Q\",\"d\":\"2lBuUtJK2TcV_b4B-bDCPnRVAqMnYvnLZ41IUguprs8\"}"
+ZAP_ADMIN_METADATA_SIGNING_KEY_PRIVATE = "{\"kty\":\"EC\",\"kid\":\"bas_metadata_testing_signing_key\",\"alg\":\"ES256\",\"crv\":\"P-256\",\"x\":\"FzxBM1ZPO5W2bYlhT9AjZUKz5_oH5vIh4_k4aEZ64rM\",\"y\":\"vmK5PWOoIA9eO0ntLh37AMpVODyj0NWf842FwoN-GRs\",\"d\":\"FdxFSRF2zAAfn7_GaDk81T8PdBGlzZpRtxd10-kc4PE\"}"
 
 [tool.pytest.ini_options]
 # --strict-markers | fail if unknown markers are used

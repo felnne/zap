@@ -10,7 +10,7 @@ class TestWorkflowStreamlit:
 
     @staticmethod
     def _app_script() -> None:
-        from zap.streamlit_app import app
+        from zap.app import app
 
         app()
 

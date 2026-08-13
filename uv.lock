@@ -1666,6 +1666,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-env"
+version = "1.7.0"
+source = { registry = "https://gitlab.data.bas.ac.uk/api/v4/projects/1355/packages/pypi/simple" }
+dependencies = [
+    { name = "pytest" },
+    { name = "python-dotenv" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/65/49/08ee056f9cc655e437abcf2ae399884844b623223476ae6a77244131db03/pytest_env-1.7.0.tar.gz", hash = "sha256:0c1dc1101fb8d3ab3611e8f8d657ba06c3c0c167fc85c90457e5b27f2508f43e", size = 16408, upload-time = "2026-07-21T13:09:21.834Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/fc/9f2975c41d41bf5bd9a7d0fc03085ec20052b456b079df53828ae4a1b100/pytest_env-1.7.0-py3-none-any.whl", hash = "sha256:9ee0f1fe859d23fcdb533fe2909a404b3b133d02674a56df275bbe4df4eb104b", size = 10263, upload-time = "2026-07-21T13:09:20.677Z" },
+]
+
+[[package]]
 name = "pytest-playwright"
 version = "0.8.0"
 source = { registry = "https://gitlab.data.bas.ac.uk/api/v4/projects/1355/packages/pypi/simple" }
@@ -2360,6 +2373,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "dunamai" },
+    { name = "environs" },
     { name = "pymarkdownlnt" },
     { name = "ruff" },
     { name = "taskipy" },
@@ -2368,6 +2382,7 @@ dev = [
 test = [
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pytest-env" },
     { name = "pytest-playwright" },
     { name = "pytest-random-order" },
 ]
@@ -2381,6 +2396,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "dunamai", specifier = ">=1.26.0" },
+    { name = "environs", specifier = ">=15.1.0" },
     { name = "pymarkdownlnt", specifier = ">=0.9.35" },
     { name = "ruff", specifier = ">=0.15.4" },
     { name = "taskipy", specifier = ">=1.14.1" },
@@ -2389,6 +2405,7 @@ dev = [
 test = [
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
+    { name = "pytest-env", specifier = ">=1.7.0" },
     { name = "pytest-playwright", specifier = ">=0.8.0" },
     { name = "pytest-random-order", specifier = ">=1.2.0" },
 ]
