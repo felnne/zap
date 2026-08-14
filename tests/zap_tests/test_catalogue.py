@@ -1,7 +1,11 @@
-from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
+from typing import TYPE_CHECKING
+
 from lantern.lib.metadata_library.models.record.record import Record
 
 from zap.catalogue import preview_item
+
+if TYPE_CHECKING:
+    from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 
 
 class TestCatalogue:

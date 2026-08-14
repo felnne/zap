@@ -1,11 +1,14 @@
 import json
-from pathlib import Path
-from subprocess import Popen
+from typing import TYPE_CHECKING
 
 from lantern.lib.metadata_library.models.record.record import Record
 from playwright.sync_api import Page, expect
 
 from tests.conftest import _get_test_record_path
+
+if TYPE_CHECKING:
+    from pathlib import Path
+    from subprocess import Popen
 
 
 class TestWorkflowPlaywright:

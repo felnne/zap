@@ -1,11 +1,14 @@
 import logging
+from typing import TYPE_CHECKING
 
-from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 from bs4 import BeautifulSoup
-from lantern.lib.metadata_library.models.record.record import Record
 from lantern.models.record.revision import RecordRevision
 from lantern.models.site import ExportMeta
 from lantern.outputs.item_html import ItemCatalogueOutput
+
+if TYPE_CHECKING:
+    from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
+    from lantern.lib.metadata_library.models.record.record import Record
 
 
 def _temp_select_record(identifier: str) -> RecordRevision:
@@ -39,7 +42,7 @@ def _temp_select_record(identifier: str) -> RecordRevision:
 
 def preview_item(admin_keys: AdministrationKeys, record: Record) -> str:
     """Render record config as catalogue item HTML."""
-    temp_logger = logging.Logger(__name__)
+    temp_logger = logging.getLogger(__name__)
     meta = ExportMeta(
         env="preview",
         trusted=True,

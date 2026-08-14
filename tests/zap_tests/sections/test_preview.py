@@ -36,7 +36,7 @@ class TestPreviewSection:
         assert not at.exception
         assert at.header[0].body == "Preview item"
 
-        assert len(at.tabs) == 3
+        assert len(at.tabs) == 3  # noqa: PLR2004
         config_tab, source_tab, _preview_tab = at.tabs
         admin_expander = config_tab.expander[0]
         discovery_expander = config_tab.expander[1]
@@ -94,4 +94,4 @@ class TestPreviewSection:
         # should have no other output
         assert len(at.info) == 0
         assert len(at.success) == 0
-        assert len(at.error) == 2
+        assert len(at.error) == 2  # noqa: PLR2004

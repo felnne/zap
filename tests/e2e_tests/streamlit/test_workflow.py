@@ -43,7 +43,7 @@ class TestWorkflowStreamlit:
             assert any(e.value == "Record config meets MAGIC profile requirements 🥳" for e in at.success)
 
             ## Preview record
-            assert len(at.tabs) == 3
+            assert len(at.tabs) == 3  # noqa: PLR2004
             config_tab = at.tabs[0]  # represents all tabs in all sections/groups
             discovery_expander = config_tab.expander[1]
             assert json.loads(discovery_expander.json[0].value)["file_identifier"] == expected.file_identifier

@@ -86,16 +86,16 @@ class TestValidateSection:
             # should still fail profile validation
             assert len(at.error) > 0
             assert len(at.exception) > 0
-            assert len(at.success) == 2
+            assert len(at.success) == 2  # noqa: PLR2004
         elif state == "invalid-magic":
             assert at.error[0].value == "Record config does not meet MAGIC profile requirements 😭"
             assert len(at.exception) > 0
             # should still pass ISO and catalogue validation
-            assert len(at.success) == 2
+            assert len(at.success) == 2  # noqa: PLR2004
         elif state == "valid-cat":
             assert at.success[0].value == "Record config is valid 🙂"
             assert at.success[1].value == "Record config meets catalogue requirements 😀"
             assert at.success[2].value == "Record config meets MAGIC profile requirements 🥳"
             assert len(at.error) == 0
             assert len(at.exception) == 0
-            assert len(at.success) == 3
+            assert len(at.success) == 3  # noqa: PLR2004

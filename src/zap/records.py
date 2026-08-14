@@ -1,8 +1,8 @@
 from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 from uuid import uuid4
 
 from bas_metadata_library.standards.magic_administration.v1 import AdministrationMetadata
-from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 from lantern.lib.metadata_library.models.record.elements.common import Date, Dates
 from lantern.lib.metadata_library.models.record.elements.data_quality import DataQuality, Lineage
 from lantern.lib.metadata_library.models.record.elements.identification import (
@@ -14,8 +14,11 @@ from lantern.lib.metadata_library.models.record.elements.identification import (
 )
 from lantern.lib.metadata_library.models.record.enums import HierarchyLevelCode, MaintenanceFrequencyCode, ProgressCode
 from lantern.lib.metadata_library.models.record.presets.base import RecordMagicOpen
-from lantern.lib.metadata_library.models.record.record import Record
 from lantern.lib.metadata_library.models.record.utils.admin import get_admin
+
+if TYPE_CHECKING:
+    from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
+    from lantern.lib.metadata_library.models.record.record import Record
 
 
 def _make_base_record(keys: AdministrationKeys, file_identifier: str) -> Record:

@@ -1,13 +1,18 @@
 import json
-from pathlib import Path
+from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
 from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.runtime.runtime import Runtime as RuntimeClass
 from streamlit.testing.v1 import AppTest
-from streamlit.testing.v1.element_tree import DownloadButton
 from streamlit.testing.v1.local_script_runner import LocalScriptRunner
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+if TYPE_CHECKING:
+    from streamlit.testing.v1.element_tree import DownloadButton
 
 
 class CaptureDownloads:

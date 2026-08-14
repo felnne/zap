@@ -2,11 +2,11 @@ import json
 import subprocess
 import sys
 import time
-from collections.abc import Generator
 from copy import deepcopy
 from functools import lru_cache
 from http.client import HTTPConnection
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 from bas_metadata_library.standards.magic_administration.v1 import AdministrationMetadata
@@ -16,6 +16,9 @@ from lantern.models.record.const import CATALOGUE_NAMESPACE
 
 from tests.resources.admin_keys import test_keys
 from zap.utils import load_secrets
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 
 @pytest.fixture()

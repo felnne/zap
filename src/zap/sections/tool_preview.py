@@ -1,6 +1,7 @@
+from typing import TYPE_CHECKING
+
 import streamlit as st
 from bas_metadata_library.standards.magic_administration.v1 import AdministrationMetadata
-from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 from cattrs import ClassValidationError
 from lantern.lib.metadata_library.models.record.record import Record, RecordInvalidError
 from lantern.models.record.record import Record as RecordCatalogue
@@ -8,6 +9,9 @@ from lantern.models.record.record import Record as RecordCatalogue
 from zap.catalogue import preview_item
 from zap.records import get_record_admin
 from zap.sections.base import Section
+
+if TYPE_CHECKING:
+    from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 
 
 class ToolPreview(Section):
