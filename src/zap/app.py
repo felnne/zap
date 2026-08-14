@@ -20,8 +20,8 @@ def _init() -> None:
     """
     if "admin_meta_keys" not in st.session_state:
         st.session_state.admin_meta_keys = AdministrationKeys(
-            encryption_private=Jwk(st.secrets["admin_metadata"]["encryption_key_private"]),
-            signing_private=Jwk(st.secrets["admin_metadata"]["signing_key_private"]),
+            encryption_private=Jwk(st.secrets.admin_metadata.encryption_key_private),
+            signing_private=Jwk(st.secrets.admin_metadata.signing_key_private),
         )
 
     if "record" not in st.session_state:

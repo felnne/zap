@@ -17,8 +17,8 @@ class TestPreviewSection:
         from zap.sections.tool_preview import ToolPreview
 
         admin_keys = AdministrationKeys(
-            encryption_private=Jwk(st.secrets["admin_metadata"]["encryption_key_private"]),
-            signing_private=Jwk(st.secrets["admin_metadata"]["signing_key_private"]),
+            encryption_private=Jwk(st.secrets.admin_metadata.encryption_key_private),
+            signing_private=Jwk(st.secrets.admin_metadata.signing_key_private),
         )
         section = ToolPreview(admin_keys=admin_keys)
         section.render()
