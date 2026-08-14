@@ -42,6 +42,10 @@ This branch is a work in progress rewrite of the [VueJS](https://vuejs.org/) edi
   - BAS Data Catalogue (Lantern 🏮) record requirements
   - the MAGIC Discovery and Administration metadata profiles
 
+## Usage
+
+https://zap-exp.streamlit.app/ (app may need to wake up 😴)
+
 ## Related projects
 
 - [Lantern 🏮 (🛡️)](https://gitlab.data.bas.ac.uk/MAGIC/lantern-exp) - an experimental data catalogue for BAS discovery
