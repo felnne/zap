@@ -2,8 +2,8 @@ import json
 
 from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
-from zap_tests.sections.test_export import CaptureDownloads
 
+from tests.zap_tests.sections.test_export import CaptureDownloads
 from zap.utils import load_secrets
 
 
