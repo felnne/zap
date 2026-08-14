@@ -9,6 +9,7 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "bas-metadata-library>=0.18.0",
     "lantern==0.14.0.post167",
     "streamlit>=1.57.0",
 ]
@@ -64,8 +65,8 @@ outdated = { cmd = "uv tree --all-groups --outdated --depth=1", help = "List out
 # CI
 ci-test = { cmd = "pytest -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
 # app dev
-env-init = { cmd = "op inject --in-file resources/dev/.env.tpl --out-file .env", help = "Initialise env file" }
 release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
+env-init = { cmd = "op inject --in-file resources/dev/.env.tpl --out-file .env", help = "Initialise env file" }
 # app
 version = { cmd = "uv version", help = "Show app version" }
 run = { cmd = "python tasks/run.py", help = "Run app" }
