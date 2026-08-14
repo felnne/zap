@@ -24,7 +24,7 @@ variables:
   #   - https://gitlab.data.bas.ac.uk/felnne/zap/-/settings/access_tokens
   #   - (name: 'gitlab_ci' scope: 'read_api', role: 'reporter')
 
-image: mcr.microsoft.com/playwright/python:v1.58.0-noble
+image: mcr.microsoft.com/playwright/python:v1.62.0-noble
 
 .before_script_python: &before_script_python
   # setup UV
