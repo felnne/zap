@@ -14,7 +14,7 @@ def _init() -> None:
     """
     Initialise application.
 
-    - loads secrets from Streamlit secrets store
+    - loads admin metadata keys from Streamlit secrets
     - initialises valid record with defaults and placeholders
     - configures streamlit app
     """
