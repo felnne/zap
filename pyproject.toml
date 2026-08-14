@@ -24,7 +24,6 @@ dev = [
 ]
 test = [
     "pytest>=9.0.2",
-    "pytest-cov>=7.0.0",
     "pytest-env>=1.7.0",
     "pytest-playwright>=0.8.0",
     "pytest-random-order>=1.2.0",
@@ -49,7 +48,6 @@ url = "https://gitlab.data.bas.ac.uk/api/v4/projects/1355/packages/pypi/simple"
 [tool.taskipy.variables]
 docs_targets = "docs/ README.md CHANGELOG.md"
 targets = "src/ tasks/ tests/"
-cov_options = "--cov --cov-report=html"
 
 [tool.taskipy.tasks]
 # generic dev
@@ -59,12 +57,11 @@ lint = { cmd = "ruff check {targets}", help = "Lint app", use_vars = true }
 markdown = { cmd = "pymarkdown scan --recurse {docs_targets}", help = "Lint docs", use_vars = true }
 pre-commit = { cmd = "pre-commit run --all-files", help = "Run pre-commit hooks on all files" }
 test = { cmd = "pytest", help = "Run tests" }
-test-cov = { cmd = "pytest {cov_options}", help = "Run tests with coverage", use_vars = true }
 test-reset = { cmd = "pytest --cache-clear", help = "Reset pytest cache and run tests" }
 audit = { cmd = "uv audit --frozen", help = "Check for insecure dependencies" }
 outdated = { cmd = "uv tree --all-groups --outdated --depth=1", help = "List outdated directed dependencies" }
 # CI
-ci-test = { cmd = "pytest {cov_options} -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
+ci-test = { cmd = "pytest -o junit_family=xunit2 --junitxml=test-results.xml --continue-on-collection-errors", help = "Called by CI", use_vars = true }
 # app dev
 env-init = { cmd = "op inject --in-file resources/dev/.env.tpl --out-file .env", help = "Initialise env file" }
 release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
@@ -147,23 +144,6 @@ addopts = "--strict-markers --random-order -x --ff"
 markers = [
     "cov: coverage checks (deselect with '-m \"not cov\"')",
 ]
-
-[tool.coverage.report]
-skip_empty = true
-show_missing = false
-fail_under = 100
-exclude_lines = [
-  "pragma: no cover",
-  "@abstractmethod",
-]
-
-[tool.coverage.html]
-directory = "htmlcov"
-
-[tool.coverage.run]
-branch = true
-source = ["src"]
-omit = []
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.13.0"]
