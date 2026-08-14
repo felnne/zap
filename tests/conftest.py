@@ -1,3 +1,5 @@
+import json
+import subprocess
 import sys
 import time
 from collections.abc import Generator
@@ -5,7 +7,6 @@ from copy import deepcopy
 from functools import lru_cache
 from http.client import HTTPConnection
 from pathlib import Path
-from subprocess import PIPE, Popen
 
 import pytest
 from bas_metadata_library.standards.magic_administration.v1 import AdministrationMetadata
@@ -14,6 +15,7 @@ from lantern.lib.metadata_library.models.record.presets.admin import OPEN_ACCESS
 from lantern.models.record.const import CATALOGUE_NAMESPACE
 
 from tests.resources.admin_keys import test_keys
+from zap.utils import load_secrets
 
 
 @pytest.fixture()
@@ -297,7 +299,7 @@ def _get_test_record_path(name: str) -> Path:
 
 
 @pytest.fixture(scope="session")
-def fx_streamlit_port() -> int:
+def fx_app_port() -> int:
     """
     Port for Streamlit test server.
 
@@ -307,37 +309,36 @@ def fx_streamlit_port() -> int:
 
 
 @pytest.fixture(scope="session")
-def fx_streamlit_url(fx_streamlit_port: int) -> str:
+def fx_app_url(fx_app_port: int) -> str:
     """URL for Streamlit test server."""
-    return f"http://localhost:{fx_streamlit_port}"
+    return f"http://localhost:{fx_app_port}"
 
 
 @pytest.fixture(scope="session")
-def fx_streamlit(fx_streamlit_port: int) -> Generator[Popen]:
+def fx_app(fx_app_port: int) -> Generator:
     """
-    Run Streamlit app via Streamlit CLI for e2e tests.
+    Run Streamlit app for Playwright e2e tests.
 
-    Avoids Streamlit default port (8501) to prevent conflict with non-test instances.
+    Spawns a subprocess running the app on a custom port with secrets set by pytest-env.
     """
-    python_bin = sys.executable
-    app_path = Path(__file__).parent.parent / "src" / "zap" / "streamlit_app.py"
-    args = [
-        python_bin,
-        "-m",
-        "streamlit",
-        "run",
-        str(app_path),
-        "--server.port",
-        str(fx_streamlit_port),
-        "--server.headless",
-        "true",
-    ]
-    process = Popen(args, stdout=PIPE)  # noqa: S603
-    retries = 10
+    runner_script = Path(__file__).parent / "scripts" / "run_app.py"
+    secrets = json.dumps(load_secrets(read_dotenv=False))  # ignore dot-env
 
+    # Start the app process
+    process = subprocess.Popen(  # noqa: S603
+        [
+            sys.executable,
+            str(runner_script),
+            str(fx_app_port),
+            secrets,
+        ],
+    )
+
+    # Wait for server to be ready
+    retries = 3
     while retries > 0:
         try:
-            conn = HTTPConnection(f"localhost:{fx_streamlit_port}")
+            conn = HTTPConnection(f"localhost:{fx_app_port}")
             conn.request("HEAD", "/")
             response = conn.getresponse()
             if response is not None:
@@ -345,15 +346,12 @@ def fx_streamlit(fx_streamlit_port: int) -> Generator[Popen]:
         except ConnectionRefusedError, OSError:
             time.sleep(1)
             retries -= 1
-
     if not retries:
         process.terminate()
-        process.wait()
         msg = "Failed to start Streamlit server"
         raise RuntimeError(msg) from None
 
-    try:
-        yield process
-    finally:
-        process.terminate()
-        process.wait()
+    yield
+
+    process.terminate()
+    process.wait(timeout=5)

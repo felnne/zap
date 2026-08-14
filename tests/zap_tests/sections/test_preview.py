@@ -4,6 +4,8 @@ import pytest
 from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
 
+from zap.utils import load_secrets
+
 
 class TestPreviewSection:
     """Test preview tool section."""
@@ -27,6 +29,7 @@ class TestPreviewSection:
         """Can render section."""
         expected = Record.loads(fx_record_config_magic)
         at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))  # .env not loaded as pytest-env values will be used
         at.session_state.record = expected
         at.run()
 
@@ -51,6 +54,7 @@ class TestPreviewSection:
         This includes a non-Record value.
         """
         at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))
         at.session_state.record = value
         at.run()
 
@@ -68,6 +72,7 @@ class TestPreviewSection:
         record = Record.loads(fx_record_config_magic)
         record.identification.supplemental_information = None
         at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))
         at.session_state.record = record
 
         at.run()
@@ -80,6 +85,7 @@ class TestPreviewSection:
         record = Record.loads(fx_record_config_magic)
         record.identification.title = None
         at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))
         at.session_state.record = record
 
         at.run()

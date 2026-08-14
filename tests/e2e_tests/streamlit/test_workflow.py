@@ -4,6 +4,8 @@ from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
 from zap_tests.sections.test_export import CaptureDownloads
 
+from zap.utils import load_secrets
+
 
 class TestWorkflowStreamlit:
     """E2E workflow tests with Streamlit app testing framework."""
@@ -24,6 +26,7 @@ class TestWorkflowStreamlit:
 
         with CaptureDownloads() as download_btn:
             at = AppTest.from_function(self._app_script)
+            at.secrets.update(load_secrets(read_dotenv=False))  # .env not loaded as pytest-env values will be used
 
             ## Initialise app
             at.run()

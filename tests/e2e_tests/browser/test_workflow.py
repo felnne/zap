@@ -24,13 +24,13 @@ class TestWorkflowPlaywright:
     ```
     """
 
-    def test_basic(self, page: Page, fx_streamlit: Popen, fx_streamlit_url: str):
+    def test_basic(self, page: Page, fx_app: Popen, fx_app_url: str):
         """Can access Streamlit app."""
-        page.goto(fx_streamlit_url)
+        page.goto(fx_app_url)
         page.get_by_text("Running...").wait_for(state="detached")
         expect(page).to_have_title("Zap II")
 
-    def test_workflow(self, page: Page, fx_streamlit: Popen, fx_streamlit_url: str, tmp_path: Path):
+    def test_workflow(self, page: Page, fx_app: Popen, fx_app_url: str, tmp_path: Path):
         """
         Can run a basic import -> validate -> preview -> export workflow.
 
@@ -45,7 +45,7 @@ class TestWorkflowPlaywright:
         assert expected is not None
         assert file_identifier is not None
 
-        page.goto(fx_streamlit_url)
+        page.goto(fx_app_url)
         page.get_by_text("Running...").wait_for(state="detached")
 
         ## Import record
