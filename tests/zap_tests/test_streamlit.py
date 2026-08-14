@@ -1,16 +1,38 @@
-from pathlib import Path
-
+from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
+from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
+
+from zap.utils import load_secrets
 
 
 class TestStreamlitApp:
     """Test Streamlit app."""
 
-    def test_app(self):
-        """Can load app."""
-        app_path = Path(__file__).parent.parent.parent / "src" / "zap" / "streamlit_app.py"
-        at = AppTest.from_file(app_path)
-        at.run()
+    @staticmethod
+    def _app_script() -> None:
+        from zap.app import app
 
-        # check title is correct
+        app()
+
+    def test_app(self):
+        """
+        Can load app.
+
+        Serves as a limited integration test for some features.
+
+        See `e2e_tests.streamlit.test_workflow.TestWorkflowStreamlit.test_workflow` for a more complete e2e test.
+        """
+        at = AppTest.from_function(self._app_script)
+        at.secrets.update(load_secrets(read_dotenv=False))  # .env not loaded as pytest-env values will be used
+        at.run()
+        assert not at.exception
+
+        # check session state post init
+        assert isinstance(at.session_state.admin_meta_keys, AdministrationKeys)
+        assert isinstance(at.session_state.record, Record)
+
+        # check title is correct and section is included
         assert at.title[0].body == "⚡️Zap II"
+
+        # check default record validates
+        assert any(e.value == "Record config meets MAGIC profile requirements 🥳" for e in at.success)

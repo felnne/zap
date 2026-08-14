@@ -1,19 +1,61 @@
-# ⚡️Zap II
+# ⚡️Zap
 
-A prototype [Metadata Editor](...) for MAGIC discovery and administration metadata.
+A prototype metadata editor for MAGIC discovery and administration metadata.
 
 ## Overview
-
-...
 
 > [!NOTE]
 > This project is focused on needs within the British Antarctic Survey. It has been open-sourced in case parts are of
 > interest to others. Some resources, indicated with a '🛡' or '🔒' symbol, can only be accessed by BAS staff or
 > project members respectively. Contact the [Project Maintainer](#project-maintainer) to request access.
 
-## Usage
+### Status
 
-...
+This branch is a work in progress rewrite of the [VueJS](https://vuejs.org/) editor (tracked in `main`) as a
+[Streamlit](https://streamlit.io/) application.
+
+> [!IMPORTANT]
+> This rewrite does not support:
+>
+> - creating new records
+> - editing existing records
+> - importing existing records signed with real admin metadata keys (as test keys are used)
+
+## Supported standards
+
+- ISO 19115, as per the
+  [BAS ISO 19115 JSON Schema](https://metadata-standards.data.bas.ac.uk/standards/iso-19115-19139/#json-schemas) and
+  [BAS Metadata Library](https://github.com/antarctica/metadata-library?tab=readme-ov-file#supported-standards) subset
+
+## Supported profiles
+
+- [MAGIC Discovery V2](https://metadata-standards.data.bas.ac.uk/profiles/magic-discovery/v2/)
+- [MAGIC Administration V1](https://metadata-standards.data.bas.ac.uk/profiles/magic-administration/v1/)
+
+## Supported features
+
+- importing and exporting records as BAS ISO 19115 JSON encoded files
+- outputting decrypted optionally embedded MAGIC administration metadata within a record
+- previewing a record as an BAS Data Catalogue (Lantern 🏮) HTML item
+- validating the current record against:
+  - the BAS ISO 19115 JSON schema
+  - BAS Data Catalogue (Lantern 🏮) record requirements
+  - the MAGIC Discovery and Administration metadata profiles
+
+## Related projects
+
+- [Lantern 🏮 (🛡️)](https://gitlab.data.bas.ac.uk/MAGIC/lantern-exp) - an experimental data catalogue for BAS discovery
+  metadata
+- [BAS Metadata Standards 🛡](https://gitlab.data.bas.ac.uk/uk-pdc/metadata-infrastructure/metadata-standards) -
+  metadata standards policy and coordination within BAS
+- [BAS Metadata Library 🛡](https://gitlab.data.bas.ac.uk/uk-pdc/metadata-infrastructure/metadata-library) - Python
+  library to encode and decode metadata records
+- [MAGIC Data Management 🛡](https://gitlab.data.bas.ac.uk/MAGIC/data-management) - data management coordination and
+  task tracking within MAGIC
+
+## Architecture
+
+See [Architecture](/docs/architecture.md) for a high level description of how this project works.
 
 ## Development
 
