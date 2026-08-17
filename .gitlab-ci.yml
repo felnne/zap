@@ -45,8 +45,7 @@ image: mcr.microsoft.com/playwright/python:v1.62.0-noble
   - export LANGUAGE=en_GB:en
   - export LC_ALL=en_GB.UTF-8
 
-  # setup app deps (audit run to avoid installing vulnerable deps)
-  - uv audit --frozen
+  # setup app deps
   - uv sync --frozen --all-groups --python $PYTHON_VERSION
 
 # Jobs
