@@ -12,9 +12,10 @@ class TestWorkflowStreamlit:
 
     @staticmethod
     def _app_script() -> None:
-        from zap.app import app
+        from zap.app import App
 
-        app()
+        app = App()
+        app.render()
 
     def test_workflow(self, fx_record_config_iso_minish: dict):
         """

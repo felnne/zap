@@ -9,9 +9,10 @@ class TestStreamlitApp:
 
     @staticmethod
     def _app_script() -> None:
-        from zap.app import app
+        from zap.app import App
 
-        app()
+        app = App()
+        app.render()
 
     def test_app(self):
         """
