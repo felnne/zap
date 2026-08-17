@@ -72,7 +72,9 @@ All changes except minor tweaks (typos, comments, etc.) MUST:
 
 ### Conventions
 
-- all deployable code should be contained in the `zap` package
+- all deployable code SHOULD be contained in the `zap` package
+- editor functions SHOULD be implemented as `zap.sections.base.Section` subclasses
+- these classes SHOULD isolate logic from Streamlit UI and state for easier testing
 
 ### Adding configuration options
 
