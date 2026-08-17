@@ -23,3 +23,16 @@ def load_secrets(read_dotenv: bool = True) -> dict:
             },
             "non_sensitive": {},
         }
+
+
+def flatten_exceptions(error: BaseException) -> list[BaseException]:
+    """
+    Flatten nested exceptions so Streamlit's exceptions widget can show them.
+
+    Without this Streamlit only shows the top/summary exception not the detail(s).
+
+    Needed and intended for Cattrs class structuring errors when loading records.
+    """
+    if isinstance(error, BaseExceptionGroup):
+        return [sub_error for sub_e in error.exceptions for sub_error in flatten_exceptions(sub_e)]
+    return [error]

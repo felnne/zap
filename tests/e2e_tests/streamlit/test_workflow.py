@@ -16,13 +16,13 @@ class TestWorkflowStreamlit:
 
         app()
 
-    def test_workflow(self, fx_record_config_magic: dict):
+    def test_workflow(self, fx_record_config_iso_minish: dict):
         """
         Can run a basic import -> validate -> preview -> export workflow.
 
         Functionally equivilant to `e2e_tests.browser.test_workflow.TestWorkflowPlaywright.test_workflow`.
         """
-        expected = Record.loads(fx_record_config_magic)
+        expected = Record.loads(fx_record_config_iso_minish)
 
         with CaptureDownloads() as download_btn:
             at = AppTest.from_function(self._app_script)
@@ -31,7 +31,7 @@ class TestWorkflowStreamlit:
             ## Initialise app
             at.run()
             assert not at.exception
-            assert at.session_state.record != expected  # is initial record, different to loaded record
+            assert at.session_state.record != expected  # no initial record
 
             ## Import record
             content = expected.dumps_json(strip_admin=False)

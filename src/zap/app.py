@@ -2,7 +2,6 @@ import streamlit as st
 from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 from jwskate import Jwk
 
-from zap.records import init_record
 from zap.sections.intro import IntroSection
 from zap.sections.tool_export import ToolExport
 from zap.sections.tool_import import ToolImport
@@ -15,7 +14,6 @@ def _init() -> None:
     Initialise application.
 
     - loads admin metadata keys from Streamlit secrets
-    - initialises valid record with defaults and placeholders
     - configures streamlit app
     """
     if "admin_meta_keys" not in st.session_state:
@@ -24,8 +22,6 @@ def _init() -> None:
             signing_private=Jwk(st.secrets.admin_metadata.signing_key_private),
         )
 
-    if "record" not in st.session_state:
-        st.session_state.record = init_record(admin_keys=st.session_state["admin_meta_keys"])
 
     st.set_page_config(layout="wide", page_title="Zap II", page_icon="⚡️")
 

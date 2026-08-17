@@ -22,8 +22,8 @@ if TYPE_CHECKING:
 
 
 @pytest.fixture()
-def fx_record_config_iso_min() -> dict:
-    """Minimal record configuration, plus file identifier."""
+def fx_record_config_iso_minish() -> dict:
+    """Minimal record configuration, plus file identifier and hierarchy level."""
     return {
         "file_identifier": "x",
         "hierarchy_level": "product",
@@ -41,9 +41,9 @@ def fx_record_config_iso_min() -> dict:
 
 
 @pytest.fixture()
-def fx_record_config_cat_min(fx_record_config_iso_min: dict) -> dict:
+def fx_record_config_cat_min(fx_record_config_iso_minish: dict) -> dict:
     """Minimal record configuration for an ItemCatalogue model."""
-    config = deepcopy(fx_record_config_iso_min)
+    config = deepcopy(fx_record_config_iso_minish)
     config["identification"]["identifiers"] = [
         {
             "identifier": config["file_identifier"],
