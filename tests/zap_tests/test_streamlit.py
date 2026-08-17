@@ -1,5 +1,4 @@
 from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
-from lantern.lib.metadata_library.models.record.record import Record
 from streamlit.testing.v1 import AppTest
 
 from zap.utils import load_secrets
@@ -10,9 +9,10 @@ class TestStreamlitApp:
 
     @staticmethod
     def _app_script() -> None:
-        from zap.app import app
+        from zap.app import App
 
-        app()
+        app = App()
+        app.render()
 
     def test_app(self):
         """
@@ -29,10 +29,9 @@ class TestStreamlitApp:
 
         # check session state post init
         assert isinstance(at.session_state.admin_meta_keys, AdministrationKeys)
-        assert isinstance(at.session_state.record, Record)
 
         # check title is correct and section is included
         assert at.title[0].body == "⚡️Zap II"
 
-        # check default record validates
-        assert any(e.value == "Record config meets MAGIC profile requirements 🥳" for e in at.success)
+        # check initial state
+        assert any(e.value == "Set record to enable validation." for e in at.info)

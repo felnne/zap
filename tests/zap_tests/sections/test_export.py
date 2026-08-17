@@ -88,17 +88,17 @@ class TestExportSection:
         at = AppTest.from_function(self._app_script)
         at.run()
         assert not at.exception
-        assert at.info[0].value == "Set record config to enable export."
+        assert at.info[0].value == "Set record to enable export."
         assert len(at.button) == 0
 
-    def test_export(self, tmp_path: Path, fx_record_config_iso_min: dict):
+    def test_export(self, tmp_path: Path, fx_record_config_iso_minish: dict):
         """
         Can download current record and verify file content.
 
         The Streamlit AppTest framework does not allow direct access to download button content. The `CaptureDownloads`
         context manager is used as a workaround to capture the file content, then return it for comparison.
         """
-        expected = Record.loads(fx_record_config_iso_min)
+        expected = Record.loads(fx_record_config_iso_minish)
 
         with CaptureDownloads() as download_btn:
             at = AppTest.from_function(self._app_script)

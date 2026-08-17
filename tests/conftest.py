@@ -22,8 +22,8 @@ if TYPE_CHECKING:
 
 
 @pytest.fixture()
-def fx_record_config_iso_min() -> dict:
-    """Minimal record configuration, plus file identifier."""
+def fx_record_config_iso_minish() -> dict:
+    """Minimal record configuration, plus file identifier and hierarchy level."""
     return {
         "file_identifier": "x",
         "hierarchy_level": "product",
@@ -41,9 +41,9 @@ def fx_record_config_iso_min() -> dict:
 
 
 @pytest.fixture()
-def fx_record_config_cat_min(fx_record_config_iso_min: dict) -> dict:
+def fx_record_config_cat_min(fx_record_config_iso_minish: dict) -> dict:
     """Minimal record configuration for an ItemCatalogue model."""
-    config = deepcopy(fx_record_config_iso_min)
+    config = deepcopy(fx_record_config_iso_minish)
     config["identification"]["identifiers"] = [
         {
             "identifier": config["file_identifier"],
@@ -290,15 +290,19 @@ def _admin_meta_keys() -> AdministrationKeys:
     return test_keys()
 
 
+def add_min_admin_meta(config: dict) -> None:
+    """Add minimal administration metadata to a record config inplace."""
+    set_admin(
+        keys=_admin_meta_keys(),
+        config=config,
+        admin_meta=AdministrationMetadata(id=config["file_identifier"]),
+    )
+
+
 @pytest.fixture()
 def fx_admin_meta_keys() -> AdministrationKeys:
     """Administration keys for signing and encrypting administrative metadata."""
     return _admin_meta_keys()
-
-
-def _get_test_record_path(name: str) -> Path:
-    """Get the path to a record config file from test resources."""
-    return Path(__file__).parent.parent / "tests" / "resources" / "records" / name
 
 
 @pytest.fixture(scope="session")

@@ -1,14 +1,44 @@
 import json
+from typing import TYPE_CHECKING
 
 import pytest
+from bas_metadata_library.standards.magic_administration.v1 import AdministrationMetadata
 from lantern.lib.metadata_library.models.record.record import Record
+from lantern.models.record.record import Record as RecordCatalogue
 from streamlit.testing.v1 import AppTest
 
+from tests.conftest import add_min_admin_meta
+from zap.sections.tool_preview import ToolPreview
 from zap.utils import load_secrets
 
+if TYPE_CHECKING:
+    from bas_metadata_library.standards.magic_administration.v1.utils import AdministrationKeys
 
-class TestPreviewSection:
-    """Test preview tool section."""
+
+class TestPreviewSectionLogic:
+    """Test preview tool logic."""
+
+    @pytest.mark.cov()
+    def test_get_admin(self, fx_admin_meta_keys: AdministrationKeys, fx_record_config_iso_minish: dict):
+        """Can get admin metadata from a record."""
+        add_min_admin_meta(fx_record_config_iso_minish)
+        record = Record.loads(fx_record_config_iso_minish)
+
+        section = ToolPreview(admin_keys=fx_admin_meta_keys)
+        result = section._get_record_admin(record)
+        assert isinstance(result, AdministrationMetadata)
+
+    @pytest.mark.cov()
+    def test_preview_item(self, fx_admin_meta_keys: AdministrationKeys, fx_record_config_cat_min: dict):
+        """Can render a record as catalogue item HTML."""
+        record = RecordCatalogue.loads(fx_record_config_cat_min)
+        section = ToolPreview(admin_keys=fx_admin_meta_keys)
+        result = section._preview_item(record)
+        assert isinstance(result, str)
+
+
+class TestPreviewSectionUI:
+    """Test preview tool UI."""
 
     @staticmethod
     def _app_script() -> None:
@@ -34,7 +64,7 @@ class TestPreviewSection:
         at.run()
 
         assert not at.exception
-        assert at.header[0].body == "Preview item"
+        assert at.header[0].body == "Lantern 🏮 item preview"
 
         assert len(at.tabs) == 3  # noqa: PLR2004
         config_tab, source_tab, _preview_tab = at.tabs
@@ -59,7 +89,7 @@ class TestPreviewSection:
         at.run()
 
         assert not at.exception
-        assert at.info[0].value == "Set record configuration to enable preview."
+        assert at.info[0].value == "Set record to enable preview."
         # should have no other output
         assert len(at.info) == 1
         assert len(at.success) == 0
@@ -90,7 +120,7 @@ class TestPreviewSection:
 
         at.run()
         assert not at.exception
-        assert all(e.value == "Record config is not valid for preview." for e in at.error)
+        assert all(e.value == "Record is not valid for preview." for e in at.error)
         # should have no other output
         assert len(at.info) == 0
         assert len(at.success) == 0

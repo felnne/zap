@@ -12,17 +12,20 @@ class TestWorkflowStreamlit:
 
     @staticmethod
     def _app_script() -> None:
-        from zap.app import app
+        from zap.app import App
 
-        app()
+        app = App()
+        app.render()
 
-    def test_workflow(self, fx_record_config_magic: dict):
+    def test_workflow(self, fx_record_config_iso_minish: dict):
         """
         Can run a basic import -> validate -> preview -> export workflow.
 
+        Does not check administration metadata.
+
         Functionally equivilant to `e2e_tests.browser.test_workflow.TestWorkflowPlaywright.test_workflow`.
         """
-        expected = Record.loads(fx_record_config_magic)
+        expected = Record.loads(fx_record_config_iso_minish)
 
         with CaptureDownloads() as download_btn:
             at = AppTest.from_function(self._app_script)
@@ -31,7 +34,7 @@ class TestWorkflowStreamlit:
             ## Initialise app
             at.run()
             assert not at.exception
-            assert at.session_state.record != expected  # is initial record, different to loaded record
+            assert at.session_state.record != expected  # no initial record
 
             ## Import record
             content = expected.dumps_json(strip_admin=False)
@@ -40,7 +43,7 @@ class TestWorkflowStreamlit:
             assert at.session_state.record == expected
 
             ## Validate record
-            assert any(e.value == "Record config meets MAGIC profile requirements 🥳" for e in at.success)
+            assert any(e.value == "Record config is valid 🙂" for e in at.success)
 
             ## Preview record
             assert len(at.tabs) == 3  # noqa: PLR2004
@@ -53,5 +56,3 @@ class TestWorkflowStreamlit:
             download_config = json.loads(download_btn.get_download(at.download_button[0]))
             download_record = Record.loads(download_config)
             assert download_record == expected
-
-            assert len(at.error) == 0

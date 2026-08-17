@@ -10,7 +10,7 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "bas-metadata-library>=0.18.0",
-    "lantern==0.14.0.post167",
+    "lantern>=0.15.2",
     "streamlit>=1.57.0",
 ]
 
@@ -33,9 +33,6 @@ test = [
 
 [tool.uv.exclude-newer-package]
 lantern = false  # GitLab hosted packages don't support publish times
-
-[tool.uv.sources]
-lantern = { index = "lantern" }
 
 [[tool.uv.index]]
 name = "self"
