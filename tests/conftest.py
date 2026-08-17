@@ -305,11 +305,6 @@ def fx_admin_meta_keys() -> AdministrationKeys:
     return _admin_meta_keys()
 
 
-def _get_test_record_path(name: str) -> Path:
-    """Get the path to a record config file from test resources."""
-    return Path(__file__).parent.parent / "tests" / "resources" / "records" / name
-
-
 @pytest.fixture(scope="session")
 def fx_app_port() -> int:
     """

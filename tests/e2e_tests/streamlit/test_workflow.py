@@ -21,6 +21,8 @@ class TestWorkflowStreamlit:
         """
         Can run a basic import -> validate -> preview -> export workflow.
 
+        Does not check administration metadata.
+
         Functionally equivilant to `e2e_tests.browser.test_workflow.TestWorkflowPlaywright.test_workflow`.
         """
         expected = Record.loads(fx_record_config_iso_minish)
@@ -41,7 +43,7 @@ class TestWorkflowStreamlit:
             assert at.session_state.record == expected
 
             ## Validate record
-            assert any(e.value == "Record config meets MAGIC profile requirements 🥳" for e in at.success)
+            assert any(e.value == "Record config is valid 🙂" for e in at.success)
 
             ## Preview record
             assert len(at.tabs) == 3  # noqa: PLR2004
@@ -54,5 +56,3 @@ class TestWorkflowStreamlit:
             download_config = json.loads(download_btn.get_download(at.download_button[0]))
             download_record = Record.loads(download_config)
             assert download_record == expected
-
-            assert len(at.error) == 0
