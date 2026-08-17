@@ -16,7 +16,12 @@ class ToolImport(Section):
         st.header("Import record")
 
         config_file = st.file_uploader(
-            key="record-input", label="Upload", type=["json"], max_upload_size=1, accept_multiple_files=False
+            key="record-input",
+            label="Import Record",
+            label_visibility="collapsed",
+            type=["json"],
+            max_upload_size=1,
+            accept_multiple_files=False,
         )
         if config_file is None:
             st.session_state.record = None

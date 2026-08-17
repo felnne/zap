@@ -12,7 +12,7 @@ class ToolExport(Section):
 
         record = st.session_state.get("record")
         if not record:
-            st.info("Set record config to enable export.")
+            st.info("Set record to enable export.", icon="ℹ️")  # noqa: RUF001
             return
 
         st.download_button(

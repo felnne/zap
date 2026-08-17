@@ -87,11 +87,11 @@ class ToolPreview(Section):
 
     def render(self) -> None:
         """Render section."""
-        st.header("Preview item")
+        st.header("Lantern 🏮 item preview")
 
         record = st.session_state.get("record", None)
         if not isinstance(record, Record):
-            st.info("Set record configuration to enable preview.", icon="ℹ️")  # noqa: RUF001
+            st.info("Set record to enable preview.", icon="ℹ️")  # noqa: RUF001
             return
 
         admin = self._get_record_admin(record)
@@ -109,6 +109,10 @@ class ToolPreview(Section):
             with st.expander(label="Administration metadata"):
                 if not isinstance(admin, AdministrationMetadata):
                     st.info("Set admin metadata in record to enable preview.", icon="ℹ️")  # noqa: RUF001
+                    st.warning(
+                        body="Admin metadata cannot be loaded from real records because this app uses test/insecure keys.",
+                        icon="🔑",
+                    )
                 else:
                     st.json(admin.unstructure())
 
@@ -118,9 +122,9 @@ class ToolPreview(Section):
             if item_html:
                 st.code(body=item_html, language="html")
             else:
-                st.error("Record config is not valid for preview.", icon="❌️")
+                st.error("Record is not valid for preview.", icon="❌️")
         with preview_tab:
             if item_html:
                 st.iframe(src=item_html)
             else:
-                st.error("Record config is not valid for preview.", icon="❌")
+                st.error("Record is not valid for preview.", icon="❌")

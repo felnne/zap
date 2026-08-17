@@ -88,7 +88,7 @@ class TestExportSection:
         at = AppTest.from_function(self._app_script)
         at.run()
         assert not at.exception
-        assert at.info[0].value == "Set record config to enable export."
+        assert at.info[0].value == "Set record to enable export."
         assert len(at.button) == 0
 
     def test_export(self, tmp_path: Path, fx_record_config_iso_minish: dict):

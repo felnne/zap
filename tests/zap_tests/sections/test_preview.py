@@ -64,7 +64,7 @@ class TestPreviewSectionUI:
         at.run()
 
         assert not at.exception
-        assert at.header[0].body == "Preview item"
+        assert at.header[0].body == "Lantern 🏮 item preview"
 
         assert len(at.tabs) == 3  # noqa: PLR2004
         config_tab, source_tab, _preview_tab = at.tabs
@@ -89,7 +89,7 @@ class TestPreviewSectionUI:
         at.run()
 
         assert not at.exception
-        assert at.info[0].value == "Set record configuration to enable preview."
+        assert at.info[0].value == "Set record to enable preview."
         # should have no other output
         assert len(at.info) == 1
         assert len(at.success) == 0
@@ -120,7 +120,7 @@ class TestPreviewSectionUI:
 
         at.run()
         assert not at.exception
-        assert all(e.value == "Record config is not valid for preview." for e in at.error)
+        assert all(e.value == "Record is not valid for preview." for e in at.error)
         # should have no other output
         assert len(at.info) == 0
         assert len(at.success) == 0
