@@ -14,6 +14,19 @@ Wherever possible, a reference to an issue in the project issue tracker should b
 <!-- pyml disable no-duplicate-heading,no-duplicate-header -->
 ## [Unreleased]
 
+## [0.24.1] - 2026-08-17
+
+### Fixed
+
+* Issues with validating known example records
+
+### Changed
+
+* Splitting out MAGIC profiles validation into separate discovery and administration checks
+* Refactoring preview section to include methods needed for previews
+* Refactoring import section to support 'un-loading' a record, preventing initial/dummy records
+* Refactoring root Streamlit app into a class
+
 ## [0.24.0] - 2026-08-14
 
 ### Added
