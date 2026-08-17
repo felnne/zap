@@ -290,6 +290,15 @@ def _admin_meta_keys() -> AdministrationKeys:
     return test_keys()
 
 
+def add_min_admin_meta(config: dict) -> None:
+    """Add minimal administration metadata to a record config inplace."""
+    set_admin(
+        keys=_admin_meta_keys(),
+        config=config,
+        admin_meta=AdministrationMetadata(id=config["file_identifier"]),
+    )
+
+
 @pytest.fixture()
 def fx_admin_meta_keys() -> AdministrationKeys:
     """Administration keys for signing and encrypting administrative metadata."""
